@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { siteDescription, siteName, siteUrl } from "@/lib/site";
+import { linkScope } from "@/lib/styles";
 import "./globals.css";
 
 export function generateMetadata(): Metadata {
@@ -34,7 +35,9 @@ export function generateMetadata(): Metadata {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="zh-Hant">
-      <body>
+      <body
+        className={`min-w-80 bg-page bg-page-glow font-sans text-sm text-ink md:px-4 ${linkScope}`}
+      >
         <Header />
         {children}
         <Footer />

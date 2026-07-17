@@ -1,4 +1,13 @@
 import type { Metadata } from "next";
+import {
+  directoryCard,
+  directoryCardMeta,
+  directoryCardTitle,
+  pageHeading,
+  pageHeadingCopy,
+  pageHeadingTitle,
+  pageMain,
+} from "@/lib/styles";
 
 export const metadata: Metadata = { title: "友站連結" };
 
@@ -27,26 +36,26 @@ const friends = [
 
 export default function FriendsPage() {
   return (
-    <main className="page-main shell">
-      <header className="page-heading">
+    <main className={pageMain}>
+      <header className={pageHeading}>
         <div>
-          <p className="eyebrow">BLOGROLL</p>
-          <h1>友站連結</h1>
+          <p className="m-0 text-xs tracking-wider text-muted">BLOGROLL</p>
+          <h1 className={pageHeadingTitle}>友站連結</h1>
         </div>
-        <p>推薦持續產出、有明確觀點，並且值得反覆閱讀的技術網站。</p>
+        <p className={pageHeadingCopy}>推薦持續產出、有明確觀點，並且值得反覆閱讀的技術網站。</p>
       </header>
-      <div className="friend-list">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {friends.map((friend) => (
           <a
-            className="friend-card"
+            className={directoryCard}
             href={friend.url}
             target="_blank"
             rel="noreferrer"
             key={friend.name}
           >
-            <h2>{friend.name}</h2>
-            <p>{friend.description}</p>
-            <span>{friend.url.replace(/^https?:\/\//, "")} ↗</span>
+            <h2 className={directoryCardTitle}>{friend.name}</h2>
+            <p className="my-1 text-ink">{friend.description}</p>
+            <span className={directoryCardMeta}>{friend.url.replace(/^https?:\/\//, "")} ↗</span>
           </a>
         ))}
       </div>

@@ -1,5 +1,11 @@
 import { PostCard } from "@/components/PostCard";
 import { allPosts, getTags, tagToSlug } from "@/lib/posts";
+import {
+  pageHeading,
+  pageHeadingCopy,
+  pageHeadingTitle,
+  pageMain,
+} from "@/lib/styles";
 
 export function generateStaticParams() {
   return getTags().map((tag) => ({ slug: tag.slug }));
@@ -19,13 +25,13 @@ export default async function TagPage({
     slug;
 
   return (
-    <main className="page-main shell">
-      <header className="page-heading">
+    <main className={pageMain}>
+      <header className={pageHeading}>
         <div>
-          <p className="eyebrow">TAG</p>
-          <h1>#{tagName}</h1>
+          <p className="m-0 text-xs tracking-wider text-muted">TAG</p>
+          <h1 className={pageHeadingTitle}>#{tagName}</h1>
         </div>
-        <p>共 {posts.length} 篇相關文章</p>
+        <p className={pageHeadingCopy}>共 {posts.length} 篇相關文章</p>
       </header>
       <div className="post-list">
         {posts.map((post) => (

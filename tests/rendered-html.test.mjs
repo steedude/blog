@@ -98,6 +98,6 @@ test("renders GitHub Flavored Markdown tables", async () => {
   const response = await render("/posts/modern-css");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /<table>/);
+  assert.match(html, /<table\b/);
   assert.match(html, /Container Queries/);
 });

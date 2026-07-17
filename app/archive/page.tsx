@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getArchiveGroups } from "@/lib/posts";
+import {
+  directoryCard,
+  directoryCardMeta,
+  pageHeading,
+  pageHeadingCopy,
+  pageHeadingTitle,
+  pageMain,
+} from "@/lib/styles";
 
 export const metadata: Metadata = { title: "文章時間軸" };
 
@@ -9,30 +17,32 @@ export default function ArchivePage() {
   const years = [...new Set(groups.map((group) => group.year))];
 
   return (
-    <main className="page-main shell">
-      <header className="page-heading">
+    <main className={pageMain}>
+      <header className={pageHeading}>
         <div>
-          <p className="eyebrow">ARCHIVE</p>
-          <h1>文章時間軸</h1>
+          <p className="m-0 text-xs tracking-wider text-muted">ARCHIVE</p>
+          <h1 className={pageHeadingTitle}>文章時間軸</h1>
         </div>
-        <p>
+        <p className={pageHeadingCopy}>
           第一層先用年份快速掃描，再進入月份查看文章；比把所有年月塞進側欄更容易維護。
         </p>
       </header>
       {years.map((year) => (
-        <section className="archive-year" key={year}>
-          <h2>{year}</h2>
-          <div className="archive-grid">
+        <section className="mb-7" key={year}>
+          <h2 className="mt-0 mb-2 border-b border-neutral-500 pb-1 font-serif text-2xl">{year}</h2>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
             {groups
               .filter((group) => group.year === year)
               .map((group) => (
                 <Link
-                  className="archive-card"
+                  className={directoryCard}
                   href={`/archive/${group.year}/${group.month}`}
                   key={`${group.year}-${group.month}`}
                 >
-                  <strong>{String(group.month).padStart(2, "0")} 月</strong>
-                  <span>{group.posts.length} 篇文章 →</span>
+                  <strong className="block font-serif text-lg text-link underline">
+                    {String(group.month).padStart(2, "0")} 月
+                  </strong>
+                  <span className={directoryCardMeta}>{group.posts.length} 篇文章 →</span>
                 </Link>
               ))}
           </div>

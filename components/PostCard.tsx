@@ -11,18 +11,22 @@ function formatMovableTypeDate(date: string) {
 
 export function PostCard({ post }: { post: Post }) {
   return (
-    <article className="post-card">
-      <p className="post-date">
+    <article className="mb-4 border-b border-frame px-2 pt-0 pb-4">
+      <p className="-mx-2 m-0 border border-frame bg-date-bar px-2 py-1 text-base font-bold text-black">
         <time dateTime={post.publishedAt}>{formatMovableTypeDate(post.publishedAt)}</time>
       </p>
-      <h3><Link href={`/posts/${post.slug}`}>{post.title}</Link></h3>
-      <div className="post-description">
+      <h3 className="mx-0 mt-4 mb-3 font-heading text-xl leading-tight font-normal sm:text-2xl">
+        <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+      </h3>
+      <div className="mx-0 mt-0 mb-3 font-sans text-base leading-relaxed text-neutral-800">
         {(post.homeExcerpt ?? [post.description]).map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+          <p className="mx-0 mt-0 mb-3" key={paragraph}>{paragraph}</p>
         ))}
       </div>
-      <p className="post-meta">Posted by 前端觀察站 in {post.category}</p>
-      <p className="post-footer">
+      <p className="mx-0 mt-0 mb-1 text-xs text-muted">
+        Posted by 前端觀察站 in {post.category}
+      </p>
+      <p className="m-0 space-x-3 text-sm text-neutral-800">
         <Link href={`/posts/${post.slug}`}>Comments (0)</Link>{" "}
         <Link href={`/posts/${post.slug}`}>TrackBack (0)</Link>
       </p>

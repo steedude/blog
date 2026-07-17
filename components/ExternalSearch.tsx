@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { retroButton } from "@/lib/styles";
 
 export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string }) {
   const [engine, setEngine] = useState<"google" | "duckduckgo">("google");
@@ -25,9 +26,15 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
   }
 
   return (
-    <form className="search-panel" onSubmit={submitSearch}>
-      <label htmlFor="search-query">搜尋關鍵字</label>
+    <form
+      className="max-w-xl border border-frame bg-stone-100 p-4"
+      onSubmit={submitSearch}
+    >
+      <label className="mb-1 block font-bold" htmlFor="search-query">
+        搜尋關鍵字
+      </label>
       <input
+        className="w-full border border-neutral-400 bg-white p-1"
         id="search-query"
         type="search"
         name="q"
@@ -36,8 +43,8 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
         autoFocus
       />
 
-      <div className="engine-options" aria-label="搜尋引擎">
-        <label className="engine-option">
+      <div className="my-3 flex flex-col gap-2 sm:flex-row" aria-label="搜尋引擎">
+        <label className="border border-frame-soft bg-white px-2 py-1.5">
           <input
             type="radio"
             name="engine"
@@ -46,7 +53,7 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
           />
           Google
         </label>
-        <label className="engine-option">
+        <label className="border border-frame-soft bg-white px-2 py-1.5">
           <input
             type="radio"
             name="engine"
@@ -57,7 +64,7 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
         </label>
       </div>
 
-      <label className="scope-option">
+      <label className="mb-3 block">
         <input
           type="checkbox"
           checked={siteOnly}
@@ -66,10 +73,10 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
         只搜尋本站內容
       </label>
 
-      <button type="submit" className="engine-button">
+      <button type="submit" className={retroButton}>
         使用 {engine === "google" ? "Google" : "DuckDuckGo"} 搜尋
       </button>
-      <p className="search-hint">
+      <p className="text-xs text-muted">
         正式部署後，「只搜尋本站」會自動使用目前網域。開發環境則會進行一般網路搜尋。
       </p>
     </form>

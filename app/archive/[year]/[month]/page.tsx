@@ -1,5 +1,11 @@
 import { PostCard } from "@/components/PostCard";
 import { getArchiveGroups } from "@/lib/posts";
+import {
+  pageHeading,
+  pageHeadingCopy,
+  pageHeadingTitle,
+  pageMain,
+} from "@/lib/styles";
 
 export function generateStaticParams() {
   return getArchiveGroups().map((group) => ({
@@ -20,15 +26,15 @@ export default async function ArchiveMonthPage({
   const posts = group?.posts || [];
 
   return (
-    <main className="page-main shell">
-      <header className="page-heading">
+    <main className={pageMain}>
+      <header className={pageHeading}>
         <div>
-          <p className="eyebrow">MONTHLY ARCHIVE</p>
-          <h1>
+          <p className="m-0 text-xs tracking-wider text-muted">MONTHLY ARCHIVE</p>
+          <h1 className={pageHeadingTitle}>
             {year}.{month.padStart(2, "0")}
           </h1>
         </div>
-        <p>共 {posts.length} 篇文章</p>
+        <p className={pageHeadingCopy}>共 {posts.length} 篇文章</p>
       </header>
       {posts.length ? (
         <div className="post-list">
@@ -37,7 +43,7 @@ export default async function ArchiveMonthPage({
           ))}
         </div>
       ) : (
-        <p className="empty-state">這個月份目前沒有文章。</p>
+        <p className="px-0 py-9 text-muted">這個月份目前沒有文章。</p>
       )}
     </main>
   );
