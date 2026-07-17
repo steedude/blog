@@ -8,14 +8,18 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "vercel-build": "next build",
     "start": "vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@mdx-js/rollup": "^3.1.1",
+    "@next/mdx": "^16.2.6",
+    "@types/mdx": "^2.0.14",
     "drizzle-orm": "0.45.2",
     "next": "16.2.6",
     "react": "19.2.6",
