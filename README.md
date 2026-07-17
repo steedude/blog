@@ -6,7 +6,8 @@
 
 - 首頁文章列表與快速搜尋
 - 文章分類、標籤與年月歸檔
-- Google、DuckDuckGo 站外搜尋
+- 即時站內文章搜尋
+- 雙語作品集
 - 友站連結
 - MDX 文章內容與程式碼區塊
 - 繁體中文與英文內容、語系切換及 `hreflang`
@@ -32,9 +33,10 @@ npm start
 
 ## 新增文章
 
-1. 在 `content/posts` 新增繁體中文 `.mdx`，英文內容放在 `content/posts/en`。
-2. 在 `data/posts.ts` 登記各語系文章的標題、日期、分類、標籤及內容元件。
-3. 執行 `npm run build` 確認文章可以正常產生。
+1. 在 `content/posts/<slug>` 建立 `zh-TW.mdx` 與 `en.mdx`。
+2. 在各 MDX 的 `metadata` export 登記標題、日期、分類與標籤。
+3. 在 `data/posts.ts` 匯入兩種語系的文章元件。
+4. 執行 `npm run build` 確認文章可以正常產生。
 
 ## 專案結構
 

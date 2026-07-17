@@ -1,12 +1,13 @@
 import { PageHeading } from "@/components/PageHeading";
 import { PostCard } from "@/components/PostCard";
+import { notFound } from "next/navigation";
 import { i18nConfig } from "@/config/i18n";
 import { pageMain } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
 import { createPageMetadata } from "@/utils/metadata";
-import { interpolate } from "@/utils/message";
+import { formatPlural } from "@/utils/message";
 import { getCategories, getPosts } from "@/utils/posts";
 
 export function generateStaticParams() {
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: LocaleRouteParams<{
   return createPageMetadata(
     locale,
     title,
-    interpolate(dictionary.common.articleCount, { count: category?.count ?? 0 }),
+    formatPlural(locale, dictionary.common.articleCount, category?.count ?? 0),
     `/category/${slug}`,
   );
 }
@@ -34,11 +35,12 @@ export default async function CategoryPage({ params }: { params: LocaleRoutePara
   const locale = getLocaleOrDefault(value);
   const dictionary = getDictionary(locale);
   const posts = getPosts(locale).filter((post) => post.categorySlug === slug);
+  if (!posts.length) notFound();
   const name = posts[0]?.category ?? slug;
 
   return (
     <main className={pageMain}>
-      <PageHeading eyebrow="CATEGORY" title={name} description={interpolate(dictionary.common.articleCount, { count: posts.length })} />
+      <PageHeading eyebrow="CATEGORY" title={name} description={formatPlural(locale, dictionary.common.articleCount, posts.length)} />
       <div>
         {posts.map((post) => (
           <PostCard post={post} locale={locale} dictionary={dictionary} key={post.slug} />

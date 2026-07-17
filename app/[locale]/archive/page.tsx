@@ -5,7 +5,7 @@ import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
 import { createPageMetadata } from "@/utils/metadata";
-import { interpolate } from "@/utils/message";
+import { formatPlural } from "@/utils/message";
 import { withLocale } from "@/utils/path";
 import { getArchiveGroups } from "@/utils/posts";
 
@@ -36,7 +36,7 @@ export default async function ArchivePage({ params }: { params: LocaleRouteParam
                   {String(group.month).padStart(2, "0")} {dictionary.archive.monthSuffix}
                 </strong>
                 <span className={directoryCardMeta}>
-                  {interpolate(dictionary.common.articleCount, { count: group.posts.length })} →
+                  {formatPlural(locale, dictionary.common.articleCount, group.posts.length)} →
                 </span>
               </Link>
             ))}

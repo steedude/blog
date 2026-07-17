@@ -32,10 +32,6 @@ export function PostCard({
       <p className="mx-0 mt-0 mb-1 text-xs text-muted">
         {dictionary.common.postedBy} {interpolate(dictionary.common.inCategory, { category: post.category })}
       </p>
-      <p className="m-0 space-x-3 text-sm text-neutral-800">
-        <Link href={postPath}>{dictionary.common.comments}</Link>{" "}
-        <Link href={postPath}>{dictionary.common.trackbacks}</Link>
-      </p>
     </article>
   );
 }

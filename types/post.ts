@@ -16,6 +16,8 @@ export type Post = {
   Body: ComponentType;
 };
 
+export type PostMetadata = Omit<Post, "locale" | "Body">;
+
 export type CategorySummary = {
   name: string;
   slug: string;

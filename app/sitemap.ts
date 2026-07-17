@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import type { Locale } from "@/types/i18n";
 import { withLocale } from "@/utils/path";
 import { getArchiveGroups, getCategories, getPosts, getTags } from "@/utils/posts";
+import { getProjects } from "@/utils/projects";
 
 const staticRoutes = [
   "/",
@@ -11,6 +12,7 @@ const staticRoutes = [
   "/archive",
   "/categories",
   "/friends",
+  "/projects",
   "/search",
   "/tags",
 ];
@@ -18,10 +20,16 @@ const staticRoutes = [
 function alternates(path: string) {
   return {
     languages: Object.fromEntries(
-      i18nConfig.locales.map((locale) => [
-        locale,
-        `${siteConfig.url}${withLocale(locale, path)}`,
-      ]),
+      [
+        ...i18nConfig.locales.map((locale) => [
+          locale,
+          `${siteConfig.url}${withLocale(locale, path)}`,
+        ]),
+        [
+          "x-default",
+          `${siteConfig.url}${withLocale(i18nConfig.defaultLocale, path)}`,
+        ],
+      ],
     ),
   };
 }
@@ -50,6 +58,13 @@ function localizedSitemap(locale: Locale): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
       alternates: alternates(`/posts/${post.slug}`),
+    })),
+    ...getProjects(locale).map((project) => ({
+      url: `${siteConfig.url}${withLocale(locale, `/projects/${project.slug}`)}`,
+      lastModified: latestUpdate,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: alternates(`/projects/${project.slug}`),
     })),
     ...getCategories(locale).map((category) => ({
       url: `${siteConfig.url}${withLocale(locale, `/category/${category.slug}`)}`,

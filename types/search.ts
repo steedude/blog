@@ -1,4 +1,7 @@
-export enum SearchEngine {
-  GOOGLE = "google",
-  DUCK_DUCK_GO = "duckduckgo",
-}
+export type SearchDocument = {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  tags: string[];
+};

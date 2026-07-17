@@ -1,0 +1,41 @@
+export const metadata = {
+  slug: "view-transitions",
+  title: "View Transitions API：頁面轉場終於不必全靠框架",
+  description: "以漸進增強的角度理解 View Transitions，並討論它在內容網站與產品介面中的實際取捨。",
+  publishedAt: "2026-06-24",
+  category: "Web Platform",
+  categorySlug: "web-platform",
+  tags: ["CSS", "Animation", "Web API"],
+  readingTime: "6 分鐘",
+  homeExcerpt: [
+    "過去要做跨頁轉場，往往需要框架、動畫函式庫，甚至刻意把頁面維持在同一個 SPA 生命週期中。",
+    "View Transitions API 提供了一個更接近平台層的選項。最重要的原則仍是漸進增強：沒有轉場時，導覽也要正常運作。",
+    "文章列表進入內容、圖片縮圖展開成詳情頁，都是很適合的使用情境；同時也別忘了尊重使用者的 reduced motion 偏好。",
+  ],
+}
+
+過去要做跨頁轉場，往往需要框架、動畫函式庫，甚至刻意把頁面維持在同一個 SPA 生命週期中。View Transitions API 提供了一個更接近平台層的選項。
+
+## 漸進增強比動畫更重要
+
+最基本的原則是：沒有轉場時，導覽仍然要正常運作。動畫應該是體驗增強，而不是功能依賴。
+
+```css
+::view-transition-old(root) {
+  animation: fade-out 160ms ease;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 220ms ease;
+}
+```
+
+## 適合的使用情境
+
+- 文章列表進入文章內容
+- 圖片縮圖放大成詳情頁主視覺
+- 同一資訊在不同版面間移動
+
+## 不要忽略使用者偏好
+
+動畫需要尊重 `prefers-reduced-motion`。轉場越華麗，越需要確認它真的協助理解介面狀態，而不是讓操作變慢。

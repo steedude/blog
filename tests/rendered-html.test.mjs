@@ -56,6 +56,15 @@ test("redirects the root route to the default locale", async () => {
   assert.equal(legacyRoute.headers.get("location"), "/zh-TW/archive");
 });
 
+test("uses the request language for unlocalized routes", async () => {
+  const response = await fetch(`http://127.0.0.1:${port}/`, {
+    headers: { "accept-language": "en-US,en;q=0.9,zh-TW;q=0.5" },
+    redirect: "manual",
+  });
+  assert.equal(response.status, 307);
+  assert.equal(response.headers.get("location"), "/en");
+});
+
 test("server-renders the Traditional Chinese homepage and metadata", async () => {
   const response = await render();
   assert.equal(response.status, 200);
@@ -72,7 +81,9 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /href="\/zh-TW\/friends"/);
   assert.match(html, /action="\/zh-TW\/search"/);
   assert.match(html, /hrefLang="en"/);
+  assert.match(html, /hrefLang="x-default"/);
   assert.match(html, /property="og:image"/);
+  assert.match(html, /"@type":"WebSite"/);
 });
 
 test("separates Recent Entries from the homepage", async () => {
@@ -103,7 +114,7 @@ test("server-renders localized MDX content and the social image", async () => {
   assert.match(html, /useMemo/);
   assert.match(html, /data-rehype-pretty-code-figure/);
   const postSource = await readFile(
-    new URL("../content/posts/react-compiler.mdx", import.meta.url),
+    new URL("../content/posts/react-compiler/zh-TW.mdx", import.meta.url),
     "utf8",
   );
   assert.match(postSource, /## 它試圖解決什麼？/);
@@ -113,7 +124,51 @@ test("server-renders localized MDX content and the social image", async () => {
   const englishHtml = await englishResponse.text();
   assert.match(englishHtml, /Is React Compiler ready to adopt/);
   assert.match(englishHtml, /What problem is it trying to solve/);
+  assert.match(englishHtml, /"@type":"BlogPosting"/);
+  assert.match(englishHtml, /"@type":"BreadcrumbList"/);
+  assert.doesNotMatch(englishHtml, /TrackBack|Comments \(/);
+
+  const imageResponse = await render("/en/posts/react-compiler/opengraph-image");
+  assert.equal(imageResponse.status, 200);
+  assert.match(imageResponse.headers.get("content-type") ?? "", /^image\/png/);
   await access(new URL("../public/og-movable-type.png", import.meta.url));
+});
+
+test("searches posts locally without external search engines", async () => {
+  const response = await render("/en/search?q=Compiler");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /1 post found/);
+  assert.match(html, /Is React Compiler ready to adopt/);
+  assert.doesNotMatch(html, /google\.com\/search|duckduckgo\.com/);
+});
+
+test("renders the localized portfolio and project detail", async () => {
+  const [listResponse, detailResponse] = await Promise.all([
+    render("/en/projects"),
+    render("/en/projects/3854335-web-tool"),
+  ]);
+  assert.equal(listResponse.status, 200);
+  assert.match(await listResponse.text(), /3854335 WEB TOOL/);
+  assert.equal(detailResponse.status, 200);
+  const detail = await detailResponse.text();
+  assert.match(detail, /https:\/\/3854335\.com/);
+  assert.match(detail, /WebRTC/);
+  assert.match(detail, /"@type":"SoftwareApplication"/);
+});
+
+test("returns a localized 404 for missing content", async () => {
+  for (const pathname of [
+    "/en/posts/not-a-post",
+    "/en/projects/not-a-project",
+    "/en/category/not-a-category",
+    "/en/tag/not-a-tag",
+    "/en/archive/1999/1",
+  ]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 404, pathname);
+    assert.match(await response.text(), /Page not found/);
+  }
 });
 
 test("serves sitemap, robots, and RSS discovery files", async () => {
@@ -127,6 +182,8 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   const sitemap = await sitemapResponse.text();
   assert.match(sitemap, /\/zh-TW\/posts\/react-compiler/);
   assert.match(sitemap, /\/en\/posts\/react-compiler/);
+  assert.match(sitemap, /\/en\/projects\/3854335-web-tool/);
+  assert.match(sitemap, /hreflang="x-default"/);
 
   assert.equal(robotsResponse.status, 200);
   assert.match(await robotsResponse.text(), /Sitemap: .*\/sitemap\.xml/);
@@ -140,6 +197,18 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   const englishRss = await render("/en/rss.xml");
   assert.equal(englishRss.status, 200);
   assert.match(await englishRss.text(), /<title>Frontend Observer<\/title>/);
+});
+
+test("serves the branded favicon and English plural forms", async () => {
+  const [iconResponse, archiveResponse] = await Promise.all([
+    render("/icon.svg"),
+    render("/en/archive"),
+  ]);
+  assert.equal(iconResponse.status, 200);
+  assert.match(iconResponse.headers.get("content-type") ?? "", /image\/svg\+xml/);
+  const archive = await archiveResponse.text();
+  assert.match(archive, /1 article/);
+  assert.doesNotMatch(archive, /1 articles/);
 });
 
 test("renders GitHub Flavored Markdown tables", async () => {

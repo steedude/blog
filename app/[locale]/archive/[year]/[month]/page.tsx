@@ -1,12 +1,13 @@
 import { PageHeading } from "@/components/PageHeading";
 import { PostCard } from "@/components/PostCard";
+import { notFound } from "next/navigation";
 import { i18nConfig } from "@/config/i18n";
 import { pageMain } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
 import { createPageMetadata } from "@/utils/metadata";
-import { interpolate } from "@/utils/message";
+import { formatPlural } from "@/utils/message";
 import { getArchiveGroups } from "@/utils/posts";
 
 export function generateStaticParams() {
@@ -42,6 +43,7 @@ export default async function ArchiveMonthPage({
   const group = getArchiveGroups(locale).find(
     (item) => item.year === Number(year) && item.month === Number(month),
   );
+  if (!group) notFound();
   const posts = group?.posts ?? [];
 
   return (
@@ -49,7 +51,7 @@ export default async function ArchiveMonthPage({
       <PageHeading
         eyebrow="MONTHLY ARCHIVE"
         title={`${year}.${month.padStart(2, "0")}`}
-        description={interpolate(dictionary.common.articleCount, { count: posts.length })}
+        description={formatPlural(locale, dictionary.common.articleCount, posts.length)}
       />
       {posts.length ? (
         <div>

@@ -1,10 +1,11 @@
-import { ExternalSearch } from "@/components/ExternalSearch";
 import { PageHeading } from "@/components/PageHeading";
+import { PostSearch } from "@/components/PostSearch";
 import { pageMain } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
 import { createPageMetadata } from "@/utils/metadata";
+import { getSearchDocuments } from "@/utils/search";
 
 export async function generateMetadata({ params }: { params: LocaleRouteParams }) {
   const { locale: value } = await params;
@@ -27,7 +28,12 @@ export default async function SearchPage({
   return (
     <main className={pageMain}>
       <PageHeading eyebrow="SEARCH" title={dictionary.search.title} description={dictionary.search.description} />
-      <ExternalSearch initialQuery={q} dictionary={dictionary} />
+      <PostSearch
+        locale={locale}
+        dictionary={dictionary}
+        documents={getSearchDocuments(locale)}
+        initialQuery={q}
+      />
     </main>
   );
 }

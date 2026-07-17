@@ -1,3 +1,20 @@
+export const metadata = {
+  slug: "react-compiler",
+  title: "React Compiler 值得現在導入嗎？先看它真正解決的問題",
+  description: "從手動 memoization、開發體驗到導入限制，整理團隊評估 React Compiler 時真正需要回答的問題。",
+  publishedAt: "2026-07-12",
+  updatedAt: "2026-07-15",
+  category: "React",
+  categorySlug: "react",
+  tags: ["React", "Compiler", "Performance"],
+  readingTime: "8 分鐘",
+  homeExcerpt: [
+    "React Compiler 的吸引力很直觀：如果編譯器能自動完成一部分 memoization，我們就能少寫一些 useMemo、useCallback 和 memo。",
+    "真正值得討論的不是能少寫多少程式碼，而是它會如何改變團隊理解效能問題的方式。Compiler 會在建置階段分析元件與資料依賴，替符合規則的程式碼加入最佳化。",
+    "我會先從非核心頁面或新功能開始，保留效能量測，並觀察它是否真的降低維護成本。",
+  ],
+}
+
 React Compiler 的吸引力很直觀：如果編譯器能自動完成一部分 memoization，我們就能少寫一些 `useMemo`、`useCallback` 和 `memo`。但真正值得討論的不是「能少寫多少程式碼」，而是它會如何改變團隊理解效能問題的方式。
 
 ## 它試圖解決什麼？

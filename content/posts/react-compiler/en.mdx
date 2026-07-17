@@ -1,3 +1,20 @@
+export const metadata = {
+  slug: "react-compiler",
+  title: "Is React Compiler ready to adopt? Start with the problem it solves",
+  description: "A practical look at manual memoization, developer experience, and the constraints teams should evaluate before adopting React Compiler.",
+  publishedAt: "2026-07-12",
+  updatedAt: "2026-07-15",
+  category: "React",
+  categorySlug: "react",
+  tags: ["React", "Compiler", "Performance"],
+  readingTime: "8 min read",
+  homeExcerpt: [
+    "React Compiler has an obvious appeal: if the compiler can automate some memoization, components need fewer useMemo, useCallback, and memo calls.",
+    "The important question is not how many lines disappear, but how the compiler changes the way a team reasons about performance.",
+    "I would start with a new or non-critical feature, keep performance measurements, and verify that it actually reduces maintenance cost.",
+  ],
+}
+
 ## What problem is it trying to solve?
 
 React applications often accumulate `useMemo`, `useCallback`, and `memo` while teams chase avoidable renders. These tools are useful, but they also make component code harder to read and depend heavily on developers maintaining correct dependency lists.

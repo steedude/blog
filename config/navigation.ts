@@ -10,6 +10,7 @@ export const navigationItems: ReadonlyArray<{
   { key: "main", path: "/" },
   { key: "archives", path: "/archive" },
   { key: "categories", path: "/categories" },
+  { key: "projects", path: "/projects" },
   { key: "tags", path: "/tags" },
   { key: "links", path: "/friends" },
 ];

@@ -5,7 +5,7 @@ import { siteShell, retroButton } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
-import { interpolate } from "@/utils/message";
+import { formatPlural } from "@/utils/message";
 import { withLocale } from "@/utils/path";
 import { getArchiveGroups, getPosts } from "@/utils/posts";
 
@@ -97,7 +97,7 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
                     {archive.year}.{String(archive.month).padStart(2, "0")}
                   </Link>
                   <span className="text-xs text-muted">
-                    {" "}({interpolate(dictionary.common.articleCount, { count: archive.posts.length })})
+                    {" "}({formatPlural(locale, dictionary.common.articleCount, archive.posts.length)})
                   </span>
                 </li>
               ))}

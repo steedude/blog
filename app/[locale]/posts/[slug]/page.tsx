@@ -1,7 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/JsonLd";
 import { i18nConfig } from "@/config/i18n";
-import { pageMain, siteShell } from "@/config/styles";
+import { siteConfig } from "@/config/site";
+import { siteShell } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { formatDate } from "@/utils/date";
@@ -39,14 +42,50 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
   const dictionary = getDictionary(locale);
   const post = getPost(locale, slug);
 
-  if (!post) {
-    return <main className={pageMain}><h1 className="font-serif text-2xl">{dictionary.post.notFound}</h1></main>;
-  }
+  if (!post) notFound();
 
   const Body = post.Body;
+  const postUrl = `${siteConfig.url}${withLocale(locale, `/posts/${post.slug}`)}`;
 
   return (
     <main>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.description,
+            datePublished: post.publishedAt,
+            dateModified: post.updatedAt ?? post.publishedAt,
+            inLanguage: locale,
+            keywords: post.tags,
+            mainEntityOfPage: postUrl,
+            url: postUrl,
+            image: `${postUrl}/opengraph-image`,
+            author: { "@type": "Organization", name: siteConfig.author },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: dictionary.navigation.main,
+                item: `${siteConfig.url}${withLocale(locale)}`,
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: post.category,
+                item: `${siteConfig.url}${withLocale(locale, `/category/${post.categorySlug}`)}`,
+              },
+              { "@type": "ListItem", position: 3, name: post.title, item: postUrl },
+            ],
+          },
+        ]}
+      />
       <header className={`${siteShell} border-y border-b border-dotted border-frame bg-white px-4 pt-6 pb-5 md:border-x md:border-t-0 md:px-8`}>
         <Link href={withLocale(locale, `/category/${post.categorySlug}`)}>{post.category}</Link>
         <h1 className="mx-0 mt-2 mb-2 font-serif text-2xl leading-tight md:text-3xl">{post.title}</h1>

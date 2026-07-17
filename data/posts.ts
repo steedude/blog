@@ -1,180 +1,38 @@
-import ModernCssEn from "@/content/posts/en/modern-css.mdx";
-import ReactCompilerEn from "@/content/posts/en/react-compiler.mdx";
-import ServerComponentsEn from "@/content/posts/en/server-components-retrospective.mdx";
-import ViewTransitionsEn from "@/content/posts/en/view-transitions.mdx";
-import WebPlatformBaselineEn from "@/content/posts/en/web-platform-baseline.mdx";
-import WebVitalsEn from "@/content/posts/en/web-vitals.mdx";
-import ModernCssZh from "@/content/posts/modern-css.mdx";
-import ReactCompilerZh from "@/content/posts/react-compiler.mdx";
-import ServerComponentsZh from "@/content/posts/server-components-retrospective.mdx";
-import ViewTransitionsZh from "@/content/posts/view-transitions.mdx";
-import WebPlatformBaselineZh from "@/content/posts/web-platform-baseline.mdx";
-import WebVitalsZh from "@/content/posts/web-vitals.mdx";
+import type { ComponentType } from "react";
+import ModernCssEn, { metadata as modernCssEnMetadata } from "@/content/posts/modern-css/en.mdx";
+import ModernCssZh, { metadata as modernCssZhMetadata } from "@/content/posts/modern-css/zh-TW.mdx";
+import ReactCompilerEn, { metadata as reactCompilerEnMetadata } from "@/content/posts/react-compiler/en.mdx";
+import ReactCompilerZh, { metadata as reactCompilerZhMetadata } from "@/content/posts/react-compiler/zh-TW.mdx";
+import ServerComponentsEn, { metadata as serverComponentsEnMetadata } from "@/content/posts/server-components-retrospective/en.mdx";
+import ServerComponentsZh, { metadata as serverComponentsZhMetadata } from "@/content/posts/server-components-retrospective/zh-TW.mdx";
+import ViewTransitionsEn, { metadata as viewTransitionsEnMetadata } from "@/content/posts/view-transitions/en.mdx";
+import ViewTransitionsZh, { metadata as viewTransitionsZhMetadata } from "@/content/posts/view-transitions/zh-TW.mdx";
+import WebPlatformBaselineEn, { metadata as webPlatformBaselineEnMetadata } from "@/content/posts/web-platform-baseline/en.mdx";
+import WebPlatformBaselineZh, { metadata as webPlatformBaselineZhMetadata } from "@/content/posts/web-platform-baseline/zh-TW.mdx";
+import WebVitalsEn, { metadata as webVitalsEnMetadata } from "@/content/posts/web-vitals/en.mdx";
+import WebVitalsZh, { metadata as webVitalsZhMetadata } from "@/content/posts/web-vitals/zh-TW.mdx";
 import { Locale } from "@/types/i18n";
-import type { Post } from "@/types/post";
+import type { Post, PostMetadata } from "@/types/post";
+
+function createPost(
+  locale: Locale,
+  Body: ComponentType,
+  metadata: PostMetadata,
+): Post {
+  return { ...metadata, locale, Body };
+}
 
 export const posts: Post[] = [
-  {
-    locale: Locale.ZH_TW,
-    slug: "react-compiler",
-    title: "React Compiler 值得現在導入嗎？先看它真正解決的問題",
-    description: "從手動 memoization、開發體驗到導入限制，整理團隊評估 React Compiler 時真正需要回答的問題。",
-    publishedAt: "2026-07-12",
-    updatedAt: "2026-07-15",
-    category: "React",
-    categorySlug: "react",
-    tags: ["React", "Compiler", "Performance"],
-    readingTime: "8 分鐘",
-    homeExcerpt: [
-      "React Compiler 的吸引力很直觀：如果編譯器能自動完成一部分 memoization，我們就能少寫一些 useMemo、useCallback 和 memo。",
-      "真正值得討論的不是能少寫多少程式碼，而是它會如何改變團隊理解效能問題的方式。Compiler 會在建置階段分析元件與資料依賴，替符合規則的程式碼加入最佳化。",
-      "我會先從非核心頁面或新功能開始，保留效能量測，並觀察它是否真的降低維護成本。",
-    ],
-    Body: ReactCompilerZh,
-  },
-  {
-    locale: Locale.EN,
-    slug: "react-compiler",
-    title: "Is React Compiler ready to adopt? Start with the problem it solves",
-    description: "A practical look at manual memoization, developer experience, and the constraints teams should evaluate before adopting React Compiler.",
-    publishedAt: "2026-07-12",
-    updatedAt: "2026-07-15",
-    category: "React",
-    categorySlug: "react",
-    tags: ["React", "Compiler", "Performance"],
-    readingTime: "8 min read",
-    homeExcerpt: [
-      "React Compiler has an obvious appeal: if the compiler can automate some memoization, components need fewer useMemo, useCallback, and memo calls.",
-      "The important question is not how many lines disappear, but how the compiler changes the way a team reasons about performance.",
-      "I would start with a new or non-critical feature, keep performance measurements, and verify that it actually reduces maintenance cost.",
-    ],
-    Body: ReactCompilerEn,
-  },
-  {
-    locale: Locale.ZH_TW,
-    slug: "view-transitions",
-    title: "View Transitions API：頁面轉場終於不必全靠框架",
-    description: "以漸進增強的角度理解 View Transitions，並討論它在內容網站與產品介面中的實際取捨。",
-    publishedAt: "2026-06-24",
-    category: "Web Platform",
-    categorySlug: "web-platform",
-    tags: ["CSS", "Animation", "Web API"],
-    readingTime: "6 分鐘",
-    homeExcerpt: [
-      "過去要做跨頁轉場，往往需要框架、動畫函式庫，甚至刻意把頁面維持在同一個 SPA 生命週期中。",
-      "View Transitions API 提供了一個更接近平台層的選項。最重要的原則仍是漸進增強：沒有轉場時，導覽也要正常運作。",
-      "文章列表進入內容、圖片縮圖展開成詳情頁，都是很適合的使用情境；同時也別忘了尊重使用者的 reduced motion 偏好。",
-    ],
-    Body: ViewTransitionsZh,
-  },
-  {
-    locale: Locale.EN,
-    slug: "view-transitions",
-    title: "View Transitions API: page transitions without surrendering to a framework",
-    description: "A progressive-enhancement view of View Transitions and the practical trade-offs for content sites and product interfaces.",
-    publishedAt: "2026-06-24",
-    category: "Web Platform",
-    categorySlug: "web-platform",
-    tags: ["CSS", "Animation", "Web API"],
-    readingTime: "6 min read",
-    Body: ViewTransitionsEn,
-  },
-  {
-    locale: Locale.ZH_TW,
-    slug: "modern-css",
-    title: "新一代 CSS 不只是語法糖：從容器查詢到原生巢狀",
-    description: "重新整理近年 CSS 能力的變化，以及哪些需求已經不必再交給 JavaScript 或預處理器。",
-    publishedAt: "2026-06-03",
-    category: "CSS",
-    categorySlug: "css",
-    tags: ["CSS", "Container Query", "Responsive"],
-    readingTime: "7 分鐘",
-    Body: ModernCssZh,
-  },
-  {
-    locale: Locale.EN,
-    slug: "modern-css",
-    title: "Modern CSS is more than syntax sugar: from container queries to native nesting",
-    description: "A review of recent CSS capabilities and the jobs that no longer need JavaScript or a preprocessor.",
-    publishedAt: "2026-06-03",
-    category: "CSS",
-    categorySlug: "css",
-    tags: ["CSS", "Container Query", "Responsive"],
-    readingTime: "7 min read",
-    Body: ModernCssEn,
-  },
-  {
-    locale: Locale.ZH_TW,
-    slug: "server-components-retrospective",
-    title: "回頭看 Server Components：當年的期待實現了多少？",
-    description: "從早期討論回看 Server Components 的落地狀況，區分架構價值、框架實作與團隊成本。",
-    publishedAt: "2025-12-18",
-    updatedAt: "2026-01-04",
-    category: "趨勢回顧",
-    categorySlug: "retrospective",
-    tags: ["React", "RSC", "Architecture"],
-    readingTime: "10 分鐘",
-    Body: ServerComponentsZh,
-  },
-  {
-    locale: Locale.EN,
-    slug: "server-components-retrospective",
-    title: "Looking back at Server Components: how much of the promise survived?",
-    description: "A retrospective separating the architectural value of Server Components from framework implementation and team cost.",
-    publishedAt: "2025-12-18",
-    updatedAt: "2026-01-04",
-    category: "Retrospective",
-    categorySlug: "retrospective",
-    tags: ["React", "RSC", "Architecture"],
-    readingTime: "10 min read",
-    Body: ServerComponentsEn,
-  },
-  {
-    locale: Locale.ZH_TW,
-    slug: "web-vitals",
-    title: "Core Web Vitals 之外，我會怎麼觀察真實使用體驗",
-    description: "指標不是分數遊戲。從使用者任務、裝置差異與真實監控重新理解前端效能。",
-    publishedAt: "2025-11-09",
-    category: "效能",
-    categorySlug: "performance",
-    tags: ["Performance", "Web Vitals", "UX"],
-    readingTime: "9 分鐘",
-    Body: WebVitalsZh,
-  },
-  {
-    locale: Locale.EN,
-    slug: "web-vitals",
-    title: "Beyond Core Web Vitals: how I observe real user experience",
-    description: "Metrics are not a scoring game. Reframing frontend performance around user tasks, device differences, and field monitoring.",
-    publishedAt: "2025-11-09",
-    category: "Performance",
-    categorySlug: "performance",
-    tags: ["Performance", "Web Vitals", "UX"],
-    readingTime: "9 min read",
-    Body: WebVitalsEn,
-  },
-  {
-    locale: Locale.ZH_TW,
-    slug: "web-platform-baseline",
-    title: "Baseline 如何改變我們判斷瀏覽器支援度的方式",
-    description: "與其只問能不能用，不如建立一致的支援基準，讓產品與工程討論更精確。",
-    publishedAt: "2025-10-21",
-    category: "Web Platform",
-    categorySlug: "web-platform",
-    tags: ["Baseline", "Compatibility", "Web API"],
-    readingTime: "5 分鐘",
-    Body: WebPlatformBaselineZh,
-  },
-  {
-    locale: Locale.EN,
-    slug: "web-platform-baseline",
-    title: "How Baseline changes the way we judge browser support",
-    description: "A shared support baseline makes product and engineering discussions more precise than a simple can-we-use-it question.",
-    publishedAt: "2025-10-21",
-    category: "Web Platform",
-    categorySlug: "web-platform",
-    tags: ["Baseline", "Compatibility", "Web API"],
-    readingTime: "5 min read",
-    Body: WebPlatformBaselineEn,
-  },
+  createPost(Locale.ZH_TW, ReactCompilerZh, reactCompilerZhMetadata),
+  createPost(Locale.EN, ReactCompilerEn, reactCompilerEnMetadata),
+  createPost(Locale.ZH_TW, ViewTransitionsZh, viewTransitionsZhMetadata),
+  createPost(Locale.EN, ViewTransitionsEn, viewTransitionsEnMetadata),
+  createPost(Locale.ZH_TW, ModernCssZh, modernCssZhMetadata),
+  createPost(Locale.EN, ModernCssEn, modernCssEnMetadata),
+  createPost(Locale.ZH_TW, ServerComponentsZh, serverComponentsZhMetadata),
+  createPost(Locale.EN, ServerComponentsEn, serverComponentsEnMetadata),
+  createPost(Locale.ZH_TW, WebVitalsZh, webVitalsZhMetadata),
+  createPost(Locale.EN, WebVitalsEn, webVitalsEnMetadata),
+  createPost(Locale.ZH_TW, WebPlatformBaselineZh, webPlatformBaselineZhMetadata),
+  createPost(Locale.EN, WebPlatformBaselineEn, webPlatformBaselineEnMetadata),
 ];

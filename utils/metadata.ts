@@ -16,10 +16,16 @@ export function createPageMetadata(
     alternates: {
       canonical: `${siteConfig.url}${withLocale(locale, path)}`,
       languages: Object.fromEntries(
-        i18nConfig.locales.map((item) => [
-          item,
-          `${siteConfig.url}${withLocale(item, path)}`,
-        ]),
+        [
+          ...i18nConfig.locales.map((item) => [
+            item,
+            `${siteConfig.url}${withLocale(item, path)}`,
+          ]),
+          [
+            "x-default",
+            `${siteConfig.url}${withLocale(i18nConfig.defaultLocale, path)}`,
+          ],
+        ],
       ),
     },
   };

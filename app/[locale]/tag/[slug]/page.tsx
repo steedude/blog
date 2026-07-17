@@ -1,12 +1,13 @@
 import { PageHeading } from "@/components/PageHeading";
 import { PostCard } from "@/components/PostCard";
+import { notFound } from "next/navigation";
 import { i18nConfig } from "@/config/i18n";
 import { pageMain } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
 import { createPageMetadata } from "@/utils/metadata";
-import { interpolate } from "@/utils/message";
+import { formatPlural } from "@/utils/message";
 import { getPosts, getTags, tagToSlug } from "@/utils/posts";
 
 export function generateStaticParams() {
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: LocaleRouteParams<{
   return createPageMetadata(
     locale,
     `#${name}`,
-    interpolate(dictionary.common.relatedArticleCount, { count: tag?.count ?? 0 }),
+    formatPlural(locale, dictionary.common.relatedArticleCount, tag?.count ?? 0),
     `/tag/${slug}`,
   );
 }
@@ -36,11 +37,12 @@ export default async function TagPage({ params }: { params: LocaleRouteParams<{ 
   const posts = getPosts(locale).filter((post) =>
     post.tags.some((tag) => tagToSlug(tag) === slug.toLowerCase()),
   );
+  if (!posts.length) notFound();
   const tagName = posts.flatMap((post) => post.tags).find((tag) => tagToSlug(tag) === slug) ?? slug;
 
   return (
     <main className={pageMain}>
-      <PageHeading eyebrow="TAG" title={`#${tagName}`} description={interpolate(dictionary.common.relatedArticleCount, { count: posts.length })} />
+      <PageHeading eyebrow="TAG" title={`#${tagName}`} description={formatPlural(locale, dictionary.common.relatedArticleCount, posts.length)} />
       <div>
         {posts.map((post) => (
           <PostCard post={post} locale={locale} dictionary={dictionary} key={post.slug} />

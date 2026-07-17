@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { JsonLd } from "@/components/JsonLd";
 import { i18nConfig } from "@/config/i18n";
 import { siteConfig } from "@/config/site";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -34,7 +35,10 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl,
       languages: Object.fromEntries(
-        i18nConfig.locales.map((item) => [item, `${siteConfig.url}${withLocale(item)}`]),
+        [
+          ...i18nConfig.locales.map((item) => [item, `${siteConfig.url}${withLocale(item)}`]),
+          ["x-default", `${siteConfig.url}${withLocale(i18nConfig.defaultLocale)}`],
+        ],
       ),
       types: { "application/rss+xml": `${siteConfig.url}${withLocale(locale, "/rss.xml")}` },
     },
@@ -75,6 +79,21 @@ export default async function LocaleLayout({
   return (
     <html lang={i18nConfig.htmlLang[locale]}>
       <body className="min-w-80 bg-page bg-page-glow font-sans text-sm text-ink md:px-4 [&_a]:text-link [&_a]:underline [&_a]:visited:text-link-visited [&_a]:hover:text-link-hover">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: dictionary.site.name,
+            description: dictionary.site.description,
+            url: `${siteConfig.url}${withLocale(locale)}`,
+            inLanguage: locale,
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${siteConfig.url}${withLocale(locale, "/search")}?q={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
+          }}
+        />
         <Header locale={locale} dictionary={dictionary} />
         {children}
         <Footer locale={locale} dictionary={dictionary} />
