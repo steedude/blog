@@ -48,7 +48,7 @@ test("server-renders the blog homepage and metadata", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<title>前端觀察站<\/title>/);
-  assert.match(html, /把前端變化/);
+  assert.match(html, /關於網頁標準、瀏覽器與前端開發/);
   assert.match(html, /最新文章/);
   assert.match(html, /href="\/categories"/);
   assert.match(html, /href="\/tags"/);
@@ -70,5 +70,5 @@ test("server-renders MDX content and the social image", async () => {
     "utf8",
   );
   assert.match(postSource, /## 它試圖解決什麼？/);
-  await access(new URL("../public/og-early-blog.png", import.meta.url));
+  await access(new URL("../public/og-movable-type.png", import.meta.url));
 });

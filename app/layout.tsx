@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = requestHeaders.get("x-forwarded-host") || requestHeaders.get("host");
   const protocol = requestHeaders.get("x-forwarded-proto") || "https";
   const baseUrl = new URL(host ? `${protocol}://${host}` : "http://localhost:3000");
-  const socialImage = new URL("/og-early-blog.png", baseUrl).toString();
+  const socialImage = new URL("/og-movable-type.png", baseUrl).toString();
 
   return {
     metadataBase: baseUrl,
@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: "關於網頁標準、CSS、JavaScript 與前端開發的觀察和實作筆記。",
       type: "website",
       locale: "zh_TW",
-      images: [{ url: socialImage, width: 1536, height: 1024 }],
+      images: [{ url: socialImage, width: 1448, height: 1086 }],
     },
     twitter: {
       card: "summary_large_image",

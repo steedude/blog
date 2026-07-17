@@ -1,51 +1,41 @@
 import Link from "next/link";
 import { PostCard } from "@/components/PostCard";
-import {
-  allPosts,
-  getArchiveGroups,
-  getCategories,
-  getTags,
-} from "@/lib/posts";
+import { allPosts, getArchiveGroups, getCategories, getTags } from "@/lib/posts";
 
 export default function Home() {
   const categories = getCategories();
-  const tags = getTags().slice(0, 18);
-  const archives = getArchiveGroups().slice(0, 8);
+  const tags = getTags().slice(0, 14);
+  const archives = getArchiveGroups().slice(0, 10);
 
   return (
     <main className="shell page-frame">
-      <div className="weblog-intro">
-        <h1>前端觀察站</h1>
-        <p>
-          把前端變化整理成可以帶走的觀察和實作筆記。
-        </p>
-      </div>
-
       <div className="content-grid">
         <section className="main-column" aria-labelledby="latest-posts">
-          <div className="section-heading">
-            <h2 id="latest-posts">最新文章</h2>
-            <Link href="/archive">查看完整文章索引</Link>
-          </div>
-
+          <nav className="home-nav" aria-label="首頁導覽">
+            « <Link href="/">Recent Entries</Link> | <Link href="/">Main</Link> |{" "}
+            <Link href="/archive">Archives</Link> | <Link href="/categories">Categories</Link> |{" "}
+            <Link href="/tags">Tags</Link> | <Link href="/friends">Links</Link> »
+          </nav>
+          <h1 id="latest-posts" className="sr-only">最新文章</h1>
           <div className="post-list">
-            {allPosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
+            {allPosts.map((post) => <PostCard key={post.slug} post={post} />)}
           </div>
         </section>
 
         <aside className="sidebar" aria-label="網站資訊與文章導覽">
-          <section className="sidebar-section">
+          <section className="sidebar-section colophon">
+            <h2>關於本站</h2>
+            <p>記錄一些關於網頁標準、瀏覽器、CSS 與程式開發的觀察筆記。</p>
+            <p><Link href="/friends">關於本站</Link></p>
+          </section>
+
+          <section className="sidebar-section search-sidebar">
             <h2>搜尋本站</h2>
             <form action="/search" className="quick-search">
-              <label className="sr-only" htmlFor="home-search">
-                搜尋文章
-              </label>
-              <input id="home-search" name="q" size={18} />
+              <label className="sr-only" htmlFor="home-search">搜尋文章</label>
+              <input id="home-search" name="q" size={16} />
               <button type="submit">搜尋</button>
             </form>
-            <p className="sidebar-note">可使用 Google 或 DuckDuckGo 搜尋本站。</p>
           </section>
 
           <section className="sidebar-section">
@@ -65,10 +55,10 @@ export default function Home() {
 
           <section className="sidebar-section">
             <div className="mini-heading">
-              <h2>月份歸檔</h2>
+              <h2>每月彙整</h2>
               <Link href="/archive">全部</Link>
             </div>
-            <ul className="sidebar-list archive-mini-list">
+            <ul className="sidebar-list">
               {archives.map((archive) => (
                 <li key={`${archive.year}-${archive.month}`}>
                   <Link href={`/archive/${archive.year}/${archive.month}`}>
@@ -85,19 +75,25 @@ export default function Home() {
               <h2>標籤</h2>
               <Link href="/tags">全部</Link>
             </div>
-            <div className="tag-cloud">
+            <ul className="sidebar-list">
               {tags.map((tag) => (
-                <Link href={`/tag/${tag.slug}`} key={tag.slug}>
-                  {tag.name}
-                </Link>
+                <li key={tag.slug}><Link href={`/tag/${tag.slug}`}>{tag.name}</Link></li>
               ))}
-            </div>
+            </ul>
           </section>
 
-          <section className="sidebar-section colophon">
-            <h2>About this site</h2>
-            <p>手工製作的前端技術部落格。文章以 MDX 保存。</p>
-            <p><Link href="/friends">友站連結 »</Link></p>
+          <section className="sidebar-section">
+            <h2>友情連結</h2>
+            <ul className="sidebar-list">
+              <li><Link href="/friends">友站列表</Link></li>
+              <li><Link href="/archive">文章歸檔</Link></li>
+              <li><Link href="/search">進階搜尋</Link></li>
+            </ul>
+          </section>
+
+          <section className="sidebar-section syndicate">
+            <strong>XML</strong>
+            <span>Syndicate this site</span>
           </section>
         </aside>
       </div>
