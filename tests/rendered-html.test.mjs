@@ -54,7 +54,7 @@ test("server-renders the blog homepage and metadata", async () => {
   assert.match(html, /href="\/tags"/);
   assert.match(html, /href="\/archive"/);
   assert.match(html, /href="\/friends"/);
-  assert.match(html, /href="\/search"/);
+  assert.match(html, /action="\/search"/);
   assert.match(html, /property="og:image"/);
 });
 

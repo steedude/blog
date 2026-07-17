@@ -16,11 +16,15 @@ export function PostCard({ post }: { post: Post }) {
         <time dateTime={post.publishedAt}>{formatMovableTypeDate(post.publishedAt)}</time>
       </p>
       <h3><Link href={`/posts/${post.slug}`}>{post.title}</Link></h3>
-      <p className="post-description">{post.description}</p>
-      <p className="post-meta">Posted in {post.category} · {post.readingTime}</p>
+      <div className="post-description">
+        {(post.homeExcerpt ?? [post.description]).map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </div>
+      <p className="post-meta">Posted by 前端觀察站 in {post.category}</p>
       <p className="post-footer">
-        <Link href={`/category/${post.categorySlug}`}>Category</Link>{" "}
-        <Link href={`/posts/${post.slug}`}>Read Entry</Link>
+        <Link href={`/posts/${post.slug}`}>Comments (0)</Link>{" "}
+        <Link href={`/posts/${post.slug}`}>TrackBack (0)</Link>
       </p>
     </article>
   );

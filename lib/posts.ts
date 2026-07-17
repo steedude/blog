@@ -16,6 +16,7 @@ export type Post = {
   categorySlug: string;
   tags: string[];
   readingTime: string;
+  homeExcerpt?: string[];
   Body: ComponentType;
 };
 
@@ -31,6 +32,11 @@ export const allPosts: Post[] = [
     categorySlug: "react",
     tags: ["React", "Compiler", "Performance"],
     readingTime: "8 分鐘",
+    homeExcerpt: [
+      "React Compiler 的吸引力很直觀：如果編譯器能自動完成一部分 memoization，我們就能少寫一些 useMemo、useCallback 和 memo。",
+      "真正值得討論的不是能少寫多少程式碼，而是它會如何改變團隊理解效能問題的方式。Compiler 會在建置階段分析元件與資料依賴，替符合規則的程式碼加入最佳化。",
+      "我會先從非核心頁面或新功能開始，保留效能量測，並觀察它是否真的降低維護成本。",
+    ],
     Body: ReactCompilerPost,
   },
   {
@@ -43,6 +49,11 @@ export const allPosts: Post[] = [
     categorySlug: "web-platform",
     tags: ["CSS", "Animation", "Web API"],
     readingTime: "6 分鐘",
+    homeExcerpt: [
+      "過去要做跨頁轉場，往往需要框架、動畫函式庫，甚至刻意把頁面維持在同一個 SPA 生命週期中。",
+      "View Transitions API 提供了一個更接近平台層的選項。最重要的原則仍是漸進增強：沒有轉場時，導覽也要正常運作。",
+      "文章列表進入內容、圖片縮圖展開成詳情頁，都是很適合的使用情境；同時也別忘了尊重使用者的 reduced motion 偏好。",
+    ],
     Body: ViewTransitionsPost,
   },
   {

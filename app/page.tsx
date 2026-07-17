@@ -1,11 +1,19 @@
 import Link from "next/link";
 import { PostCard } from "@/components/PostCard";
-import { allPosts, getArchiveGroups, getCategories, getTags } from "@/lib/posts";
+import { allPosts, getArchiveGroups } from "@/lib/posts";
+
+const recentPostLabels: Record<string, string> = {
+  "react-compiler": "React Compiler 導入筆記",
+  "view-transitions": "View Transitions API",
+  "modern-css": "新一代 CSS 原生能力",
+  "server-components-retrospective": "Server Components 回顧",
+  "web-vitals": "Core Web Vitals 觀察",
+};
 
 export default function Home() {
-  const categories = getCategories();
-  const tags = getTags().slice(0, 14);
-  const archives = getArchiveGroups().slice(0, 10);
+  const archives = getArchiveGroups().slice(0, 2);
+  const homePosts = allPosts.slice(0, 2);
+  const recentPosts = allPosts.slice(0, 5);
 
   return (
     <main className="shell page-frame">
@@ -18,8 +26,16 @@ export default function Home() {
           </nav>
           <h1 id="latest-posts" className="sr-only">最新文章</h1>
           <div className="post-list">
-            {allPosts.map((post) => <PostCard key={post.slug} post={post} />)}
+            {homePosts.map((post) => <PostCard key={post.slug} post={post} />)}
           </div>
+          <footer className="home-inline-footer">
+            <p>
+              « <Link href="/">Recent Entries</Link> | <Link href="/">Main</Link> |{" "}
+              <Link href="/archive">Archives</Link> | <Link href="/categories">Categories</Link> |{" "}
+              <Link href="/tags">Tags</Link> | <Link href="/friends">Links</Link> »
+            </p>
+            <p>Powered by <Link href="https://www.movabletype.org/">Movable Type 2.2</Link></p>
+          </footer>
         </section>
 
         <aside className="sidebar" aria-label="網站資訊與文章導覽">
@@ -39,15 +55,13 @@ export default function Home() {
           </section>
 
           <section className="sidebar-section">
-            <div className="mini-heading">
-              <h2>文章分類</h2>
-              <Link href="/categories">全部</Link>
-            </div>
+            <h2>最近文章</h2>
             <ul className="sidebar-list">
-              {categories.map((category) => (
-                <li key={category.slug}>
-                  <Link href={`/category/${category.slug}`}>{category.name}</Link>
-                  <span> ({category.count})</span>
+              {recentPosts.map((post) => (
+                <li key={post.slug}>
+                  <Link href={`/posts/${post.slug}`} aria-label={post.title}>
+                    {recentPostLabels[post.slug] ?? post.title}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -71,23 +85,12 @@ export default function Home() {
           </section>
 
           <section className="sidebar-section">
-            <div className="mini-heading">
-              <h2>標籤</h2>
-              <Link href="/tags">全部</Link>
-            </div>
-            <ul className="sidebar-list">
-              {tags.map((tag) => (
-                <li key={tag.slug}><Link href={`/tag/${tag.slug}`}>{tag.name}</Link></li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="sidebar-section">
             <h2>友情連結</h2>
             <ul className="sidebar-list">
               <li><Link href="/friends">友站列表</Link></li>
-              <li><Link href="/archive">文章歸檔</Link></li>
-              <li><Link href="/search">進階搜尋</Link></li>
+              <li><Link href="/categories">文章分類</Link></li>
+              <li><Link href="/tags">所有標籤</Link></li>
+              <li><Link href="/friends">CSS Zen Garden</Link></li>
             </ul>
           </section>
 
