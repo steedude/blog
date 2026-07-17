@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
-    "lint": "eslint . --ignore-pattern .next --ignore-pattern dist --ignore-pattern build"
+    "lint": "eslint . --ignore-pattern .next"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
