@@ -96,7 +96,7 @@ export default function Home() {
 
           <section className="sidebar-section syndicate">
             <strong>XML</strong>
-            <span>Syndicate this site</span>
+            <Link href="/rss.xml">Syndicate this site</Link>
           </section>
         </aside>
       </div>

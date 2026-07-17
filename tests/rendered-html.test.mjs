@@ -65,10 +65,39 @@ test("server-renders MDX content and the social image", async () => {
   assert.match(html, /React Compiler 值得現在導入嗎/);
   assert.match(html, /它試圖解決什麼/);
   assert.match(html, /useMemo/);
+  assert.match(html, /data-rehype-pretty-code-figure/);
   const postSource = await readFile(
     new URL("../content/posts/react-compiler.mdx", import.meta.url),
     "utf8",
   );
   assert.match(postSource, /## 它試圖解決什麼？/);
   await access(new URL("../public/og-movable-type.png", import.meta.url));
+});
+
+test("serves sitemap, robots, and RSS discovery files", async () => {
+  const [sitemapResponse, robotsResponse, rssResponse] = await Promise.all([
+    render("/sitemap.xml"),
+    render("/robots.txt"),
+    render("/rss.xml"),
+  ]);
+
+  assert.equal(sitemapResponse.status, 200);
+  assert.match(await sitemapResponse.text(), /\/posts\/react-compiler/);
+
+  assert.equal(robotsResponse.status, 200);
+  assert.match(await robotsResponse.text(), /Sitemap: .*\/sitemap\.xml/);
+
+  assert.equal(rssResponse.status, 200);
+  assert.match(rssResponse.headers.get("content-type") ?? "", /application\/rss\+xml/);
+  const rss = await rssResponse.text();
+  assert.match(rss, /<title>前端觀察站<\/title>/);
+  assert.match(rss, /<guid isPermaLink="true">.*\/posts\/react-compiler<\/guid>/);
+});
+
+test("renders GitHub Flavored Markdown tables", async () => {
+  const response = await render("/posts/modern-css");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<table>/);
+  assert.match(html, /Container Queries/);
 });
