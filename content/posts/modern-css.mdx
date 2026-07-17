@@ -1,0 +1,23 @@
+近年的 CSS 更新逐漸把很多「只能靠 JavaScript」的需求帶回樣式層。這不只是少裝幾個套件，更代表元件可以用更接近自身情境的方式描述版面。
+
+## 容器查詢
+
+媒體查詢觀察 viewport，容器查詢則觀察元件所在空間：
+
+```css
+.card-list {
+  container-type: inline-size;
+}
+
+@container (min-width: 42rem) {
+  .card {
+    grid-template-columns: 12rem 1fr;
+  }
+}
+```
+
+這讓同一個 Card 放在主內容、側欄或彈窗時，都能根據真正可用的寬度調整。
+
+## 原生巢狀與選擇器
+
+原生 nesting、`:has()` 和 cascade layers，正在降低預處理器與大量命名規則的必要性。但「可以巢狀」不代表應該把選擇器寫得很深，結構清楚仍然比語法方便重要。
