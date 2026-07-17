@@ -1,29 +1,19 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { retroButton } from "@/lib/styles";
+import { retroButton } from "@/config/styles";
+import { useExternalSearch } from "@/hooks/use-external-search";
+import type { Dictionary } from "@/types/i18n";
+import { SearchEngine } from "@/types/search";
+import { interpolate } from "@/utils/message";
 
-export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string }) {
-  const [engine, setEngine] = useState<"google" | "duckduckgo">("google");
-  const [siteOnly, setSiteOnly] = useState(true);
-
-  function submitSearch(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const query = String(form.get("q") || "").trim();
-    if (!query) return;
-
-    const hostname = window.location.hostname;
-    const canScopeToSite = hostname !== "localhost" && hostname !== "127.0.0.1";
-    const scopedQuery =
-      siteOnly && canScopeToSite ? `site:${hostname} ${query}` : query;
-    const target =
-      engine === "google"
-        ? `https://www.google.com/search?q=${encodeURIComponent(scopedQuery)}`
-        : `https://duckduckgo.com/?q=${encodeURIComponent(scopedQuery)}`;
-
-    window.location.href = target;
-  }
+export function ExternalSearch({
+  initialQuery = "",
+  dictionary,
+}: {
+  initialQuery?: string;
+  dictionary: Dictionary;
+}) {
+  const { engine, setEngine, siteOnly, setSiteOnly, submitSearch } = useExternalSearch();
 
   return (
     <form
@@ -31,7 +21,7 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
       onSubmit={submitSearch}
     >
       <label className="mb-1 block font-bold" htmlFor="search-query">
-        搜尋關鍵字
+        {dictionary.search.keyword}
       </label>
       <input
         className="w-full border border-neutral-400 bg-white p-1"
@@ -39,17 +29,17 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
         type="search"
         name="q"
         defaultValue={initialQuery}
-        placeholder="輸入技術、框架或文章名稱"
+        placeholder={dictionary.search.placeholder}
         autoFocus
       />
 
-      <div className="my-3 flex flex-col gap-2 sm:flex-row" aria-label="搜尋引擎">
+      <div className="my-3 flex flex-col gap-2 sm:flex-row" aria-label={dictionary.search.engineLabel}>
         <label className="border border-frame-soft bg-white px-2 py-1.5">
           <input
             type="radio"
             name="engine"
-            checked={engine === "google"}
-            onChange={() => setEngine("google")}
+            checked={engine === SearchEngine.GOOGLE}
+            onChange={() => setEngine(SearchEngine.GOOGLE)}
           />
           Google
         </label>
@@ -57,8 +47,8 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
           <input
             type="radio"
             name="engine"
-            checked={engine === "duckduckgo"}
-            onChange={() => setEngine("duckduckgo")}
+            checked={engine === SearchEngine.DUCK_DUCK_GO}
+            onChange={() => setEngine(SearchEngine.DUCK_DUCK_GO)}
           />
           DuckDuckGo
         </label>
@@ -70,14 +60,16 @@ export function ExternalSearch({ initialQuery = "" }: { initialQuery?: string })
           checked={siteOnly}
           onChange={(event) => setSiteOnly(event.target.checked)}
         />
-        只搜尋本站內容
+        {dictionary.search.siteOnly}
       </label>
 
       <button type="submit" className={retroButton}>
-        使用 {engine === "google" ? "Google" : "DuckDuckGo"} 搜尋
+        {interpolate(dictionary.search.submit, {
+          engine: engine === SearchEngine.GOOGLE ? "Google" : "DuckDuckGo",
+        })}
       </button>
       <p className="text-xs text-muted">
-        正式部署後，「只搜尋本站」會自動使用目前網域。開發環境則會進行一般網路搜尋。
+        {dictionary.search.hint}
       </p>
     </form>
   );

@@ -1,0 +1,31 @@
+## CSS has taken back more layout decisions
+
+Many responsive components used to depend on viewport media queries or JavaScript measurements. Container queries let a component react to the space it actually receives.
+
+```css
+.card-list {
+  container-type: inline-size;
+}
+
+@container (min-width: 36rem) {
+  .card {
+    grid-template-columns: 12rem 1fr;
+  }
+}
+```
+
+This makes a component easier to reuse in a main column, sidebar, or embedded panel without inventing page-specific breakpoints.
+
+## Native nesting changes authoring, not architecture
+
+Native nesting reduces repetition, but deeply nested selectors are still difficult to override. The same restraint that applied to Sass applies to browser-native nesting.
+
+| Feature | Previously common solution | Native option |
+| --- | --- | --- |
+| Component responsiveness | JavaScript or viewport queries | Container Queries |
+| Nested selectors | Sass/PostCSS | CSS Nesting |
+| Parent-aware states | Extra classes or JavaScript | `:has()` |
+
+## The larger shift
+
+Modern CSS is not only syntax sugar. It moves layout, state selection, and responsive behavior closer to the browser, reducing the amount of JavaScript and build-time abstraction needed for ordinary interface work.

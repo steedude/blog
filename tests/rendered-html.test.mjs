@@ -42,24 +42,45 @@ async function render(pathname = "/") {
   });
 }
 
-test("server-renders the blog homepage and metadata", async () => {
+test("redirects the root route to the default locale", async () => {
+  const response = await fetch(`http://127.0.0.1:${port}/`, {
+    redirect: "manual",
+  });
+  assert.equal(response.status, 307);
+  assert.equal(response.headers.get("location"), "/zh-TW");
+});
+
+test("server-renders the Traditional Chinese homepage and metadata", async () => {
   const response = await render();
   assert.equal(response.status, 200);
+  assert.match(response.url, /\/zh-TW$/);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<title>前端觀察站<\/title>/);
   assert.match(html, /關於網頁標準、瀏覽器與前端開發/);
   assert.match(html, /最新文章/);
-  assert.match(html, /href="\/categories"/);
-  assert.match(html, /href="\/tags"/);
-  assert.match(html, /href="\/archive"/);
-  assert.match(html, /href="\/friends"/);
-  assert.match(html, /action="\/search"/);
+  assert.match(html, /href="\/zh-TW\/categories"/);
+  assert.match(html, /href="\/zh-TW\/tags"/);
+  assert.match(html, /href="\/zh-TW\/archive"/);
+  assert.match(html, /href="\/zh-TW\/friends"/);
+  assert.match(html, /action="\/zh-TW\/search"/);
+  assert.match(html, /hrefLang="en"/);
   assert.match(html, /property="og:image"/);
 });
 
-test("server-renders MDX content and the social image", async () => {
-  const response = await render("/posts/react-compiler");
+test("server-renders the English homepage", async () => {
+  const response = await render("/en");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<html lang="en"/);
+  assert.match(html, /<title>Frontend Observer<\/title>/);
+  assert.match(html, /Latest posts/);
+  assert.match(html, /Search this site/);
+  assert.match(html, /href="\/en\/categories"/);
+});
+
+test("server-renders localized MDX content and the social image", async () => {
+  const response = await render("/zh-TW/posts/react-compiler");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /React Compiler 值得現在導入嗎/);
@@ -71,6 +92,12 @@ test("server-renders MDX content and the social image", async () => {
     "utf8",
   );
   assert.match(postSource, /## 它試圖解決什麼？/);
+
+  const englishResponse = await render("/en/posts/react-compiler");
+  assert.equal(englishResponse.status, 200);
+  const englishHtml = await englishResponse.text();
+  assert.match(englishHtml, /Is React Compiler ready to adopt/);
+  assert.match(englishHtml, /What problem is it trying to solve/);
   await access(new URL("../public/og-movable-type.png", import.meta.url));
 });
 
@@ -78,11 +105,13 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   const [sitemapResponse, robotsResponse, rssResponse] = await Promise.all([
     render("/sitemap.xml"),
     render("/robots.txt"),
-    render("/rss.xml"),
+    render("/zh-TW/rss.xml"),
   ]);
 
   assert.equal(sitemapResponse.status, 200);
-  assert.match(await sitemapResponse.text(), /\/posts\/react-compiler/);
+  const sitemap = await sitemapResponse.text();
+  assert.match(sitemap, /\/zh-TW\/posts\/react-compiler/);
+  assert.match(sitemap, /\/en\/posts\/react-compiler/);
 
   assert.equal(robotsResponse.status, 200);
   assert.match(await robotsResponse.text(), /Sitemap: .*\/sitemap\.xml/);
@@ -91,11 +120,15 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   assert.match(rssResponse.headers.get("content-type") ?? "", /application\/rss\+xml/);
   const rss = await rssResponse.text();
   assert.match(rss, /<title>前端觀察站<\/title>/);
-  assert.match(rss, /<guid isPermaLink="true">.*\/posts\/react-compiler<\/guid>/);
+  assert.match(rss, /<guid isPermaLink="true">.*\/zh-TW\/posts\/react-compiler<\/guid>/);
+
+  const englishRss = await render("/en/rss.xml");
+  assert.equal(englishRss.status, 200);
+  assert.match(await englishRss.text(), /<title>Frontend Observer<\/title>/);
 });
 
 test("renders GitHub Flavored Markdown tables", async () => {
-  const response = await render("/posts/modern-css");
+  const response = await render("/zh-TW/posts/modern-css");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /<table\b/);

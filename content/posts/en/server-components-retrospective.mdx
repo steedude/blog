@@ -1,0 +1,13 @@
+## The original promise
+
+Server Components promised smaller client bundles and direct access to server-side data while preserving a component-based programming model. That architectural idea has largely survived contact with production.
+
+## What proved harder
+
+The boundary between server and client code introduces a new mental model. Serialization rules, caching, framework-specific conventions, and debugging across environments can cost more than the saved JavaScript on small applications.
+
+The strongest results appear when a product has meaningful server data requirements and expensive client dependencies. Applying the model everywhere simply because the framework supports it can create ceremony without a measurable benefit.
+
+## A more realistic conclusion
+
+Server Components are neither the universal future nor a failed experiment. They are an architectural tool whose value depends on the shape of the product, the framework implementation, and the team's ability to make server/client boundaries visible in code review.

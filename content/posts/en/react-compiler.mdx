@@ -1,0 +1,21 @@
+## What problem is it trying to solve?
+
+React applications often accumulate `useMemo`, `useCallback`, and `memo` while teams chase avoidable renders. These tools are useful, but they also make component code harder to read and depend heavily on developers maintaining correct dependency lists.
+
+React Compiler analyzes components and data dependencies during the build. When code follows the Rules of React, it can apply memoization automatically without changing the component's public behavior.
+
+## The value is more than fewer hooks
+
+The strongest argument for the compiler is not a smaller line count. It lets developers describe data flow directly while moving a class of repetitive optimization work into tooling.
+
+That does not eliminate performance work. Network requests, large bundles, expensive algorithms, and poor component boundaries still require measurement and design decisions.
+
+## How I would introduce it
+
+I would begin with a new feature or a non-critical route, record a performance baseline, and compare both runtime behavior and maintenance cost. Existing manual memoization should not be removed until the measurements show that the compiler produces equivalent results.
+
+The team also needs lint rules and code review habits that reinforce the Rules of React. A compiler cannot safely optimize code whose behavior depends on hidden mutation or side effects during render.
+
+## Current conclusion
+
+React Compiler is worth testing now, but it should be treated as an engineering migration rather than a switch. The useful question is not whether it is fashionable; it is whether the team can verify the result and simplify its mental model without losing control of performance.

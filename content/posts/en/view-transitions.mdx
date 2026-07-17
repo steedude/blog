@@ -1,0 +1,29 @@
+## A platform-level transition primitive
+
+Cross-page animation used to require a framework, an animation library, or an SPA architecture that kept both screens inside one JavaScript lifecycle. The View Transitions API offers a browser-level alternative.
+
+The browser captures the old and new visual states, then creates pseudo-elements that CSS can animate. The document still navigates normally, so the enhancement does not need to own the entire routing system.
+
+## Progressive enhancement remains essential
+
+Navigation must still work when the API is unavailable. A useful transition should improve spatial continuity, not become a dependency for reaching the next page.
+
+```css
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation-duration: 0s;
+  }
+}
+```
+
+Respecting `prefers-reduced-motion` is part of the feature, not an optional cleanup task.
+
+## Good use cases
+
+Opening a post from a list, expanding a thumbnail into a detail view, and preserving the position of persistent navigation are strong candidates. Animating every element usually creates more noise than clarity.
+
+The API is most convincing when it makes the relationship between two states easier to understand while leaving the underlying HTML navigation intact.
