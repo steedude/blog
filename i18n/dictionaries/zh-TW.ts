@@ -45,6 +45,10 @@ export const zhTWDictionary: Dictionary = {
     tagList: "所有標籤",
     syndicate: "Syndicate this site",
   },
+  recent: {
+    title: "最近文章",
+    description: "依發布時間列出本站所有文章。",
+  },
   archive: {
     title: "文章時間軸",
     description: "第一層先用年份快速掃描，再進入月份查看文章；比把所有年月塞進側欄更容易維護。",

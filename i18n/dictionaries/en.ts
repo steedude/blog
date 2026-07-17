@@ -45,6 +45,10 @@ export const enDictionary: Dictionary = {
     tagList: "All tags",
     syndicate: "Syndicate this site",
   },
+  recent: {
+    title: "Recent entries",
+    description: "All posts ordered by publication date.",
+  },
   archive: {
     title: "Post archive",
     description: "Scan posts by year first, then open a month for a focused list instead of crowding every date into the sidebar.",

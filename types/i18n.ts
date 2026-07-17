@@ -48,6 +48,10 @@ export type Dictionary = {
     tagList: string;
     syndicate: string;
   };
+  recent: {
+    title: string;
+    description: string;
+  };
   archive: {
     title: string;
     description: string;

@@ -48,6 +48,12 @@ test("redirects the root route to the default locale", async () => {
   });
   assert.equal(response.status, 307);
   assert.equal(response.headers.get("location"), "/zh-TW");
+
+  const legacyRoute = await fetch(`http://127.0.0.1:${port}/archive`, {
+    redirect: "manual",
+  });
+  assert.equal(legacyRoute.status, 307);
+  assert.equal(legacyRoute.headers.get("location"), "/zh-TW/archive");
 });
 
 test("server-renders the Traditional Chinese homepage and metadata", async () => {
@@ -60,12 +66,21 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /關於網頁標準、瀏覽器與前端開發/);
   assert.match(html, /最新文章/);
   assert.match(html, /href="\/zh-TW\/categories"/);
+  assert.match(html, /href="\/zh-TW\/recent"/);
   assert.match(html, /href="\/zh-TW\/tags"/);
   assert.match(html, /href="\/zh-TW\/archive"/);
   assert.match(html, /href="\/zh-TW\/friends"/);
   assert.match(html, /action="\/zh-TW\/search"/);
   assert.match(html, /hrefLang="en"/);
   assert.match(html, /property="og:image"/);
+});
+
+test("separates Recent Entries from the homepage", async () => {
+  const response = await render("/zh-TW/recent");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<h1[^>]*>最近文章<\/h1>/);
+  assert.match(html, /Baseline 如何改變我們判斷瀏覽器支援度的方式/);
 });
 
 test("server-renders the English homepage", async () => {

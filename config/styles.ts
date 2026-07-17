@@ -1,8 +1,6 @@
 export const siteShell = "mx-auto w-full max-w-4xl";
 
-export const contentShell = "mx-auto w-full max-w-5xl";
-
-export const pageMain = `${contentShell} min-h-screen border-y border-frame bg-white p-4 md:border-x md:p-6`;
+export const pageMain = `${siteShell} min-h-screen border-y border-frame bg-white p-4 md:border-x md:p-6`;
 
 export const directoryCard =
   "border border-frame bg-stone-100 p-3 no-underline hover:bg-panel";

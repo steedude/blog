@@ -6,7 +6,7 @@ export const navigationItems: ReadonlyArray<{
   key: NavigationKey;
   path: string;
 }> = [
-  { key: "recentEntries", path: "/" },
+  { key: "recentEntries", path: "/recent" },
   { key: "main", path: "/" },
   { key: "archives", path: "/archive" },
   { key: "categories", path: "/categories" },

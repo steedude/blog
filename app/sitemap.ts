@@ -5,7 +5,15 @@ import type { Locale } from "@/types/i18n";
 import { withLocale } from "@/utils/path";
 import { getArchiveGroups, getCategories, getPosts, getTags } from "@/utils/posts";
 
-const staticRoutes = ["/", "/archive", "/categories", "/friends", "/search", "/tags"];
+const staticRoutes = [
+  "/",
+  "/recent",
+  "/archive",
+  "/categories",
+  "/friends",
+  "/search",
+  "/tags",
+];
 
 function alternates(path: string) {
   return {
