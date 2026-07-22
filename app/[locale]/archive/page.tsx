@@ -25,7 +25,7 @@ export default async function ArchivePage({ params }: { params: LocaleRouteParam
 
   return (
     <main className={pageMain}>
-      <PageHeading eyebrow="ARCHIVE" title={dictionary.archive.title} description={dictionary.archive.description} />
+      <PageHeading eyebrow="ARCHIVE" title={dictionary.archive.title} />
       {years.map((year) => (
         <section className="mb-7" key={year}>
           <h2 className="mt-0 mb-2 border-b border-neutral-500 pb-1 font-serif text-2xl">{year}</h2>

@@ -16,7 +16,6 @@ export type Dictionary = {
     homeLabel: string;
   };
   navigation: {
-    recentEntries: string;
     main: string;
     archives: string;
     categories: string;
@@ -47,14 +46,7 @@ export type Dictionary = {
     recentTitle: string;
     monthlyTitle: string;
     friendsTitle: string;
-    friendList: string;
-    categoryList: string;
-    tagList: string;
     syndicate: string;
-  };
-  recent: {
-    title: string;
-    description: string;
   };
   archive: {
     title: string;

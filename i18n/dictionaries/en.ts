@@ -8,7 +8,6 @@ export const enDictionary: Dictionary = {
     homeLabel: "Frontend Observer home",
   },
   navigation: {
-    recentEntries: "Recent Entries",
     main: "Main",
     archives: "Archives",
     categories: "Categories",
@@ -39,18 +38,11 @@ export const enDictionary: Dictionary = {
     recentTitle: "Recent posts",
     monthlyTitle: "Monthly archives",
     friendsTitle: "Blogroll",
-    friendList: "Friend sites",
-    categoryList: "Post categories",
-    tagList: "All tags",
     syndicate: "Syndicate this site",
-  },
-  recent: {
-    title: "Recent entries",
-    description: "All posts ordered by publication date.",
   },
   archive: {
     title: "Post archive",
-    description: "Scan posts by year first, then open a month for a focused list instead of crowding every date into the sidebar.",
+    description: "Browse posts by year and month.",
     monthSuffix: "",
     empty: "There are no posts in this month.",
   },

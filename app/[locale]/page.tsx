@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PostCard } from "@/components/PostCard";
 import { SiteNavigation } from "@/components/SiteNavigation";
+import { friendsByLocale } from "@/config/friends";
 import { siteShell, retroButton } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
@@ -107,9 +108,11 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
           <section className={sidebarSection}>
             <h2 className={sidebarHeading}>{dictionary.home.friendsTitle}</h2>
             <ul className={sidebarList}>
-              <li className="my-1"><Link href={withLocale(locale, "/friends")}>{dictionary.home.friendList}</Link></li>
-              <li className="my-1"><Link href={withLocale(locale, "/categories")}>{dictionary.home.categoryList}</Link></li>
-              <li className="my-1"><Link href={withLocale(locale, "/tags")}>{dictionary.home.tagList}</Link></li>
+              {friendsByLocale[locale].map((friend) => (
+                <li className="my-1" key={friend.url}>
+                  <a href={friend.url} target="_blank" rel="noreferrer">{friend.name}</a>
+                </li>
+              ))}
             </ul>
           </section>
 

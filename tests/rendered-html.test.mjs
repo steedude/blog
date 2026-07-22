@@ -75,10 +75,17 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /關於網頁標準、瀏覽器與前端開發/);
   assert.match(html, /最新文章/);
   assert.match(html, /href="\/zh-TW\/categories"/);
-  assert.match(html, /href="\/zh-TW\/recent"/);
+  assert.doesNotMatch(html, /href="\/zh-TW\/recent"/);
   assert.match(html, /href="\/zh-TW\/tags"/);
   assert.match(html, /href="\/zh-TW\/archive"/);
   assert.match(html, /href="\/zh-TW\/friends"/);
+  assert.match(html, />首頁<\/a>/);
+  assert.match(html, />文章彙整<\/a>/);
+  assert.match(html, />作品集<\/a>/);
+  assert.match(html, />友情連結<\/a>/);
+  assert.match(html, /href="https:\/\/example\.com"/);
+  assert.match(html, /前端開發者 A/);
+  assert.doesNotMatch(html, /友站列表/);
   assert.match(html, /action="\/zh-TW\/search"/);
   assert.match(html, /hrefLang="en"/);
   assert.match(html, /hrefLang="x-default"/);
@@ -86,12 +93,9 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /"@type":"WebSite"/);
 });
 
-test("separates Recent Entries from the homepage", async () => {
+test("does not expose the removed recent page", async () => {
   const response = await render("/zh-TW/recent");
-  assert.equal(response.status, 200);
-  const html = await response.text();
-  assert.match(html, /<h1[^>]*>最近文章<\/h1>/);
-  assert.match(html, /Baseline 如何改變我們判斷瀏覽器支援度的方式/);
+  assert.equal(response.status, 404);
 });
 
 test("server-renders the English homepage", async () => {
@@ -103,6 +107,17 @@ test("server-renders the English homepage", async () => {
   assert.match(html, /Latest posts/);
   assert.match(html, /Search this site/);
   assert.match(html, /href="\/en\/categories"/);
+  assert.match(html, />Main<\/a>/);
+  assert.match(html, />Archives<\/a>/);
+  assert.match(html, />Projects<\/a>/);
+});
+
+test("keeps archive implementation notes out of the page", async () => {
+  const response = await render("/zh-TW/archive");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.doesNotMatch(html, /第一層先用年份快速掃描/);
+  assert.doesNotMatch(html, /比把所有年月塞進側欄更容易維護/);
 });
 
 test("server-renders localized MDX content and the social image", async () => {
