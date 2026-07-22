@@ -76,6 +76,7 @@ export const zhTWDictionary: Dictionary = {
   },
   post: {
     notFound: "找不到文章",
+    category: "文章分類：",
     tags: "文章標籤",
   },
   notFound: {

@@ -76,6 +76,7 @@ export const enDictionary: Dictionary = {
   },
   post: {
     notFound: "Post not found",
+    category: "Category:",
     tags: "Post tags",
   },
   notFound: {

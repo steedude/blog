@@ -162,6 +162,7 @@ test("server-renders localized MDX content and the social image", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /React Compiler 值得現在導入嗎/);
+  assert.match(html, /文章分類：<\/span> <a[^>]*>React<\/a>/);
   assert.match(html, /它試圖解決什麼/);
   assert.match(html, /useMemo/);
   assert.match(html, /data-rehype-pretty-code-figure/);
@@ -177,6 +178,7 @@ test("server-renders localized MDX content and the social image", async () => {
   assert.equal(englishResponse.status, 200);
   const englishHtml = await englishResponse.text();
   assert.match(englishHtml, /Is React Compiler ready to adopt/);
+  assert.match(englishHtml, /Category:<\/span> <a[^>]*>React<\/a>/);
   assert.match(englishHtml, /What problem is it trying to solve/);
   assert.match(englishHtml, /"@type":"BlogPosting"/);
   assert.match(englishHtml, /"@type":"BreadcrumbList"/);

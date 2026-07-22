@@ -87,7 +87,10 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
         ]}
       />
       <header className={`${siteShell} border-y border-b border-dotted border-frame bg-white px-4 pt-6 pb-5 md:border-x md:border-t-0 md:px-8`}>
-        <Link href={withLocale(locale, `/category/${post.categorySlug}`)}>{post.category}</Link>
+        <p className="m-0 text-xs text-muted">
+          <span>{dictionary.post.category}</span>{" "}
+          <Link href={withLocale(locale, `/category/${post.categorySlug}`)}>{post.category}</Link>
+        </p>
         <h1 className="mx-0 mt-2 mb-2 font-serif text-2xl leading-tight md:text-3xl">{post.title}</h1>
         <p className="my-2 font-serif text-base leading-relaxed text-neutral-600">{post.description}</p>
         <div className="flex flex-wrap gap-x-3 text-xs text-muted">

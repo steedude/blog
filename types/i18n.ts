@@ -84,6 +84,7 @@ export type Dictionary = {
   };
   post: {
     notFound: string;
+    category: string;
     tags: string;
   };
   notFound: {
