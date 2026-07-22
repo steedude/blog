@@ -165,6 +165,8 @@ test("server-renders localized MDX content and the social image", async () => {
   assert.match(html, /它試圖解決什麼/);
   assert.match(html, /useMemo/);
   assert.match(html, /data-rehype-pretty-code-figure/);
+  assert.doesNotMatch(html, /md:float-right/);
+  assert.match(html, /<article class="min-w-0 break-words/);
   const postSource = await readFile(
     new URL("../content/posts/react-compiler/zh-TW.mdx", import.meta.url),
     "utf8",

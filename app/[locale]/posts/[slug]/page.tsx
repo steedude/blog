@@ -97,16 +97,16 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
         </div>
       </header>
 
-      <div className={`${siteShell} border-y border-frame bg-white px-4 pt-6 pb-12 md:border-x md:border-t-0 md:px-8`}>
-        <aside className="mb-4 w-auto border border-frame bg-panel p-2 text-xs text-neutral-600 md:float-right md:ml-8 md:w-40">
-          <strong className="block text-neutral-800">{dictionary.post.tags}</strong>
-          <div className="flex flex-wrap gap-x-2 md:block md:space-y-1">
+      <div className={`${siteShell} min-w-0 border-y border-frame bg-white px-4 pt-6 pb-12 md:border-x md:border-t-0 md:px-8`}>
+        <aside className="mb-6 flex flex-wrap items-baseline gap-x-2 border border-frame bg-panel p-2 text-xs text-neutral-600">
+          <strong className="text-neutral-800">{dictionary.post.tags}</strong>
+          <div className="flex min-w-0 flex-wrap gap-x-2">
             {post.tags.map((tag) => (
               <Link href={withLocale(locale, `/tag/${tagToSlug(tag)}`)} key={tag}>#{tag}</Link>
             ))}
           </div>
         </aside>
-        <article className="font-serif text-base leading-loose"><Body /></article>
+        <article className="min-w-0 break-words font-serif text-base leading-loose"><Body /></article>
       </div>
     </main>
   );

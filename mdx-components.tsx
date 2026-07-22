@@ -28,12 +28,12 @@ const defaultComponents: MDXComponents = {
     />
   ),
   figure: ({ className, ...props }: ComponentPropsWithoutRef<"figure">) => (
-    <figure className={mergeClassName("my-6", className)} {...props} />
+    <figure className={mergeClassName("my-6 max-w-full min-w-0", className)} {...props} />
   ),
   pre: ({ className, ...props }: ComponentPropsWithoutRef<"pre">) => (
     <pre
       className={mergeClassName(
-        "overflow-x-auto border border-neutral-400 bg-neutral-100 p-3 font-mono text-xs leading-normal text-black",
+        "max-w-full overflow-x-auto border border-neutral-400 bg-neutral-100 p-3 font-mono text-xs leading-normal text-black",
         className,
       )}
       {...props}
@@ -51,7 +51,7 @@ const defaultComponents: MDXComponents = {
   table: ({ className, ...props }: ComponentPropsWithoutRef<"table">) => (
     <table
       className={mergeClassName(
-        "my-6 block w-full overflow-x-auto border-collapse font-sans text-sm md:table",
+        "my-6 block max-w-full overflow-x-auto border-collapse font-sans text-sm",
         className,
       )}
       {...props}
