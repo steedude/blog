@@ -42,7 +42,7 @@ export default async function TagPage({ params }: { params: LocaleRouteParams<{ 
 
   return (
     <main className={pageMain}>
-      <PageHeading eyebrow="TAG" title={`#${tagName}`} description={formatPlural(locale, dictionary.common.relatedArticleCount, posts.length)} />
+      <PageHeading title={`#${tagName}`} />
       <div>
         {posts.map((post) => (
           <PostCard post={post} locale={locale} dictionary={dictionary} key={post.slug} />

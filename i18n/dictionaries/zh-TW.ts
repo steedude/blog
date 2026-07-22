@@ -13,6 +13,7 @@ export const zhTWDictionary: Dictionary = {
     categories: "分類",
     projects: "作品集",
     tags: "標籤",
+    about: "關於本站",
     links: "友情連結",
   },
   common: {

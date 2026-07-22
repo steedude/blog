@@ -21,6 +21,7 @@ export type Dictionary = {
     categories: string;
     projects: string;
     tags: string;
+    about: string;
     links: string;
   };
   common: {

@@ -59,8 +59,7 @@ export default async function ProjectPage({
           mainEntityOfPage: `${siteConfig.url}${withLocale(locale, `/projects/${project.slug}`)}`,
         }}
       />
-      <p className="m-0 text-xs tracking-wider text-muted">PROJECT / LIVE</p>
-      <h1 className="mt-1 mb-3 font-serif text-3xl">{project.name}</h1>
+      <h1 className="mt-0 mb-3 font-serif text-3xl">{project.name}</h1>
       <p className="max-w-2xl text-base leading-relaxed">{project.summary}</p>
 
       <section className="my-6 border-y border-frame py-4">

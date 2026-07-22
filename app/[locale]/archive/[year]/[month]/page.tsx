@@ -7,7 +7,6 @@ import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
 import { createPageMetadata } from "@/utils/metadata";
-import { formatPlural } from "@/utils/message";
 import { getArchiveGroups } from "@/utils/posts";
 
 export function generateStaticParams() {
@@ -48,11 +47,7 @@ export default async function ArchiveMonthPage({
 
   return (
     <main className={pageMain}>
-      <PageHeading
-        eyebrow="MONTHLY ARCHIVE"
-        title={`${year}.${month.padStart(2, "0")}`}
-        description={formatPlural(locale, dictionary.common.articleCount, posts.length)}
-      />
+      <PageHeading title={`${year}.${month.padStart(2, "0")}`} />
       {posts.length ? (
         <div>
           {posts.map((post) => (

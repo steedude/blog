@@ -13,6 +13,7 @@ export const enDictionary: Dictionary = {
     categories: "Categories",
     projects: "Projects",
     tags: "Tags",
+    about: "About",
     links: "Links",
   },
   common: {

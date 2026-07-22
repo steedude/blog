@@ -42,6 +42,11 @@ async function render(pathname = "/") {
   });
 }
 
+function mainOf(html) {
+  const start = html.indexOf("<main");
+  return html.slice(start, html.indexOf("</main>", start) + 7);
+}
+
 test("redirects the root route to the default locale", async () => {
   const response = await fetch(`http://127.0.0.1:${port}/`, {
     redirect: "manual",
@@ -79,6 +84,7 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /href="\/zh-TW\/tags"/);
   assert.match(html, /href="\/zh-TW\/archive"/);
   assert.match(html, /href="\/zh-TW\/friends"/);
+  assert.match(html, /href="\/zh-TW\/about"/);
   assert.match(html, />首頁<\/a>/);
   assert.match(html, />文章彙整<\/a>/);
   assert.match(html, />作品集<\/a>/);
@@ -87,6 +93,7 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /前端開發者 A/);
   assert.doesNotMatch(html, /友站列表/);
   assert.match(html, /action="\/zh-TW\/search"/);
+  assert.match(html, /class="h-7 min-w-0 flex-1[^"]*" id="home-search"/);
   assert.match(html, /hrefLang="en"/);
   assert.match(html, /hrefLang="x-default"/);
   assert.match(html, /property="og:image"/);
@@ -115,9 +122,39 @@ test("server-renders the English homepage", async () => {
 test("keeps archive implementation notes out of the page", async () => {
   const response = await render("/zh-TW/archive");
   assert.equal(response.status, 200);
-  const html = await response.text();
-  assert.doesNotMatch(html, /第一層先用年份快速掃描/);
-  assert.doesNotMatch(html, /比把所有年月塞進側欄更容易維護/);
+  const main = mainOf(await response.text());
+  assert.doesNotMatch(main, /第一層先用年份快速掃描/);
+  assert.doesNotMatch(main, /比把所有年月塞進側欄更容易維護/);
+  assert.doesNotMatch(main, />ARCHIVE</);
+});
+
+test("renders a real localized about page", async () => {
+  const [chineseResponse, englishResponse] = await Promise.all([
+    render("/zh-TW/about"),
+    render("/en/about"),
+  ]);
+  assert.equal(chineseResponse.status, 200);
+  assert.match(await chineseResponse.text(), /<h1[^>]*>關於本站<\/h1>/);
+  assert.equal(englishResponse.status, 200);
+  assert.match(await englishResponse.text(), /<h1[^>]*>About this site<\/h1>/);
+});
+
+test("shows only localized page titles without heading descriptions", async () => {
+  const pages = [
+    ["/zh-TW/categories", "文章分類", /CATEGORIES|用主題領域閱讀文章/],
+    ["/zh-TW/projects", "作品集", /PROJECTS|實際上線的網站與前端實作/],
+    ["/zh-TW/tags", "所有標籤", /TAGS|標籤可以跨分類描述文章/],
+    ["/zh-TW/friends", "友站連結", /BLOGROLL|推薦持續產出/],
+    ["/zh-TW/search", "搜尋文章", /SEARCH|搜尋本站文章的標題/],
+  ];
+
+  for (const [pathname, title, removedText] of pages) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const main = mainOf(await response.text());
+    assert.match(main, new RegExp(`<h1[^>]*>${title}</h1>`));
+    assert.doesNotMatch(main, removedText);
+  }
 });
 
 test("server-renders localized MDX content and the social image", async () => {

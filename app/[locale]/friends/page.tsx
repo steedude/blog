@@ -20,7 +20,7 @@ export default async function FriendsPage({ params }: { params: LocaleRouteParam
 
   return (
     <main className={pageMain}>
-      <PageHeading eyebrow="BLOGROLL" title={dictionary.friends.title} description={dictionary.friends.description} />
+      <PageHeading title={dictionary.friends.title} />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {friendsByLocale[locale].map((friend) => (
           <a className={directoryCard} href={friend.url} target="_blank" rel="noreferrer" key={friend.name}>

@@ -40,7 +40,7 @@ export default async function CategoryPage({ params }: { params: LocaleRoutePara
 
   return (
     <main className={pageMain}>
-      <PageHeading eyebrow="CATEGORY" title={name} description={formatPlural(locale, dictionary.common.articleCount, posts.length)} />
+      <PageHeading title={name} />
       <div>
         {posts.map((post) => (
           <PostCard post={post} locale={locale} dictionary={dictionary} key={post.slug} />

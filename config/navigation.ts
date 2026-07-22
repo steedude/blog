@@ -11,5 +11,6 @@ export const navigationItems: ReadonlyArray<{
   { key: "categories", path: "/categories" },
   { key: "projects", path: "/projects" },
   { key: "tags", path: "/tags" },
+  { key: "about", path: "/about" },
   { key: "links", path: "/friends" },
 ];

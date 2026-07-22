@@ -27,11 +27,7 @@ export default async function ProjectsPage({ params }: { params: LocaleRoutePara
 
   return (
     <main className={pageMain}>
-      <PageHeading
-        eyebrow="PROJECTS"
-        title={dictionary.projects.title}
-        description={dictionary.projects.description}
-      />
+      <PageHeading title={dictionary.projects.title} />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {getProjects(locale).map((project) => (
           <Link

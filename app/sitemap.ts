@@ -8,6 +8,7 @@ import { getProjects } from "@/utils/projects";
 
 const staticRoutes = [
   "/",
+  "/about",
   "/archive",
   "/categories",
   "/friends",

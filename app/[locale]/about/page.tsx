@@ -1,39 +1,33 @@
 import { PageHeading } from "@/components/PageHeading";
-import { PostSearch } from "@/components/PostSearch";
 import { pageMain } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
 import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
 import { createPageMetadata } from "@/utils/metadata";
-import { getSearchDocuments } from "@/utils/search";
 
 export async function generateMetadata({ params }: { params: LocaleRouteParams }) {
   const { locale: value } = await params;
   const locale = getLocaleOrDefault(value);
   const dictionary = getDictionary(locale);
-  return createPageMetadata(locale, dictionary.search.title, dictionary.search.description, "/search");
+  return createPageMetadata(
+    locale,
+    dictionary.home.aboutTitle,
+    dictionary.home.aboutText,
+    "/about",
+  );
 }
 
-export default async function SearchPage({
-  params,
-  searchParams,
-}: {
-  params: LocaleRouteParams;
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const [{ locale: value }, { q = "" }] = await Promise.all([params, searchParams]);
+export default async function AboutPage({ params }: { params: LocaleRouteParams }) {
+  const { locale: value } = await params;
   const locale = getLocaleOrDefault(value);
   const dictionary = getDictionary(locale);
 
   return (
     <main className={pageMain}>
-      <PageHeading title={dictionary.search.title} />
-      <PostSearch
-        locale={locale}
-        dictionary={dictionary}
-        documents={getSearchDocuments(locale)}
-        initialQuery={q}
-      />
+      <PageHeading title={dictionary.home.aboutTitle} />
+      <p className="max-w-2xl font-serif text-base leading-loose">
+        {dictionary.home.aboutText}
+      </p>
     </main>
   );
 }

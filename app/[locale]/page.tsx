@@ -60,7 +60,7 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
             <h2 className={sidebarHeading}>{dictionary.home.aboutTitle}</h2>
             <p className="m-0">{dictionary.home.aboutText}</p>
             <p className="mx-0 mt-2 mb-0">
-              <Link href={withLocale(locale, "/friends")}>{dictionary.home.aboutTitle}</Link>
+              <Link href={withLocale(locale, "/about")}>{dictionary.home.aboutTitle}</Link>
             </p>
           </section>
 
@@ -68,8 +68,8 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
             <h2 className={sidebarHeading}>{dictionary.home.searchTitle}</h2>
             <form action={withLocale(locale, "/search")} className="flex gap-1 px-0 py-0.5">
               <label className="sr-only" htmlFor="home-search">{dictionary.home.searchLabel}</label>
-              <input className="h-7 min-w-0 w-full border border-neutral-400 bg-white" id="home-search" name="q" size={16} />
-              <button className={retroButton} type="submit">{dictionary.home.searchButton}</button>
+              <input className="h-7 min-w-0 flex-1 border border-neutral-400 bg-white" id="home-search" name="q" size={16} />
+              <button className={`${retroButton} shrink-0`} type="submit">{dictionary.home.searchButton}</button>
             </form>
           </section>
 

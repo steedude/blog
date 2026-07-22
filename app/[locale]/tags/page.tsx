@@ -22,7 +22,7 @@ export default async function TagsPage({ params }: { params: LocaleRouteParams }
 
   return (
     <main className={pageMain}>
-      <PageHeading eyebrow="TAGS" title={dictionary.tags.title} description={dictionary.tags.description} />
+      <PageHeading title={dictionary.tags.title} />
       <div className="flex flex-wrap gap-x-4 gap-y-2 leading-loose">
         {getTags(locale).map((tag) => (
           <Link href={withLocale(locale, `/tag/${tag.slug}`)} key={tag.slug}>

@@ -13,7 +13,7 @@ export default function NotFoundPage() {
 
   return (
     <main className={pageMain}>
-      <p className="m-0 text-xs tracking-wider text-muted">404 NOT FOUND</p>
+      <p className="m-0 text-xs text-muted">404</p>
       <h1 className="font-serif text-3xl">{dictionary.notFound.title}</h1>
       <p>{dictionary.notFound.description}</p>
       <Link href={withLocale(locale)}>{dictionary.notFound.backHome}</Link>
