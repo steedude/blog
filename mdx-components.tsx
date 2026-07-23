@@ -33,7 +33,7 @@ const defaultComponents: MDXComponents = {
   pre: ({ className, ...props }: ComponentPropsWithoutRef<"pre">) => (
     <pre
       className={mergeClassName(
-        "max-w-full overflow-x-auto border border-neutral-400 bg-neutral-100 p-3 font-mono text-xs leading-normal text-black",
+        "max-w-full overscroll-x-contain overflow-x-auto border border-neutral-400 bg-neutral-100 px-2 py-3 font-mono text-xs leading-normal text-black sm:p-3",
         className,
       )}
       {...props}
@@ -49,13 +49,15 @@ const defaultComponents: MDXComponents = {
     />
   ),
   table: ({ className, ...props }: ComponentPropsWithoutRef<"table">) => (
-    <table
-      className={mergeClassName(
-        "my-6 block max-w-full overflow-x-auto border-collapse font-sans text-sm",
-        className,
-      )}
-      {...props}
-    />
+    <div className="my-6 max-w-full overscroll-x-contain overflow-x-auto">
+      <table
+        className={mergeClassName(
+          "w-full min-w-lg border-collapse font-sans text-sm",
+          className,
+        )}
+        {...props}
+      />
+    </div>
   ),
   th: ({ className, ...props }: ComponentPropsWithoutRef<"th">) => (
     <th

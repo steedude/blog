@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { PostCard } from "@/components/PostCard";
 import { SiteNavigation } from "@/components/SiteNavigation";
 import { friendsByLocale } from "@/config/friends";
@@ -13,6 +14,33 @@ import { getArchiveGroups, getPosts } from "@/utils/posts";
 const sidebarSection = "mb-3 border border-frame bg-white/35 px-2 pt-0 pb-2 text-sm";
 const sidebarHeading = "-mx-2 mt-0 mb-2 border-b border-frame bg-sidebar-bar px-2 py-1 text-base font-bold tracking-normal text-black";
 const sidebarList = "m-0 list-disc py-0 pr-0 pl-5 text-sm";
+
+function CollapsibleSidebarSection({
+  title,
+  action,
+  children,
+}: {
+  title: string;
+  action?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <section className={sidebarSection}>
+      <details className="group">
+        <summary className={`${sidebarHeading} cursor-pointer md:hidden`}>{title}</summary>
+        <div className="relative hidden group-open:block md:block">
+          <h2 className={`${sidebarHeading} hidden md:block`}>{title}</h2>
+          {action && (
+            <div className="mb-2 text-right text-xs md:absolute md:top-1 md:right-0 md:mb-0">
+              {action}
+            </div>
+          )}
+          {children}
+        </div>
+      </details>
+    </section>
+  );
+}
 
 export default async function Home({ params }: { params: LocaleRouteParams }) {
   const { locale: localeParam } = await params;
@@ -35,8 +63,8 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
 
   return (
     <main className={`${siteShell} border-y border-frame bg-paper/92 md:border-x md:border-t-0`}>
-      <div className="grid grid-cols-1 items-start md:grid-cols-3">
-        <section className="min-w-0 p-4 md:col-span-2 md:px-3 md:pt-3 md:pb-0" aria-labelledby="latest-posts">
+      <div className="grid grid-cols-1 items-start md:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
+        <section className="min-w-0 p-4 md:px-3 md:pt-3 md:pb-0" aria-labelledby="latest-posts">
           <SiteNavigation
             locale={locale}
             dictionary={dictionary}
@@ -73,8 +101,7 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
             </form>
           </section>
 
-          <section className={sidebarSection}>
-            <h2 className={sidebarHeading}>{dictionary.home.recentTitle}</h2>
+          <CollapsibleSidebarSection title={dictionary.home.recentTitle}>
             <ul className={sidebarList}>
               {recentPosts.map((post) => (
                 <li className="my-1 leading-snug" key={post.slug}>
@@ -82,15 +109,16 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
                 </li>
               ))}
             </ul>
-          </section>
+          </CollapsibleSidebarSection>
 
-          <section className={sidebarSection}>
-            <div className="relative">
-              <h2 className={sidebarHeading}>{dictionary.home.monthlyTitle}</h2>
-              <Link className="absolute top-1 right-0 text-xs" href={withLocale(locale, "/archive")}>
+          <CollapsibleSidebarSection
+            title={dictionary.home.monthlyTitle}
+            action={
+              <Link href={withLocale(locale, "/archive")}>
                 {dictionary.common.all}
               </Link>
-            </div>
+            }
+          >
             <ul className={sidebarList}>
               {archives.map((archive) => (
                 <li className="my-1 leading-snug" key={`${archive.year}-${archive.month}`}>
@@ -103,10 +131,9 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
                 </li>
               ))}
             </ul>
-          </section>
+          </CollapsibleSidebarSection>
 
-          <section className={sidebarSection}>
-            <h2 className={sidebarHeading}>{dictionary.home.friendsTitle}</h2>
+          <CollapsibleSidebarSection title={dictionary.home.friendsTitle}>
             <ul className={sidebarList}>
               {friendsByLocale[locale].map((friend) => (
                 <li className="my-1" key={friend.url}>
@@ -114,7 +141,7 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
                 </li>
               ))}
             </ul>
-          </section>
+          </CollapsibleSidebarSection>
 
           <section className={`${sidebarSection} flex items-center gap-2 pt-2`}>
             <strong className="bg-xml px-1 py-px text-xs text-white">XML</strong>

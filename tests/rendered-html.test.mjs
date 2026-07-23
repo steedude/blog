@@ -94,6 +94,9 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.doesNotMatch(html, /友站列表/);
   assert.match(html, /action="\/zh-TW\/search"/);
   assert.match(html, /class="h-7 min-w-0 flex-1[^"]*" id="home-search"/);
+  assert.match(html, /md:grid-cols-\[minmax\(0,1fr\)_minmax\(14rem,18rem\)\]/);
+  assert.equal((html.match(/<details class="group">/g) ?? []).length, 3);
+  assert.match(html, /flex flex-wrap items-center justify-center/);
   assert.match(html, /hrefLang="en"/);
   assert.match(html, /hrefLang="x-default"/);
   assert.match(html, /property="og:image"/);
@@ -167,7 +170,8 @@ test("server-renders localized MDX content and the social image", async () => {
   assert.match(html, /useMemo/);
   assert.match(html, /data-rehype-pretty-code-figure/);
   assert.doesNotMatch(html, /md:float-right/);
-  assert.match(html, /<article class="min-w-0 break-words/);
+  assert.match(html, /<article class="mx-auto min-w-0 max-w-3xl break-words/);
+  assert.match(html, /overscroll-x-contain overflow-x-auto/);
   const postSource = await readFile(
     new URL("../content/posts/react-compiler/zh-TW.mdx", import.meta.url),
     "utf8",
@@ -272,5 +276,6 @@ test("renders GitHub Flavored Markdown tables", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /<table\b/);
+  assert.match(html, /<table class="w-full min-w-lg/);
   assert.match(html, /Container Queries/);
 });
