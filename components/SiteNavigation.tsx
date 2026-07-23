@@ -21,21 +21,21 @@ export function SiteNavigation({
       className={`flex flex-wrap items-center justify-center gap-x-2 gap-y-1 ${className}`}
       aria-label={ariaLabel}
     >
-      <span className="hidden sm:inline">«</span>
+      <span className="hidden md:inline">«</span>
       {navigationItems.map((item, index) => (
         <span className="inline-flex items-center gap-x-2" key={item.key}>
           <Link
-            className="inline-flex min-h-8 items-center py-1 sm:min-h-0 sm:py-0"
+            className="inline-flex min-h-8 items-center py-1 md:min-h-0 md:py-0"
             href={withLocale(locale, item.path)}
           >
             {dictionary.navigation[item.key]}
           </Link>
           {index < navigationItems.length - 1 && (
-            <span className="hidden sm:inline" aria-hidden="true">|</span>
+            <span className="hidden md:inline" aria-hidden="true">|</span>
           )}
         </span>
       ))}
-      <span className="hidden sm:inline">»</span>
+      <span className="hidden md:inline">»</span>
     </nav>
   );
 }

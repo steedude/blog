@@ -95,8 +95,10 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /action="\/zh-TW\/search"/);
   assert.match(html, /class="h-7 min-w-0 flex-1[^"]*" id="home-search"/);
   assert.match(html, /md:grid-cols-\[minmax\(0,1fr\)_minmax\(14rem,18rem\)\]/);
-  assert.equal((html.match(/<details class="group">/g) ?? []).length, 3);
+  assert.equal((html.match(/<details class="group md:hidden">/g) ?? []).length, 3);
+  assert.equal((html.match(/class="relative hidden md:block"/g) ?? []).length, 3);
   assert.match(html, /flex flex-wrap items-center justify-center/);
+  assert.doesNotMatch(html, /Posted by 前端觀察站/);
   assert.match(html, /hrefLang="en"/);
   assert.match(html, /hrefLang="x-default"/);
   assert.match(html, /property="og:image"/);
@@ -172,6 +174,7 @@ test("server-renders localized MDX content and the social image", async () => {
   assert.doesNotMatch(html, /md:float-right/);
   assert.match(html, /<article class="mx-auto min-w-0 max-w-3xl break-words/);
   assert.match(html, /overscroll-x-contain overflow-x-auto/);
+  assert.ok(html.indexOf("文章標籤") > html.indexOf("</article>"));
   const postSource = await readFile(
     new URL("../content/posts/react-compiler/zh-TW.mdx", import.meta.url),
     "utf8",

@@ -1,18 +1,15 @@
 import Link from "next/link";
-import type { Dictionary, Locale } from "@/types/i18n";
+import type { Locale } from "@/types/i18n";
 import type { Post } from "@/types/post";
 import { formatLongDate } from "@/utils/date";
-import { interpolate } from "@/utils/message";
 import { withLocale } from "@/utils/path";
 
 export function PostCard({
   post,
   locale,
-  dictionary,
 }: {
   post: Post;
   locale: Locale;
-  dictionary: Dictionary;
 }) {
   const postPath = withLocale(locale, `/posts/${post.slug}`);
 
@@ -29,9 +26,6 @@ export function PostCard({
           <p className="mx-0 mt-0 mb-3" key={paragraph}>{paragraph}</p>
         ))}
       </div>
-      <p className="mx-0 mt-0 mb-1 text-xs text-muted">
-        {dictionary.common.postedBy} {interpolate(dictionary.common.inCategory, { category: post.category })}
-      </p>
     </article>
   );
 }

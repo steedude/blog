@@ -33,7 +33,6 @@ export async function generateMetadata({ params }: { params: LocaleRouteParams<{
 export default async function TagPage({ params }: { params: LocaleRouteParams<{ slug: string }> }) {
   const { locale: value, slug } = await params;
   const locale = getLocaleOrDefault(value);
-  const dictionary = getDictionary(locale);
   const posts = getPosts(locale).filter((post) =>
     post.tags.some((tag) => tagToSlug(tag) === slug.toLowerCase()),
   );
@@ -45,7 +44,7 @@ export default async function TagPage({ params }: { params: LocaleRouteParams<{ 
       <PageHeading title={`#${tagName}`} />
       <div>
         {posts.map((post) => (
-          <PostCard post={post} locale={locale} dictionary={dictionary} key={post.slug} />
+          <PostCard post={post} locale={locale} key={post.slug} />
         ))}
       </div>
     </main>

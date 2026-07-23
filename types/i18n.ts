@@ -28,11 +28,8 @@ export type Dictionary = {
     all: string;
     articleCount: PluralMessage;
     relatedArticleCount: PluralMessage;
-    postedBy: string;
-    inCategory: string;
     published: string;
     updated: string;
-    poweredBy: string;
     noPosts: string;
   };
   home: {

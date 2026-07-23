@@ -101,7 +101,8 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
       </header>
 
       <div className={`${siteShell} min-w-0 border-y border-frame bg-white px-4 pt-6 pb-12 md:border-x md:border-t-0 md:px-8`}>
-        <aside className="mx-auto mb-6 flex max-w-3xl flex-wrap items-baseline gap-x-2 border border-frame bg-panel p-2 text-xs text-neutral-600">
+        <article className="mx-auto min-w-0 max-w-3xl break-words font-serif text-base leading-loose"><Body /></article>
+        <aside className="mx-auto mt-8 flex max-w-3xl flex-wrap items-baseline gap-x-2 border border-frame bg-panel p-2 text-xs text-neutral-600">
           <strong className="text-neutral-800">{dictionary.post.tags}</strong>
           <div className="flex min-w-0 flex-wrap gap-x-2">
             {post.tags.map((tag) => (
@@ -109,7 +110,6 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
             ))}
           </div>
         </aside>
-        <article className="mx-auto min-w-0 max-w-3xl break-words font-serif text-base leading-loose"><Body /></article>
       </div>
     </main>
   );

@@ -20,11 +20,8 @@ export const zhTWDictionary: Dictionary = {
     all: "全部",
     articleCount: { one: "共 {count} 篇文章", other: "共 {count} 篇文章" },
     relatedArticleCount: { one: "共 {count} 篇相關文章", other: "共 {count} 篇相關文章" },
-    postedBy: "Posted by 前端觀察站",
-    inCategory: "in {category}",
     published: "發布",
     updated: "更新",
-    poweredBy: "Powered by",
     noPosts: "目前沒有文章。",
   },
   home: {

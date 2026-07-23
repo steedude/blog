@@ -33,7 +33,6 @@ export async function generateMetadata({ params }: { params: LocaleRouteParams<{
 export default async function CategoryPage({ params }: { params: LocaleRouteParams<{ slug: string }> }) {
   const { locale: value, slug } = await params;
   const locale = getLocaleOrDefault(value);
-  const dictionary = getDictionary(locale);
   const posts = getPosts(locale).filter((post) => post.categorySlug === slug);
   if (!posts.length) notFound();
   const name = posts[0]?.category ?? slug;
@@ -43,7 +42,7 @@ export default async function CategoryPage({ params }: { params: LocaleRoutePara
       <PageHeading title={name} />
       <div>
         {posts.map((post) => (
-          <PostCard post={post} locale={locale} dictionary={dictionary} key={post.slug} />
+          <PostCard post={post} locale={locale} key={post.slug} />
         ))}
       </div>
     </main>

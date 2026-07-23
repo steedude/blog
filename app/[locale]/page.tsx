@@ -26,18 +26,26 @@ function CollapsibleSidebarSection({
 }) {
   return (
     <section className={sidebarSection}>
-      <details className="group">
-        <summary className={`${sidebarHeading} cursor-pointer md:hidden`}>{title}</summary>
-        <div className="relative hidden group-open:block md:block">
-          <h2 className={`${sidebarHeading} hidden md:block`}>{title}</h2>
+      <details className="group md:hidden">
+        <summary className={`${sidebarHeading} cursor-pointer`}>{title}</summary>
+        <div className="relative">
           {action && (
-            <div className="mb-2 text-right text-xs md:absolute md:top-1 md:right-0 md:mb-0">
+            <div className="mb-2 text-right text-xs">
               {action}
             </div>
           )}
           {children}
         </div>
       </details>
+      <div className="relative hidden md:block">
+        <h2 className={sidebarHeading}>{title}</h2>
+        {action && (
+          <div className="absolute top-1 right-0 text-xs">
+            {action}
+          </div>
+        )}
+        {children}
+      </div>
     </section>
   );
 }
@@ -55,8 +63,7 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
     <footer className="px-2 pt-px pb-3 text-center text-sm">
       <SiteNavigation locale={locale} dictionary={dictionary} className="mx-0 mt-2 mb-0" />
       <p className="mx-0 mt-2 mb-0 text-xs">
-        {dictionary.common.poweredBy}{" "}
-        <Link href="https://www.movabletype.org/">Movable Type 2.2</Link>
+        Powered by Next.js · Content in MDX
       </p>
     </footer>
   );
@@ -68,13 +75,13 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
           <SiteNavigation
             locale={locale}
             dictionary={dictionary}
-            className="mx-0 mt-0 mb-3 px-0.5 pt-0 pb-2 text-sm sm:text-base"
+            className="mx-0 mt-0 mb-3 px-0.5 pt-0 pb-2 text-sm md:text-base"
             ariaLabel={dictionary.home.navigationLabel}
           />
           <h1 id="latest-posts" className="sr-only">{dictionary.home.latestPosts}</h1>
           <div>
             {homePosts.map((post) => (
-              <PostCard post={post} locale={locale} dictionary={dictionary} key={post.slug} />
+              <PostCard post={post} locale={locale} key={post.slug} />
             ))}
           </div>
           <div className="hidden md:block">{homeFooter}</div>

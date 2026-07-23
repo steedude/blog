@@ -51,7 +51,7 @@ export default async function ArchiveMonthPage({
       {posts.length ? (
         <div>
           {posts.map((post) => (
-            <PostCard post={post} locale={locale} dictionary={dictionary} key={post.slug} />
+            <PostCard post={post} locale={locale} key={post.slug} />
           ))}
         </div>
       ) : (

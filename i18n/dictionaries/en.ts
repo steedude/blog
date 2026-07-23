@@ -20,11 +20,8 @@ export const enDictionary: Dictionary = {
     all: "All",
     articleCount: { one: "{count} article", other: "{count} articles" },
     relatedArticleCount: { one: "{count} related article", other: "{count} related articles" },
-    postedBy: "Posted by Frontend Observer",
-    inCategory: "in {category}",
     published: "Published",
     updated: "Updated",
-    poweredBy: "Powered by",
     noPosts: "There are no posts yet.",
   },
   home: {

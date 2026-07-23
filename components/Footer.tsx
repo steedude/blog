@@ -14,7 +14,7 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
     <footer className="pb-6 text-center text-xs text-neutral-800">
       <div className={`${siteShell} border-y border-frame bg-paper/85 p-3 md:border-x md:border-t-0`}>
         <SiteNavigation locale={locale} dictionary={dictionary} className="my-0.5" />
-        <p className="my-0.5">© 2026 {dictionary.site.name} · Inspired by Movable Type 2.2 · Powered by Next.js</p>
+        <p className="my-0.5">Powered by Next.js · Content in MDX</p>
       </div>
     </footer>
   );
