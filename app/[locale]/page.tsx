@@ -15,6 +15,21 @@ const sidebarSection = "mb-3 border border-frame bg-white/35 px-2 pt-0 pb-2 text
 const sidebarHeading = "-mx-2 mt-0 mb-2 border-b border-frame bg-sidebar-bar px-2 py-1 text-base font-bold tracking-normal text-black";
 const sidebarList = "m-0 list-disc py-0 pr-0 pl-5 text-sm";
 
+function SidebarSectionContent({
+  action,
+  children,
+}: {
+  action?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <>
+      {children}
+      {action && <div className="mt-2 text-right text-xs">{action}</div>}
+    </>
+  );
+}
+
 function CollapsibleSidebarSection({
   title,
   action,
@@ -28,23 +43,13 @@ function CollapsibleSidebarSection({
     <section className={sidebarSection}>
       <details className="group md:hidden">
         <summary className={`${sidebarHeading} cursor-pointer`}>{title}</summary>
-        <div className="relative">
-          {action && (
-            <div className="mb-2 text-right text-xs">
-              {action}
-            </div>
-          )}
-          {children}
+        <div>
+          <SidebarSectionContent action={action}>{children}</SidebarSectionContent>
         </div>
       </details>
-      <div className="relative hidden md:block">
+      <div className="hidden md:block">
         <h2 className={sidebarHeading}>{title}</h2>
-        {action && (
-          <div className="absolute top-1 right-0 text-xs">
-            {action}
-          </div>
-        )}
-        {children}
+        <SidebarSectionContent action={action}>{children}</SidebarSectionContent>
       </div>
     </section>
   );
@@ -122,7 +127,7 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
             title={dictionary.home.monthlyTitle}
             action={
               <Link href={withLocale(locale, "/archive")}>
-                {dictionary.common.all}
+                {dictionary.home.viewFullArchive} →
               </Link>
             }
           >

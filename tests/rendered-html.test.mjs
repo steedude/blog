@@ -83,6 +83,7 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.doesNotMatch(html, /href="\/zh-TW\/recent"/);
   assert.match(html, /href="\/zh-TW\/tags"/);
   assert.match(html, /href="\/zh-TW\/archive"/);
+  assert.match(html, /查看完整文章彙整/);
   assert.match(html, /href="\/zh-TW\/friends"/);
   assert.match(html, /href="\/zh-TW\/about"/);
   assert.match(html, />首頁<\/a>/);
@@ -96,7 +97,7 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /class="h-7 min-w-0 flex-1[^"]*" id="home-search"/);
   assert.match(html, /md:grid-cols-\[minmax\(0,1fr\)_minmax\(14rem,18rem\)\]/);
   assert.equal((html.match(/<details class="group md:hidden">/g) ?? []).length, 3);
-  assert.equal((html.match(/class="relative hidden md:block"/g) ?? []).length, 3);
+  assert.equal((html.match(/class="hidden md:block"><h2/g) ?? []).length, 3);
   assert.match(html, /flex flex-wrap items-center justify-center/);
   assert.doesNotMatch(html, /Posted by 前端觀察站/);
   assert.match(html, /hrefLang="en"/);
@@ -118,6 +119,7 @@ test("server-renders the English homepage", async () => {
   assert.match(html, /<title>Frontend Observer<\/title>/);
   assert.match(html, /Latest posts/);
   assert.match(html, /Search this site/);
+  assert.match(html, /View full archive/);
   assert.match(html, /href="\/en\/categories"/);
   assert.match(html, />Main<\/a>/);
   assert.match(html, />Archives<\/a>/);

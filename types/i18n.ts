@@ -25,7 +25,6 @@ export type Dictionary = {
     links: string;
   };
   common: {
-    all: string;
     articleCount: PluralMessage;
     relatedArticleCount: PluralMessage;
     published: string;
@@ -43,6 +42,7 @@ export type Dictionary = {
     searchButton: string;
     recentTitle: string;
     monthlyTitle: string;
+    viewFullArchive: string;
     friendsTitle: string;
     syndicate: string;
   };

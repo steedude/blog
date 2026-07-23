@@ -17,7 +17,6 @@ export const enDictionary: Dictionary = {
     links: "Links",
   },
   common: {
-    all: "All",
     articleCount: { one: "{count} article", other: "{count} articles" },
     relatedArticleCount: { one: "{count} related article", other: "{count} related articles" },
     published: "Published",
@@ -35,6 +34,7 @@ export const enDictionary: Dictionary = {
     searchButton: "Search",
     recentTitle: "Recent posts",
     monthlyTitle: "Monthly archives",
+    viewFullArchive: "View full archive",
     friendsTitle: "Blogroll",
     syndicate: "Syndicate this site",
   },

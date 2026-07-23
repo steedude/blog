@@ -17,7 +17,6 @@ export const zhTWDictionary: Dictionary = {
     links: "友情連結",
   },
   common: {
-    all: "全部",
     articleCount: { one: "共 {count} 篇文章", other: "共 {count} 篇文章" },
     relatedArticleCount: { one: "共 {count} 篇相關文章", other: "共 {count} 篇相關文章" },
     published: "發布",
@@ -35,6 +34,7 @@ export const zhTWDictionary: Dictionary = {
     searchButton: "搜尋",
     recentTitle: "最近文章",
     monthlyTitle: "每月彙整",
+    viewFullArchive: "查看完整文章彙整",
     friendsTitle: "友情連結",
     syndicate: "Syndicate this site",
   },
