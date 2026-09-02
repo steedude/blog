@@ -84,6 +84,8 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, /href="\/zh-TW\/tags"/);
   assert.match(html, /href="\/zh-TW\/archive"/);
   assert.match(html, /查看完整文章彙整/);
+  assert.match(html, /XML \/ RSS/);
+  assert.match(html, /訂閱本站文章/);
   assert.match(html, /href="\/zh-TW\/friends"/);
   assert.match(html, /href="\/zh-TW\/about"/);
   assert.match(html, />首頁<\/a>/);
@@ -120,6 +122,7 @@ test("server-renders the English homepage", async () => {
   assert.match(html, /Latest posts/);
   assert.match(html, /Search this site/);
   assert.match(html, /View full archive/);
+  assert.match(html, /Subscribe via RSS/);
   assert.match(html, /href="\/en\/categories"/);
   assert.match(html, />Main<\/a>/);
   assert.match(html, />Archives<\/a>/);

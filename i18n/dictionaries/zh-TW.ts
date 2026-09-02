@@ -36,7 +36,7 @@ export const zhTWDictionary: Dictionary = {
     monthlyTitle: "每月彙整",
     viewFullArchive: "查看完整文章彙整",
     friendsTitle: "友情連結",
-    syndicate: "Syndicate this site",
+    syndicate: "訂閱本站文章",
   },
   archive: {
     title: "文章時間軸",

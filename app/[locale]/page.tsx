@@ -156,7 +156,7 @@ export default async function Home({ params }: { params: LocaleRouteParams }) {
           </CollapsibleSidebarSection>
 
           <section className={`${sidebarSection} flex items-center gap-2 pt-2`}>
-            <strong className="bg-xml px-1 py-px text-xs text-white">XML</strong>
+            <strong className="bg-xml px-1 py-px text-xs text-white">XML / RSS</strong>
             <Link href={withLocale(locale, "/rss.xml")}>{dictionary.home.syndicate}</Link>
           </section>
         </aside>
