@@ -37,6 +37,9 @@ export const enDictionary: Dictionary = {
     viewFullArchive: "View full archive",
     friendsTitle: "Blogroll",
     syndicate: "Subscribe via RSS",
+    previousPage: "Previous",
+    nextPage: "Next",
+    pageCount: "Page {current} of {total}",
   },
   archive: {
     title: "Post archive",

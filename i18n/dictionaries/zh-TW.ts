@@ -37,6 +37,9 @@ export const zhTWDictionary: Dictionary = {
     viewFullArchive: "查看完整文章彙整",
     friendsTitle: "友情連結",
     syndicate: "訂閱本站文章",
+    previousPage: "上一頁",
+    nextPage: "下一頁",
+    pageCount: "第 {current} / {total} 頁",
   },
   archive: {
     title: "文章時間軸",

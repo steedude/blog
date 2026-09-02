@@ -3,6 +3,7 @@ import { i18nConfig } from "@/config/i18n";
 import { siteConfig } from "@/config/site";
 import type { Locale } from "@/types/i18n";
 import { withLocale } from "@/utils/path";
+import { pageCount } from "@/utils/pagination";
 import { getArchiveGroups, getCategories, getPosts, getTags } from "@/utils/posts";
 import { getProjects } from "@/utils/projects";
 
@@ -39,6 +40,7 @@ function alternates(path: string, locales: readonly Locale[] = i18nConfig.locale
 
 function localizedSitemap(locale: Locale): MetadataRoute.Sitemap {
   const posts = getPosts(locale);
+  const totalPages = pageCount(posts.length, siteConfig.postsPerPage);
   const latestUpdate = posts.reduce(
     (latest, post) => {
       const date = new Date(post.updatedAt ?? post.publishedAt);
@@ -55,6 +57,19 @@ function localizedSitemap(locale: Locale): MetadataRoute.Sitemap {
       priority: path === "/" ? 1 : 0.6,
       alternates: alternates(path),
     })),
+    ...Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => index + 2).map((page) => {
+      const path = `/page/${page}`;
+      const availableLocales = i18nConfig.locales.filter(
+        (item) => pageCount(getPosts(item).length, siteConfig.postsPerPage) >= page,
+      );
+      return {
+        url: `${siteConfig.url}${withLocale(locale, path)}`,
+        lastModified: latestUpdate,
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+        alternates: alternates(path, availableLocales),
+      };
+    }),
     ...posts.map((post) => ({
       url: `${siteConfig.url}${withLocale(locale, `/posts/${post.slug}`)}`,
       lastModified: new Date(post.updatedAt ?? post.publishedAt),

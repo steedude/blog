@@ -10,4 +10,5 @@ export const siteConfig = {
   socialImage: "/og-movable-type.png",
   socialImageWidth: 1448,
   socialImageHeight: 1086,
+  postsPerPage: 5,
 } as const;

@@ -129,6 +129,36 @@ test("server-renders the English homepage", async () => {
   assert.match(html, />Projects<\/a>/);
 });
 
+test("paginates the homepage with five posts per page", async () => {
+  const [firstResponse, secondResponse, missingResponse] = await Promise.all([
+    render("/zh-TW"),
+    render("/zh-TW/page/2"),
+    render("/zh-TW/page/99"),
+  ]);
+  assert.equal(firstResponse.status, 200);
+  assert.equal(secondResponse.status, 200);
+  assert.equal(missingResponse.status, 404);
+
+  const first = mainOf(await firstResponse.text());
+  const secondHtml = await secondResponse.text();
+  const second = mainOf(secondHtml);
+  assert.equal((first.match(/<article class="mb-4/g) ?? []).length, 5);
+  assert.equal((second.match(/<article class="mb-4/g) ?? []).length, 5);
+  assert.match(first, /href="\/zh-TW\/page\/2"/);
+  assert.match(first, /第 1 \/ 8 頁/);
+  assert.doesNotMatch(first, /mx-0 mt-2 mb-0 md:hidden/);
+  assert.doesNotMatch(first, /<footer[^>]*>\s*<nav/);
+  assert.doesNotMatch(second, /<footer[^>]*>\s*<nav/);
+  assert.match(second, /href="\/zh-TW"/);
+  assert.match(second, /aria-current="page">2<\/strong>/);
+  assert.match(secondHtml, /rel="canonical" href="[^"]*\/zh-TW\/page\/2"/);
+  const secondPostList = second.slice(
+    second.indexOf('<h1 id="latest-posts"'),
+    second.indexOf('<nav class="my-5'),
+  );
+  assert.doesNotMatch(secondPostList, /Agent Plugins 1\.0 的跨工具封裝方式/);
+});
+
 test("keeps archive implementation notes out of the page", async () => {
   const response = await render("/zh-TW/archive");
   assert.equal(response.status, 200);
@@ -249,6 +279,7 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   assert.equal(sitemapResponse.status, 200);
   const sitemap = await sitemapResponse.text();
   assert.match(sitemap, /\/zh-TW\/posts\/react-compiler/);
+  assert.match(sitemap, /\/zh-TW\/page\/2/);
   assert.match(sitemap, /\/en\/posts\/react-compiler/);
   assert.match(sitemap, /\/en\/projects\/3854335-web-tool/);
   assert.match(sitemap, /hreflang="x-default"/);

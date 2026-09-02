@@ -8,7 +8,11 @@ import { withLocale } from "@/utils/path";
 
 export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const pathname = usePathname();
-  if (pathname === withLocale(locale)) return null;
+  const homePath = withLocale(locale);
+  const pageSegment = `${homePath}/page/`;
+  const isPaginatedHome = pathname.startsWith(pageSegment)
+    && /^\d+$/.test(pathname.slice(pageSegment.length));
+  if (pathname === homePath || isPaginatedHome) return null;
 
   return (
     <footer className="pb-6 text-center text-xs text-neutral-800">

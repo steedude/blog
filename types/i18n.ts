@@ -45,6 +45,9 @@ export type Dictionary = {
     viewFullArchive: string;
     friendsTitle: string;
     syndicate: string;
+    previousPage: string;
+    nextPage: string;
+    pageCount: string;
   };
   archive: {
     title: string;
