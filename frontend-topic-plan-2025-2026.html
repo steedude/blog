@@ -116,7 +116,6 @@
       }
 
       .draft p { margin: 10px 0; color: var(--text); }
-      .draft .source { margin-top: 16px; color: var(--muted); font-size: 14px; }
 
       .draft h4 {
         margin: 24px 0 8px;
@@ -262,7 +261,6 @@
           <p>Tailwind 看到這些變數後，會產生 <code>bg-brand</code>、<code>text-brand</code> 和 <code>font-display</code>。好處不只少一個設定檔，這些 token 也能直接用 <code>var(--color-brand)</code> 交給一般 CSS 或動畫套件。</p>
           <p><code>@theme</code> 和普通的 <code>:root</code> 也不完全一樣。放在 <code>:root</code> 的變數只是一般 CSS custom property，不會自動產生 Tailwind utility；放在 <code>@theme</code> 的 token 才會參與 Tailwind 的 class 生成。單純給既有 CSS 使用的變數，仍然放在 <code>:root</code> 就好，不需要把所有數值都塞進 theme。</p>
           <p>有個小地方要釐清：<code>@theme</code> 長得像 CSS，但它仍是 Tailwind 的建置指令，不是瀏覽器原生功能。以後若拿掉 Tailwind，這部分還是要改。CSS-first 比較像是讓設定回到 CSS 的語境，不代表框架依賴消失了。</p>
-          <p class="source">參考：<a href="https://tailwindcss.com/blog/tailwindcss-v4">Tailwind CSS v4.0</a></p>
         </article>
 
         <article class="draft" id="cra-afterlife">
@@ -277,7 +275,6 @@
           <p>Next.js 則先幫你決定不少事情：目錄就是路由、頁面可以在伺服器產生、Metadata 和圖片處理也有官方做法。這對公開網站很方便，但若只是公司內部後台，導入整套伺服器模型未必比較省事。</p>
           <p>SSR 也不只是 SEO。伺服器先送出 HTML，慢一點的手機通常能更早看到內容；但伺服器要多做工作，部署和快取也會複雜一些。若頁面登入後才看得到，搜尋引擎根本不是重點，CSR 往往已經很夠用。</p>
           <p>所以我會把問題改成「這個專案只缺一個新的 CRA，還是已經需要完整框架？」前者選 Vite 很合理；後者才需要看 Next.js、React Router framework mode 等方案。</p>
-          <p class="source">參考：<a href="https://react.dev/blog/2025/02/14/sunsetting-create-react-app">Sunsetting Create React App</a></p>
         </article>
 
         <article class="draft" id="bybit-safe-ui">
@@ -301,7 +298,6 @@
           <p>區塊鏈交易對一般人很不友善，常見內容可能是合約地址、函式 selector 和一串編碼參數。前端會把它翻成人看得懂的「轉出多少 ETH」或「新增哪個 owner」。這層轉譯很有價值，但也因此取得了很大的信任：翻錯、漏掉或被竄改，使用者就可能在不知情下授權另一件事。</p>
           <p>比較安全的設計會盡量做到 what you see is what you sign。硬體裝置至少顯示最重要的目標地址和動作；另一套獨立系統重新解析交易；高風險操作還可以加上延遲，讓異常交易不是簽完立刻生效。</p>
           <p>這些作法聽起來比一般前端需求麻煩，原因也很直接：普通表單顯示錯誤還能重填，鏈上資產送錯通常沒有客服可以復原。UI 的風險要跟它控制的價值一起提高，而不是所有確認視窗都用同一個規格。</p>
-          <p class="source">參考：<a href="https://www.bybit.com/en/learn/this-week-in-bybit/bybit-security-incident-timeline">Bybit Security Incident Timeline</a></p>
         </article>
 
         <article class="draft" id="typescript-native-port">
@@ -315,7 +311,6 @@
           <p>TypeScript 編譯器本身也是用 TypeScript 寫的，這對維護和貢獻很友善，但大型程式的型別分析會吃掉不少 CPU 和記憶體。原生程式可以更直接地使用多核心與管理記憶體，改善空間比較大。</p>
           <p>Go 也不是因為它在排行榜上比較熱門。官方看中的是容易產生跨平台執行檔、平行處理成熟，而且程式結構能和原本的 compiler 保持接近。比起改用一套完全不同思路的語言，移植時比較容易核對行為。</p>
           <p>當然，「官方展示快十倍」不等於每個專案都會快十倍。小專案原本只等一秒，差距可能沒那麼有感；真正受益的會是大型 monorepo、CI 型別檢查，以及編輯器需要反覆分析專案的情況。這篇比較適合談它為什麼值得重寫，不必替官方重做效能報告。</p>
-          <p class="source">參考：<a href="https://devblogs.microsoft.com/typescript/typescript-native-port/">A 10x Faster TypeScript</a></p>
         </article>
 
         <article class="draft" id="custom-select">
@@ -332,7 +327,6 @@ select::picker(select) {
 }</code></pre>
           <p>兩個 selector 都要設定：第一個是頁面上的按鈕，第二個是展開後的選項面板。進入 base-select 模式後，picker 會進到 top layer，也能搭配 Anchor Positioning。以前下拉選單常遇到被 <code>overflow: hidden</code> 切掉的問題，瀏覽器現在連這部分都一起處理。</p>
           <p>不過它還不是「所有瀏覽器都放心用」的功能，手機上原生選單的操作感也可能比較符合使用者習慣。我的看法是先保留語意正確的 select，把客製樣式當成額外加分。就算新 CSS 沒生效，表單還是能正常選，這才是原生元件最大的優勢。</p>
-          <p class="source">參考：<a href="https://developer.chrome.com/blog/a-customizable-select">The select element can now be customized with CSS</a></p>
         </article>
 
         <article class="draft" id="angular-20">
@@ -351,7 +345,6 @@ select::picker(select) {
           <h4>我的看法</h4>
           <p>我覺得 Angular 20 最重要的不是某個新語法，而是幾項長期工程終於能進入正式專案。尤其 incremental hydration 和 route-level rendering，讓 Angular 在大型後台之外，也更認真處理內容網站的首次載入體驗。</p>
           <p>如果是既有專案，我不會為了追新就一次改完所有 component。先讓新功能使用 Signals、確認第三方套件能否在 zoneless 下正常工作，再逐段搬移比較合理。Angular 的強項本來就是穩定和一致，升級方式也應該保留這個優點。</p>
-          <p class="source">參考：<a href="https://angular.dev/roadmap">Angular Roadmap</a></p>
         </article>
 
         <article class="draft" id="chrome-io-2025">
@@ -369,7 +362,6 @@ select::picker(select) {
           </ul>
           <p>內建 AI API 當然很吸睛，不過目前仍有模型下載、裝置能力和跨瀏覽器支援等限制。相較之下，前面幾個 HTML、CSS 更新比較可能先進入日常專案。新功能很多時，挑出近期真的用得到的，通常比逐條翻譯發表內容更有幫助。</p>
           <p>這幾年瀏覽器的更新有點像把常見 UI pattern 收回平台層。原生方案通常能一起處理鍵盤、焦點和效能，但規格成熟需要時間。前端不必追每一個新 API，知道有哪些問題正在被瀏覽器接手，下一次遇到需求時想得起來就很有用了。</p>
-          <p class="source">參考：<a href="https://developer.chrome.com/blog/web-at-io25">The web at Google I/O 2025</a></p>
         </article>
 
         <article class="draft" id="node-24">
@@ -390,7 +382,6 @@ select::picker(select) {
           <p>接著要讓本機、CI 和 production 使用同一條版本線。可以用 <code>.nvmrc</code>、Volta 或 <code>package.json</code> 的 <code>engines</code> 留下規則，同時固定 package manager。很多「我這裡明明可以跑」不是程式差異，而是環境根本不同。</p>
           <h4>我的看法</h4>
           <p>我不覺得前端專案需要在 Node 24 發布第一天就升級。剛發布時它仍是 Current，適合工具作者和新專案提早驗證；產品等到 LTS、hosting 與主要框架都跟上再升，通常更省事。Node 更新對前端最大的提醒，是 runtime 也該像 dependencies 一樣有固定的維護節奏。</p>
-          <p class="source">參考：<a href="https://nodejs.org/en/blog/release/v24.0.0">Node.js v24.0.0</a></p>
         </article>
 
         <article class="draft" id="vite-7-baseline">
@@ -403,7 +394,6 @@ select::picker(select) {
           <h4>Vite 7 實際選了哪些版本？</h4>
           <p>這個 major release 對應到 Chrome 107、Edge 107、Firefox 104 和 Safari 16。以後 Vite major 更新時，這份清單也會跟著當時的 Widely Available 範圍往前移。好處是預設值有一個共同規則，而不是由維護者憑感覺挑版本。</p>
           <p>但 Baseline 不是專案的產品需求。銀行內部系統和只給新手機使用的活動頁，理所當然會有不同支援範圍。Vite 提供的是合理預設，最後還是要看網站流量、公司規範和功能能不能漸進增強。</p>
-          <p class="source">參考：<a href="https://vite.dev/blog/announcing-vite7">Vite 7.0 is out</a></p>
         </article>
 
         <article class="draft" id="safari-26-web-platform">
@@ -423,7 +413,6 @@ select::picker(select) {
           <h4>我的看法</h4>
           <p>我最看好 Anchor Positioning。因為它不是只讓展示頁更炫，而是能少掉一段每個元件庫都重寫過的定位邏輯。Scroll-driven Animations 也很好用，但更適合當漸進增強：沒有動畫時，內容和操作仍應正常。</p>
           <p>使用這類新功能時，我會優先用 <code>@supports</code> 做功能偵測，而不是猜瀏覽器名稱。新專案可以先用在不影響核心流程的地方；舊元件則不用因為 Safari 終於支援就連夜重寫，等產品的最低版本跟上再逐步簡化即可。</p>
-          <p class="source">參考：<a href="https://webkit.org/blog/17333/webkit-features-in-safari-26-0/">WebKit Features in Safari 26.0</a></p>
         </article>
 
         <article class="draft" id="nuxt-4">
@@ -444,7 +433,6 @@ select::picker(select) {
           <h4>我的看法</h4>
           <p>我喜歡這種「整理房間式」的 major release。新目錄和 TypeScript 邊界不會出現在產品截圖裡，卻能減少專案做大後的混亂。缺點是它看起來不夠戲劇化，很容易被誤認成只有改資料夾。</p>
           <p>對既有專案來說，最穩的做法是把框架升級、module 相容與目錄搬移拆開處理。一次只改一類問題，真的出錯時才知道要往哪裡找。</p>
-          <p class="source">參考：<a href="https://nuxt.com/blog/v4">Announcing Nuxt 4.0</a></p>
         </article>
 
         <article class="draft" id="tailwind-plus-vanilla-js">
@@ -456,7 +444,6 @@ select::picker(select) {
           <p>當然，複雜應用程式仍會從框架的狀態管理和元件模型得到很多幫助。重點不是回到「全部手刻」，而是不要因為一個小互動，就先把整個網站綁在某個框架上。</p>
           <p>這對後端模板、傳統 CMS 或像 Astro 這種以 HTML 為主的網站特別實用。需要互動的地方只加少量 JavaScript，其餘頁面不用為了幾個元件一起載入框架 runtime。</p>
           <p>不過 Vanilla JavaScript 並不自動等於更輕。若元件各自帶一份重複邏輯，最後仍可能變大。真正值得看的是輸出多少程式、互動是否好維護，而不是看到「無框架」三個字就先判定比較好。</p>
-          <p class="source">參考：<a href="https://tailwindcss.com/blog">Tailwind CSS Blog</a></p>
         </article>
 
         <article class="draft" id="nx-s1ngularity">
@@ -481,7 +468,6 @@ select::picker(select) {
           <p>lockfile 會記住實際安裝版本和來源，因此同一個 commit 在不同環境比較不會抓到不同 dependency。搭配 <code>npm ci</code> 或 pnpm 的 frozen lockfile，CI 也不會擅自重新解版本。這能擋住「昨天和今天安裝結果不一樣」，卻擋不住我們把惡意版本正式更新進 lockfile。</p>
           <p>所以 dependency update 仍然需要 review。不是要人工讀完數千個套件，而是把突然換維護者、發布頻率異常、加入 install script 或多出陌生 dependency 的更新當成較高風險。自動更新工具可以開 PR，但不必設定成看到綠燈就全部自動 merge。</p>
           <p>另外，前端專案常把 npm token、雲端金鑰和部署憑證放在同一套 CI。即使惡意套件真的執行了，只要 job 拿不到 production secret，損害仍會小很多。供應鏈安全最後談的其實是權限分層，不只是挑一個比較安全的 package manager。</p>
-          <p class="source">參考：<a href="https://nx.dev/blog/s1ngularity-postmortem">S1ngularity postmortem</a></p>
         </article>
 
         <article class="draft" id="nuxt-ui-v4">
@@ -493,7 +479,6 @@ select::picker(select) {
           <p>多數專案不用急著二選一。可以先用 Nuxt UI 處理基礎互動，再透過 theme 和包裝元件建立自己的視覺規則，把真正有品牌特色的部分留給自己。</p>
           <p>如果團隊只有一兩位前端，從零維護 date picker、combobox 和表單錯誤狀態，通常不是最划算的投資。反過來說，若產品有大量特殊互動或嚴格品牌規範，現成元件改到最後也可能比自己做更辛苦。這篇不用選邊站，把人力和產品差異放進來看就夠了。</p>
           <p>還有一個常被低估的成本是升級。自建元件要自己修瀏覽器和無障礙問題；採用套件則要跟著 breaking changes。決定前除了看元件數量，也可以看看 changelog、維護頻率，以及團隊能不能接受它的 API。</p>
-          <p class="source">參考：<a href="https://nuxt.com/blog/nuxt-ui-v4">Nuxt UI v4</a></p>
         </article>
 
         <article class="draft" id="react-foundation">
@@ -507,7 +492,6 @@ select::picker(select) {
           <p>這兩件事很容易混在一起。基金會比較像負責專案的公共事務和資源，技術治理才決定 API 與 release。把兩者分開，可以降低出錢最多的公司直接控制每個技術決策的疑慮。</p>
           <p>React 背後有 Meta 的長期投入，這原本就是它能持續發展的重要原因。成立基金會不是否定公司支持，而是替愈來愈大的生態多放一個支點。最後有沒有成功，還是要看會議紀錄、決策方式和社群參與能不能真的公開。</p>
           <p>類似的治理問題在 Node.js、Linux 等大型開源專案都出現過。當技術成為產業基礎，誰能決定方向、商標由誰管理、全職維護者的錢從哪裡來，就不再只是社群八卦。基金會至少提供一個能被公開討論的制度。</p>
-          <p class="source">參考：<a href="https://react.dev/blog/2025/10/07/introducing-the-react-foundation">Introducing the React Foundation</a></p>
         </article>
 
         <article class="draft" id="angular-21">
@@ -520,7 +504,6 @@ select::picker(select) {
           <p>其中我覺得 MCP Server 很能代表 2025 年的變化。過去文件只要讓人搜尋得到就好，現在還要考慮 agent 能不能拿到正確版本、辨識推薦寫法。它不會取代文件，但會讓「文件的讀者」多一種。</p>
           <p>Signal Forms 則比較貼近日常。表單一直是 Angular 很完整、同時也容易顯得複雜的部分，新方案把狀態往 Signals 靠攏。舊 Reactive Forms 不會因此立刻消失，大型專案也不適合只因為新 API 就全面改寫。</p>
           <p>Angular Aria 的方向也滿務實：官方提供互動和無障礙行為，視覺交給產品自己處理。這和整套有固定外觀的元件庫不同，對已有 Design System 的團隊會比較好接。</p>
-          <p class="source">參考：<a href="https://angular.dev/events/v21">Angular v21</a></p>
         </article>
 
         <article class="draft" id="npm-classic-token">
@@ -534,7 +517,6 @@ select::picker(select) {
           <p>傳統 CI 發布時，要先把 npm token 存進 GitHub Actions secret。Trusted Publishing 改由 GitHub Actions 提供短時間的身分證明，npm 再確認是哪個 repository、哪個 workflow 正在發布。流程跑完後，不會留下一把能被重複使用好幾個月的鑰匙。</p>
           <p>它仍然不是萬靈丹。workflow 本身被改掉、維護者帳號被接管，一樣可能出事。但攻擊者比較難只靠偷到一段 token 就在別處發布，這已經切掉一種很常見的攻擊方式。</p>
           <p>套件作者遷移時可以先確認 CI provider 是否被 npm 支援，再限制允許發布的 repository、workflow 與 environment。權限描述得愈精確，其他分支或 fork 就愈難冒充正式發布流程。</p>
-          <p class="source">參考：<a href="https://github.blog/changelog/2025-11-05-npm-security-update-classic-token-creation-disabled-and-granular-token-changes/">npm security update</a></p>
         </article>
 
         <article class="draft" id="react2shell">
@@ -558,7 +540,6 @@ select::picker(select) {
           <p>App Router 專案裡，一個元件看起來仍是 JSX，實際上可能在 server 讀資料庫、取環境變數或呼叫內部服務。檔名沒有從 <code>.tsx</code> 變成傳統後端語言，權限卻已經完全不同。code review 如果只看畫面是否正確，很容易漏掉伺服器邊界。</p>
           <p>團隊可以把 server-only module、輸入驗證和權限檢查訂成明確規則。Server Component 能直接取資料，不代表每次取資料都自動安全；使用者是否能看這筆資料，仍要在真正存取資料的位置確認，不能只相信頁面路由已經擋住。</p>
           <p>React2Shell 是極端案例，但它讓這個變化變得很具體：現代前端 framework 既然能幫我們做後端的事，就也會遇到後端等級的漏洞、更新壓力和責任。</p>
-          <p class="source">參考：<a href="https://github.com/advisories/GHSA-9qr9-h5gf-34mp">React Server Components advisory</a></p>
         </article>
 
         <article class="draft" id="astro-6-beta">
@@ -571,7 +552,6 @@ select::picker(select) {
           <p>以部落格來說，多數頁面其實只有文章和少量互動。Astro 的想法是先把這些頁面當 HTML 處理，需要搜尋框、留言或互動圖表時，再局部載入元件。和整站以 React 為中心的做法相比，它少了一些全端整合，也少了一些不必要的瀏覽器 JavaScript。</p>
           <p>Beta 畢竟還不是穩定版，適合拿來了解方向，不一定要立刻把正式網站搬過去。尤其 adapter、CMS 或 Markdown plugin 是否跟得上，往往比 release note 上的新功能更實際。</p>
           <p>Live Content 特別值得內容團隊留意。傳統靜態網站更新文章後要重新 build，內容愈多等待愈久；若資料能在請求時取得，就能縮短發布時間。代價是頁面不再完全靜態，快取和內容來源的穩定性也要一起考慮。</p>
-          <p class="source">參考：<a href="https://astro.build/blog/astro-6-beta/">Astro 6 Beta</a></p>
         </article>
 
         <article class="draft" id="matt-pocock-skills">
@@ -585,7 +565,6 @@ select::picker(select) {
           <p>以除錯 skill 為例，內容通常不會告訴 AI 某個 bug 的答案，而是要求先重現、縮小範圍、確認假設，再動手修改。這些本來就是工程師的基本功，只是 agent 很容易急著改程式，所以把流程寫下來仍然有用。</p>
           <p>Skill 也不適合寫得太包山包海。如果一份檔案同時規定架構、測試、命名、部署和回覆語氣，agent 每次都得讀一大篇，很難知道這次真正重要的是什麼。小而明確、需要時才載入，通常比較接近它原本的用途。</p>
           <p>至於要不要直接採用別人的 skill，我會把它當參考範本。裡面的做法未必符合每個團隊，像 TDD、commit 習慣和工具都可能不同。看懂後留下適合自己的部分，比原封不動複製更有意義。</p>
-          <p class="source">參考：<a href="https://github.com/mattpocock/skills">Skills for Real Engineers</a></p>
         </article>
 
         <article class="draft" id="vite-8-rolldown">
@@ -598,7 +577,6 @@ select::picker(select) {
           <h4>為什麼 Vite 想把工具整合起來？</h4>
           <p>一套工具負責開發、另一套負責正式建置，最大的問題不只速度，而是行為可能不完全相同。某個 import 在 dev 正常，build 才出錯，查起來特別煩。Rolldown 的長期目標之一，就是讓兩邊共用更多解析和轉換邏輯。</p>
           <p>Rust 帶來的效能很吸引人，但我覺得相容性反而更值得關注。Vite 之所以普及，靠的是大量 Rollup/Vite plugin。新核心如果只能跑很快，卻讓常用 plugin 失效，就不算真的接班。因此 Vite 8 的故事不只是「Rust 比 JavaScript 快」，而是如何在換引擎時保住既有生態。</p>
-          <p class="source">參考：<a href="https://vite.dev/blog">Vite Blog</a></p>
         </article>
 
         <article class="draft" id="typescript-6">
@@ -619,7 +597,6 @@ select::picker(select) {
           <p>官方提供 <code>@typescript/typescript6</code> 相容套件，讓專案在過渡期保留舊 API。也就是說，有些團隊可能先用 TypeScript 7 的 CLI 做全專案檢查，編輯器或 framework tooling 暫時仍留在 6；這不是升級失敗，而是原生移植規模太大，需要一段交接期。</p>
           <h4>我的看法</h4>
           <p>我會把 TypeScript 6 當成搬家前整理雜物，而不是一版無聊的過場。先讓專案在 6 上不靠 <code>ignoreDeprecations</code> 也能乾淨編譯，再確認 editor、lint 和 framework plugin 對 7 的支援，會比只看官方速度數字就直接升級安心很多。</p>
-          <p class="source">參考：<a href="https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/">TypeScript 6.0</a>、<a href="https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/">TypeScript 7.0</a></p>
         </article>
 
         <article class="draft" id="chrome-147">
@@ -631,7 +608,6 @@ select::picker(select) {
           <p>動畫仍然應該是輔助，而不是讓使用者等它播完。也要記得尊重 <code>prefers-reduced-motion</code>，讓不適合大量動態效果的人可以減少動畫。</p>
           <p>這項 API 有趣的地方是它保留了正常 DOM 更新方式。我們還是照原本流程改 class、排序陣列或切換狀態，瀏覽器負責補上前後畫面的過渡。比起為動畫另外維護一份位置狀態，程式會比較接近日常 UI 邏輯。</p>
           <p>目前使用時仍要把沒有 View Transitions 的情況當成正常路徑。功能不支援時，DOM 應該照樣完成更新，只是少了動畫。這種 enhancement 很適合逐步導入，不需要為了舊瀏覽器準備另一整套互動。</p>
-          <p class="source">參考：<a href="https://developer.chrome.com/blog/new-in-chrome-147">New in Chrome 147</a></p>
         </article>
 
         <article class="draft" id="webmcp">
@@ -650,7 +626,6 @@ select::picker(select) {
           <h4>一個簡單情境</h4>
           <p>假設旅遊網站有日期選擇器、房型卡片和好幾層 modal。畫面操作型 agent 得先理解 DOM，再模擬點擊。若網站提供 <code>searchRooms</code> 工具，參數明確寫著入住日、退房日和人數，agent 可以直接送出結構化資料，網站也能回傳固定格式的房型。</p>
           <p>但到了 <code>bookRoom</code> 就不能照樣全自動。搜尋是低風險讀取，訂房會產生費用，應該讓使用者看到最後金額並再次確認。WebMCP 真正需要設計的，不只工具 schema，還包括哪些步驟可以代勞、哪些一定要把控制權交回人。</p>
-          <p class="source">參考：<a href="https://developer.chrome.com/blog/chrome-at-io26">Chrome at Google I/O 2026</a></p>
         </article>
 
         <article class="draft" id="astro-7">
@@ -662,7 +637,6 @@ select::picker(select) {
           <p>如果只是幾十篇文章的小部落格，不必因為 Rust 就立刻搬家。Astro 7 比較值得關注的是，它仍然把內容網站當成主要使用情境，而不是急著把所有全端功能都塞進來。</p>
           <p>MDX 使用者可能會更在意相容性：語法能不能照舊、remark/rehype plugin 是否正常、錯誤訊息看不看得懂。底層換語言對使用者應該愈無感愈好，速度只是結果，遷移時不必改文章才是真正舒服的升級。</p>
           <p>如果網站主要內容是 Markdown，升級前備份和固定 plugin 版本就很重要。編譯器換掉後，最可能出現差異的是少見語法或 plugin 串接，不是一般標題和段落。先看官方 migration note，再處理個別例外即可。</p>
-          <p class="source">參考：<a href="https://astro.build/blog/astro-7/">Astro 7</a></p>
         </article>
 
         <article class="draft" id="angular-22">
@@ -693,7 +667,6 @@ select::picker(select) {
           <h4>我的看法</h4>
           <p>我覺得 Angular 這三版最重要的改變，是「框架很重」這句評價需要重新拆開看。Angular 還是完整、規範多，但 Signals 和 zoneless 正在拿掉一部分過去難以觀察的魔法；完整不一定等於老舊。</p>
           <p>對企業專案來說，漸進更新比突然再來一次 Angular 2 式斷層友善得多。代價是新舊 API 會共存一段時間，團隊要寫清楚新 component 採用哪套方式，也不要因為 Signal Forms 穩定就立刻重寫所有可正常運作的表單。新預設先用在新功能，舊程式按維護需求搬，會比較符合 Angular 原本的穩健路線。</p>
-          <p class="source">參考：<a href="https://angular.dev/roadmap">Angular Roadmap</a>、<a href="https://angular.dev/events/v21">Angular v21</a>、<a href="https://angular.dev/reference/releases">Angular releases</a></p>
         </article>
 
         <article class="draft" id="typescript-7">
@@ -707,7 +680,6 @@ select::picker(select) {
           <p>大家看到原生重寫，第一個想到的通常是速度；但 TypeScript 每天被數百萬個專案使用，真正困難的是讓同一段程式得到相同型別結果。若新 compiler 快很多，卻到處多報或漏報錯誤，升級成本反而更高。</p>
           <p>因此一般開發者可以先關注三件事：既有 <code>tsconfig</code> 是否支援、編輯器 extension 是否切到新語言服務，以及常用 build tool 是否已整合。等這些周邊跟上，再享受原生工具帶來的改善就好，不需要為了第一時間升級而冒險。</p>
           <p>這也讓 2025 年的移植公告和 2026 年正式版形成一組文章：前一篇談為什麼重寫，這一篇談重寫完成後使用者會遇到什麼。引用速度數據時標明是官方資料，把重點放在升級和相容性，內容就已經足夠完整。</p>
-          <p class="source">參考：<a href="https://devblogs.microsoft.com/typescript/">TypeScript Blog</a></p>
         </article>
 
         <article class="draft" id="nuxt-4-5">
@@ -719,7 +691,6 @@ select::picker(select) {
           <p>SSR streaming 則讓伺服器不必等整頁內容都準備好才回傳，可以先送出已完成的部分。它對資料來源較多的頁面比較有感，也仍要配合 loading 狀態，才不會讓內容出現得很零碎。</p>
           <p>這三項更新放在同一版有點像 Nuxt 同時處理「怎麼打包」和「怎麼送頁面」。前者多半由框架替我們決定，後者會直接影響 UI。使用 streaming 時，設計 loading skeleton、避免 layout shift，反而比記住底層名詞更貼近日常工作。</p>
           <p>如果網站頁面很單純、資料一次就能拿完，streaming 不一定帶來明顯好處。它比較適合有快慢不同資料來源的頁面，先讓導覽和主要內容出現，再補上等待較久的區塊。</p>
-          <p class="source">參考：<a href="https://nuxt.com/blog/v4-5">Nuxt 4.5</a></p>
         </article>
 
         <article class="draft" id="coldcard-rng">
@@ -739,7 +710,6 @@ select::picker(select) {
           <p>一般 PRNG 只要產生的數字看起來分散，就能拿來做遊戲或模擬；密碼學使用的 CSPRNG 還要求外部的人無法從已知輸出推回內部狀態，也很難預測下一個結果。錢包 seed 屬於後者，因為「看起來亂」遠遠不夠。</p>
           <p>有些裝置會混合多個亂數來源，甚至讓使用者加入擲骰子結果。這能減少單一來源故障的風險，但流程也必須正確：加入的資料怎麼混合、使用者輸入不足時怎麼辦、硬體 RNG 故障時是否直接停止，都需要清楚設計。</p>
           <p>額外 passphrase 也常被提到。它可以替 seed 再加一層秘密，但前提是內容夠強、備份方式可靠。若只是加一個常見單字，或最後自己忘記，它就不會變成理想中的保護。安全措施永遠伴隨操作成本，這點在自託管錢包尤其明顯。</p>
-          <p class="source">參考：<a href="https://coldcard.com/security/status">Current COLDCARD Security Status</a></p>
         </article>
 
         <article class="draft" id="agent-plugins-1">
@@ -759,7 +729,6 @@ select::picker(select) {
           <p>這種分層其實和前端很熟悉：元件的使用說明、真正呼叫的 API，以及最後發布到 npm 的 package，本來就是不同東西。以前每家 agent 各自定格式，現在才開始嘗試把外層包裝統一。</p>
           <p>跨工具不代表百分之百相容。某個 plugin 可以包含只給特定 client 使用的功能，企業也得考慮 MCP server 能碰哪些資料。標準解決的是「怎麼裝、怎麼找到內容」，不是替每一個工具承諾完全相同的行為。</p>
           <p>我覺得這比又多一個 AI 功能更值得記錄。當 plugin 能被分享和集中管理後，coding agent 才比較像一個可維護的開發環境，而不是每位工程師自己堆出來的一盒 prompt。</p>
-          <p class="source">參考：<a href="https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vscode-copilot-cli-and-the-copilot-app/">Agent Plugins 1.0</a></p>
         </article>
       </section>
     </main>

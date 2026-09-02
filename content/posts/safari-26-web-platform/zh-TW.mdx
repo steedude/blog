@@ -11,7 +11,6 @@ export const metadata = {
     "CSS",
     "Web API"
   ],
-  "readingTime": "4 分鐘"
 }
 
 前端圈談到新的 CSS 功能，最後常會有人補一句：「可是 Safari 支援了嗎？」這句話雖然有點像梗，卻真的會決定一個功能只能放在 demo，還是能放心用進產品。
@@ -37,7 +36,3 @@ Safari 26 一次補進大量 WebKit 功能，清單長到不太適合逐條翻�
 我最看好 Anchor Positioning。因為它不是只讓展示頁更炫，而是能少掉一段每個元件庫都重寫過的定位邏輯。Scroll-driven Animations 也很好用，但更適合當漸進增強：沒有動畫時，內容和操作仍應正常。
 
 使用這類新功能時，我會優先用 `@supports` 做功能偵測，而不是猜瀏覽器名稱。新專案可以先用在不影響核心流程的地方；舊元件則不用因為 Safari 終於支援就連夜重寫，等產品的最低版本跟上再逐步簡化即可。
-
----
-
-參考：[WebKit Features in Safari 26.0](https://webkit.org/blog/17333/webkit-features-in-safari-26-0/)

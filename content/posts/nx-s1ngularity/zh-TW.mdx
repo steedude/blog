@@ -11,7 +11,6 @@ export const metadata = {
     "Supply Chain",
     "Nx"
   ],
-  "readingTime": "5 分鐘"
 }
 
 `npm install` 太日常了，日常到我們很少把它想成「允許一批陌生程式在自己的電腦上執行」。S1ngularity 事件最值得記住的，也許就是這個平常被藏起來的信任關係。
@@ -47,7 +46,3 @@ lockfile 會記住實際安裝版本和來源，因此同一個 commit 在不同
 所以 dependency update 仍然需要 review。不是要人工讀完數千個套件，而是把突然換維護者、發布頻率異常、加入 install script 或多出陌生 dependency 的更新當成較高風險。自動更新工具可以開 PR，但不必設定成看到綠燈就全部自動 merge。
 
 另外，前端專案常把 npm token、雲端金鑰和部署憑證放在同一套 CI。即使惡意套件真的執行了，只要 job 拿不到 production secret，損害仍會小很多。供應鏈安全最後談的其實是權限分層，不只是挑一個比較安全的 package manager。
-
----
-
-參考：[S1ngularity postmortem](https://nx.dev/blog/s1ngularity-postmortem)

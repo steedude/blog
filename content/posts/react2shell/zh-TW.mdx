@@ -11,7 +11,6 @@ export const metadata = {
     "Security",
     "RCE"
   ],
-  "readingTime": "5 分鐘"
 }
 
 React 漏洞嚴重到能在伺服器執行程式，幾年前聽起來可能有點奇怪：React 不是拿來畫 UI 的嗎？Server Components 把一部分工作搬到伺服器後，這條界線已經沒有以前那麼清楚。
@@ -45,7 +44,3 @@ App Router 專案裡，一個元件看起來仍是 JSX，實際上可能在 serv
 團隊可以把 server-only module、輸入驗證和權限檢查訂成明確規則。Server Component 能直接取資料，不代表每次取資料都自動安全；使用者是否能看這筆資料，仍要在真正存取資料的位置確認，不能只相信頁面路由已經擋住。
 
 React2Shell 是極端案例，但它讓這個變化變得很具體：現代前端 framework 既然能幫我們做後端的事，就也會遇到後端等級的漏洞、更新壓力和責任。
-
----
-
-參考：[React Server Components advisory](https://github.com/advisories/GHSA-9qr9-h5gf-34mp)

@@ -11,7 +11,6 @@ export const metadata = {
     "Trusted Publishing",
     "Supply Chain"
   ],
-  "readingTime": "4 分鐘"
 }
 
 對多數前端來說，發布套件只是偶爾才做一次的事，token 也很容易變成設好之後就不再碰的東西。偏偏這種長期放著、權限又大的憑證，正是供應鏈攻擊最喜歡的入口。
@@ -29,7 +28,3 @@ npm 停止建立 classic token，是把發布流程推向短效 token、2FA 和 
 它仍然不是萬靈丹。workflow 本身被改掉、維護者帳號被接管，一樣可能出事。但攻擊者比較難只靠偷到一段 token 就在別處發布，這已經切掉一種很常見的攻擊方式。
 
 套件作者遷移時可以先確認 CI provider 是否被 npm 支援，再限制允許發布的 repository、workflow 與 environment。權限描述得愈精確，其他分支或 fork 就愈難冒充正式發布流程。
-
----
-
-參考：[npm security update](https://github.blog/changelog/2025-11-05-npm-security-update-classic-token-creation-disabled-and-granular-token-changes/)

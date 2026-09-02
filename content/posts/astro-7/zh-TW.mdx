@@ -11,7 +11,6 @@ export const metadata = {
     "MDX",
     "Vite"
   ],
-  "readingTime": "4 分鐘"
 }
 
 Astro 6 才剛讓內容網站的工作流程更完整，7 又把焦點拉回編譯器。版本走得快不代表每次都要追著搬家，這次比較值得問的是：底層換成 Rust，寫 MDX 的人究竟會感受到什麼？
@@ -25,7 +24,3 @@ Astro 7 把更多編譯工作交給 Rust，包括內容網站常用的 Markdown 
 MDX 使用者可能會更在意相容性：語法能不能照舊、remark/rehype plugin 是否正常、錯誤訊息看不看得懂。底層換語言對使用者應該愈無感愈好，速度只是結果，遷移時不必改文章才是真正舒服的升級。
 
 如果網站主要內容是 Markdown，升級前備份和固定 plugin 版本就很重要。編譯器換掉後，最可能出現差異的是少見語法或 plugin 串接，不是一般標題和段落。先看官方 migration note，再處理個別例外即可。
-
----
-
-參考：[Astro 7](https://astro.build/blog/astro-7/)

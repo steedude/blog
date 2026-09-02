@@ -12,7 +12,6 @@ export const metadata = {
     "SSR",
     "Hydration"
   ],
-  "readingTime": "4 分鐘"
 }
 
 Angular 是一個很吃「舊印象」的框架。有人最後一次認真看它，可能還停在滿畫面的 NgModule、decorator 和 Zone.js；但如果從 Angular 20 再看一次，會發現不少熟悉的負擔已經開始鬆動。
@@ -36,7 +35,3 @@ Signals 不等於要把 RxJS 全部刪掉。元件狀態、computed value 很適
 我覺得 Angular 20 最重要的不是某個新語法，而是幾項長期工程終於能進入正式專案。尤其 incremental hydration 和 route-level rendering，讓 Angular 在大型後台之外，也更認真處理內容網站的首次載入體驗。
 
 如果是既有專案，我不會為了追新就一次改完所有 component。先讓新功能使用 Signals、確認第三方套件能否在 zoneless 下正常工作，再逐段搬移比較合理。Angular 的強項本來就是穩定和一致，升級方式也應該保留這個優點。
-
----
-
-參考：[Angular Roadmap](https://angular.dev/roadmap)

@@ -11,7 +11,6 @@ export const metadata = {
     "CSS",
     "Animation"
   ],
-  "readingTime": "4 分鐘"
 }
 
 動畫 API 常給人一種「展示頁很好看，正式專案卻不知道放哪裡」的感覺。區域 View Transitions 比較務實，因為它處理的是列表排序、卡片切換這些本來就會出現在產品裡的小變化。
@@ -25,7 +24,3 @@ View Transitions 最早比較像整個頁面切換時使用的動畫。Chrome 14
 這項 API 有趣的地方是它保留了正常 DOM 更新方式。我們還是照原本流程改 class、排序陣列或切換狀態，瀏覽器負責補上前後畫面的過渡。比起為動畫另外維護一份位置狀態，程式會比較接近日常 UI 邏輯。
 
 目前使用時仍要把沒有 View Transitions 的情況當成正常路徑。功能不支援時，DOM 應該照樣完成更新，只是少了動畫。這種 enhancement 很適合逐步導入，不需要為了舊瀏覽器準備另一整套互動。
-
----
-
-參考：[New in Chrome 147](https://developer.chrome.com/blog/new-in-chrome-147)

@@ -11,7 +11,6 @@ export const metadata = {
     "Select",
     "Accessibility"
   ],
-  "readingTime": "4 分鐘"
 }
 
 前端有些問題很奇妙：大家明明已經解過無數次，下一個專案還是得再解一次。想把原生下拉選單改得好看一點，就是其中一個很典型的例子。
@@ -34,7 +33,3 @@ select::picker(select) {
 兩個 selector 都要設定：第一個是頁面上的按鈕，第二個是展開後的選項面板。進入 base-select 模式後，picker 會進到 top layer，也能搭配 Anchor Positioning。以前下拉選單常遇到被 `overflow: hidden` 切掉的問題，瀏覽器現在連這部分都一起處理。
 
 不過它還不是「所有瀏覽器都放心用」的功能，手機上原生選單的操作感也可能比較符合使用者習慣。我的看法是先保留語意正確的 select，把客製樣式當成額外加分。就算新 CSS 沒生效，表單還是能正常選，這才是原生元件最大的優勢。
-
----
-
-參考：[The select element can now be customized with CSS](https://developer.chrome.com/blog/a-customizable-select)

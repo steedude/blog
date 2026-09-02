@@ -11,7 +11,6 @@ export const metadata = {
     "Web API",
     "Security"
   ],
-  "readingTime": "4 分鐘"
 }
 
 AI agent 開始逛網站之後，前端多了一種很奇怪的使用者：它看得到畫面，卻不一定真的理解按鈕背後會發生什麼。WebMCP 想處理的，就是怎麼讓網站把可操作的能力講得更明白。
@@ -39,7 +38,3 @@ WebMCP 還在很早的階段，我不會把它說成下一個所有網站必裝�
 假設旅遊網站有日期選擇器、房型卡片和好幾層 modal。畫面操作型 agent 得先理解 DOM，再模擬點擊。若網站提供 `searchRooms` 工具，參數明確寫著入住日、退房日和人數，agent 可以直接送出結構化資料，網站也能回傳固定格式的房型。
 
 但到了 `bookRoom` 就不能照樣全自動。搜尋是低風險讀取，訂房會產生費用，應該讓使用者看到最後金額並再次確認。WebMCP 真正需要設計的，不只工具 schema，還包括哪些步驟可以代勞、哪些一定要把控制權交回人。
-
----
-
-參考：[Chrome at Google I/O 2026](https://developer.chrome.com/blog/chrome-at-io26)

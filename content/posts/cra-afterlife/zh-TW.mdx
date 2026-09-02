@@ -11,7 +11,6 @@ export const metadata = {
     "Vite",
     "Next.js"
   ],
-  "readingTime": "4 分鐘"
 }
 
 很多 React 教學曾經都從同一行指令開始：`npx create-react-app`。所以 CRA 正式退場時，第一個反應很容易是「那現在官方指定大家用什麼？」答案其實沒有那麼整齊。
@@ -31,7 +30,3 @@ Next.js 則先幫你決定不少事情：目錄就是路由、頁面可以在伺
 SSR 也不只是 SEO。伺服器先送出 HTML，慢一點的手機通常能更早看到內容；但伺服器要多做工作，部署和快取也會複雜一些。若頁面登入後才看得到，搜尋引擎根本不是重點，CSR 往往已經很夠用。
 
 所以我會把問題改成「這個專案只缺一個新的 CRA，還是已經需要完整框架？」前者選 Vite 很合理；後者才需要看 Next.js、React Router framework mode 等方案。
-
----
-
-參考：[Sunsetting Create React App](https://react.dev/blog/2025/02/14/sunsetting-create-react-app)

@@ -206,6 +206,7 @@ test("server-renders localized MDX content and the social image", async () => {
   assert.match(html, /文章分類：<\/span> <a[^>]*>React<\/a>/);
   assert.match(html, /它試圖解決什麼/);
   assert.match(html, /useMemo/);
+  assert.doesNotMatch(html, />8 分鐘</);
   assert.match(html, /data-rehype-pretty-code-figure/);
   assert.doesNotMatch(html, /md:float-right/);
   assert.match(html, /<article class="mx-auto min-w-0 max-w-3xl break-words/);
@@ -216,6 +217,7 @@ test("server-renders localized MDX content and the social image", async () => {
     "utf8",
   );
   assert.match(postSource, /## 它試圖解決什麼？/);
+  assert.doesNotMatch(postSource, /readingTime/);
 
   const englishResponse = await render("/en/posts/react-compiler");
   assert.equal(englishResponse.status, 200);
@@ -346,6 +348,7 @@ test("publishes the complete topic plan through posts, taxonomies, RSS, and site
   assert.match(article, /文章分類：<\/span> <a[^>]*>前端工具<\/a>/);
   assert.match(article, /href="\/zh-TW\/tag\/node\.js"/);
   assert.match(article, /href="\/zh-TW\/tag\/frontend-tooling"/);
+  assert.doesNotMatch(article, /參考：/);
   assert.doesNotMatch(article, /hrefLang="en" href="[^"]*\/en\/posts\/node-24"/);
 
   assert.match(await categoryResponse.text(), /Node\.js 24 對前端工具鏈的影響/);

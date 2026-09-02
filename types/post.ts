@@ -11,7 +11,6 @@ export type Post = {
   category: string;
   categorySlug: string;
   tags: string[];
-  readingTime: string;
   homeExcerpt?: string[];
   Body: ComponentType;
 };

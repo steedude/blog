@@ -102,7 +102,6 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
         <div className="flex flex-wrap gap-x-3 text-xs text-muted">
           <span>{dictionary.common.published} {formatDate(post.publishedAt, locale)}</span>
           {post.updatedAt && <span>{dictionary.common.updated} {formatDate(post.updatedAt, locale)}</span>}
-          <span>{post.readingTime}</span>
         </div>
       </header>
 

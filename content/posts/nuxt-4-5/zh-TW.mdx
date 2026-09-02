@@ -11,7 +11,6 @@ export const metadata = {
     "Rspack",
     "SSR Streaming"
   ],
-  "readingTime": "4 分鐘"
 }
 
 同一份 Nuxt release note 裡同時出現 Vite、Rspack 和 SSR streaming，很容易看得一頭霧水。先別急著比較誰比較快，把它們分成「建置工具」和「頁面傳輸方式」，事情就簡單多了。
@@ -25,7 +24,3 @@ SSR streaming 則讓伺服器不必等整頁內容都準備好才回傳，可以
 這三項更新放在同一版有點像 Nuxt 同時處理「怎麼打包」和「怎麼送頁面」。前者多半由框架替我們決定，後者會直接影響 UI。使用 streaming 時，設計 loading skeleton、避免 layout shift，反而比記住底層名詞更貼近日常工作。
 
 如果網站頁面很單純、資料一次就能拿完，streaming 不一定帶來明顯好處。它比較適合有快慢不同資料來源的頁面，先讓導覽和主要內容出現，再補上等待較久的區塊。
-
----
-
-參考：[Nuxt 4.5](https://nuxt.com/blog/v4-5)

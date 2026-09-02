@@ -10,7 +10,6 @@ export const metadata = {
     "CSS",
     "Design Tokens"
   ],
-  "readingTime": "4 分鐘"
 }
 
 每次 Tailwind 大改版，討論很快就會繞回「utility class 到底好不好」。不過 v4 最值得聊的，其實不是要不要在 HTML 裡塞 class，而是 Tailwind 開始更直接地使用 CSS 本身來描述設計系統。
@@ -39,7 +38,3 @@ Tailwind 看到這些變數後，會產生 `bg-brand`、`text-brand` 和 `font-d
 `@theme` 和普通的 `:root` 也不完全一樣。放在 `:root` 的變數只是一般 CSS custom property，不會自動產生 Tailwind utility；放在 `@theme` 的 token 才會參與 Tailwind 的 class 生成。單純給既有 CSS 使用的變數，仍然放在 `:root` 就好，不需要把所有數值都塞進 theme。
 
 有個小地方要釐清：`@theme` 長得像 CSS，但它仍是 Tailwind 的建置指令，不是瀏覽器原生功能。以後若拿掉 Tailwind，這部分還是要改。CSS-first 比較像是讓設定回到 CSS 的語境，不代表框架依賴消失了。
-
----
-
-參考：[Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)

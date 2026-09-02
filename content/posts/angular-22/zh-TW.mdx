@@ -12,7 +12,6 @@ export const metadata = {
     "Signal Forms",
     "Fetch"
   ],
-  "readingTime": "5 分鐘"
 }
 
 連續三個 Angular major release 很容易被寫成三篇功能清單，讀完還是不知道框架到底往哪裡走。這篇乾脆把 20、21、22 排在一起看，反而比較能看出同一條演進路線。
@@ -52,7 +51,3 @@ export const metadata = {
 我覺得 Angular 這三版最重要的改變，是「框架很重」這句評價需要重新拆開看。Angular 還是完整、規範多，但 Signals 和 zoneless 正在拿掉一部分過去難以觀察的魔法；完整不一定等於老舊。
 
 對企業專案來說，漸進更新比突然再來一次 Angular 2 式斷層友善得多。代價是新舊 API 會共存一段時間，團隊要寫清楚新 component 採用哪套方式，也不要因為 Signal Forms 穩定就立刻重寫所有可正常運作的表單。新預設先用在新功能，舊程式按維護需求搬，會比較符合 Angular 原本的穩健路線。
-
----
-
-參考：[Angular Roadmap](https://angular.dev/roadmap)、[Angular v21](https://angular.dev/events/v21)、[Angular releases](https://angular.dev/reference/releases)

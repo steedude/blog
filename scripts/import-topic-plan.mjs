@@ -49,7 +49,7 @@ function htmlToMarkdown(html) {
     return `@@BLOCK_${blocks.length - 1}@@`;
   });
   result = result
-    .replace(/<p class="source">([\s\S]*?)<\/p>/g, "\n\n---\n\n$1\n")
+    .replace(/<p class="source">[\s\S]*?<\/p>/g, "")
     .replace(/<h4>([\s\S]*?)<\/h4>/g, "\n\n## $1\n")
     .replace(/<li>([\s\S]*?)<\/li>/g, "\n- $1")
     .replace(/<\/?ul>/g, "\n")
@@ -70,9 +70,7 @@ for (const [slug, publishedAt, category, categorySlug, tags, description] of pla
   if (!match) throw new Error(`Missing article: ${slug}`);
   const title = decodeEntities(match[1].replace(/<[^>]+>/g, "")).trim();
   const body = htmlToMarkdown(match[2]);
-  const visibleLength = body.replace(/[#*`\[\]()_-]/g, "").length;
-  const readingTime = `${Math.max(4, Math.round(visibleLength / 280))} 分鐘`;
-  const metadata = { slug, title, description, publishedAt, category, categorySlug, tags, readingTime };
+  const metadata = { slug, title, description, publishedAt, category, categorySlug, tags };
   const directory = new URL(`../content/posts/${slug}/`, import.meta.url);
   await mkdir(directory, { recursive: true });
   await writeFile(new URL("zh-TW.mdx", directory), `export const metadata = ${JSON.stringify(metadata, null, 2)}\n\n${body}\n`, "utf8");

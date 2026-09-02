@@ -11,7 +11,6 @@ export const metadata = {
     "Rust",
     "Build Tools"
   ],
-  "readingTime": "4 分鐘"
 }
 
 Vite 8 表面上只是又一次 major release，底下做的事卻很大：把長期負責正式建置的核心換掉。這種更新最有趣的地方不是新名字，而是工具能不能換引擎又不讓使用者天天修設定。
@@ -27,7 +26,3 @@ Rolldown 可以先理解成「用 Rust 打造、朝 Rollup 相容方向前進的
 一套工具負責開發、另一套負責正式建置，最大的問題不只速度，而是行為可能不完全相同。某個 import 在 dev 正常，build 才出錯，查起來特別煩。Rolldown 的長期目標之一，就是讓兩邊共用更多解析和轉換邏輯。
 
 Rust 帶來的效能很吸引人，但我覺得相容性反而更值得關注。Vite 之所以普及，靠的是大量 Rollup/Vite plugin。新核心如果只能跑很快，卻讓常用 plugin 失效，就不算真的接班。因此 Vite 8 的故事不只是「Rust 比 JavaScript 快」，而是如何在換引擎時保住既有生態。
-
----
-
-參考：[Vite Blog](https://vite.dev/blog)
