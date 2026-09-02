@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { i18nConfig } from "@/config/i18n";
 import { siteConfig } from "@/config/site";
@@ -28,11 +28,13 @@ export async function generateMetadata({
   const locale = getLocaleOrDefault(value);
   const dictionary = getDictionary(locale);
   const post = getPost(locale, slug);
+  const availableLocales = i18nConfig.locales.filter((item) => getPost(item, slug));
   return createPageMetadata(
     locale,
     post?.title ?? dictionary.post.notFound,
     post?.description ?? dictionary.site.description,
     `/posts/${slug}`,
+    availableLocales,
   );
 }
 
@@ -42,7 +44,11 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
   const dictionary = getDictionary(locale);
   const post = getPost(locale, slug);
 
-  if (!post) notFound();
+  if (!post) {
+    const existsInAnotherLocale = i18nConfig.locales.some((item) => getPost(item, slug));
+    if (existsInAnotherLocale) redirect(withLocale(locale));
+    notFound();
+  }
 
   const Body = post.Body;
   const postUrl = `${siteConfig.url}${withLocale(locale, `/posts/${post.slug}`)}`;

@@ -17,17 +17,20 @@ const staticRoutes = [
   "/tags",
 ];
 
-function alternates(path: string) {
+function alternates(path: string, locales: readonly Locale[] = i18nConfig.locales) {
+  const defaultLocale = locales.includes(i18nConfig.defaultLocale)
+    ? i18nConfig.defaultLocale
+    : (locales[0] ?? i18nConfig.defaultLocale);
   return {
     languages: Object.fromEntries(
       [
-        ...i18nConfig.locales.map((locale) => [
+        ...locales.map((locale) => [
           locale,
           `${siteConfig.url}${withLocale(locale, path)}`,
         ]),
         [
           "x-default",
-          `${siteConfig.url}${withLocale(i18nConfig.defaultLocale, path)}`,
+          `${siteConfig.url}${withLocale(defaultLocale, path)}`,
         ],
       ],
     ),
@@ -57,7 +60,12 @@ function localizedSitemap(locale: Locale): MetadataRoute.Sitemap {
       lastModified: new Date(post.updatedAt ?? post.publishedAt),
       changeFrequency: "monthly" as const,
       priority: 0.8,
-      alternates: alternates(`/posts/${post.slug}`),
+      alternates: alternates(
+        `/posts/${post.slug}`,
+        i18nConfig.locales.filter((item) =>
+          getPosts(item).some((candidate) => candidate.slug === post.slug),
+        ),
+      ),
     })),
     ...getProjects(locale).map((project) => ({
       url: `${siteConfig.url}${withLocale(locale, `/projects/${project.slug}`)}`,

@@ -314,10 +314,18 @@ test("publishes the complete topic plan through posts, taxonomies, RSS, and site
   assert.match(article, /文章分類：<\/span> <a[^>]*>前端工具<\/a>/);
   assert.match(article, /href="\/zh-TW\/tag\/node\.js"/);
   assert.match(article, /href="\/zh-TW\/tag\/frontend-tooling"/);
+  assert.doesNotMatch(article, /hrefLang="en" href="[^"]*\/en\/posts\/node-24"/);
 
   assert.match(await categoryResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
   assert.match(await tagResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
   assert.match(await archiveResponse.text(), /Angular 20|Node\.js 24/);
   assert.match(await rssResponse.text(), /\/zh-TW\/posts\/node-24/);
   assert.match(await sitemapResponse.text(), /\/zh-TW\/posts\/node-24/);
+
+  const untranslatedResponse = await fetch(
+    `http://127.0.0.1:${port}/en/posts/node-24`,
+    { redirect: "manual" },
+  );
+  assert.equal(untranslatedResponse.status, 307);
+  assert.match(untranslatedResponse.headers.get("location") ?? "", /^\/en(?:, \/en)?$/);
 });

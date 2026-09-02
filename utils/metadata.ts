@@ -9,6 +9,7 @@ export function createPageMetadata(
   title: string,
   description: string,
   path: string,
+  availableLocales: readonly Locale[] = i18nConfig.locales,
 ): Metadata {
   return {
     title,
@@ -17,7 +18,7 @@ export function createPageMetadata(
       canonical: `${siteConfig.url}${withLocale(locale, path)}`,
       languages: Object.fromEntries(
         [
-          ...i18nConfig.locales.map((item) => [
+          ...availableLocales.map((item) => [
             item,
             `${siteConfig.url}${withLocale(item, path)}`,
           ]),
