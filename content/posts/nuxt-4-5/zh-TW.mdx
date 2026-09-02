@@ -1,0 +1,31 @@
+export const metadata = {
+  "slug": "nuxt-4-5",
+  "title": "Nuxt 4.5 的 Vite、Rspack 與 SSR Streaming",
+  "description": "分清楚 Nuxt 4.5 的 Vite、Rspack 與 SSR Streaming 各自在解決什麼。",
+  "publishedAt": "2026-07-21",
+  "category": "Nuxt",
+  "categorySlug": "nuxt",
+  "tags": [
+    "Nuxt",
+    "Vite",
+    "Rspack",
+    "SSR Streaming"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+同一份 Nuxt release note 裡同時出現 Vite、Rspack 和 SSR streaming，很容易看得一頭霧水。先別急著比較誰比較快，把它們分成「建置工具」和「頁面傳輸方式」，事情就簡單多了。
+
+Nuxt 4.5 同時帶來 Vite 8、由 Rsbuild 支援的 Rspack 2，以及實驗中的 SSR streaming。看起來名詞很多，可以先把它們分成兩類：前兩個負責建置，最後一個負責伺服器怎麼把頁面送給瀏覽器。
+
+大多數 Nuxt 專案繼續使用預設的 Vite 就可以。Rspack 比較適合需要 webpack 相容性，或團隊本來就有相關設定的情況。選擇不是看哪個名字比較新，而是專案依賴能不能正常配合。
+
+SSR streaming 則讓伺服器不必等整頁內容都準備好才回傳，可以先送出已完成的部分。它對資料來源較多的頁面比較有感，也仍要配合 loading 狀態，才不會讓內容出現得很零碎。
+
+這三項更新放在同一版有點像 Nuxt 同時處理「怎麼打包」和「怎麼送頁面」。前者多半由框架替我們決定，後者會直接影響 UI。使用 streaming 時，設計 loading skeleton、避免 layout shift，反而比記住底層名詞更貼近日常工作。
+
+如果網站頁面很單純、資料一次就能拿完，streaming 不一定帶來明顯好處。它比較適合有快慢不同資料來源的頁面，先讓導覽和主要內容出現，再補上等待較久的區塊。
+
+---
+
+參考：[Nuxt 4.5](https://nuxt.com/blog/v4-5)

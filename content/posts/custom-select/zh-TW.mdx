@@ -1,0 +1,40 @@
+export const metadata = {
+  "slug": "custom-select",
+  "title": "原生 select 的樣式限制終於鬆綁",
+  "description": "認識可自訂的原生 select，以及漸進增強和瀏覽器相容性的實際取捨。",
+  "publishedAt": "2025-04-02",
+  "category": "Web Platform",
+  "categorySlug": "web-platform",
+  "tags": [
+    "CSS",
+    "HTML",
+    "Select",
+    "Accessibility"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+前端有些問題很奇妙：大家明明已經解過無數次，下一個專案還是得再解一次。想把原生下拉選單改得好看一點，就是其中一個很典型的例子。
+
+原生 `<select>` 好用、支援鍵盤，也有不錯的無障礙基礎，但一直很難配合網站設計。很多團隊只好用 div 和 JavaScript 自己重做下拉選單，結果又得重新處理鍵盤操作、焦點和螢幕閱讀器。
+
+Chrome 135 開始支援可自訂的 select。透過 `appearance: base-select` 和 `::picker(select)`，下拉面板、箭頭、選項內容都能進一步調整，option 裡也能放入較豐富的內容。
+
+目前仍要留意其他瀏覽器的支援情況，好消息是它採漸進增強：不支援新功能的瀏覽器，仍可顯示普通的原生 select。這比直接換成一個完全自製的下拉元件安心不少。
+
+## 最基本的寫法
+
+```css
+select,
+select::picker(select) {
+  appearance: base-select;
+}
+```
+
+兩個 selector 都要設定：第一個是頁面上的按鈕，第二個是展開後的選項面板。進入 base-select 模式後，picker 會進到 top layer，也能搭配 Anchor Positioning。以前下拉選單常遇到被 `overflow: hidden` 切掉的問題，瀏覽器現在連這部分都一起處理。
+
+不過它還不是「所有瀏覽器都放心用」的功能，手機上原生選單的操作感也可能比較符合使用者習慣。我的看法是先保留語意正確的 select，把客製樣式當成額外加分。就算新 CSS 沒生效，表單還是能正常選，這才是原生元件最大的優勢。
+
+---
+
+參考：[The select element can now be customized with CSS](https://developer.chrome.com/blog/a-customizable-select)

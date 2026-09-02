@@ -1,0 +1,35 @@
+export const metadata = {
+  "slug": "typescript-7",
+  "title": "TypeScript 7 換上原生編譯器",
+  "description": "TypeScript 7 正式換上原生編譯器後，速度之外還有哪些相容性問題。",
+  "publishedAt": "2026-07-08",
+  "category": "TypeScript",
+  "categorySlug": "typescript",
+  "tags": [
+    "TypeScript",
+    "Go",
+    "Compiler",
+    "Migration"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+等了一年多，TypeScript 的 Go 移植終於不再只是簡報上的計畫。不過「原生版快很多」只是最好記的標題，真的要升級時，周邊工具跟不跟得上才是比較現實的問題。
+
+2025 年公布的原生編譯器計畫，在 TypeScript 7 變成正式版本。最容易誤會的地方是：TypeScript 這門語言沒有改成 Go，改用 Go 的是我們平常執行的編譯器和編輯器工具。
+
+這次改寫主要是為了大型專案的處理速度。一般開發者不需要理解 Go 的細節，只要知道 `tsc`、型別檢查和編輯器提示背後換了新的實作。
+
+不過重寫過的工具不可能保證每個舊設定都原封不動。升級前可以先查看官方相容性說明、更新相關 plugin，並留意專案使用的特殊 compiler option。對普通專案來說，重點是更快的工具，而不是一批全新的 TypeScript 語法。
+
+## 語言相容，比跑分快更重要
+
+大家看到原生重寫，第一個想到的通常是速度；但 TypeScript 每天被數百萬個專案使用，真正困難的是讓同一段程式得到相同型別結果。若新 compiler 快很多，卻到處多報或漏報錯誤，升級成本反而更高。
+
+因此一般開發者可以先關注三件事：既有 `tsconfig` 是否支援、編輯器 extension 是否切到新語言服務，以及常用 build tool 是否已整合。等這些周邊跟上，再享受原生工具帶來的改善就好，不需要為了第一時間升級而冒險。
+
+這也讓 2025 年的移植公告和 2026 年正式版形成一組文章：前一篇談為什麼重寫，這一篇談重寫完成後使用者會遇到什麼。引用速度數據時標明是官方資料，把重點放在升級和相容性，內容就已經足夠完整。
+
+---
+
+參考：[TypeScript Blog](https://devblogs.microsoft.com/typescript/)

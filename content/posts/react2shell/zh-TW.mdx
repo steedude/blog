@@ -1,0 +1,51 @@
+export const metadata = {
+  "slug": "react2shell",
+  "title": "React2Shell 與 React Server Components 的攻擊面",
+  "description": "React2Shell 為何讓前端團隊也必須理解伺服器漏洞與修補流程。",
+  "publishedAt": "2025-12-03",
+  "category": "資訊安全",
+  "categorySlug": "security",
+  "tags": [
+    "React",
+    "React Server Components",
+    "Security",
+    "RCE"
+  ],
+  "readingTime": "5 分鐘"
+}
+
+React 漏洞嚴重到能在伺服器執行程式，幾年前聽起來可能有點奇怪：React 不是拿來畫 UI 的嗎？Server Components 把一部分工作搬到伺服器後，這條界線已經沒有以前那麼清楚。
+
+React2Shell 是 React Server Components 相關的嚴重漏洞。特製請求可能讓伺服器執行攻擊者準備的內容，因此影響不只是畫面壞掉，而是伺服器本身可能被控制。
+
+以前很多人把 React 當成瀏覽器裡的 UI library，安全問題常想到 XSS。Server Components 出現後，React 的資料格式和程式也會在伺服器處理，風險自然開始接近後端框架。
+
+遇到這類漏洞，最重要的不是研究攻擊程式，而是確認使用版本、依官方公告立即更新，並檢查部署紀錄是否出現異常。框架把前後端拉得更近，也代表前端團隊不能再把伺服器安全完全當成別人的事。
+
+## 為什麼 RSC 會有這種等級的漏洞？
+
+Server Components 需要在瀏覽器和伺服器之間傳遞一種特殊資料格式，伺服器收到資料後再還原內容。只要還原過程錯把外部輸入當成可信物件，就可能從「解析資料」一路走到「執行不該執行的東西」。這類問題在各種序列化機制都出現過，並不是 React 獨有。
+
+麻煩在於許多使用者不是直接安裝 RSC 套件，而是透過 Next.js 等 framework 使用。團隊可能根本不知道底層協定長什麼樣，卻仍在受影響範圍。這也是為什麼框架公告和 hosting provider 的提醒很重要。
+
+## 修補之外還能做什麼
+
+- 框架與 runtime 要有固定升級節奏，不要只更新畫面會用到的 dependency。
+
+- 正式環境限制執行身分權限，應用程式被突破時，不要連其他服務也一起失守。
+
+- 保留請求與部署紀錄，嚴重漏洞公開後才能回頭確認是否出現可疑行為。
+
+RSC 帶來的好處仍然存在，只是「React 是前端，所以漏洞頂多影響瀏覽器」這個想法已經過時了。
+
+## 這件事對前端分工的提醒
+
+App Router 專案裡，一個元件看起來仍是 JSX，實際上可能在 server 讀資料庫、取環境變數或呼叫內部服務。檔名沒有從 `.tsx` 變成傳統後端語言，權限卻已經完全不同。code review 如果只看畫面是否正確，很容易漏掉伺服器邊界。
+
+團隊可以把 server-only module、輸入驗證和權限檢查訂成明確規則。Server Component 能直接取資料，不代表每次取資料都自動安全；使用者是否能看這筆資料，仍要在真正存取資料的位置確認，不能只相信頁面路由已經擋住。
+
+React2Shell 是極端案例，但它讓這個變化變得很具體：現代前端 framework 既然能幫我們做後端的事，就也會遇到後端等級的漏洞、更新壓力和責任。
+
+---
+
+參考：[React Server Components advisory](https://github.com/advisories/GHSA-9qr9-h5gf-34mp)

@@ -1,0 +1,39 @@
+export const metadata = {
+  "slug": "chrome-io-2025",
+  "title": "Chrome I/O 2025 的 Web Platform 更新",
+  "description": "從 Google I/O 2025 挑出一般前端近期真正可能用到的瀏覽器功能。",
+  "publishedAt": "2025-05-20",
+  "category": "Web Platform",
+  "categorySlug": "web-platform",
+  "tags": [
+    "Chrome",
+    "Web Platform",
+    "CSS",
+    "Baseline"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+Google I/O 一次丟出太多功能時，最容易發生的事就是看完新聞稿，只記得「今年又有很多 AI」。這篇想先把 AI 放旁邊，挑幾個一般前端近期真的可能碰到的 Web Platform 更新來聊。
+
+Google I/O 2025 公布了不少 Web 新功能，其中一條很明顯的方向是：以前常靠 JavaScript 元件完成的介面，正在慢慢回到瀏覽器原生能力。
+
+像 CSS carousel 可以處理一部分輪播互動，Anchor Positioning 能讓提示框或選單跟著指定元素定位。Baseline 則用比較簡單的標記，告訴開發者某項功能是否已被主要瀏覽器普遍支援。
+
+這不表示我們可以立刻刪掉所有 UI 套件。新功能通常還有瀏覽器版本和細節差異，但至少未來做常見介面時，可以先看看 HTML 和 CSS 是否已經能處理，不必第一時間安裝更多依賴。
+
+## 我覺得比較值得注意的三件事
+
+- CSS carousel 把捲動按鈕和位置標記帶進原生 CSS，簡單輪播未必需要一整套 slider。
+
+- Anchor Positioning 解決浮層跟著按鈕定位的老問題，還能和 popover 一起使用。
+
+- Baseline 開始出現在更多開發工具，瀏覽器相容性不再只是一長串版本號。
+
+內建 AI API 當然很吸睛，不過目前仍有模型下載、裝置能力和跨瀏覽器支援等限制。相較之下，前面幾個 HTML、CSS 更新比較可能先進入日常專案。新功能很多時，挑出近期真的用得到的，通常比逐條翻譯發表內容更有幫助。
+
+這幾年瀏覽器的更新有點像把常見 UI pattern 收回平台層。原生方案通常能一起處理鍵盤、焦點和效能，但規格成熟需要時間。前端不必追每一個新 API，知道有哪些問題正在被瀏覽器接手，下一次遇到需求時想得起來就很有用了。
+
+---
+
+參考：[The web at Google I/O 2025](https://developer.chrome.com/blog/web-at-io25)

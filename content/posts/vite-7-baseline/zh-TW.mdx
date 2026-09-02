@@ -1,0 +1,33 @@
+export const metadata = {
+  "slug": "vite-7-baseline",
+  "title": "Vite 7 的瀏覽器支援與 Baseline",
+  "description": "用白話理解 Vite 7 的 Baseline Widely Available 與瀏覽器支援策略。",
+  "publishedAt": "2025-06-24",
+  "category": "前端工具",
+  "categorySlug": "tooling",
+  "tags": [
+    "Vite",
+    "Baseline",
+    "Browser Support",
+    "Build Tools"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+「支援現代瀏覽器」看起來是一句人話，真正放進專案規格卻很難執行：現代到底是多新？Safari 要到哪一版？Vite 7 改用 Baseline，某種程度就是想替這句模糊的話畫出界線。
+
+Vite 7 把 production build 的預設瀏覽器目標改成 Baseline Widely Available。名字有點長，概念其實不複雜：選擇已經在主要瀏覽器普遍存在一段時間的 Web 功能，當成預設支援範圍。
+
+Baseline 的 Newly Available 代表主要瀏覽器都已支援；再經過 30 個月，才會成為 Widely Available。Vite 7 因此有了一條比較清楚的支援界線，而不是只說「支援現代瀏覽器」。
+
+這項設定主要影響打包後的 JavaScript 語法，並不會自動替所有缺少的 Web API 加上 polyfill。如果網站有公司內部舊電腦或特殊裝置使用者，仍應依自己的使用者環境調整。
+
+## Vite 7 實際選了哪些版本？
+
+這個 major release 對應到 Chrome 107、Edge 107、Firefox 104 和 Safari 16。以後 Vite major 更新時，這份清單也會跟著當時的 Widely Available 範圍往前移。好處是預設值有一個共同規則，而不是由維護者憑感覺挑版本。
+
+但 Baseline 不是專案的產品需求。銀行內部系統和只給新手機使用的活動頁，理所當然會有不同支援範圍。Vite 提供的是合理預設，最後還是要看網站流量、公司規範和功能能不能漸進增強。
+
+---
+
+參考：[Vite 7.0 is out](https://vite.dev/blog/announcing-vite7)

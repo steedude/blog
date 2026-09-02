@@ -1,0 +1,43 @@
+export const metadata = {
+  "slug": "agent-plugins-1",
+  "title": "Agent Plugins 1.0 的跨工具封裝方式",
+  "description": "Agent Plugins 1.0 如何封裝 skill、command、hook 與 MCP server。",
+  "publishedAt": "2026-08-12",
+  "category": "AI 開發工具",
+  "categorySlug": "ai-tooling",
+  "tags": [
+    "AI Agent",
+    "Agent Plugins",
+    "MCP",
+    "Agent Skills"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+2026 年的 coding agent 功能長得很快，格式也跟著愈來愈碎：這家叫 skill，那家有 command，另外還要接 MCP。當能力開始需要在團隊和工具之間搬動，怎麼「打包」就自然成了下一個問題。
+
+Coding agent 開始支援 skills、commands、hooks 和 MCP servers 之後，新的麻煩也出現了：同一套能力放到不同工具，可能要整理成不同的資料夾和設定格式。
+
+Agent Plugins 1.0 想把這些內容包成一個可以安裝的單位。Skill 負責告訴 agent 該怎麼做事，MCP server 提供能呼叫的外部工具，plugin 則像外盒，把它們和必要設定一起裝起來。
+
+這項標準由多家公司共同參與，重點是讓一份插件有機會在不同 agent client 使用。各家工具仍能保留自己的特殊功能，所以它不會讓所有 coding agent 變得一模一樣，但可以減少重複整理相同 skill 和 MCP 設定的工作。
+
+回頭看 2 月 Matt Pocock 分享的個人 skills，可以發現半年後生態開始處理下一個問題：不只是怎麼寫 skill，還要怎麼安裝、分享和管理它們。
+
+## Skill、MCP、Plugin 先分清楚
+
+- Skill 比較像說明書，告訴 agent 某類工作應該按照哪些步驟完成。
+
+- MCP server 提供工具，例如查資料庫、讀設計稿或操作部署平台。
+
+- Plugin 是安裝和散布單位，可以把前兩者連同設定一起帶進工具。
+
+這種分層其實和前端很熟悉：元件的使用說明、真正呼叫的 API，以及最後發布到 npm 的 package，本來就是不同東西。以前每家 agent 各自定格式，現在才開始嘗試把外層包裝統一。
+
+跨工具不代表百分之百相容。某個 plugin 可以包含只給特定 client 使用的功能，企業也得考慮 MCP server 能碰哪些資料。標準解決的是「怎麼裝、怎麼找到內容」，不是替每一個工具承諾完全相同的行為。
+
+我覺得這比又多一個 AI 功能更值得記錄。當 plugin 能被分享和集中管理後，coding agent 才比較像一個可維護的開發環境，而不是每位工程師自己堆出來的一盒 prompt。
+
+---
+
+參考：[Agent Plugins 1.0](https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vscode-copilot-cli-and-the-copilot-app/)

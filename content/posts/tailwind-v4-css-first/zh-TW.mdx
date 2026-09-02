@@ -1,0 +1,45 @@
+export const metadata = {
+  "slug": "tailwind-v4-css-first",
+  "title": "Tailwind CSS v4 的 CSS-first 設定方式",
+  "description": "從設定檔搬進 CSS，看看 Tailwind CSS v4 的 CSS-first 到底改變了什麼。",
+  "publishedAt": "2025-01-21",
+  "category": "CSS",
+  "categorySlug": "css",
+  "tags": [
+    "Tailwind CSS",
+    "CSS",
+    "Design Tokens"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+每次 Tailwind 大改版，討論很快就會繞回「utility class 到底好不好」。不過 v4 最值得聊的，其實不是要不要在 HTML 裡塞 class，而是 Tailwind 開始更直接地使用 CSS 本身來描述設計系統。
+
+Tailwind CSS v4 有個很明顯的改變：以前常放在 `tailwind.config.js` 裡的顏色、字型和斷點，現在可以直接寫在 CSS 裡。官方把這種方向叫做 CSS-first。
+
+例如網站有一個品牌色，可以在 `@theme` 裡建立 `--color-brand`，接著在畫面上使用 `text-brand` 或 `bg-brand`。設定和實際產生的 CSS 變數放得更近，看起來也比較直覺。
+
+這不代表 Tailwind 放棄 utility class，也不是叫大家回去手寫所有 CSS。真正的差別只是「設定 Tailwind 的地方」從 JavaScript 搬到 CSS。對新專案來說少了一份設定檔；舊專案則不用為了跟上潮流急著重寫，先確認現有 plugin 和客製設定是否相容即可。
+
+## 設定搬進 CSS 之後
+
+假設網站有自己的品牌色，v3 常見的做法是在 JavaScript config 裡擴充 theme；v4 可以直接這樣寫：
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #173f76;
+  --font-display: Georgia, serif;
+}
+```
+
+Tailwind 看到這些變數後，會產生 `bg-brand`、`text-brand` 和 `font-display`。好處不只少一個設定檔，這些 token 也能直接用 `var(--color-brand)` 交給一般 CSS 或動畫套件。
+
+`@theme` 和普通的 `:root` 也不完全一樣。放在 `:root` 的變數只是一般 CSS custom property，不會自動產生 Tailwind utility；放在 `@theme` 的 token 才會參與 Tailwind 的 class 生成。單純給既有 CSS 使用的變數，仍然放在 `:root` 就好，不需要把所有數值都塞進 theme。
+
+有個小地方要釐清：`@theme` 長得像 CSS，但它仍是 Tailwind 的建置指令，不是瀏覽器原生功能。以後若拿掉 Tailwind，這部分還是要改。CSS-first 比較像是讓設定回到 CSS 的語境，不代表框架依賴消失了。
+
+---
+
+參考：[Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)

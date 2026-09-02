@@ -1,0 +1,35 @@
+export const metadata = {
+  "slug": "typescript-native-port",
+  "title": "TypeScript 原生編譯器移植計畫",
+  "description": "TypeScript 為什麼用 Go 重做編譯器，以及原生工具對大型前端專案的意義。",
+  "publishedAt": "2025-03-11",
+  "category": "TypeScript",
+  "categorySlug": "typescript",
+  "tags": [
+    "TypeScript",
+    "Go",
+    "Compiler",
+    "Developer Experience"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+平常寫 TypeScript 時，我們很少去想 `tsc` 本身也是一個用 TypeScript 寫成的程式。直到專案變大、型別提示開始轉圈，編譯器用什麼打造才突然變成一件很實際的事。
+
+TypeScript 專案變大之後，型別檢查和編輯器提示有時會開始變慢。微軟在 2025 年宣布，要用 Go 重新打造 TypeScript 的編譯器和語言工具，希望縮短這些等待時間。
+
+這裡的「原生」不是讓 TypeScript 直接在瀏覽器裡執行，而是把原本以 TypeScript 寫成的工具改用能編譯成原生程式的 Go。對一般開發者來說，最直接的感受可能是執行 `tsc` 更快、大型專案開啟後比較快出現提示。
+
+重寫工具並不代表 TypeScript 語法要全部換掉。官方的方向仍是盡量保持相容，讓大家的注意力放在速度改善，而不是再學一套語言。
+
+## 為什麼不是繼續最佳化原本的版本？
+
+TypeScript 編譯器本身也是用 TypeScript 寫的，這對維護和貢獻很友善，但大型程式的型別分析會吃掉不少 CPU 和記憶體。原生程式可以更直接地使用多核心與管理記憶體，改善空間比較大。
+
+Go 也不是因為它在排行榜上比較熱門。官方看中的是容易產生跨平台執行檔、平行處理成熟，而且程式結構能和原本的 compiler 保持接近。比起改用一套完全不同思路的語言，移植時比較容易核對行為。
+
+當然，「官方展示快十倍」不等於每個專案都會快十倍。小專案原本只等一秒，差距可能沒那麼有感；真正受益的會是大型 monorepo、CI 型別檢查，以及編輯器需要反覆分析專案的情況。這篇比較適合談它為什麼值得重寫，不必替官方重做效能報告。
+
+---
+
+參考：[A 10x Faster TypeScript](https://devblogs.microsoft.com/typescript/typescript-native-port/)

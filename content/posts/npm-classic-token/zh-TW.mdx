@@ -1,0 +1,35 @@
+export const metadata = {
+  "slug": "npm-classic-token",
+  "title": "npm Classic Token 退場與套件發布安全",
+  "description": "npm Classic Token 退場後，套件發布流程為什麼要走向短效憑證。",
+  "publishedAt": "2025-11-05",
+  "category": "資訊安全",
+  "categorySlug": "security",
+  "tags": [
+    "npm",
+    "Security",
+    "Trusted Publishing",
+    "Supply Chain"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+對多數前端來說，發布套件只是偶爾才做一次的事，token 也很容易變成設好之後就不再碰的東西。偏偏這種長期放著、權限又大的憑證，正是供應鏈攻擊最喜歡的入口。
+
+npm Classic Token 很方便，但它也可能長時間有效，而且常被放進 CI 環境。一旦 token 外洩，攻擊者就有機會用維護者身分發布被動過手腳的套件。
+
+npm 停止建立 classic token，是把發布流程推向短效 token、2FA 和 Trusted Publishing。Trusted Publishing 透過 CI 平台的身分來確認這次發布，不必另外存放一把長期有效的 npm 密鑰。
+
+對只會安裝套件的人來說，這似乎很遠；但熱門套件只要有一個維護者帳號被接管，就可能影響大量網站。發布流程麻煩一點，換來的是整個生態少一個容易被利用的入口。
+
+## Trusted Publishing 少存了一個祕密
+
+傳統 CI 發布時，要先把 npm token 存進 GitHub Actions secret。Trusted Publishing 改由 GitHub Actions 提供短時間的身分證明，npm 再確認是哪個 repository、哪個 workflow 正在發布。流程跑完後，不會留下一把能被重複使用好幾個月的鑰匙。
+
+它仍然不是萬靈丹。workflow 本身被改掉、維護者帳號被接管，一樣可能出事。但攻擊者比較難只靠偷到一段 token 就在別處發布，這已經切掉一種很常見的攻擊方式。
+
+套件作者遷移時可以先確認 CI provider 是否被 npm 支援，再限制允許發布的 repository、workflow 與 environment。權限描述得愈精確，其他分支或 fork 就愈難冒充正式發布流程。
+
+---
+
+參考：[npm security update](https://github.blog/changelog/2025-11-05-npm-security-update-classic-token-creation-disabled-and-granular-token-changes/)

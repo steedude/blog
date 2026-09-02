@@ -1,0 +1,33 @@
+export const metadata = {
+  "slug": "astro-6-beta",
+  "title": "Astro 6 Beta 的內容網站開發體驗",
+  "description": "Astro 6 Beta 如何處理字型、安全政策、開發伺服器與動態內容。",
+  "publishedAt": "2026-01-13",
+  "category": "內容網站",
+  "categorySlug": "content-sites",
+  "tags": [
+    "Astro",
+    "CSP",
+    "Fonts",
+    "Content Collections"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+內容網站的工具常把「快」放在最前面，但真的開始經營部落格後，字型怎麼載、內容怎麼更新、安全標頭怎麼設，往往比首頁少幾 KB 更常讓人停下來處理。
+
+Astro 一直很適合部落格、文件和品牌網站。它預設先產生 HTML，只在真的需要互動時才把 JavaScript 送到瀏覽器，這也是 Islands 架構最容易理解的地方。
+
+Astro 6 Beta 加入新的開發伺服器、Fonts API、CSP 支援和 Live Content。Fonts API 讓字型載入有比較統一的處理方式；CSP 能協助限制頁面可以執行哪些來源的程式；Live Content 則讓內容不一定要等到重新建置才能更新。
+
+這些功能不會讓 Astro 突然變成另一個 Next.js。Astro 的重心仍然是內容網站，只是把字型、安全和動態內容這些常見需求補得更完整。
+
+以部落格來說，多數頁面其實只有文章和少量互動。Astro 的想法是先把這些頁面當 HTML 處理，需要搜尋框、留言或互動圖表時，再局部載入元件。和整站以 React 為中心的做法相比，它少了一些全端整合，也少了一些不必要的瀏覽器 JavaScript。
+
+Beta 畢竟還不是穩定版，適合拿來了解方向，不一定要立刻把正式網站搬過去。尤其 adapter、CMS 或 Markdown plugin 是否跟得上，往往比 release note 上的新功能更實際。
+
+Live Content 特別值得內容團隊留意。傳統靜態網站更新文章後要重新 build，內容愈多等待愈久；若資料能在請求時取得，就能縮短發布時間。代價是頁面不再完全靜態，快取和內容來源的穩定性也要一起考慮。
+
+---
+
+參考：[Astro 6 Beta](https://astro.build/blog/astro-6-beta/)

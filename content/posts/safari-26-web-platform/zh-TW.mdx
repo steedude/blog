@@ -1,0 +1,43 @@
+export const metadata = {
+  "slug": "safari-26-web-platform",
+  "title": "Safari 26 新增的 CSS 與 Web API",
+  "description": "整理 Safari 26 的 Anchor Positioning、捲動動畫、HDR、憑證與安全 API。",
+  "publishedAt": "2025-06-09",
+  "category": "Web Platform",
+  "categorySlug": "web-platform",
+  "tags": [
+    "Safari",
+    "WebKit",
+    "CSS",
+    "Web API"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+前端圈談到新的 CSS 功能，最後常會有人補一句：「可是 Safari 支援了嗎？」這句話雖然有點像梗，卻真的會決定一個功能只能放在 demo，還是能放心用進產品。
+
+Safari 26 一次補進大量 WebKit 功能，清單長到不太適合逐條翻譯。若只挑和一般前端最有關的，我會先看下面幾項。
+
+## 我覺得比較重大的更新
+
+- **CSS Anchor Positioning：** tooltip、popover 或選單可以直接跟著另一個元素定位，不必一直讀取座標再監聽 resize 和 scroll。它解決的是前端做浮層時非常老的一類問題。
+
+- **Scroll-driven Animations：** 動畫進度能跟捲動位置或元素可見範圍連動。簡單的閱讀進度、進場效果，不必再用大量 scroll listener 計算。
+
+- **HDR 圖片與 `dynamic-range-limit`：** 支援 HDR 的螢幕可以呈現更亮、更廣的影像範圍，同時讓作者限制亮度。這對攝影和影音網站很有吸引力，但也更需要顧及素材與裝置差異。
+
+- **Digital Credentials API：** 網站可以在使用者同意下，向數位身分證件請求經驗證的資料。它牽涉隱私和敏感資訊，重點不只在「能讀到什麼」，還包括何時詢問、畫面怎麼說明。
+
+- **`URLPattern`、Trusted Types 與更多平台 API：** 前者讓 URL 比對更一致；Trusted Types 可協助降低 DOM XSS 風險。這些功能不一定直接改變畫面，卻補強了 routing 與安全工具能使用的底層能力。
+
+真正開發時仍要查使用者的 Safari 版本，尤其舊 iPhone 不一定能升級。功能進入最新版 Safari，代表跨瀏覽器採用門檻下降，不代表專案裡的所有裝置在同一天突然支援。
+
+## 我的看法
+
+我最看好 Anchor Positioning。因為它不是只讓展示頁更炫，而是能少掉一段每個元件庫都重寫過的定位邏輯。Scroll-driven Animations 也很好用，但更適合當漸進增強：沒有動畫時，內容和操作仍應正常。
+
+使用這類新功能時，我會優先用 `@supports` 做功能偵測，而不是猜瀏覽器名稱。新專案可以先用在不影響核心流程的地方；舊元件則不用因為 Safari 終於支援就連夜重寫，等產品的最低版本跟上再逐步簡化即可。
+
+---
+
+參考：[WebKit Features in Safari 26.0](https://webkit.org/blog/17333/webkit-features-in-safari-26-0/)

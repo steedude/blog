@@ -287,3 +287,37 @@ test("renders GitHub Flavored Markdown tables", async () => {
   assert.match(html, /<table class="w-full min-w-lg/);
   assert.match(html, /Container Queries/);
 });
+
+test("publishes the complete topic plan through posts, taxonomies, RSS, and sitemap", async () => {
+  const [
+    articleResponse,
+    categoryResponse,
+    tagResponse,
+    archiveResponse,
+    rssResponse,
+    sitemapResponse,
+  ] = await Promise.all([
+    render("/zh-TW/posts/node-24"),
+    render("/zh-TW/category/tooling"),
+    render("/zh-TW/tag/node.js"),
+    render("/zh-TW/archive/2025/5"),
+    render("/zh-TW/rss.xml"),
+    render("/sitemap.xml"),
+  ]);
+
+  for (const response of [articleResponse, categoryResponse, tagResponse, archiveResponse]) {
+    assert.equal(response.status, 200);
+  }
+
+  const article = await articleResponse.text();
+  assert.match(article, /Node\.js 24 比較值得注意的更新/);
+  assert.match(article, /文章分類：<\/span> <a[^>]*>前端工具<\/a>/);
+  assert.match(article, /href="\/zh-TW\/tag\/node\.js"/);
+  assert.match(article, /href="\/zh-TW\/tag\/frontend-tooling"/);
+
+  assert.match(await categoryResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
+  assert.match(await tagResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
+  assert.match(await archiveResponse.text(), /Angular 20|Node\.js 24/);
+  assert.match(await rssResponse.text(), /\/zh-TW\/posts\/node-24/);
+  assert.match(await sitemapResponse.text(), /\/zh-TW\/posts\/node-24/);
+});

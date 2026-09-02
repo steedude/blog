@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import { topicPosts } from "@/data/topic-posts";
 import ModernCssEn, { metadata as modernCssEnMetadata } from "@/content/posts/modern-css/en.mdx";
 import ModernCssZh, { metadata as modernCssZhMetadata } from "@/content/posts/modern-css/zh-TW.mdx";
 import ReactCompilerEn, { metadata as reactCompilerEnMetadata } from "@/content/posts/react-compiler/en.mdx";
@@ -23,6 +24,7 @@ function createPost(
 }
 
 export const posts: Post[] = [
+  ...topicPosts,
   createPost(Locale.ZH_TW, ReactCompilerZh, reactCompilerZhMetadata),
   createPost(Locale.EN, ReactCompilerEn, reactCompilerEnMetadata),
   createPost(Locale.ZH_TW, ViewTransitionsZh, viewTransitionsZhMetadata),

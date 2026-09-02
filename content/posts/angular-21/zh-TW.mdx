@@ -1,0 +1,34 @@
+export const metadata = {
+  "slug": "angular-21",
+  "title": "Angular 21 的 Signals 與 Agent 開發工具",
+  "description": "Angular 21 如何同時更新表單、無障礙、測試與 AI 輔助開發。",
+  "publishedAt": "2025-11-19",
+  "category": "Angular",
+  "categorySlug": "angular",
+  "tags": [
+    "Angular",
+    "Signal Forms",
+    "Angular Aria",
+    "Vitest",
+    "MCP"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+Angular 21 的 release note 看起來有點像幾條不同路線撞在一起：表單、無障礙、測試，還有 AI 工具。拆開來每項都不算小，放在一起則能看出 Angular 正在補哪些日常開發體驗。
+
+Angular 21 同時碰了幾個不同方向：Signal Forms 處理表單狀態、Angular Aria 提供無障礙互動基礎、Vitest 成為更重要的測試工具，另外還加入給 AI 工具使用的 MCP Server。
+
+把它們放在一起看，其實都是在減少開發者重複處理基礎工作。表單有較一致的狀態方式、常見互動不用從零補無障礙，而 AI 助手也比較有機會讀到正確的 Angular 文件。
+
+這些功能不一定每個都要立刻導入，但可以看出 Angular 的更新已不只追求框架功能，也開始處理測試、AI 輔助和使用者體驗。
+
+其中我覺得 MCP Server 很能代表 2025 年的變化。過去文件只要讓人搜尋得到就好，現在還要考慮 agent 能不能拿到正確版本、辨識推薦寫法。它不會取代文件，但會讓「文件的讀者」多一種。
+
+Signal Forms 則比較貼近日常。表單一直是 Angular 很完整、同時也容易顯得複雜的部分，新方案把狀態往 Signals 靠攏。舊 Reactive Forms 不會因此立刻消失，大型專案也不適合只因為新 API 就全面改寫。
+
+Angular Aria 的方向也滿務實：官方提供互動和無障礙行為，視覺交給產品自己處理。這和整套有固定外觀的元件庫不同，對已有 Design System 的團隊會比較好接。
+
+---
+
+參考：[Angular v21](https://angular.dev/events/v21)

@@ -1,0 +1,53 @@
+export const metadata = {
+  "slug": "nx-s1ngularity",
+  "title": "S1ngularity：Nx 套件供應鏈攻擊始末",
+  "description": "回顧 Nx S1ngularity 供應鏈攻擊，以及前端團隊真正能做的防護。",
+  "publishedAt": "2025-08-26",
+  "category": "資訊安全",
+  "categorySlug": "security",
+  "tags": [
+    "Security",
+    "npm",
+    "Supply Chain",
+    "Nx"
+  ],
+  "readingTime": "5 分鐘"
+}
+
+`npm install` 太日常了，日常到我們很少把它想成「允許一批陌生程式在自己的電腦上執行」。S1ngularity 事件最值得記住的，也許就是這個平常被藏起來的信任關係。
+
+2025 年 8 月，Nx 的多個 npm 套件版本被放入惡意程式。開發者只是在正常安裝套件，惡意程式就可能讀取電腦裡的憑證和環境資料。
+
+這類事件被稱為供應鏈攻擊。攻擊者不必逐一入侵每個使用者，只要控制大家信任的上游套件，就能讓惡意內容跟著正常更新散出去。
+
+lockfile 可以避免版本在不知情時改變，但如果團隊主動更新到惡意版本，它也救不了全部問題。比較實際的習慣包括限制 CI token 權限、不要把長效憑證放得到處都是、重要更新先查看變更，以及使用能掃描惡意套件的工具。
+
+## 為什麼「沒有 import」也可能出事？
+
+npm 套件可以在安裝期間執行 lifecycle scripts，例如 `postinstall`。正常用途可能是下載瀏覽器或編譯原生模組，惡意版本也能利用同一個入口讀取環境變數、設定檔和本機憑證。也就是說，程式甚至還沒被 import，安裝當下就可能已經中招。
+
+monorepo 工具通常擁有更大的信任範圍：它會讀整個 workspace、執行任務，也常出現在 CI。這讓 Nx 成為很有價值的攻擊目標。問題並不是 Nx 特別不安全，而是愈靠近開發流程核心的工具，一旦被控制，能碰到的東西就愈多。
+
+## 幾個不算華麗、但有用的做法
+
+- CI 使用短效、最小權限憑證，不要讓每個 job 都拿到 production secrets。
+
+- lockfile 要提交，也要讓 CI 使用 frozen lockfile，避免安裝結果自己漂移。
+
+- 對新的 major update 或突然出現的版本多等一下，先看看維護者公告。
+
+- 本機開發帳號和套件發布帳號開啟防釣魚的 2FA。
+
+沒有任何一項能單獨擋住供應鏈攻擊。真正有效的是把它拆成很多小關卡，讓某一個套件出事時，不至於順手拿走整間公司的權限。
+
+## lockfile 能做什麼，不能做什麼
+
+lockfile 會記住實際安裝版本和來源，因此同一個 commit 在不同環境比較不會抓到不同 dependency。搭配 `npm ci` 或 pnpm 的 frozen lockfile，CI 也不會擅自重新解版本。這能擋住「昨天和今天安裝結果不一樣」，卻擋不住我們把惡意版本正式更新進 lockfile。
+
+所以 dependency update 仍然需要 review。不是要人工讀完數千個套件，而是把突然換維護者、發布頻率異常、加入 install script 或多出陌生 dependency 的更新當成較高風險。自動更新工具可以開 PR，但不必設定成看到綠燈就全部自動 merge。
+
+另外，前端專案常把 npm token、雲端金鑰和部署憑證放在同一套 CI。即使惡意套件真的執行了，只要 job 拿不到 production secret，損害仍會小很多。供應鏈安全最後談的其實是權限分層，不只是挑一個比較安全的 package manager。
+
+---
+
+參考：[S1ngularity postmortem](https://nx.dev/blog/s1ngularity-postmortem)

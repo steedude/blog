@@ -1,0 +1,31 @@
+export const metadata = {
+  "slug": "nuxt-ui-v4",
+  "title": "Nuxt UI v4 與自建 Design System 的取捨",
+  "description": "Nuxt UI v4、Headless Components 與自建 Design System 的成本和適用情境。",
+  "publishedAt": "2025-09-24",
+  "category": "Nuxt",
+  "categorySlug": "nuxt",
+  "tags": [
+    "Nuxt UI",
+    "Design System",
+    "Vue",
+    "UI Components"
+  ],
+  "readingTime": "4 分鐘"
+}
+
+做後台或產品介面時，常會遇到一個很熟悉的選擇：直接裝元件庫，還是自己養一套 Design System？前者怕做出來像別人的網站，後者又很容易低估長期維護成本。
+
+Nuxt UI v4 把原本分開的免費版和 Pro 內容整合，提供超過一百個元件、模板與 Figma Kit。對小團隊來說，這能省下不少從按鈕、表單一路做到 modal 的時間。
+
+現成元件庫的優點是快、常見互動較完整，缺點則是畫面容易帶有相似風格，客製到很深時也可能開始和原本設計打架。自建 Design System 的自由度高，但需要有人長期維護文件、無障礙和各種狀態。
+
+多數專案不用急著二選一。可以先用 Nuxt UI 處理基礎互動，再透過 theme 和包裝元件建立自己的視覺規則，把真正有品牌特色的部分留給自己。
+
+如果團隊只有一兩位前端，從零維護 date picker、combobox 和表單錯誤狀態，通常不是最划算的投資。反過來說，若產品有大量特殊互動或嚴格品牌規範，現成元件改到最後也可能比自己做更辛苦。這篇不用選邊站，把人力和產品差異放進來看就夠了。
+
+還有一個常被低估的成本是升級。自建元件要自己修瀏覽器和無障礙問題；採用套件則要跟著 breaking changes。決定前除了看元件數量，也可以看看 changelog、維護頻率，以及團隊能不能接受它的 API。
+
+---
+
+參考：[Nuxt UI v4](https://nuxt.com/blog/nuxt-ui-v4)
