@@ -52,7 +52,7 @@ export function HomeContent({ locale, currentPage }: { locale: Locale; currentPa
 
   return (
     <main className={`${siteShell} border-y border-frame bg-paper/92 md:border-x md:border-t-0`}>
-      <div className="grid grid-cols-1 items-start md:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
+      <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
         <section className="min-w-0 p-4 md:px-3 md:pt-3 md:pb-0" aria-labelledby="latest-posts">
           <SiteNavigation locale={locale} dictionary={dictionary} className="mx-0 mt-0 mb-3 px-0.5 pt-0 pb-2 text-sm md:text-base" ariaLabel={dictionary.home.navigationLabel} />
           <h1 id="latest-posts" className="sr-only">{dictionary.home.latestPosts}</h1>

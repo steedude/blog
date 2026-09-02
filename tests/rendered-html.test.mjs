@@ -146,6 +146,7 @@ test("paginates the homepage with five posts per page", async () => {
   assert.equal((second.match(/<article class="mb-4/g) ?? []).length, 5);
   assert.match(first, /href="\/zh-TW\/page\/2"/);
   assert.match(first, /第 1 \/ 8 頁/);
+  assert.doesNotMatch(first, /grid grid-cols-1 items-start/);
   assert.doesNotMatch(first, /mx-0 mt-2 mb-0 md:hidden/);
   assert.doesNotMatch(first, /<footer[^>]*>\s*<nav/);
   assert.doesNotMatch(second, /<footer[^>]*>\s*<nav/);
