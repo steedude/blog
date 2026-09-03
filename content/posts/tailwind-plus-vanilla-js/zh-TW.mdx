@@ -9,7 +9,7 @@ export const metadata = {
     "Tailwind CSS",
     "Vanilla JavaScript",
     "UI Components"
-  ],
+  ]
 }
 
 看到 Tailwind Plus 開始支援 Vanilla JavaScript，第一眼可能覺得像在往回走：大家用了這麼多年框架，怎麼又回到原生 JS？但放到 dialog、dropdown 這類小型互動裡看，這個選擇其實很合理。
@@ -23,3 +23,7 @@ Tailwind Plus 過去常讓人聯想到 React 或 Vue 元件，但 2025 年加入
 這對後端模板、傳統 CMS 或像 Astro 這種以 HTML 為主的網站特別實用。需要互動的地方只加少量 JavaScript，其餘頁面不用為了幾個元件一起載入框架 runtime。
 
 不過 Vanilla JavaScript 並不自動等於更輕。若元件各自帶一份重複邏輯，最後仍可能變大。真正值得看的是輸出多少程式、互動是否好維護，而不是看到「無框架」三個字就先判定比較好。
+
+我會先看互動的生命週期。如果元件只在開啟、關閉之間切換，原生 JS 很舒服；如果狀態會跨頁共享、和權限及 API 串在一起，框架提供的資料流就開始有價值。用程式碼行數判斷要不要框架，通常會漏掉後面維護狀態的成本。
+
+另一個檢查點是 cleanup。事件監聽、focus trap 和動態插入的節點如果沒有一致的卸載方式，幾個「很小的 script」疊起來也會難查。無框架不是無架構，只是架構要由團隊自己說清楚。

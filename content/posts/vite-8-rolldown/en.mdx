@@ -1,0 +1,27 @@
+export const metadata = {
+  slug: "vite-8-rolldown",
+  title: "Why Vite 8 switched to Rolldown",
+  description: "Why Vite replaced its build core and which compatibility details matter during the move to Rolldown.",
+  publishedAt: "2026-03-10",
+  category: "Frontend Tooling",
+  categorySlug: "tooling",
+  tags: ["Vite", "Rolldown", "Rust", "Build Tools"],
+}
+
+Vite 8 looks like another major release, but the change underneath is substantial: the core responsible for production builds is being replaced. The interesting question is not the new name, but whether a tool can change engines without making users repair configuration every day.
+
+Vite's development environment has always been fast, while production builds traditionally used Rollup. Vite 8 moves the core toward Rolldown so development and production can share more foundations and behave more consistently.
+
+Rolldown can be understood as a Rust-based bundler designed toward Rollup compatibility. Normal Vite commands do not all change, and the goal is for most Vite and Rollup plugins to continue working.
+
+The areas to check are unusual plugins, custom build configuration, and code that depends on bundler implementation details. For a simple project, the change should feel like Vite replacing its engine under the hood.
+
+## Why unify the tools?
+
+Using one tool for development and another for production creates more than a speed difference. Their behavior can diverge: an import works during development and fails only in a build, which is especially frustrating to debug. Rolldown's long-term goal includes sharing more resolution and transformation logic across both paths.
+
+Rust performance is appealing, but compatibility matters more to me. Vite became popular partly because of its large Rollup and Vite plugin ecosystem. A new core that is fast but breaks common plugins is not a real successor. Vite 8's story is therefore not simply that Rust beats JavaScript; it is how to replace an engine while preserving the ecosystem around it.
+
+For an upgrade, I would divide plugins into official, widely used community packages, and internal code. The first two have compatibility reports; the last needs fixtures that compare development and build output. The likely surprise is not the React plugin, but a forgotten transform written years ago for one unusual file format.
+
+Even if builds become faster, I would keep existing caches temporarily and observe CI variance before simplifying. Changing the bundler, cache, and deployment pipeline together makes it impossible to know what created the gain—or where to roll back when something fails.

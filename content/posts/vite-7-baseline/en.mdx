@@ -1,0 +1,27 @@
+export const metadata = {
+  slug: "vite-7-baseline",
+  title: "Vite 7 browser support and Baseline",
+  description: "A plain-language explanation of Vite 7's Baseline Widely Available browser target.",
+  publishedAt: "2025-06-24",
+  category: "Frontend Tooling",
+  categorySlug: "tooling",
+  tags: ["Vite", "Baseline", "Browser Support", "Build Tools"],
+}
+
+"Support modern browsers" sounds perfectly understandable until it becomes a project requirement. How modern is modern, and which Safari version counts? Vite 7's move to Baseline is an attempt to draw a clearer line around that vague phrase.
+
+Vite 7 changed its default production target to Baseline Widely Available. The name is long, but the idea is simple: use Web features that have been broadly available in the major browsers for a meaningful period as the default support range.
+
+Baseline calls a feature Newly Available once all major browsers support it. After 30 months, it becomes Widely Available. Vite therefore gets a support boundary based on a shared rule rather than the phrase "modern browsers."
+
+This setting mainly affects the JavaScript syntax in the output bundle. It does not automatically polyfill every missing Web API. A product used on old company computers or special-purpose devices must still choose targets based on its own audience.
+
+## Which versions did Vite 7 choose?
+
+For this major release, the target corresponds to Chrome 107, Edge 107, Firefox 104, and Safari 16. Future Vite majors can move the list forward with the Widely Available range of their time. That gives the default an external rule instead of asking maintainers to choose versions by intuition.
+
+Baseline is still not a product requirement. An internal banking system and a campaign page built only for recent phones naturally have different audiences. Vite supplies a sensible default; traffic data, company policy, and the ability to use progressive enhancement remain the final decision makers.
+
+I treat `build.target` as the minimum syntax level of the output, not the whole browser-support policy. Whether `fetch`, WebGL, or a particular CSS selector works still requires a separate decision, and a third-party script may introduce higher requirements of its own. Changing the target and declaring old-browser support creates a particularly dangerous sense of safety.
+
+A more practical approach combines browser versions from real traffic, error monitoring, and the product's explicit commitments. If an older environment truly matters, test core flows on a real device or browser service instead of trusting a successful build. Baseline gives the industry a shared starting vocabulary; it does not perform compatibility testing for each site.

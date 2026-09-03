@@ -1,0 +1,25 @@
+export const metadata = {
+  slug: "chrome-147",
+  title: "Scoped View Transitions in Chrome 147",
+  description: "Using scoped View Transitions for lists, cards, and state changes inside a component.",
+  publishedAt: "2026-04-07",
+  category: "Web Platform",
+  categorySlug: "web-platform",
+  tags: ["Chrome", "View Transitions", "CSS", "Animation"],
+}
+
+Animation APIs often feel perfect for a showcase and difficult to place in a real product. Scoped View Transitions are more practical because they address small changes already found in products, such as reordering a list or switching card layouts.
+
+View Transitions first looked like an animation system for whole-page navigation. Chrome 147 added element-scoped transitions, allowing one region to participate without involving the entire page.
+
+Reordering cart items, moving a card on a board, or changing a photo grid can animate only the affected component. This is simpler than calculating every element position manually and makes it easier to preserve the rest of the page state.
+
+Animation should support an action, not make users wait for it to finish. The UI should also respect `prefers-reduced-motion` for people who need less movement.
+
+The useful part of this API is that ordinary DOM updates remain ordinary. Code still changes a class, sorts an array, or toggles state; the browser supplies the transition between the old and new visuals. There is no separate position model to maintain only for animation.
+
+Lack of View Transitions should remain a normal path. On an unsupported browser, the DOM update still completes and only the animation is absent. That makes the feature a good progressive enhancement without requiring an alternative interaction for older browsers.
+
+I would begin where motion explains a change in position, not animate every state update. Moving a board card or reordering filtered results fits; making a whole form fly away after Save may only steal attention. A good transition helps the user answer, "Where did that item go?"
+
+Tests should include more than the happy path. Rapid clicks, sorting again before data returns, and changing routes mid-transition are where state and animation are most likely to disagree.

@@ -1,0 +1,27 @@
+export const metadata = {
+  slug: "astro-6-beta",
+  title: "The content-site experience in Astro 6 Beta",
+  description: "How Astro 6 Beta approaches fonts, security policy, the dev server, and dynamic content.",
+  publishedAt: "2026-01-13",
+  category: "Content Sites",
+  categorySlug: "content-sites",
+  tags: ["Astro", "CSP", "Fonts", "Content Collections"],
+}
+
+Content-site tools often lead with speed. Once a blog is running, however, font loading, content updates, and security headers tend to interrupt work more often than a few kilobytes on the homepage.
+
+Astro has long suited blogs, documentation, and brand sites. It produces HTML first and sends JavaScript only to the parts that need interaction, which is the easiest way to understand its Islands architecture.
+
+Astro 6 Beta added a new development server, a Fonts API, CSP support, and Live Content. The Fonts API offers a consistent loading path; CSP restricts which sources may execute code; Live Content allows updates without necessarily rebuilding the whole site.
+
+These features do not turn Astro into another Next.js. Its focus remains content sites, while common needs around fonts, security, and dynamic data become more complete.
+
+Most blog pages contain an article and little interaction. Astro treats them as HTML, then loads a component locally for search, comments, or a chart. Compared with a React-centered site, it provides less full-stack integration and sends less unnecessary browser JavaScript.
+
+A beta is better for understanding direction than for immediately migrating production. Adapter, CMS, and Markdown plugin compatibility often matters more than the headline features.
+
+Live Content is particularly interesting for editorial teams. Traditional static sites rebuild after every article update, and the wait grows with the site. Fetching content at request time shortens publishing, but the page is no longer completely static, so caching and source reliability become part of the design.
+
+Neither model is inherently more modern. A personal blog updated once a day may be perfectly happy with a five-minute build; a news or pricing page that changes every minute should not wait for a full rebuild. I would measure publishing frequency and acceptable delay before deciding which collections truly need to be live.
+
+CSP has a similar reality. Enabling an option is easy; inventorying analytics, embeds, and inline scripts takes the time. During a beta trial I would begin in report-only mode, collect violations, and tighten the policy gradually rather than accidentally blocking resources needed by login or payment pages.

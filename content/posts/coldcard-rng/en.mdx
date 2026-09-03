@@ -1,0 +1,41 @@
+export const metadata = {
+  slug: "coldcard-rng",
+  title: "COLDCARD's weak randomness flaw and wallet seed security",
+  description: "Why a firmware update cannot repair wallets created with weak COLDCARD seed randomness.",
+  publishedAt: "2026-07-29",
+  category: "Security",
+  categorySlug: "security",
+  tags: ["Security", "Crypto Wallet", "CSPRNG", "Seed Phrase"],
+}
+
+Cold-wallet security usually brings offline keys and hidden recovery phrases to mind. If that apparently random phrase was not random enough when created, careful offline storage is only protecting a key an attacker may be able to guess.
+
+A hardware wallet generally protects private keys better than an online computer, provided the key was sufficiently random to begin with. No amount of later isolation can repair a flawed seed-generation process.
+
+A defect in the randomness path of some COLDCARD firmware reduced the possible space for certain seeds. An attacker could search for candidate wallets on another machine without touching the device or stealing the written recovery phrase.
+
+A firmware update prevents future weak seeds but does not add randomness to an existing one. Affected users must create a new wallet safely and transfer the assets. "Cold" means offline; it does not prove that the entire key-generation process was correct.
+
+## Slightly weaker randomness can mean vastly weaker security
+
+A wallet seed is secure because there are too many possibilities to try. A true 256-bit space is effectively impossible to exhaust. If a software defect reduces the changing portion enough, an astronomical search can shrink into something ordinary hardware may attempt.
+
+A weak seed looks exactly like a normal one: just a list of words. Importing it into a healthy hardware wallet does not help because the weakness existed at creation, not in its current storage location.
+
+## Hardware wallets still depend on software engineering
+
+Dedicated hardware is meant to isolate security, but it still runs firmware with entropy sources, fallbacks, and error handling. When a hardware source fails, should the software stop seed generation or silently use a weaker fallback? A low-level decision can directly affect real assets.
+
+This incident does not prove that all hardware wallets are untrustworthy. It shows that offline storage is one security layer. Firmware updates, public audits, multisig, and an additional passphrase reduce different risks; no single label covers everything.
+
+## PRNG versus CSPRNG
+
+A normal PRNG only needs output that looks well distributed for simulation or games. A cryptographically secure PRNG must also prevent an observer from reconstructing internal state or predicting the next output. Wallet seeds require the second property; merely looking random is nowhere near enough.
+
+Devices may combine several entropy sources or let a user add dice rolls. This reduces dependence on one source only when the combination is correct: the system must define how input is mixed, what happens when user entropy is insufficient, and whether seed generation stops after an RNG failure.
+
+An additional passphrase can add another secret to a seed, provided it is strong and reliably backed up. A common word offers little protection, while a forgotten strong phrase locks out its owner. Security controls always carry operational cost, especially in self-custody.
+
+After an advisory like this, first verify the model, firmware, and when the seed was created instead of reacting to the brand name alone. Asset migration has its own risk: follow vendor guidance, create a fresh seed, test a small transfer, and only then move the main balance. An untrusted "repair tool" downloaded from the web can create a second loss.
+
+The incident also illustrates why security systems should fail closed. If a device cannot obtain enough entropy, it should refuse to create a wallet rather than silently downgrade for a smoother flow. An ugly error for a few minutes is better than a normal-looking key that can be guessed.

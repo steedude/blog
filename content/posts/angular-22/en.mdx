@@ -1,0 +1,51 @@
+export const metadata = {
+  slug: "angular-22",
+  title: "The important changes from Angular 20 to 22",
+  description: "How Signals, zoneless change detection, SSR, forms, and data fetching evolved across Angular 20 through 22.",
+  publishedAt: "2026-06-03",
+  category: "Angular",
+  categorySlug: "angular",
+  tags: ["Angular", "Signals", "Zoneless", "Signal Forms", "Fetch"],
+}
+
+Three Angular major releases can easily become three feature lists that still fail to show where the framework is going. Placing versions 20, 21, and 22 together makes the shared direction easier to see.
+
+That direction is to reduce hidden mechanisms such as Zone.js, express state with Signals, and gradually connect forms, asynchronous data, accessibility, and testing to the same modern foundation.
+
+## Angular 20: stabilizing reactivity and SSR
+
+- Core Signals APIs became stable, making signal-based inputs and queries suitable for production.
+
+- Incremental hydration and route-level rendering stabilized, allowing SSR, prerendering, and CSR to vary by route.
+
+- Zoneless became stable in 20.2, giving projects a planned path away from Zone.js.
+
+This release laid foundations. Templates did not become unrecognizable, but the way Angular observes state and activates server-rendered HTML began moving to a new track.
+
+## Angular 21: new defaults and development tools
+
+- **Zoneless became the default for new projects:** Signals, events, and explicit APIs schedule change detection without extra setup.
+
+- **Experimental Signal Forms arrived:** Signals store data, schemas describe validation, and a field tree is derived from the model.
+
+- **Angular Aria and Vitest:** Accessible interaction primitives and a testing tool closer to the modern frontend ecosystem.
+
+- **Angular MCP:** Coding agents can access Angular project context and official knowledge instead of guessing current patterns.
+
+## Angular 22: moving experiments into production
+
+- **Signal Forms, Resource API, and Angular Aria stabilized:** Forms, asynchronous data, and accessible behavior became serious options for new projects.
+
+- **HttpClient uses Fetch by default:** Networking aligns with the standard API across browsers and other runtimes instead of relying on older XHR behavior.
+
+- **New service and error-boundary directions:** `@Service()` simplifies declarations, while `@boundary` and `@error` bring local error handling closer to template structure.
+
+## My take
+
+Across these releases, the phrase "Angular is heavy" needs more precision. Angular remains comprehensive and opinionated, but Signals and zoneless remove part of the hard-to-observe magic. Comprehensive does not have to mean outdated.
+
+For enterprise projects, gradual change is far friendlier than another Angular 2-style break. Old and new APIs will coexist, so teams should document the choice for new components and avoid rewriting every working form simply because Signal Forms stabilized. Use the new defaults for new work and migrate old code when maintenance provides a reason.
+
+I would draw a clear line in team documentation: new components default to Signals and zoneless; old ones stay until a product change gives us a reason. At the boundary, adapters should centralize Observable-to-Signal conversion. If every developer mixes them independently, the same state may have three sources six months later and become harder to trace than the Zone.js era.
+
+Fetch as the default also deserves attention in tests. Mocks, cancellation, and interceptor behavior need verification, especially when a company wraps HttpClient. A more standard foundation is welcome, but it does not make an existing abstraction automatically compatible.

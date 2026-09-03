@@ -1,0 +1,25 @@
+export const metadata = {
+  slug: "nuxt-4-5",
+  title: "Vite, Rspack, and SSR Streaming in Nuxt 4.5",
+  description: "Separating the roles of Vite, Rspack, and SSR Streaming in Nuxt 4.5.",
+  publishedAt: "2026-07-21",
+  category: "Nuxt",
+  categorySlug: "nuxt",
+  tags: ["Nuxt", "Vite", "Rspack", "SSR Streaming"],
+}
+
+Seeing Vite, Rspack, and SSR streaming in the same Nuxt release note can be confusing. Instead of asking which one is faster, divide them into build tools and a page-delivery technique.
+
+Nuxt 4.5 includes Vite 8, Rspack 2 through Rsbuild, and experimental SSR streaming. The first two build the application. The last changes how the server sends a rendered page to the browser.
+
+Most Nuxt projects can continue with the default Vite setup. Rspack is more relevant when webpack compatibility or existing related configuration matters. The useful choice is based on project dependencies, not which name is newer.
+
+SSR streaming lets the server begin sending completed sections before the entire page is ready. It is more useful when a page has several data sources with different response times. Loading states still need design so content does not appear as a collection of disconnected fragments.
+
+These additions make Nuxt 4.5 feel like it addresses both how an application is bundled and how a page is delivered. The framework usually owns most build decisions, while streaming directly affects the UI. Designing useful skeletons and preventing layout shift matters more than memorizing the underlying names.
+
+For a simple page whose data arrives together, streaming may not provide a visible benefit. It fits pages with fast and slow regions, where navigation and primary content can arrive before a slower section.
+
+I would first use the browser's Network and Performance panels to find the actual wait. If all time belongs to one required API, a bundler change or streaming cannot make the data arrive sooner. The opportunity is in independent regions: slow secondary data should not block the title and navigation.
+
+Rspack should be driven by compatibility needs, not a race against Vite. Without webpack history, the default path usually costs less to maintain. When loaders or a large existing configuration matter, compare a representative production page rather than relying on headline numbers.

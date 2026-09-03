@@ -1,0 +1,39 @@
+export const metadata = {
+  slug: "webmcp",
+  title: "WebMCP and websites designed for agents",
+  description: "How a website can expose structured actions to an AI agent while preserving authorization and user confirmation.",
+  publishedAt: "2026-05-19",
+  category: "AI Development Tools",
+  categorySlug: "ai-tooling",
+  tags: ["WebMCP", "AI Agent", "Web API", "Security"],
+}
+
+As AI agents begin navigating websites, frontend developers have acquired a strange new user: it can see the interface without necessarily understanding what an action will do. WebMCP asks how a site can describe its capabilities more clearly.
+
+Today's browser agents often search for text and buttons, then click as a person would. A redesign or renamed button can break the automation.
+
+WebMCP lets a site declare supported actions such as searching products, adding an item to a cart, or checking an order. The agent receives explicit tool names and parameters instead of inferring everything from the screen.
+
+This does not replace APIs or give an agent unrestricted access. Authentication, authorization, payment confirmation, and user consent remain essential. It is an agent-readable description alongside the human UI.
+
+## How is this different from clicking the page?
+
+Browser automation sees DOM and button labels. A button called Submit might publish a comment, create an order, or delete an account; meaning has to be inferred from context. WebMCP describes an operation with a tool name, parameters, and result, closer to an API contract.
+
+APIs are built for software integration, while WebMCP focuses on how an agent discovers and uses capabilities. A site can keep the human interface and identify which operations are officially supported without forcing an agent to hunt for selectors.
+
+## Another interface to design
+
+Frontend work already considers visuals and the accessibility tree. It may also need to consider tool descriptions for agents. Vague names invite the wrong choice, and weak parameter constraints can permit dangerous actions. Payment and deletion still require final confirmation even when invoked through a tool.
+
+WebMCP remains early, so I would not call it a standard every site needs. The underlying question is still valuable: when website users are no longer only human, how do we provide an entry point that is both clear and safe?
+
+## A simple example
+
+A travel site may contain date pickers, room cards, and several modals. A visual agent must understand the DOM and simulate clicks. A `searchRooms` tool can instead accept arrival, departure, and guest count as structured parameters and return rooms in a stable format.
+
+`bookRoom` should not be equally automatic. Search is low-risk reading; booking creates a charge. The user should see the final amount and confirm again. WebMCP design is therefore not only about tool schemas, but also which steps can be delegated and which must return control to a person.
+
+If I added tools to a site, I would begin with read-only, retryable operations and keep an audit log for every call. Only after the team understands how agents choose parameters would I expose writes. Publishing every internal API unchanged is not a shortcut; parameters designed for trusted application code may be poor choices for model judgment.
+
+Error messages also become interface design. `400 Bad Request` tells neither a person nor an agent how to recover. Naming the invalid date range, allowed values, and whether an action can be retried makes the next step safer and predictable.

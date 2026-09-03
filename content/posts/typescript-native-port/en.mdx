@@ -1,0 +1,29 @@
+export const metadata = {
+  slug: "typescript-native-port",
+  title: "TypeScript's native compiler port",
+  description: "Why the TypeScript team chose Go for a new compiler and what native tooling means for large frontend projects.",
+  publishedAt: "2025-03-11",
+  category: "TypeScript",
+  categorySlug: "typescript",
+  tags: ["TypeScript", "Go", "Compiler", "Developer Experience"],
+}
+
+While writing TypeScript, we rarely stop to think that `tsc` is itself a program written in TypeScript. Once a project grows and editor feedback starts spinning, the language used to build the compiler suddenly becomes a practical concern.
+
+Type checking and editor suggestions can slow down in large TypeScript codebases. In 2025, Microsoft announced that it was rebuilding the compiler and language tools in Go, with the goal of cutting those waits substantially.
+
+"Native" here does not mean TypeScript will run directly in the browser. It means replacing tools written in TypeScript with Go programs compiled to native executables. For most developers, the visible result should be faster `tsc` runs and quicker editor feedback after opening a large project.
+
+Rewriting the tools does not mean replacing the TypeScript language. The team's stated direction is to preserve compatibility as much as possible, so developers can notice the speed improvement without learning another syntax.
+
+## Why not keep optimizing the existing compiler?
+
+Writing the compiler in TypeScript has made maintenance and contributions approachable, but type analysis in a large program consumes significant CPU time and memory. A native program can use multiple cores and manage memory more directly, leaving more room for improvement.
+
+Go was not selected because it happened to be fashionable. It can produce cross-platform binaries easily, has mature concurrency support, and allows the new compiler's structure to stay relatively close to the old one. That makes behavior easier to compare during a port than a language that would require a completely different architecture.
+
+Of course, an official demo showing a tenfold speedup does not mean every project will become ten times faster. A small project that previously waited one second may barely notice. Large monorepos, CI type checks, and editors that repeatedly analyze an entire workspace stand to benefit most. The useful story is why the rewrite is worthwhile, not an attempt to reproduce every benchmark number.
+
+I am more interested in improvements that are difficult to capture in a screenshot. How quickly does the language service recover after switching branches? When a shared type changes, how soon do errors appear in dependent packages? Can CI stop splitting type checks into special cases? Saving a few seconds at each interruption may matter more over a workday than one impressive benchmark.
+
+At the same time, a compiler rewrite cannot settle for being "mostly compatible." Type systems contain countless edge cases, and one generic that suddenly fails is a real migration cost. I see the native port as an ecosystem project: compiler speed is the first gate, but editors, eslint integrations, framework plugins, and declaration tooling all need to arrive before the move feels complete.

@@ -1,0 +1,37 @@
+export const metadata = {
+  slug: "safari-26-web-platform",
+  title: "New CSS and Web APIs in Safari 26",
+  description: "A tour of Safari 26's Anchor Positioning, scroll-driven animations, HDR, credentials, and security APIs.",
+  publishedAt: "2025-06-09",
+  category: "Web Platform",
+  categorySlug: "web-platform",
+  tags: ["Safari", "WebKit", "CSS", "Web API"],
+}
+
+Whenever a new CSS feature comes up, someone eventually asks, "But does Safari support it?" It has become a joke, yet the answer often decides whether a feature stays in a demo or can safely enter a product.
+
+Safari 26 added a very long list of WebKit features. Rather than translate every item, these are the changes I find most relevant to ordinary frontend work.
+
+## The larger updates
+
+- **CSS Anchor Positioning:** A tooltip, popover, or menu can stay attached to another element without repeatedly reading coordinates and listening for resize and scroll events. It addresses one of the oldest floating-UI problems.
+
+- **Scroll-driven Animations:** Animation progress can follow scroll position or an element's visible range. Reading indicators and simple entrance effects no longer need a large collection of scroll listeners.
+
+- **HDR images and `dynamic-range-limit`:** Compatible displays can show a brighter and wider image range while authors can limit intensity. This is attractive for photography and video sites, though assets and device differences need careful handling.
+
+- **Digital Credentials API:** With user consent, a site can request verified information from a digital identity credential. The challenge includes not only what data is available, but when to ask and how to explain the request.
+
+- **`URLPattern`, Trusted Types, and more platform APIs:** URL matching becomes more consistent, while Trusted Types can reduce DOM XSS risk. These APIs may not alter the screen directly, but they strengthen the foundations used by routing and security tools.
+
+Real projects still need to check the Safari versions their visitors use, especially on older iPhones that cannot upgrade. Support in the newest Safari lowers the cross-browser adoption barrier; it does not update every device on the same day.
+
+## My take
+
+Anchor Positioning is the feature I am most optimistic about. It is not merely visual polish; it can remove positioning logic that every component library has rewritten. Scroll-driven animations are useful too, but they are best treated as progressive enhancement: content and controls should still work without the animation.
+
+I prefer `@supports` feature detection over guessing browser names. New projects can adopt these features first where they do not affect critical flows. Existing components do not need an overnight rewrite just because Safari caught up; simplify them gradually as the product's minimum supported versions move forward.
+
+Safari's version number keeps growing, but device distribution remains the awkward product constraint. Company test phones may all run the latest release while a customer's iPhone is stuck on an older system because of hardware limits. Instead of a ticket that says "support Safari," I would rather see an explicit minimum version and a description of what remains when a new feature is absent.
+
+For Anchor Positioning, the first release can keep the existing floating-position library and use the native path where supported. Once monitoring and traffic show that the old path is rarely used, the dependency can be removed. A platform feature often saves code not on the day support is announced, but on the day a product can confidently delete its fallback.

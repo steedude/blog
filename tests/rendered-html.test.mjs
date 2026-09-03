@@ -239,8 +239,9 @@ test("searches posts locally without external search engines", async () => {
   const response = await render("/en/search?q=Compiler");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /1 post found/);
+  assert.match(html, /5 posts found/);
   assert.match(html, /Is React Compiler ready to adopt/);
+  assert.match(html, /TypeScript 7 moves to a native compiler/);
   assert.doesNotMatch(html, /google\.com\/search|duckduckgo\.com/);
 });
 
@@ -349,18 +350,19 @@ test("publishes the complete topic plan through posts, taxonomies, RSS, and site
   assert.match(article, /href="\/zh-TW\/tag\/node\.js"/);
   assert.match(article, /href="\/zh-TW\/tag\/frontend-tooling"/);
   assert.doesNotMatch(article, /參考：/);
-  assert.doesNotMatch(article, /hrefLang="en" href="[^"]*\/en\/posts\/node-24"/);
+  assert.match(article, /hrefLang="en" href="[^"]*\/en\/posts\/node-24"/);
 
   assert.match(await categoryResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
   assert.match(await tagResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
   assert.match(await archiveResponse.text(), /Angular 20|Node\.js 24/);
   assert.match(await rssResponse.text(), /\/zh-TW\/posts\/node-24/);
-  assert.match(await sitemapResponse.text(), /\/zh-TW\/posts\/node-24/);
+  const sitemap = await sitemapResponse.text();
+  assert.match(sitemap, /\/zh-TW\/posts\/node-24/);
+  assert.match(sitemap, /\/en\/posts\/node-24/);
 
-  const untranslatedResponse = await fetch(
-    `http://127.0.0.1:${port}/en/posts/node-24`,
-    { redirect: "manual" },
-  );
-  assert.equal(untranslatedResponse.status, 307);
-  assert.match(untranslatedResponse.headers.get("location") ?? "", /^\/en(?:, \/en)?$/);
+  const englishArticleResponse = await render("/en/posts/node-24");
+  assert.equal(englishArticleResponse.status, 200);
+  const englishArticle = await englishArticleResponse.text();
+  assert.match(englishArticle, /How Node\.js 24 affects the frontend toolchain/);
+  assert.match(englishArticle, /Category:<\/span> <a[^>]*>Frontend Tooling<\/a>/);
 });

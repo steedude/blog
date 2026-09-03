@@ -1,0 +1,35 @@
+export const metadata = {
+  slug: "angular-20",
+  title: "What Angular 20 says about modern Angular development",
+  description: "A practical overview of Signals, incremental hydration, route-level rendering, and zoneless Angular.",
+  publishedAt: "2025-05-28",
+  category: "Angular",
+  categorySlug: "angular",
+  tags: ["Angular", "Signals", "Zoneless", "SSR", "Hydration"],
+}
+
+Angular is a framework that carries a lot of old impressions. Some developers last looked closely when every screen seemed full of NgModules, decorators, and Zone.js. Looking again at Angular 20 shows that several of those familiar burdens have started to loosen.
+
+Angular has not suddenly become a tiny framework. It still provides an integrated answer for routing, forms, dependency injection, builds, and SSR. What has changed is that its reactivity and server-rendering model now feel much closer to the rest of the modern frontend ecosystem.
+
+## The larger Angular 20 changes
+
+- **Core Signals APIs became stable:** `signal`, `effect`, `linkedSignal`, signal-based inputs, and queries let components express state and derived values more directly.
+
+- **Incremental hydration became stable:** Together with `@defer`, server-rendered sections can wait to load and activate JavaScript until interaction is needed. Content-heavy SSR pages no longer have to hydrate everything at once.
+
+- **Route-level rendering became stable:** Individual routes can choose SSR, prerendering, or client rendering instead of forcing one mode on the entire application.
+
+- **Zoneless continued to mature:** It was still progressing in 20.0 and became stable in 20.2. Angular no longer has to rely on Zone.js intercepting every asynchronous event, making update timing more explicit.
+
+Signals do not require deleting RxJS. Component state and computed values fit Signals well; search suggestions, WebSockets, and streams of asynchronous events remain natural RxJS use cases. Treating them as different tools is more useful than arguing that one must replace the other.
+
+## My take
+
+The important part of Angular 20 is not one new syntax. Several long-running efforts are finally ready for production. Incremental hydration and route-level rendering are especially notable because they improve the first-load experience of content sites, not only large internal applications.
+
+For an existing project, I would not migrate every component at once. New work can use Signals first, while the team checks whether third-party libraries behave correctly without Zone.js. Angular's strength is stability and consistency, and its upgrade strategy should preserve those qualities.
+
+I would start with a feature that has a clear boundary, perhaps a settings page with a few inputs and no dependency on a site-wide service. It is a good place to observe how signal inputs and computed state connect to existing RxJS services, and tests can catch missing UI updates before and after zoneless. Beginning with the application's shared form layer makes any failure much harder to locate.
+
+Angular is now in an interesting position: its current patterns are simpler than many developers remember, while a real codebase may still contain conventions from a decade ago. Asking whether Angular is "heavy" is too broad to be useful. The better question is whether a team can preserve stability while gradually replacing hidden behavior with data flow that can be observed and tested.

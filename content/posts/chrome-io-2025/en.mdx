@@ -1,0 +1,33 @@
+export const metadata = {
+  slug: "chrome-io-2025",
+  title: "Web Platform updates from Chrome at I/O 2025",
+  description: "The browser features from Google I/O 2025 that ordinary frontend projects may actually use soon.",
+  publishedAt: "2025-05-20",
+  category: "Web Platform",
+  categorySlug: "web-platform",
+  tags: ["Chrome", "Web Platform", "CSS", "Baseline"],
+}
+
+When Google I/O announces too many features at once, it is easy to finish the keynote remembering only that there was even more AI this year. I want to leave AI aside for a moment and pick out a few Web Platform changes that regular frontend developers may encounter soon.
+
+One direction was especially clear in 2025: interface patterns that once required JavaScript components are gradually moving into the browser platform.
+
+CSS carousels can cover part of a slider's interaction, while Anchor Positioning lets a tooltip or menu follow another element. Baseline provides a simpler label for whether a feature has broad support across the major browsers.
+
+This is not a reason to delete every UI library immediately. New platform features still have version and implementation differences. It does mean that, before installing another dependency, we can check whether HTML and CSS already solve the problem.
+
+## Three changes worth watching
+
+- CSS carousels bring scroll buttons and position markers to CSS, so a simple carousel may not need a full slider package.
+
+- Anchor Positioning addresses the old problem of keeping a floating layer attached to its trigger, and it works well with popovers.
+
+- Baseline is appearing in more development tools, turning browser compatibility into something more readable than a long table of version numbers.
+
+Built-in AI APIs attracted plenty of attention, but they still face model downloads, device requirements, and cross-browser support questions. The HTML and CSS improvements above are more likely to reach everyday projects first. When a release is this large, choosing what is useful soon matters more than translating every announcement bullet.
+
+Recent browser releases feel like the platform reclaiming common UI patterns. Native features can account for keyboard use, focus, and performance together, though standards still need time to mature. Frontend developers do not have to chase every API; knowing that the platform is taking over a familiar problem is often enough to recognize the right tool later.
+
+I now sort conference announcements into three columns: usable today, suitable for progressive enhancement, and worth remembering by name. Baseline helps with the first. Anchor Positioning often fits the second because an existing positioning fallback can remain. Device-side AI can comfortably stay in the third when the product has no concrete use for it.
+
+This keeps a team from rebuilding components every quarter in pursuit of novelty, but it also avoids waiting for perfect browser agreement before learning anything. Platform features take time to travel from experiment to common use. The useful frontend skill is recognizing which part of the risk a fallback can absorb, not memorizing an entire keynote.

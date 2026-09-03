@@ -1,0 +1,25 @@
+export const metadata = {
+  slug: "astro-7",
+  title: "Astro 7's Rust compiler and MDX changes",
+  description: "What content sites and MDX users should check as Astro 7 moves more compilation work to Rust.",
+  publishedAt: "2026-06-16",
+  category: "Content Sites",
+  categorySlug: "content-sites",
+  tags: ["Astro", "Rust", "MDX", "Vite"],
+}
+
+Astro 6 had just rounded out the content-site workflow when version 7 shifted attention back to the compiler. A fast release cadence does not mean every site must migrate immediately. The useful question is what a Rust foundation changes for someone writing MDX.
+
+Astro 7 moves more compilation work, including Markdown and MDX processing, to Rust. Users do not need to learn Rust, and the existing article formats do not disappear.
+
+The release is mainly a foundation update: it pairs with Vite 8, speeds up content processing, and expands routing capabilities. Build efficiency becomes more visible as the number of articles grows.
+
+A blog with a few dozen posts does not need to migrate because of Rust alone. More important is that Astro still treats content sites as a primary use case rather than racing to absorb every full-stack feature.
+
+MDX users are likely to care about compatibility: whether syntax remains valid, remark and rehype plugins still work, and error messages remain understandable. A language change underneath should be as invisible as possible. Speed is an outcome; upgrading without rewriting articles is the comfortable part.
+
+For Markdown-heavy sites, back up content and pin plugin versions before upgrading. Differences are more likely in unusual syntax and plugin integration than in ordinary headings and paragraphs. Read the migration notes first, then handle specific exceptions.
+
+I would keep a few deliberately difficult fixture posts: nested lists, tables, fenced code, non-Latin slugs, and remark plugins that modify the AST. Comparing their HTML before and after an upgrade is more efficient than opening hundreds of articles manually and leaves a reusable regression suite.
+
+Compiler speed should ultimately improve editing. Saving a second on every preview and receiving an error with the correct source line may matter to an author more than the peak number for a complete production build.

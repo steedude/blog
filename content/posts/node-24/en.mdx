@@ -1,0 +1,39 @@
+export const metadata = {
+  slug: "node-24",
+  title: "How Node.js 24 affects the frontend toolchain",
+  description: "What Node.js 24 changes for Vite, Next.js, testing, CI, and frontend development environments.",
+  publishedAt: "2025-05-06",
+  category: "Frontend Tooling",
+  categorySlug: "tooling",
+  tags: ["Node.js", "V8", "npm", "Frontend Tooling"],
+}
+
+A frontend role may not require writing a Node.js backend, but a modern frontend project can hardly avoid Node. Starting a dev server, running tests, and installing packages all depend on it, even if we rarely stop to notice.
+
+The effect of a Node major release is usually not a new API for drawing UI. It moves the shared foundation under development servers, bundlers, tests, and CI forward by one step.
+
+## Notable changes in Node.js 24
+
+- **V8 13.6:** This adds JavaScript features including `RegExp.escape()`, explicit resource management, and `Float16Array`. Frontend build tools run on V8 too, so runtime improvements gradually affect what tooling can support.
+
+- **npm 11 is bundled:** Installation performance, security, and compatibility continue to improve. The npm version still determines lockfile changes, so pinning only the Node major while every machine uses a different npm is not enough.
+
+- **`URLPattern` is global:** URL matching can use route-like patterns without an extra import. This is more immediately useful to framework and server-tool authors than to most page code.
+
+- **A new `AsyncLocalStorage` implementation:** Request-scoped context across asynchronous work becomes more efficient and reliable. Server frameworks such as Next.js rely on this kind of Node capability.
+
+- **The test runner and Permission Model keep maturing:** The test runner now waits for subtests automatically, while the permission flag moved from its experimental name to `--permission`. Node continues to bring formerly third-party responsibilities into core.
+
+## What I check before upgrading
+
+Compatibility comes before benchmarks. Confirm that Next.js, Nuxt, Vite, Vitest, and the deployment platform support Node 24, then check packages with native modules. A faster runtime is useless if one link in the toolchain cannot run on it.
+
+Local development, CI, and production should use the same version line. `.nvmrc`, Volta, or the `engines` field in `package.json` can record that decision, and the package manager should be pinned as well. Many cases of "it works on my machine" are environment differences rather than code differences.
+
+## My take
+
+I would not move a production frontend to Node 24 on release day. While it is Current, tool authors and new projects can validate it early; product teams can usually wait for LTS, hosting support, and framework compatibility. The broader lesson is that the runtime deserves the same regular maintenance plan as application dependencies.
+
+During an actual upgrade, I usually look at CI before changing my own machine. Local caches, global tools, and years of accumulated state can hide problems; a clean runner is more honest. I first take install, typecheck, test, and build through the new version, then update developer environments. A native-module failure also leaves a more reproducible record there.
+
+Docker images and runtime settings on platforms such as Vercel or Cloudflare are another easy omission. An `engines` field in `package.json` does not guarantee that every deployment entry point follows it. A Node upgrade looks like one changed number, but the real task is aligning the execution environment across the entire toolchain.

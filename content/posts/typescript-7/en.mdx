@@ -1,0 +1,29 @@
+export const metadata = {
+  slug: "typescript-7",
+  title: "TypeScript 7 moves to a native compiler",
+  description: "Beyond speed, the compatibility questions to consider when TypeScript 7 adopts its native compiler.",
+  publishedAt: "2026-07-08",
+  category: "TypeScript",
+  categorySlug: "typescript",
+  tags: ["TypeScript", "Go", "Compiler", "Migration"],
+}
+
+After more than a year, TypeScript's Go port is no longer only a plan in a presentation. "The native version is much faster" is the memorable headline, but support from surrounding tools is the more practical upgrade question.
+
+The native compiler announced in 2025 became the official implementation in TypeScript 7. One distinction matters: the TypeScript language was not rewritten into Go. The compiler and editor tooling we run were.
+
+The goal is processing speed in large projects. Developers do not need to understand Go internals; `tsc`, type checking, and editor feedback now use a new implementation.
+
+A rewritten tool cannot guarantee that every legacy setting remains untouched. Before upgrading, read the compatibility notes, update related plugins, and check unusual compiler options. For an ordinary project, the change is faster tooling rather than a new set of TypeScript syntax.
+
+## Language compatibility matters more than a benchmark
+
+Speed is the first thing people notice about a native rewrite. The harder task is producing the same type results for millions of existing projects. A compiler that is much faster but adds false errors or misses old ones would make the upgrade more expensive.
+
+I would check three things first: whether the existing `tsconfig` is supported, whether the editor extension uses the new language service, and whether the build tools have integrated it. Once that ecosystem is ready, a team can take the native performance gains without racing to be first.
+
+This makes a natural pair with the 2025 port announcement. The earlier article asks why a rewrite was needed; this one asks what users encounter after it is complete. Official benchmark numbers can be labeled as such while the useful focus stays on upgrade compatibility.
+
+I would trial the editor first without changing the whole company's default. Use a large workspace to compare startup, go-to-definition, rename, and error refresh, then run the new CLI beside the old one in CI. When results differ, preserve the example instead of immediately hiding it with `skipLibCheck`.
+
+If native tooling succeeds, the biggest change may not be more elaborate types. With less waiting, developers may simply keep type checking enabled more often. A tool's effect on work habits is more interesting than a few seconds saved in one build.

@@ -11,7 +11,7 @@ export const metadata = {
     "Angular Aria",
     "Vitest",
     "MCP"
-  ],
+  ]
 }
 
 Angular 21 的 release note 看起來有點像幾條不同路線撞在一起：表單、無障礙、測試，還有 AI 工具。拆開來每項都不算小，放在一起則能看出 Angular 正在補哪些日常開發體驗。
@@ -27,3 +27,7 @@ Angular 21 同時碰了幾個不同方向：Signal Forms 處理表單狀態、An
 Signal Forms 則比較貼近日常。表單一直是 Angular 很完整、同時也容易顯得複雜的部分，新方案把狀態往 Signals 靠攏。舊 Reactive Forms 不會因此立刻消失，大型專案也不適合只因為新 API 就全面改寫。
 
 Angular Aria 的方向也滿務實：官方提供互動和無障礙行為，視覺交給產品自己處理。這和整套有固定外觀的元件庫不同，對已有 Design System 的團隊會比較好接。
+
+我會把這幾項功能分開導入，而不是因為它們同版發布就綁成一次 migration。Vitest 可以先從新測試開始，Aria 挑一個互動元件驗證，Signal Forms 則要等表單規格和第三方控制項都能配合。release note 是一起寫的，專案風險不需要一起承擔。
+
+MCP 也要用同樣標準看待：它給 agent 更多上下文，並不代表產出的程式已被驗證。真正有價值的是減少查錯版本文件的機會，最後仍要靠 typecheck、測試和 code review 決定能不能合併。

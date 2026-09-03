@@ -10,7 +10,7 @@ export const metadata = {
     "React Server Components",
     "Security",
     "RCE"
-  ],
+  ]
 }
 
 React 漏洞嚴重到能在伺服器執行程式，幾年前聽起來可能有點奇怪：React 不是拿來畫 UI 的嗎？Server Components 把一部分工作搬到伺服器後，這條界線已經沒有以前那麼清楚。
@@ -44,3 +44,7 @@ App Router 專案裡，一個元件看起來仍是 JSX，實際上可能在 serv
 團隊可以把 server-only module、輸入驗證和權限檢查訂成明確規則。Server Component 能直接取資料，不代表每次取資料都自動安全；使用者是否能看這筆資料，仍要在真正存取資料的位置確認，不能只相信頁面路由已經擋住。
 
 React2Shell 是極端案例，但它讓這個變化變得很具體：現代前端 framework 既然能幫我們做後端的事，就也會遇到後端等級的漏洞、更新壓力和責任。
+
+如果公告發布時我正在維護專案，第一輪會先列出所有 production deployment 的 framework 版本，而不是只看主分支的 `package.json`。舊 preview、暫停更新的活動站和某個忘記下線的 branch deployment，都可能還在公開服務。修補完成也要重新部署，lockfile 更新但線上 image 沒換，等於什麼都沒做。
+
+後續才是檢查 WAF、log 和 secret rotation。這個順序聽起來很普通，但嚴重漏洞發生時最怕大家同時研究細節，卻沒有人先把可被攻擊的版本真正換掉。

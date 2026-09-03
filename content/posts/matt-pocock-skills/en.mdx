@@ -1,0 +1,29 @@
+export const metadata = {
+  slug: "matt-pocock-skills",
+  title: "Breaking down Matt Pocock's Agent Skills",
+  description: "How an Agent Skill differs from a prompt and how teams can document repeatable engineering workflows.",
+  publishedAt: "2026-02-18",
+  category: "AI Development Tools",
+  categorySlug: "ai-tooling",
+  tags: ["AI", "Agent Skills", "Developer Workflow", "Matt Pocock"],
+}
+
+The same AI model can produce very different results for different people. The difference is not always a magical prompt. Often it is whether debugging, requirement checks, and verification have been organized into a repeatable process.
+
+When using AI to write code, we repeat the same requests: clarify the requirement, do not guess at a bug, and run checks after editing. An Agent Skill stores these reusable working methods in files that an agent can load when needed.
+
+Matt Pocock's Skills for Real Engineers covers debugging, TDD, requirement interviews, and problem classification. They are not magic prompts and cannot make an AI permanently correct. They are closer to checklists that keep the agent following an engineering sequence.
+
+Unlike a one-off prompt, a skill can live with a project, be versioned, and be reused. For a team, the most valuable step may not be downloading someone else's skill but gradually documenting its own recurring checks.
+
+## More like an SOP than a spell
+
+A debugging skill usually does not contain the answer to a bug. It asks the agent to reproduce it, narrow the scope, verify a hypothesis, and only then change code. These are ordinary engineering basics, but agents often rush into editing, so writing the sequence down remains useful.
+
+Skills should not try to cover everything. A file that simultaneously dictates architecture, testing, naming, deployment, and response tone becomes difficult to apply to one task. Small, explicit skills loaded only when relevant are closer to the intended model.
+
+I would treat other people's skills as reference templates. TDD, commit habits, and tooling vary between teams. Understanding the approach and keeping the parts that fit is more useful than copying the entire workflow unchanged.
+
+The best first skills may be the comments a team repeats in every review: what to back up before a database migration, which clients change after an API edit, or which breakpoints need screenshots for visual work. Those rules already exist; they are simply scattered across people's memory and chat history.
+
+After writing one, observe whether the agent follows it. A consistently ignored skill may have a vague trigger, too much content, or contradictory requirements. Iterating on it like code is more realistic than treating it as a company policy that is finished after one draft.

@@ -1,0 +1,29 @@
+export const metadata = {
+  slug: "npm-classic-token",
+  title: "The end of npm classic tokens and safer package publishing",
+  description: "Why package publishing is moving from long-lived npm tokens toward short-lived credentials.",
+  publishedAt: "2025-11-05",
+  category: "Security",
+  categorySlug: "security",
+  tags: ["npm", "Security", "Trusted Publishing", "Supply Chain"],
+}
+
+Most frontend developers publish packages only occasionally, so a token is easy to configure once and forget. A long-lived credential with broad permissions is also exactly the kind of entry point a supply-chain attacker wants.
+
+npm classic tokens were convenient, but they could remain valid for a long time and were often stored in CI. Once exposed, a token could let an attacker publish a modified package as its maintainer.
+
+Stopping the creation of classic tokens pushes publishing toward short-lived tokens, 2FA, and Trusted Publishing. Trusted Publishing verifies a release through the CI platform's identity, removing the need to store a long-lived npm secret.
+
+This can feel distant to developers who only install packages. Yet one compromised maintainer account for a popular dependency can affect a huge number of sites. A little more care in publishing removes a common entry point for the entire ecosystem.
+
+## Trusted Publishing stores one fewer secret
+
+Traditional CI publishing starts by saving an npm token in GitHub Actions secrets. Trusted Publishing instead receives a temporary identity assertion from GitHub Actions, then checks which repository and workflow is publishing. When the run ends, there is no reusable key left behind for months.
+
+It is not a complete solution. A modified workflow or a compromised maintainer account can still cause damage. It does make it harder to steal one token and publish from somewhere else, eliminating a common attack path.
+
+Package authors can begin by checking whether npm supports their CI provider, then restricting the permitted repository, workflow, and environment. The more precisely that identity is described, the harder it becomes for another branch or fork to impersonate the release process.
+
+Before switching a real package, I would run the entire process with a test package, including tags, provenance, and prereleases. Publishing permissions are rarely touched, yet failures arrive exactly when a release is due. A harmless rehearsal is far easier than recreating a token under pressure at night.
+
+Trusted Publishing answers how CI proves its identity to npm. It does not answer who may modify CI. Protected default branches and code-owner review for workflow files belong to the same publishing boundary.

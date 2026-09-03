@@ -1,0 +1,39 @@
+export const metadata = {
+  slug: "nuxt-4",
+  title: "Nuxt 4: major changes and upgrade notes",
+  description: "Notes on Nuxt 4's app directory, TypeScript project boundaries, data fetching, and a safer upgrade order.",
+  publishedAt: "2025-07-15",
+  category: "Nuxt",
+  categorySlug: "nuxt",
+  tags: ["Nuxt", "Vue", "TypeScript", "Migration"],
+}
+
+A major upgrade naturally brings breaking changes to mind. The number 4 can make anyone responsible for a stable application a little nervous. Nuxt 4 does not try to invent an entirely new way to work; it feels more like organizing lessons accumulated over several years of Nuxt 3.
+
+## The larger changes in Nuxt 4
+
+- **A new `app/` directory:** Frontend code such as `pages`, `components`, and `composables` lives under `app/`, separate from root configuration and `server/` code. The boundary becomes more valuable as a project grows.
+
+- **Split TypeScript projects:** The app, server, shared code, and builder use separate TypeScript contexts coordinated by the root configuration. Browser types no longer leak casually into server code, or vice versa.
+
+- **Refined `useAsyncData` and `useFetch` behavior:** Calls with the same key share refs, unused data can be cleaned up, and reactive keys and finer cache controls are supported. These are familiar APIs, but their behavior can affect existing pages.
+
+- **Development and CLI performance:** Compile caching, native file watching, and internal socket changes aim to reduce startup and development waits without requiring application rewrites.
+
+- **Old compatibility layers were removed:** `@nuxt/kit` dropped Nuxt 2 compatibility and other deprecated behavior disappeared. Ordinary pages may not notice, but older modules and heavily customized setups need checking.
+
+## How I would order the upgrade
+
+First resolve console warnings on the latest Nuxt 3 release. List the modules the project actually uses and verify their Nuxt 4 support. Only then upgrade the framework and run type checks, a production build, and the main user flows. Moving files into `app/` can be a separate change rather than sharing one commit with everything else.
+
+The old directory layout remains compatible, so there is no need to move it only to make the repository look like Nuxt 4. Data sharing, caching, and hydration deserve closer attention. A page loading successfully does not prove that data after client navigation behaves exactly as before.
+
+## My take
+
+I like this kind of housekeeping major release. Directory structure and TypeScript boundaries do not appear in product screenshots, but they reduce confusion as a codebase grows. The downside is that the release looks less dramatic and can be mistaken for a folder rename.
+
+For an existing project, separate the framework upgrade, module compatibility work, and directory migration. Changing one category at a time makes failures much easier to trace.
+
+I would also record a small set of navigation behaviors before upgrading: repeated requests on the same page, back navigation, rapid parameter changes, and the first interaction after hydration. A data-layer break often does not produce a blank page; it returns a stale ref on the second visit, which a single successful build will never reveal.
+
+I see `app/` as a useful team boundary rather than a Nuxt 4 attendance requirement. New features can use it immediately, while old code moves when it is next touched. That keeps both review and Git history far easier to understand.

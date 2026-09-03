@@ -1,0 +1,25 @@
+export const metadata = {
+  slug: "nuxt-ui-v4",
+  title: "Nuxt UI v4 or a custom design system?",
+  description: "The costs and tradeoffs of Nuxt UI v4, headless components, and maintaining a custom design system.",
+  publishedAt: "2025-09-24",
+  category: "Nuxt",
+  categorySlug: "nuxt",
+  tags: ["Nuxt UI", "Design System", "Vue", "UI Components"],
+}
+
+Product interfaces repeatedly face the same choice: install a component library or maintain a design system in-house. The first can make every product look alike; the second makes it easy to underestimate years of maintenance.
+
+Nuxt UI v4 combined its previously separate free and Pro offerings, providing more than one hundred components, templates, and a Figma kit. For a small team, that can save a great deal of time between the first button and a reliable form or modal.
+
+A component library is fast and usually covers familiar interactions well. Its visual language may be recognizable, and deep customization can begin fighting the original design. A custom system offers control, but someone must maintain documentation, accessibility, and every component state over time.
+
+Most projects do not need an absolute choice. Nuxt UI can handle foundational interactions while themes and wrapper components establish the product's visual rules. The team can reserve custom work for the areas that actually express the brand.
+
+For one or two frontend developers, building and maintaining date pickers, comboboxes, and form errors from scratch is rarely the best investment. On the other hand, products with highly specialized interaction or strict brand requirements may spend more effort reshaping a library than building selected components themselves.
+
+Upgrade cost is easy to miss. A custom component requires the team to fix browser and accessibility issues; a dependency requires following breaking changes. Before choosing, look beyond component count to the changelog, maintenance cadence, and whether the team is comfortable with the library's API.
+
+I prefer prototyping the hardest component to customize instead of presenting a Button first. A real combobox, data table, or form error state reveals whether the theme API is sufficient, the DOM works with our tests, and the design requires too many overrides. A pretty button proves very little.
+
+If we adopt the library, I still add a thin product component around selected pieces, but I do not forward every prop into a duplicate API. The wrapper should lock down only intentional visuals and behavior; otherwise it becomes a second component library to migrate.

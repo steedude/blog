@@ -1,0 +1,45 @@
+export const metadata = {
+  slug: "bybit-safe-ui",
+  title: "The Bybit incident and frontend risk in cold-wallet signing",
+  description: "What the Bybit cold-wallet incident teaches us about signing interfaces, blind signing, and multisig workflows.",
+  publishedAt: "2025-02-21",
+  category: "Security",
+  categorySlug: "security",
+  tags: ["Security", "Crypto Wallet", "Frontend Security", "Safe"],
+}
+
+The phrase "cold wallet" sounds reassuring: if the private key never goes online, the assets should be safe. The troubling part of the Bybit incident is that it showed how the device may remain secure while the signing screen seen by a person is not trustworthy.
+
+In February 2025, Bybit suffered a large crypto-asset theft worth close to $1.5 billion. A headline saying that a cold wallet was hacked makes it sound as if an attacker cracked a private key. The incident was closer to a compromised signing interface.
+
+Bybit managed the wallet through Safe multisig. Signers saw what appeared to be a normal transaction in the frontend, while the data sent for signing included malicious operations. Multiple signatures do not automatically make a transaction safe. If every signer relies on the same manipulated screen, they can all approve the same bad decision.
+
+This is directly relevant to frontend engineering. When a UI controls transfers, permissions, or contract upgrades, it is part of the security boundary rather than a decorative layer. Important actions should expose their full details through another trusted channel, not just a simplified Confirm button.
+
+## Multisig protects the number of required approvals
+
+Multisig is often treated as several layers of insurance, but its main protection is against one stolen key. If three signers inspect a transaction through the same frontend, and that frontend disguises a malicious operation as a routine transfer, all three can still sign the wrong thing. The cryptography has not failed; the information presented to people has.
+
+This is also why clear signing on a hardware wallet matters. If the device only shows a hash or the words "Contract data," the user cannot meaningfully verify the authorization and must trust the computer screen again. The larger the value being controlled, the more dangerous that trust becomes.
+
+## Treating this as a frontend requirement
+
+- Show the actual recipient, amount, and contract operation, not only a friendly summary.
+
+- Provide an independent verification path for critical actions. The same frontend should not both prepare the data and serve as the only proof that it is correct.
+
+- Treat deployment, third-party scripts, and developer permissions as parts of the transaction system.
+
+A cold wallet reduces the risk of exposing a private key online. It cannot guarantee that every payload sent to the device is correct. That distinction is easy to lose in a headline, but it may be the most useful lesson for frontend developers.
+
+## A frontend does more than prettify transaction JSON
+
+Blockchain transactions are difficult to read. A typical payload contains contract addresses, function selectors, and encoded arguments. The frontend turns that into a sentence such as "send this much ETH" or "add this owner." That translation is valuable, but it also receives considerable trust. If it is wrong, incomplete, or manipulated, the user may authorize a different action without knowing it.
+
+Safer systems aim for what you see is what you sign. The hardware device should display at least the important destination and action; an independent system can decode the transaction again; and high-risk operations can include a delay so that an abnormal transaction does not take effect immediately after signing.
+
+These requirements sound heavier than those of an ordinary web form for a simple reason: a validation error can usually be corrected, while an on-chain transfer rarely has a support desk that can reverse it. The strength of the UI safeguards should match the value the interface controls.
+
+The incident also changed how I think about the phrase "frontend validation." In routine applications it usually means required fields, formats, and whether a button can be pressed. In a high-risk system, we must also validate that the description shown to a person corresponds to the payload about to be signed. A correct-looking screen is not sufficient; the connection between that screen and the underlying data must be independently verifiable.
+
+If I worked on an interface like this, I would want reviews to extend beyond components. Transaction decoding rules, fallback behavior for unknown contracts, the frontend deployment origin, and the information visible on the hardware wallet all belong in the same threat model. A frontend developer does not need to become a cryptographer, but we should acknowledge that the confirmation screen we build may be the user's final decision point.

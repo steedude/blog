@@ -1,0 +1,34 @@
+export const metadata = {
+  slug: "custom-select",
+  title: "Native select styling is finally opening up",
+  description: "A look at customizable native selects, progressive enhancement, and the browser-support tradeoffs.",
+  publishedAt: "2025-04-02",
+  category: "Web Platform",
+  categorySlug: "web-platform",
+  tags: ["CSS", "HTML", "Select", "Accessibility"],
+}
+
+Some frontend problems are strangely persistent: teams have solved them countless times, yet the next project has to solve them again. Making a native dropdown match a site's design is a classic example.
+
+Native `<select>` elements work well, support keyboards, and start with solid accessibility behavior, but they have historically been difficult to style. Many teams rebuilt them from `div` elements and JavaScript, then had to recreate keyboard interaction, focus management, and screen-reader support.
+
+Chrome 135 introduced customizable selects. With `appearance: base-select` and `::picker(select)`, developers can style the dropdown panel, arrow, and option content, and options can contain richer markup.
+
+Support in other browsers still needs attention. The good news is that the feature is designed for progressive enhancement: browsers without the new behavior continue to show a normal native select. That is much more reassuring than replacing it with a completely custom dropdown.
+
+## The basic setup
+
+```css
+select,
+select::picker(select) {
+  appearance: base-select;
+}
+```
+
+Both selectors matter. The first targets the button shown on the page, while the second targets the expanded option panel. In base-select mode, the picker enters the top layer and can work with Anchor Positioning. Browsers now handle even the familiar problem of a dropdown being clipped by `overflow: hidden`.
+
+This is not yet a feature that can be used without checking browser support, and the native picker may still provide a better experience on phones. My preference is to keep the semantic select and treat custom styling as an enhancement. If the new CSS does not apply, the form should still work. That fallback is the native element's biggest advantage.
+
+I would also do an unglamorous implementation check: walk through the form using only a keyboard, then listen to the options with a screen reader. Customizable does not mean the browser finishes every design decision for us. An option filled with an icon, secondary copy, and a status badge may look richer while becoming painfully verbose when announced.
+
+That is why I do not want a select to become as indistinguishable from a generic `div` as possible. A native control is valuable precisely because it carries platform behavior, particularly the familiar picker on mobile. Brand consistency matters, but trading a matching shadow and border radius for a keyboard interaction we must maintain for ten years is rarely as economical as it first appears.

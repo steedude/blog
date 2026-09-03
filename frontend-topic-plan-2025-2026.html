@@ -252,7 +252,7 @@
           <p>這不代表 Tailwind 放棄 utility class，也不是叫大家回去手寫所有 CSS。真正的差別只是「設定 Tailwind 的地方」從 JavaScript 搬到 CSS。對新專案來說少了一份設定檔；舊專案則不用為了跟上潮流急著重寫，先確認現有 plugin 和客製設定是否相容即可。</p>
           <h4>設定搬進 CSS 之後</h4>
           <p>假設網站有自己的品牌色，v3 常見的做法是在 JavaScript config 裡擴充 theme；v4 可以直接這樣寫：</p>
-          <pre><code>@import "tailwindcss";
+          <pre><code>@import &quot;tailwindcss&quot;;
 
 @theme {
   --color-brand: #173f76;
@@ -261,6 +261,8 @@
           <p>Tailwind 看到這些變數後，會產生 <code>bg-brand</code>、<code>text-brand</code> 和 <code>font-display</code>。好處不只少一個設定檔，這些 token 也能直接用 <code>var(--color-brand)</code> 交給一般 CSS 或動畫套件。</p>
           <p><code>@theme</code> 和普通的 <code>:root</code> 也不完全一樣。放在 <code>:root</code> 的變數只是一般 CSS custom property，不會自動產生 Tailwind utility；放在 <code>@theme</code> 的 token 才會參與 Tailwind 的 class 生成。單純給既有 CSS 使用的變數，仍然放在 <code>:root</code> 就好，不需要把所有數值都塞進 theme。</p>
           <p>有個小地方要釐清：<code>@theme</code> 長得像 CSS，但它仍是 Tailwind 的建置指令，不是瀏覽器原生功能。以後若拿掉 Tailwind，這部分還是要改。CSS-first 比較像是讓設定回到 CSS 的語境，不代表框架依賴消失了。</p>
+          <p>我自己比較喜歡 v4 的地方，是在 code review 裡終於比較容易回答「這個顏色從哪裡來」。以前常要先看到 <code>bg-brand</code>，再跳去 JavaScript 設定檔找對應值；現在 token、一般 CSS 和 utility 之間的距離短很多。這不是什麼效能上的大突破，但對每天要讀程式的人很實在。</p>
+          <p>不過我還是會克制 theme 的大小。設計稿出現一次的 17px 間距，不一定值得立刻變成全域 token；否則幾個月後，<code>--spacing-card-small</code>、<code>--spacing-card-smaller</code> 一樣會變成另一種設定檔地獄。CSS-first 讓新增 token 更方便，也更需要團隊先約定什麼東西才算設計系統的一部分。</p>
         </article>
 
         <article class="draft" id="cra-afterlife">
@@ -275,6 +277,8 @@
           <p>Next.js 則先幫你決定不少事情：目錄就是路由、頁面可以在伺服器產生、Metadata 和圖片處理也有官方做法。這對公開網站很方便，但若只是公司內部後台，導入整套伺服器模型未必比較省事。</p>
           <p>SSR 也不只是 SEO。伺服器先送出 HTML，慢一點的手機通常能更早看到內容；但伺服器要多做工作，部署和快取也會複雜一些。若頁面登入後才看得到，搜尋引擎根本不是重點，CSR 往往已經很夠用。</p>
           <p>所以我會把問題改成「這個專案只缺一個新的 CRA，還是已經需要完整框架？」前者選 Vite 很合理；後者才需要看 Next.js、React Router framework mode 等方案。</p>
+          <p>我看過比較麻煩的情況，通常不是工具選錯，而是團隊根本沒有把需求說清楚。只是要做一個登入後才能看的 CRUD 後台，卻先背上 Server Component、快取和部署 runtime；另一邊是行銷網站做到一半才發現每個頁面都要手動補 SEO 和分享圖。兩種選擇都能做完，只是會一直付出原本可以避免的成本。</p>
+          <p>如果今天從零開專案，我會先寫一張很短的清單：頁面是否公開、是否需要被搜尋、資料主要在 client 還是 server、部署環境能不能長時間跑 Node。這四題答完，通常已經比「大家最近都用什麼」更接近答案。工具可以再換，專案一開始形成的資料流和部署方式反而比較難回頭。</p>
         </article>
 
         <article class="draft" id="bybit-safe-ui">
@@ -289,15 +293,21 @@
           <p>這也解釋了 hardware wallet 上的 clear signing 為什麼重要。裝置若只顯示一串 hash 或「Contract data」，使用者其實無法確認自己授權了什麼，只能回頭相信電腦畫面。金額愈大，這種信任就愈危險。</p>
           <h4>如果把它當成前端需求</h4>
           <ul>
-            <li>畫面要顯示實際接收地址、金額與合約操作，不只顯示人類可讀的摘要。</li>
-            <li>重要操作要有獨立驗證管道，不能讓同一套前端同時負責準備資料和證明資料正確。</li>
-            <li>部署流程、第三方 script 與開發者權限，都要被視為交易系統的一部分。</li>
-          </ul>
+  <li>畫面要顯示實際接收地址、金額與合約操作，不只顯示人類可讀的摘要。</li>
+</ul>
+          <ul>
+  <li>重要操作要有獨立驗證管道，不能讓同一套前端同時負責準備資料和證明資料正確。</li>
+</ul>
+          <ul>
+  <li>部署流程、第三方 script 與開發者權限，都要被視為交易系統的一部分。</li>
+</ul>
           <p>「冷錢包」只能降低私鑰直接連網的風險，無法保證每一筆送進去的資料都是對的。這大概是整起事件最容易被標題省略，卻也最值得前端工程師記住的地方。</p>
           <h4>前端不是把交易 JSON 美化一下而已</h4>
           <p>區塊鏈交易對一般人很不友善，常見內容可能是合約地址、函式 selector 和一串編碼參數。前端會把它翻成人看得懂的「轉出多少 ETH」或「新增哪個 owner」。這層轉譯很有價值，但也因此取得了很大的信任：翻錯、漏掉或被竄改，使用者就可能在不知情下授權另一件事。</p>
           <p>比較安全的設計會盡量做到 what you see is what you sign。硬體裝置至少顯示最重要的目標地址和動作；另一套獨立系統重新解析交易；高風險操作還可以加上延遲，讓異常交易不是簽完立刻生效。</p>
           <p>這些作法聽起來比一般前端需求麻煩，原因也很直接：普通表單顯示錯誤還能重填，鏈上資產送錯通常沒有客服可以復原。UI 的風險要跟它控制的價值一起提高，而不是所有確認視窗都用同一個規格。</p>
+          <p>這件事也讓我重新想了一次「前端驗證」四個字。平常我們說驗證，常指必填欄位、格式和按鈕能不能按；但在高風險系統裡，還要驗證使用者看到的描述是否真的對應即將簽署的 payload。畫面顯示正確不夠，畫面和底層資料之間的關係也必須可以被獨立確認。</p>
+          <p>如果是我參與這類介面，我會希望 review 不只停在元件層。交易解析規則、未知合約的 fallback、前端部署來源，以及硬體錢包實際顯示多少資訊，都應該畫進同一張 threat model。這不是要前端工程師突然變成密碼學家，而是承認我們寫的那個確認畫面，可能就是使用者做最後判斷的地方。</p>
         </article>
 
         <article class="draft" id="typescript-native-port">
@@ -311,6 +321,8 @@
           <p>TypeScript 編譯器本身也是用 TypeScript 寫的，這對維護和貢獻很友善，但大型程式的型別分析會吃掉不少 CPU 和記憶體。原生程式可以更直接地使用多核心與管理記憶體，改善空間比較大。</p>
           <p>Go 也不是因為它在排行榜上比較熱門。官方看中的是容易產生跨平台執行檔、平行處理成熟，而且程式結構能和原本的 compiler 保持接近。比起改用一套完全不同思路的語言，移植時比較容易核對行為。</p>
           <p>當然，「官方展示快十倍」不等於每個專案都會快十倍。小專案原本只等一秒，差距可能沒那麼有感；真正受益的會是大型 monorepo、CI 型別檢查，以及編輯器需要反覆分析專案的情況。這篇比較適合談它為什麼值得重寫，不必替官方重做效能報告。</p>
+          <p>我比較期待的其實是那些很難截圖的改善。大型專案切換 branch 後，語言服務能不能快一點恢復；改動共用型別時，其他 package 的紅線能不能早點出現；CI 是否不用再把 typecheck 拆成一堆特例。每次只少等幾秒，累積在一天裡可能比一次漂亮的 benchmark 更有感。</p>
+          <p>另一方面，編譯器重寫最怕的是「差不多相容」。型別系統有大量邊界案例，某個原本能過的 generic 突然報錯，對使用者就是 migration 成本。因此我會把原生版看成一個需要生態一起完成的工程：compiler 快只是第一關，編輯器、eslint、framework plugin 和 declaration 工具都跟上，才算真的換完。</p>
         </article>
 
         <article class="draft" id="custom-select">
@@ -327,6 +339,8 @@ select::picker(select) {
 }</code></pre>
           <p>兩個 selector 都要設定：第一個是頁面上的按鈕，第二個是展開後的選項面板。進入 base-select 模式後，picker 會進到 top layer，也能搭配 Anchor Positioning。以前下拉選單常遇到被 <code>overflow: hidden</code> 切掉的問題，瀏覽器現在連這部分都一起處理。</p>
           <p>不過它還不是「所有瀏覽器都放心用」的功能，手機上原生選單的操作感也可能比較符合使用者習慣。我的看法是先保留語意正確的 select，把客製樣式當成額外加分。就算新 CSS 沒生效，表單還是能正常選，這才是原生元件最大的優勢。</p>
+          <p>實作時我還會多做一個很土法煉鋼的檢查：只用鍵盤把表單走一遍，再開螢幕閱讀器聽一次選項。可自訂不代表瀏覽器會替所有設計決定收尾，例如 option 裡塞了圖示、次要文字和狀態標籤後，視覺上更豐富，朗讀順序卻可能變得很囉嗦。</p>
+          <p>這也是我不太想把 select 做成「越像一般 div 越好」的原因。原生控制項的價值就在於它有平台行為，尤其手機會提供熟悉的選取介面。品牌一致性當然重要，但如果為了統一圓角和陰影，換來一套要自己維護十年的鍵盤互動，這筆帳通常沒有想像中划算。</p>
         </article>
 
         <article class="draft" id="angular-20">
@@ -336,15 +350,23 @@ select::picker(select) {
           <p>這不是說 Angular 突然變成一個輕量小框架。它仍然提供 router、表單、DI、建置與 SSR 等一整套答案，只是底層反應性和伺服器渲染的做法，已經明顯往比較現代的方向靠攏。</p>
           <h4>Angular 20 比較重大的更新</h4>
           <ul>
-            <li><strong>Signals 基礎 API 穩定：</strong><code>signal</code>、<code>effect</code>、<code>linkedSignal</code>，以及 signal-based input、query 等核心能力走向 stable。元件內的狀態和衍生值，可以更直接地表達彼此關係。</li>
-            <li><strong>Incremental Hydration 穩定：</strong>搭配 <code>@defer</code>，伺服器先送出的頁面可以等到需要互動時，再分區載入和啟用 JavaScript。對內容很多的 SSR 頁面來說，比整頁一次 hydration 更有彈性。</li>
-            <li><strong>Route-level rendering 穩定：</strong>不同路由可以分別選擇 SSR、預先產生或純前端渲染，不必讓整個網站只採用一種模式。</li>
-            <li><strong>Zoneless 繼續成熟：</strong>20.0 時仍在推進，到了 20.2 已成為 stable。Angular 不再一定要靠 Zone.js 攔截各種非同步事件，更新時機會更明確，也少一層隱性的魔法。</li>
-          </ul>
+  <li><strong>Signals 基礎 API 穩定：</strong> <code>signal</code>、<code>effect</code>、<code>linkedSignal</code>，以及 signal-based input、query 等核心能力走向 stable。元件內的狀態和衍生值，可以更直接地表達彼此關係。</li>
+</ul>
+          <ul>
+  <li><strong>Incremental Hydration 穩定：</strong> 搭配 <code>@defer</code>，伺服器先送出的頁面可以等到需要互動時，再分區載入和啟用 JavaScript。對內容很多的 SSR 頁面來說，比整頁一次 hydration 更有彈性。</li>
+</ul>
+          <ul>
+  <li><strong>Route-level rendering 穩定：</strong> 不同路由可以分別選擇 SSR、預先產生或純前端渲染，不必讓整個網站只採用一種模式。</li>
+</ul>
+          <ul>
+  <li><strong>Zoneless 繼續成熟：</strong> 20.0 時仍在推進，到了 20.2 已成為 stable。Angular 不再一定要靠 Zone.js 攔截各種非同步事件，更新時機會更明確，也少一層隱性的魔法。</li>
+</ul>
           <p>Signals 不等於要把 RxJS 全部刪掉。元件狀態、computed value 很適合 Signals；搜尋建議、WebSocket 或一連串非同步事件，RxJS 仍然有它擅長的地方。把兩者當成不同工具，比爭論誰要取代誰更實際。</p>
           <h4>我的看法</h4>
           <p>我覺得 Angular 20 最重要的不是某個新語法，而是幾項長期工程終於能進入正式專案。尤其 incremental hydration 和 route-level rendering，讓 Angular 在大型後台之外，也更認真處理內容網站的首次載入體驗。</p>
           <p>如果是既有專案，我不會為了追新就一次改完所有 component。先讓新功能使用 Signals、確認第三方套件能否在 zoneless 下正常工作，再逐段搬移比較合理。Angular 的強項本來就是穩定和一致，升級方式也應該保留這個優點。</p>
+          <p>我會先挑一個邊界清楚的功能試水溫，例如只有幾個 input、沒有牽動全站 service 的設定頁。這種頁面適合觀察 signal input、computed state 和既有 RxJS service 怎麼接，也比較容易用測試確認 zoneless 前後沒有漏掉畫面更新。直接從全站共用表單開始，失敗時很難知道是哪一層造成的。</p>
+          <p>Angular 現在有一種有趣的狀態：新寫法已經比很多人的印象簡潔，但專案裡仍可能同時存在十年前的 pattern。面試或技術討論若只問「Angular 重不重」，其實問得太粗。更實際的是看團隊能否在保留穩定性的同時，逐步把隱性行為換成可觀察、可測試的資料流。</p>
         </article>
 
         <article class="draft" id="chrome-io-2025">
@@ -356,12 +378,18 @@ select::picker(select) {
           <p>這不表示我們可以立刻刪掉所有 UI 套件。新功能通常還有瀏覽器版本和細節差異，但至少未來做常見介面時，可以先看看 HTML 和 CSS 是否已經能處理，不必第一時間安裝更多依賴。</p>
           <h4>我覺得比較值得注意的三件事</h4>
           <ul>
-            <li>CSS carousel 把捲動按鈕和位置標記帶進原生 CSS，簡單輪播未必需要一整套 slider。</li>
-            <li>Anchor Positioning 解決浮層跟著按鈕定位的老問題，還能和 popover 一起使用。</li>
-            <li>Baseline 開始出現在更多開發工具，瀏覽器相容性不再只是一長串版本號。</li>
-          </ul>
+  <li>CSS carousel 把捲動按鈕和位置標記帶進原生 CSS，簡單輪播未必需要一整套 slider。</li>
+</ul>
+          <ul>
+  <li>Anchor Positioning 解決浮層跟著按鈕定位的老問題，還能和 popover 一起使用。</li>
+</ul>
+          <ul>
+  <li>Baseline 開始出現在更多開發工具，瀏覽器相容性不再只是一長串版本號。</li>
+</ul>
           <p>內建 AI API 當然很吸睛，不過目前仍有模型下載、裝置能力和跨瀏覽器支援等限制。相較之下，前面幾個 HTML、CSS 更新比較可能先進入日常專案。新功能很多時，挑出近期真的用得到的，通常比逐條翻譯發表內容更有幫助。</p>
           <p>這幾年瀏覽器的更新有點像把常見 UI pattern 收回平台層。原生方案通常能一起處理鍵盤、焦點和效能，但規格成熟需要時間。前端不必追每一個新 API，知道有哪些問題正在被瀏覽器接手，下一次遇到需求時想得起來就很有用了。</p>
+          <p>我現在看這類大會清單，會刻意分成「今天能用」、「可以漸進增強」和「先記名字」三欄。Baseline 適合判斷第一欄；Anchor Positioning 常能放到第二欄，因為失效時還能退回既有定位；至於裝置端 AI，如果產品沒有明確情境，暫時留在第三欄也完全沒關係。</p>
+          <p>這樣分類有個好處：團隊不會因為追新而每季重寫元件，也不會等到所有瀏覽器百分之百一致才開始學。平台功能從實驗到普及通常要走一段路，前端工程師真正需要的能力，是知道哪一段風險可以由 fallback 接住，而不是背完整場 keynote。</p>
         </article>
 
         <article class="draft" id="node-24">
@@ -371,17 +399,27 @@ select::picker(select) {
           <p>所以 Node major release 對前端的影響通常不是「多了一個可以直接拿來畫 UI 的 API」，而是開發伺服器、bundler、測試與 CI 的共同地基往前移了一格。</p>
           <h4>Node.js 24 比較值得注意的更新</h4>
           <ul>
-            <li><strong>V8 13.6：</strong>帶來 <code>RegExp.escape()</code>、explicit resource management、<code>Float16Array</code> 等新 JavaScript 能力。前端 build tool 也運行在 V8 上，底層更新會逐漸反映在工具的支援範圍。</li>
-            <li><strong>內建 npm 11：</strong>安裝效能、安全性與現代套件相容性繼續改善。不過真正決定 lockfile 是否改動的仍是 npm 版本，團隊不能只固定 Node major，卻讓每台電腦使用不同 npm。</li>
-            <li><strong><code>URLPattern</code> 成為 global：</strong>它可以用類似路由規則的方式比對 URL，不需要額外 import。對框架和伺服器工具作者比一般頁面開發更直接有用。</li>
-            <li><strong><code>AsyncLocalStorage</code> 改用新的實作：</strong>非同步流程中的 request context 追蹤更有效率、更穩定。Next.js 這類伺服器框架要傳遞請求範圍資料時，會依賴這類 Node 能力。</li>
-            <li><strong>原生 test runner 和 Permission Model 繼續成熟：</strong>前者會自動等待 subtest，後者的參數由實驗名稱改為 <code>--permission</code>，都顯示 Node 正在把原本需要第三方工具處理的能力收進核心。</li>
-          </ul>
+  <li><strong>V8 13.6：</strong> 帶來 <code>RegExp.escape()</code>、explicit resource management、<code>Float16Array</code> 等新 JavaScript 能力。前端 build tool 也運行在 V8 上，底層更新會逐漸反映在工具的支援範圍。</li>
+</ul>
+          <ul>
+  <li><strong>內建 npm 11：</strong> 安裝效能、安全性與現代套件相容性繼續改善。不過真正決定 lockfile 是否改動的仍是 npm 版本，團隊不能只固定 Node major，卻讓每台電腦使用不同 npm。</li>
+</ul>
+          <ul>
+  <li><strong><code>URLPattern</code> 成為 global：</strong> 它可以用類似路由規則的方式比對 URL，不需要額外 import。對框架和伺服器工具作者比一般頁面開發更直接有用。</li>
+</ul>
+          <ul>
+  <li><strong><code>AsyncLocalStorage</code> 改用新的實作：</strong> 非同步流程中的 request context 追蹤更有效率、更穩定。Next.js 這類伺服器框架要傳遞請求範圍資料時，會依賴這類 Node 能力。</li>
+</ul>
+          <ul>
+  <li><strong>原生 test runner 和 Permission Model 繼續成熟：</strong> 前者會自動等待 subtest，後者的參數由實驗名稱改為 <code>--permission</code>，都顯示 Node 正在把原本需要第三方工具處理的能力收進核心。</li>
+</ul>
           <h4>前端專案升級時，我會先看什麼</h4>
           <p>第一個不是跑分，而是相容性。先確認 Next.js、Nuxt、Vite、Vitest 和部署平台支援 Node 24，再看有原生模組的套件是否提供對應版本。只要其中一環沒跟上，新版 runtime 再快也沒有用。</p>
           <p>接著要讓本機、CI 和 production 使用同一條版本線。可以用 <code>.nvmrc</code>、Volta 或 <code>package.json</code> 的 <code>engines</code> 留下規則，同時固定 package manager。很多「我這裡明明可以跑」不是程式差異，而是環境根本不同。</p>
           <h4>我的看法</h4>
           <p>我不覺得前端專案需要在 Node 24 發布第一天就升級。剛發布時它仍是 Current，適合工具作者和新專案提早驗證；產品等到 LTS、hosting 與主要框架都跟上再升，通常更省事。Node 更新對前端最大的提醒，是 runtime 也該像 dependencies 一樣有固定的維護節奏。</p>
+          <p>實際升級時，我通常會先看 CI，而不是先改自己的電腦。本機有快取、全域工具和各種歷史狀態，很容易把問題掩蓋掉；乾淨 runner 反而比較誠實。先讓 install、typecheck、test、build 四段在新版本走完，再處理開發者環境，遇到原生模組失敗時也比較容易留下可重現的紀錄。</p>
+          <p>另一個容易忽略的是 Docker image 和 Vercel、Cloudflare 這類平台的 runtime 設定。<code>package.json</code> 寫了 engines，不代表每個部署入口都會自動照做。Node 版本升級看起來像改一行數字，真正的工作其實是把整條工具鏈的執行環境重新對齊。</p>
         </article>
 
         <article class="draft" id="vite-7-baseline">
@@ -394,6 +432,8 @@ select::picker(select) {
           <h4>Vite 7 實際選了哪些版本？</h4>
           <p>這個 major release 對應到 Chrome 107、Edge 107、Firefox 104 和 Safari 16。以後 Vite major 更新時，這份清單也會跟著當時的 Widely Available 範圍往前移。好處是預設值有一個共同規則，而不是由維護者憑感覺挑版本。</p>
           <p>但 Baseline 不是專案的產品需求。銀行內部系統和只給新手機使用的活動頁，理所當然會有不同支援範圍。Vite 提供的是合理預設，最後還是要看網站流量、公司規範和功能能不能漸進增強。</p>
+          <p>我會把 <code>build.target</code> 當成「輸出語法的最低線」，不是瀏覽器支援政策的全部。像 <code>fetch</code>、WebGL 或某個 CSS selector 能不能用，仍要另外判斷；第三方 script 也可能自己帶著更高的需求。只改 target 然後宣布支援舊瀏覽器，通常是一種很危險的安心感。</p>
+          <p>比較務實的做法，是把實際流量裡的瀏覽器版本、錯誤監控和產品承諾放在一起看。若真的要照顧舊環境，就挑出核心流程做真機或雲端瀏覽器測試，不要只相信 build 沒報錯。Baseline 解決的是大家如何描述共同起點，並沒有替每個網站做完相容性測試。</p>
         </article>
 
         <article class="draft" id="safari-26-web-platform">
@@ -403,16 +443,26 @@ select::picker(select) {
           <p>Safari 26 一次補進大量 WebKit 功能，清單長到不太適合逐條翻譯。若只挑和一般前端最有關的，我會先看下面幾項。</p>
           <h4>我覺得比較重大的更新</h4>
           <ul>
-            <li><strong>CSS Anchor Positioning：</strong>tooltip、popover 或選單可以直接跟著另一個元素定位，不必一直讀取座標再監聽 resize 和 scroll。它解決的是前端做浮層時非常老的一類問題。</li>
-            <li><strong>Scroll-driven Animations：</strong>動畫進度能跟捲動位置或元素可見範圍連動。簡單的閱讀進度、進場效果，不必再用大量 scroll listener 計算。</li>
-            <li><strong>HDR 圖片與 <code>dynamic-range-limit</code>：</strong>支援 HDR 的螢幕可以呈現更亮、更廣的影像範圍，同時讓作者限制亮度。這對攝影和影音網站很有吸引力，但也更需要顧及素材與裝置差異。</li>
-            <li><strong>Digital Credentials API：</strong>網站可以在使用者同意下，向數位身分證件請求經驗證的資料。它牽涉隱私和敏感資訊，重點不只在「能讀到什麼」，還包括何時詢問、畫面怎麼說明。</li>
-            <li><strong><code>URLPattern</code>、Trusted Types 與更多平台 API：</strong>前者讓 URL 比對更一致；Trusted Types 可協助降低 DOM XSS 風險。這些功能不一定直接改變畫面，卻補強了 routing 與安全工具能使用的底層能力。</li>
-          </ul>
+  <li><strong>CSS Anchor Positioning：</strong> tooltip、popover 或選單可以直接跟著另一個元素定位，不必一直讀取座標再監聽 resize 和 scroll。它解決的是前端做浮層時非常老的一類問題。</li>
+</ul>
+          <ul>
+  <li><strong>Scroll-driven Animations：</strong> 動畫進度能跟捲動位置或元素可見範圍連動。簡單的閱讀進度、進場效果，不必再用大量 scroll listener 計算。</li>
+</ul>
+          <ul>
+  <li><strong>HDR 圖片與 <code>dynamic-range-limit</code>：</strong> 支援 HDR 的螢幕可以呈現更亮、更廣的影像範圍，同時讓作者限制亮度。這對攝影和影音網站很有吸引力，但也更需要顧及素材與裝置差異。</li>
+</ul>
+          <ul>
+  <li><strong>Digital Credentials API：</strong> 網站可以在使用者同意下，向數位身分證件請求經驗證的資料。它牽涉隱私和敏感資訊，重點不只在「能讀到什麼」，還包括何時詢問、畫面怎麼說明。</li>
+</ul>
+          <ul>
+  <li><strong><code>URLPattern</code>、Trusted Types 與更多平台 API：</strong> 前者讓 URL 比對更一致；Trusted Types 可協助降低 DOM XSS 風險。這些功能不一定直接改變畫面，卻補強了 routing 與安全工具能使用的底層能力。</li>
+</ul>
           <p>真正開發時仍要查使用者的 Safari 版本，尤其舊 iPhone 不一定能升級。功能進入最新版 Safari，代表跨瀏覽器採用門檻下降，不代表專案裡的所有裝置在同一天突然支援。</p>
           <h4>我的看法</h4>
           <p>我最看好 Anchor Positioning。因為它不是只讓展示頁更炫，而是能少掉一段每個元件庫都重寫過的定位邏輯。Scroll-driven Animations 也很好用，但更適合當漸進增強：沒有動畫時，內容和操作仍應正常。</p>
           <p>使用這類新功能時，我會優先用 <code>@supports</code> 做功能偵測，而不是猜瀏覽器名稱。新專案可以先用在不影響核心流程的地方；舊元件則不用因為 Safari 終於支援就連夜重寫，等產品的最低版本跟上再逐步簡化即可。</p>
+          <p>Safari 的版本號這幾年愈來愈大，但產品端最麻煩的仍是裝置分布。公司測試機可能全是最新版，使用者手上的 iPhone 卻因硬體限制停在舊系統。與其在需求單上寫「支援 Safari」，我更希望看到明確的最低版本，以及某個新功能失效時還剩下什麼體驗。</p>
+          <p>拿 Anchor Positioning 來說，第一階段可以保留既有浮層定位工具，只在支援時走原生路徑；等監控和流量都證明舊路徑很少使用，再移除依賴。平台功能真正幫忙省下程式碼，往往不是宣布支援的那一天，而是產品終於能放心刪掉 fallback 的那一天。</p>
         </article>
 
         <article class="draft" id="nuxt-4">
@@ -421,18 +471,28 @@ select::picker(select) {
           <p>主版本升級很容易讓人先想到破壞性變更，尤其是已經穩定運作的專案，看到那個「4」多少會有點緊張。Nuxt 4 倒沒有刻意製造一套全新的寫法，比較像把 Nuxt 3 幾年累積下來的經驗重新收好。</p>
           <h4>Nuxt 4 比較重大的更新</h4>
           <ul>
-            <li><strong>新的 <code>app/</code> 目錄：</strong><code>pages</code>、<code>components</code>、<code>composables</code> 等前端程式集中在 <code>app/</code>，和根目錄設定、<code>server/</code> 程式分開。專案愈大，這種邊界愈有價值。</li>
-            <li><strong>TypeScript 專案拆分：</strong>app、server、shared 與 builder 使用各自的 TypeScript context，再由根目錄設定統整。好處是瀏覽器型別不會隨便跑進 server，反過來也一樣。</li>
-            <li><strong><code>useAsyncData</code> 與 <code>useFetch</code> 行為整理：</strong>相同 key 會共享 ref，資料沒有使用者時能清理，也支援 reactive key 和更細的 cache 控制。它不是新 API，卻會影響既有頁面的資料更新方式。</li>
-            <li><strong>開發與 CLI 效能改善：</strong>編譯快取、原生檔案監看和內部 socket 等調整，主要目標是縮短啟動與開發等待。這些是底層更新，理想狀況下不需要專案特別改寫。</li>
-            <li><strong>清除相容層和棄用項目：</strong><code>@nuxt/kit</code> 移除 Nuxt 2 相容，部分舊行為也正式收掉。一般頁面未必受影響，老 module 和深度客製設定則要特別確認。</li>
-          </ul>
+  <li><strong>新的 <code>app/</code> 目錄：</strong> <code>pages</code>、<code>components</code>、<code>composables</code> 等前端程式集中在 <code>app/</code>，和根目錄設定、<code>server/</code> 程式分開。專案愈大，這種邊界愈有價值。</li>
+</ul>
+          <ul>
+  <li><strong>TypeScript 專案拆分：</strong> app、server、shared 與 builder 使用各自的 TypeScript context，再由根目錄設定統整。好處是瀏覽器型別不會隨便跑進 server，反過來也一樣。</li>
+</ul>
+          <ul>
+  <li><strong><code>useAsyncData</code> 與 <code>useFetch</code> 行為整理：</strong> 相同 key 會共享 ref，資料沒有使用者時能清理，也支援 reactive key 和更細的 cache 控制。它不是新 API，卻會影響既有頁面的資料更新方式。</li>
+</ul>
+          <ul>
+  <li><strong>開發與 CLI 效能改善：</strong> 編譯快取、原生檔案監看和內部 socket 等調整，主要目標是縮短啟動與開發等待。這些是底層更新，理想狀況下不需要專案特別改寫。</li>
+</ul>
+          <ul>
+  <li><strong>清除相容層和棄用項目：</strong> <code>@nuxt/kit</code> 移除 Nuxt 2 相容，部分舊行為也正式收掉。一般頁面未必受影響，老 module 和深度客製設定則要特別確認。</li>
+</ul>
           <h4>升級時我會怎麼排順序</h4>
           <p>先在 Nuxt 3 的最後階段處理 console 警告，再列出實際依賴的 modules，確認它們是否標示支援 v4。接著才升框架並跑 typecheck、build 和主要頁面流程。目錄搬到 <code>app/</code> 可以另外做，不需要和所有變更擠在同一個 commit。</p>
           <p>舊目錄仍向下相容，所以沒有必要為了看起來像 Nuxt 4 就立刻搬完。反而是資料請求共享、快取和 hydration 行為值得多看一眼；畫面能打開，不代表 client navigation 後的資料一定和以前完全相同。</p>
           <h4>我的看法</h4>
           <p>我喜歡這種「整理房間式」的 major release。新目錄和 TypeScript 邊界不會出現在產品截圖裡，卻能減少專案做大後的混亂。缺點是它看起來不夠戲劇化，很容易被誤認成只有改資料夾。</p>
           <p>對既有專案來說，最穩的做法是把框架升級、module 相容與目錄搬移拆開處理。一次只改一類問題，真的出錯時才知道要往哪裡找。</p>
+          <p>我還會特別錄一輪升級前的 navigation 行為：同頁重複請求、返回上一頁、快速切換參數，以及 hydration 後第一次操作。資料層的 breaking change 常不是頁面直接白掉，而是第二次進入時拿到舊 ref，這種問題只跑一次 build 很難發現。</p>
+          <p>至於 <code>app/</code>，我會把它當成團隊邊界，而不是 Nuxt 4 的打卡任務。等新功能先照新目錄放，舊功能在被修改時再搬，git history 和 review 都會乾淨許多。</p>
         </article>
 
         <article class="draft" id="tailwind-plus-vanilla-js">
@@ -444,6 +504,8 @@ select::picker(select) {
           <p>當然，複雜應用程式仍會從框架的狀態管理和元件模型得到很多幫助。重點不是回到「全部手刻」，而是不要因為一個小互動，就先把整個網站綁在某個框架上。</p>
           <p>這對後端模板、傳統 CMS 或像 Astro 這種以 HTML 為主的網站特別實用。需要互動的地方只加少量 JavaScript，其餘頁面不用為了幾個元件一起載入框架 runtime。</p>
           <p>不過 Vanilla JavaScript 並不自動等於更輕。若元件各自帶一份重複邏輯，最後仍可能變大。真正值得看的是輸出多少程式、互動是否好維護，而不是看到「無框架」三個字就先判定比較好。</p>
+          <p>我會先看互動的生命週期。如果元件只在開啟、關閉之間切換，原生 JS 很舒服；如果狀態會跨頁共享、和權限及 API 串在一起，框架提供的資料流就開始有價值。用程式碼行數判斷要不要框架，通常會漏掉後面維護狀態的成本。</p>
+          <p>另一個檢查點是 cleanup。事件監聽、focus trap 和動態插入的節點如果沒有一致的卸載方式，幾個「很小的 script」疊起來也會難查。無框架不是無架構，只是架構要由團隊自己說清楚。</p>
         </article>
 
         <article class="draft" id="nx-s1ngularity">
@@ -458,16 +520,24 @@ select::picker(select) {
           <p>monorepo 工具通常擁有更大的信任範圍：它會讀整個 workspace、執行任務，也常出現在 CI。這讓 Nx 成為很有價值的攻擊目標。問題並不是 Nx 特別不安全，而是愈靠近開發流程核心的工具，一旦被控制，能碰到的東西就愈多。</p>
           <h4>幾個不算華麗、但有用的做法</h4>
           <ul>
-            <li>CI 使用短效、最小權限憑證，不要讓每個 job 都拿到 production secrets。</li>
-            <li>lockfile 要提交，也要讓 CI 使用 frozen lockfile，避免安裝結果自己漂移。</li>
-            <li>對新的 major update 或突然出現的版本多等一下，先看看維護者公告。</li>
-            <li>本機開發帳號和套件發布帳號開啟防釣魚的 2FA。</li>
-          </ul>
+  <li>CI 使用短效、最小權限憑證，不要讓每個 job 都拿到 production secrets。</li>
+</ul>
+          <ul>
+  <li>lockfile 要提交，也要讓 CI 使用 frozen lockfile，避免安裝結果自己漂移。</li>
+</ul>
+          <ul>
+  <li>對新的 major update 或突然出現的版本多等一下，先看看維護者公告。</li>
+</ul>
+          <ul>
+  <li>本機開發帳號和套件發布帳號開啟防釣魚的 2FA。</li>
+</ul>
           <p>沒有任何一項能單獨擋住供應鏈攻擊。真正有效的是把它拆成很多小關卡，讓某一個套件出事時，不至於順手拿走整間公司的權限。</p>
           <h4>lockfile 能做什麼，不能做什麼</h4>
           <p>lockfile 會記住實際安裝版本和來源，因此同一個 commit 在不同環境比較不會抓到不同 dependency。搭配 <code>npm ci</code> 或 pnpm 的 frozen lockfile，CI 也不會擅自重新解版本。這能擋住「昨天和今天安裝結果不一樣」，卻擋不住我們把惡意版本正式更新進 lockfile。</p>
           <p>所以 dependency update 仍然需要 review。不是要人工讀完數千個套件，而是把突然換維護者、發布頻率異常、加入 install script 或多出陌生 dependency 的更新當成較高風險。自動更新工具可以開 PR，但不必設定成看到綠燈就全部自動 merge。</p>
           <p>另外，前端專案常把 npm token、雲端金鑰和部署憑證放在同一套 CI。即使惡意套件真的執行了，只要 job 拿不到 production secret，損害仍會小很多。供應鏈安全最後談的其實是權限分層，不只是挑一個比較安全的 package manager。</p>
+          <p>事件發生後最難的問題往往是「哪台機器、哪個 job 在那段時間裝過這個版本」。這也是為什麼我會希望 CI 保存 dependency tree 和 build provenance，本機則至少能從 lockfile 與 package manager cache 追時間。沒有這些紀錄，只能先假設所有憑證都暴露，再做一次成本很高的全面輪替。</p>
+          <p>我也不贊成把安全流程做成每次更新都要人工逐行批准，那最後只會變成橡皮圖章。比較合理的是風險分級：純型別套件的小修補自動化程度高一點；新增 install script、換維護者或碰到發布工具的更新，才要求更多證據。</p>
         </article>
 
         <article class="draft" id="nuxt-ui-v4">
@@ -479,6 +549,8 @@ select::picker(select) {
           <p>多數專案不用急著二選一。可以先用 Nuxt UI 處理基礎互動，再透過 theme 和包裝元件建立自己的視覺規則，把真正有品牌特色的部分留給自己。</p>
           <p>如果團隊只有一兩位前端，從零維護 date picker、combobox 和表單錯誤狀態，通常不是最划算的投資。反過來說，若產品有大量特殊互動或嚴格品牌規範，現成元件改到最後也可能比自己做更辛苦。這篇不用選邊站，把人力和產品差異放進來看就夠了。</p>
           <p>還有一個常被低估的成本是升級。自建元件要自己修瀏覽器和無障礙問題；採用套件則要跟著 breaking changes。決定前除了看元件數量，也可以看看 changelog、維護頻率，以及團隊能不能接受它的 API。</p>
+          <p>我習慣先做一個「最難客製的元件」小樣，而不是先展示 Button。把產品真正複雜的 combobox、表格或表單錯誤狀態做出來，才能看出 theme API 夠不夠、DOM 結構能不能配合測試，以及設計稿到底需要多少 override。按鈕漂亮通常證明不了什麼。</p>
+          <p>若最後採用套件，我也會包一層很薄的產品元件，但不會把所有 props 原封不動再轉一次。只包真正需要固定的視覺和行為，否則 wrapper 反而會成為升級時的第二套 API。</p>
         </article>
 
         <article class="draft" id="react-foundation">
@@ -492,6 +564,8 @@ select::picker(select) {
           <p>這兩件事很容易混在一起。基金會比較像負責專案的公共事務和資源，技術治理才決定 API 與 release。把兩者分開，可以降低出錢最多的公司直接控制每個技術決策的疑慮。</p>
           <p>React 背後有 Meta 的長期投入，這原本就是它能持續發展的重要原因。成立基金會不是否定公司支持，而是替愈來愈大的生態多放一個支點。最後有沒有成功，還是要看會議紀錄、決策方式和社群參與能不能真的公開。</p>
           <p>類似的治理問題在 Node.js、Linux 等大型開源專案都出現過。當技術成為產業基礎，誰能決定方向、商標由誰管理、全職維護者的錢從哪裡來，就不再只是社群八卦。基金會至少提供一個能被公開討論的制度。</p>
+          <p>身為一般使用者，我不會因為基金會成立就立刻改技術選型，但會開始觀察幾個很具體的訊號：RFC 是否更容易追、非 Meta 維護者是否真的有決策位置、安全問題由誰協調，以及企業會員的資金如何揭露。組織名稱很中立，不代表運作自然就中立。</p>
+          <p>這類新聞值得寫進技術部落格，正是因為框架的風險不只在 bundle size。公司改變策略、核心維護者離開或資金中斷，都可能影響專案。治理結構很難跑 benchmark，卻是採用一套基礎技術時確實存在的長期依賴。</p>
         </article>
 
         <article class="draft" id="angular-21">
@@ -504,6 +578,8 @@ select::picker(select) {
           <p>其中我覺得 MCP Server 很能代表 2025 年的變化。過去文件只要讓人搜尋得到就好，現在還要考慮 agent 能不能拿到正確版本、辨識推薦寫法。它不會取代文件，但會讓「文件的讀者」多一種。</p>
           <p>Signal Forms 則比較貼近日常。表單一直是 Angular 很完整、同時也容易顯得複雜的部分，新方案把狀態往 Signals 靠攏。舊 Reactive Forms 不會因此立刻消失，大型專案也不適合只因為新 API 就全面改寫。</p>
           <p>Angular Aria 的方向也滿務實：官方提供互動和無障礙行為，視覺交給產品自己處理。這和整套有固定外觀的元件庫不同，對已有 Design System 的團隊會比較好接。</p>
+          <p>我會把這幾項功能分開導入，而不是因為它們同版發布就綁成一次 migration。Vitest 可以先從新測試開始，Aria 挑一個互動元件驗證，Signal Forms 則要等表單規格和第三方控制項都能配合。release note 是一起寫的，專案風險不需要一起承擔。</p>
+          <p>MCP 也要用同樣標準看待：它給 agent 更多上下文，並不代表產出的程式已被驗證。真正有價值的是減少查錯版本文件的機會，最後仍要靠 typecheck、測試和 code review 決定能不能合併。</p>
         </article>
 
         <article class="draft" id="npm-classic-token">
@@ -517,6 +593,8 @@ select::picker(select) {
           <p>傳統 CI 發布時，要先把 npm token 存進 GitHub Actions secret。Trusted Publishing 改由 GitHub Actions 提供短時間的身分證明，npm 再確認是哪個 repository、哪個 workflow 正在發布。流程跑完後，不會留下一把能被重複使用好幾個月的鑰匙。</p>
           <p>它仍然不是萬靈丹。workflow 本身被改掉、維護者帳號被接管，一樣可能出事。但攻擊者比較難只靠偷到一段 token 就在別處發布，這已經切掉一種很常見的攻擊方式。</p>
           <p>套件作者遷移時可以先確認 CI provider 是否被 npm 支援，再限制允許發布的 repository、workflow 與 environment。權限描述得愈精確，其他分支或 fork 就愈難冒充正式發布流程。</p>
+          <p>切換前我會先在測試 package 走完整個流程，尤其確認 tag、provenance 和 prerelease 的行為。發布權限通常平常碰不到，一出錯卻剛好是在準備 release 的時間點；先做一次不影響正式套件的演練，比在半夜回頭重建 token 輕鬆很多。</p>
+          <p>另外，Trusted Publishing 解決的是「CI 如何向 npm 證明身分」，不是「誰可以修改 CI」。保護預設分支、要求 workflow 檔案由 code owner review，同樣是發布流程的一部分。</p>
         </article>
 
         <article class="draft" id="react2shell">
@@ -531,15 +609,21 @@ select::picker(select) {
           <p>麻煩在於許多使用者不是直接安裝 RSC 套件，而是透過 Next.js 等 framework 使用。團隊可能根本不知道底層協定長什麼樣，卻仍在受影響範圍。這也是為什麼框架公告和 hosting provider 的提醒很重要。</p>
           <h4>修補之外還能做什麼</h4>
           <ul>
-            <li>框架與 runtime 要有固定升級節奏，不要只更新畫面會用到的 dependency。</li>
-            <li>正式環境限制執行身分權限，應用程式被突破時，不要連其他服務也一起失守。</li>
-            <li>保留請求與部署紀錄，嚴重漏洞公開後才能回頭確認是否出現可疑行為。</li>
-          </ul>
+  <li>框架與 runtime 要有固定升級節奏，不要只更新畫面會用到的 dependency。</li>
+</ul>
+          <ul>
+  <li>正式環境限制執行身分權限，應用程式被突破時，不要連其他服務也一起失守。</li>
+</ul>
+          <ul>
+  <li>保留請求與部署紀錄，嚴重漏洞公開後才能回頭確認是否出現可疑行為。</li>
+</ul>
           <p>RSC 帶來的好處仍然存在，只是「React 是前端，所以漏洞頂多影響瀏覽器」這個想法已經過時了。</p>
           <h4>這件事對前端分工的提醒</h4>
           <p>App Router 專案裡，一個元件看起來仍是 JSX，實際上可能在 server 讀資料庫、取環境變數或呼叫內部服務。檔名沒有從 <code>.tsx</code> 變成傳統後端語言，權限卻已經完全不同。code review 如果只看畫面是否正確，很容易漏掉伺服器邊界。</p>
           <p>團隊可以把 server-only module、輸入驗證和權限檢查訂成明確規則。Server Component 能直接取資料，不代表每次取資料都自動安全；使用者是否能看這筆資料，仍要在真正存取資料的位置確認，不能只相信頁面路由已經擋住。</p>
           <p>React2Shell 是極端案例，但它讓這個變化變得很具體：現代前端 framework 既然能幫我們做後端的事，就也會遇到後端等級的漏洞、更新壓力和責任。</p>
+          <p>如果公告發布時我正在維護專案，第一輪會先列出所有 production deployment 的 framework 版本，而不是只看主分支的 <code>package.json</code>。舊 preview、暫停更新的活動站和某個忘記下線的 branch deployment，都可能還在公開服務。修補完成也要重新部署，lockfile 更新但線上 image 沒換，等於什麼都沒做。</p>
+          <p>後續才是檢查 WAF、log 和 secret rotation。這個順序聽起來很普通，但嚴重漏洞發生時最怕大家同時研究細節，卻沒有人先把可被攻擊的版本真正換掉。</p>
         </article>
 
         <article class="draft" id="astro-6-beta">
@@ -552,6 +636,8 @@ select::picker(select) {
           <p>以部落格來說，多數頁面其實只有文章和少量互動。Astro 的想法是先把這些頁面當 HTML 處理，需要搜尋框、留言或互動圖表時，再局部載入元件。和整站以 React 為中心的做法相比，它少了一些全端整合，也少了一些不必要的瀏覽器 JavaScript。</p>
           <p>Beta 畢竟還不是穩定版，適合拿來了解方向，不一定要立刻把正式網站搬過去。尤其 adapter、CMS 或 Markdown plugin 是否跟得上，往往比 release note 上的新功能更實際。</p>
           <p>Live Content 特別值得內容團隊留意。傳統靜態網站更新文章後要重新 build，內容愈多等待愈久；若資料能在請求時取得，就能縮短發布時間。代價是頁面不再完全靜態，快取和內容來源的穩定性也要一起考慮。</p>
+          <p>這裡沒有哪一種一定比較先進。個人部落格一天更新一次，build 五分鐘可能完全可以接受；新聞或價格頁面若每分鐘變動，硬等整站重建才奇怪。我會先量發布頻率和可接受延遲，再決定哪些 collection 真的需要 live。</p>
+          <p>CSP 也是類似情況。開啟一個選項很容易，真正花時間的是盤點 analytics、嵌入內容和 inline script。若 beta 階段要試，我會先用 report-only 收集違規，再逐步收緊，避免一次把登入或付款頁面的必要資源擋掉。</p>
         </article>
 
         <article class="draft" id="matt-pocock-skills">
@@ -565,6 +651,8 @@ select::picker(select) {
           <p>以除錯 skill 為例，內容通常不會告訴 AI 某個 bug 的答案，而是要求先重現、縮小範圍、確認假設，再動手修改。這些本來就是工程師的基本功，只是 agent 很容易急著改程式，所以把流程寫下來仍然有用。</p>
           <p>Skill 也不適合寫得太包山包海。如果一份檔案同時規定架構、測試、命名、部署和回覆語氣，agent 每次都得讀一大篇，很難知道這次真正重要的是什麼。小而明確、需要時才載入，通常比較接近它原本的用途。</p>
           <p>至於要不要直接採用別人的 skill，我會把它當參考範本。裡面的做法未必符合每個團隊，像 TDD、commit 習慣和工具都可能不同。看懂後留下適合自己的部分，比原封不動複製更有意義。</p>
+          <p>我覺得最適合先寫成 skill 的，反而是團隊每次 review 都會重複留言的事。例如資料庫 migration 前要備份什麼、改 API 後要更新哪些 client、視覺修改要截哪些斷點。這些規則已經存在，只是散落在人腦和聊天室裡。</p>
+          <p>寫完後也要看 agent 是否真的照做。如果 skill 每次都被忽略，可能不是模型不聽話，而是觸發條件太模糊、內容太長，或要求互相衝突。把 skill 當程式一樣迭代，比把它當一次寫完的公司規章更合理。</p>
         </article>
 
         <article class="draft" id="vite-8-rolldown">
@@ -577,6 +665,8 @@ select::picker(select) {
           <h4>為什麼 Vite 想把工具整合起來？</h4>
           <p>一套工具負責開發、另一套負責正式建置，最大的問題不只速度，而是行為可能不完全相同。某個 import 在 dev 正常，build 才出錯，查起來特別煩。Rolldown 的長期目標之一，就是讓兩邊共用更多解析和轉換邏輯。</p>
           <p>Rust 帶來的效能很吸引人，但我覺得相容性反而更值得關注。Vite 之所以普及，靠的是大量 Rollup/Vite plugin。新核心如果只能跑很快，卻讓常用 plugin 失效，就不算真的接班。因此 Vite 8 的故事不只是「Rust 比 JavaScript 快」，而是如何在換引擎時保住既有生態。</p>
+          <p>升級時我會把 plugin 分成三組：官方維護、社群常用，以及公司內部自己寫的。前兩組先看相容清單，最後一組則要直接跑 fixture，比較 dev 與 build 的輸出。真正容易踩雷的通常不是 React plugin，而是多年前為特殊檔案格式寫下、之後沒人碰過的那一支。</p>
+          <p>如果 build 速度真的改善，我也不會立刻把所有 cache 拿掉。先保留一段時間觀察 CI 波動，再簡化設定；否則同時換 bundler、cache 和部署流程，快了不知道是哪一項，壞了也不知道從哪裡退。</p>
         </article>
 
         <article class="draft" id="typescript-6">
@@ -586,17 +676,24 @@ select::picker(select) {
           <p>官方把 TypeScript 6 定位成舊 JavaScript codebase 的最後一個版本，同時維持與 5.9 API 相容。這讓團隊可以先在熟悉的 compiler 上清理問題，再決定何時切到新的原生工具。</p>
           <h4>TypeScript 6 先清掉了什麼</h4>
           <ul>
-            <li><strong><code>target: es5</code> 被棄用：</strong>TypeScript 的最低方向往 ES2015 移動。若產品真的還要輸出 ES5，之後要交給其他編譯工具處理。</li>
-            <li><strong>舊的 module 設定退場：</strong><code>amd</code>、<code>umd</code>、<code>systemjs</code> 和 <code>none</code> 不再支援；舊的 <code>moduleResolution: node</code> 也應改成面向 Node 的 <code>nodenext</code>，或給 bundler 使用的 <code>bundler</code>。</li>
-            <li><strong>interop 與 strict 行為收斂：</strong><code>esModuleInterop</code>、<code>allowSyntheticDefaultImports</code> 不再能設為 false，程式也一律按 strict mode 看待。過去為相容舊環境留下的分岔逐漸被收掉。</li>
-            <li><strong><code>outFile</code> 移除：</strong>合併輸出早已有 Vite、Rollup、esbuild 等 bundler 處理，TypeScript 更專注在型別檢查與 declaration emit。</li>
-          </ul>
-          <p>TypeScript 6 可以暫時用 <code>ignoreDeprecations: "6.0"</code> 壓住部分警告，但 TypeScript 7 會直接移除這些選項。這個設定比較像緩衝，不是長期解法。</p>
+  <li><strong><code>target: es5</code> 被棄用：</strong> TypeScript 的最低方向往 ES2015 移動。若產品真的還要輸出 ES5，之後要交給其他編譯工具處理。</li>
+</ul>
+          <ul>
+  <li><strong>舊的 module 設定退場：</strong> <code>amd</code>、<code>umd</code>、<code>systemjs</code> 和 <code>none</code> 不再支援；舊的 <code>moduleResolution: node</code> 也應改成面向 Node 的 <code>nodenext</code>，或給 bundler 使用的 <code>bundler</code>。</li>
+</ul>
+          <ul>
+  <li><strong>interop 與 strict 行為收斂：</strong> <code>esModuleInterop</code>、<code>allowSyntheticDefaultImports</code> 不再能設為 false，程式也一律按 strict mode 看待。過去為相容舊環境留下的分岔逐漸被收掉。</li>
+</ul>
+          <ul>
+  <li><strong><code>outFile</code> 移除：</strong> 合併輸出早已有 Vite、Rollup、esbuild 等 bundler 處理，TypeScript 更專注在型別檢查與 declaration emit。</li>
+</ul>
+          <p>TypeScript 6 可以暫時用 <code>ignoreDeprecations: &quot;6.0&quot;</code> 壓住部分警告，但 TypeScript 7 會直接移除這些選項。這個設定比較像緩衝，不是長期解法。</p>
           <h4>到了 TypeScript 7，還要注意周邊工具</h4>
           <p>TypeScript 7 改用 Go 的原生 compiler 和 language server，官方公布的完整 build 常見改善約為 8 到 12 倍。不過 7.0 還沒有穩定的 programmatic API，因此 Vue、Svelte、Astro、MDX、Angular，以及 typescript-eslint 這類會把 TypeScript 嵌進自己工具的生態，未必能立刻完整切換。</p>
           <p>官方提供 <code>@typescript/typescript6</code> 相容套件，讓專案在過渡期保留舊 API。也就是說，有些團隊可能先用 TypeScript 7 的 CLI 做全專案檢查，編輯器或 framework tooling 暫時仍留在 6；這不是升級失敗，而是原生移植規模太大，需要一段交接期。</p>
           <h4>我的看法</h4>
           <p>我會把 TypeScript 6 當成搬家前整理雜物，而不是一版無聊的過場。先讓專案在 6 上不靠 <code>ignoreDeprecations</code> 也能乾淨編譯，再確認 editor、lint 和 framework plugin 對 7 的支援，會比只看官方速度數字就直接升級安心很多。</p>
+          <p>實務上我會先把 TypeScript 版本和 <code>@types/*</code> 更新拆開。兩邊一起升，突然多出一百個錯誤時很難判斷是 compiler 行為、lib 定義，還是 framework 型別改變。先建立一個零警告的 6.x 基準，再讓原生 CLI 進 CI 做不擋合併的檢查，會是一條比較舒服的過渡路線。</p>
         </article>
 
         <article class="draft" id="chrome-147">
@@ -608,6 +705,8 @@ select::picker(select) {
           <p>動畫仍然應該是輔助，而不是讓使用者等它播完。也要記得尊重 <code>prefers-reduced-motion</code>，讓不適合大量動態效果的人可以減少動畫。</p>
           <p>這項 API 有趣的地方是它保留了正常 DOM 更新方式。我們還是照原本流程改 class、排序陣列或切換狀態，瀏覽器負責補上前後畫面的過渡。比起為動畫另外維護一份位置狀態，程式會比較接近日常 UI 邏輯。</p>
           <p>目前使用時仍要把沒有 View Transitions 的情況當成正常路徑。功能不支援時，DOM 應該照樣完成更新，只是少了動畫。這種 enhancement 很適合逐步導入，不需要為了舊瀏覽器準備另一整套互動。</p>
+          <p>我會先從「動畫能幫忙理解位置變化」的地方用，而不是每次 state change 都加。看板卡片換欄、篩選後項目重新排列很適合；按下儲存後讓整張表單飛走，可能只是在搶注意力。好的 transition 應該讓使用者更容易回答「剛才那個東西去哪了」。</p>
+          <p>測試也別只錄順利路徑。快速連點、資料回來前再次排序，以及 transition 中途 route change，才比較容易碰到狀態和動畫不同步的問題。</p>
         </article>
 
         <article class="draft" id="webmcp">
@@ -626,6 +725,8 @@ select::picker(select) {
           <h4>一個簡單情境</h4>
           <p>假設旅遊網站有日期選擇器、房型卡片和好幾層 modal。畫面操作型 agent 得先理解 DOM，再模擬點擊。若網站提供 <code>searchRooms</code> 工具，參數明確寫著入住日、退房日和人數，agent 可以直接送出結構化資料，網站也能回傳固定格式的房型。</p>
           <p>但到了 <code>bookRoom</code> 就不能照樣全自動。搜尋是低風險讀取，訂房會產生費用，應該讓使用者看到最後金額並再次確認。WebMCP 真正需要設計的，不只工具 schema，還包括哪些步驟可以代勞、哪些一定要把控制權交回人。</p>
+          <p>如果真的要替網站加工具，我會先從唯讀、可重試的操作開始，並且替每次呼叫留下 audit log。等團隊看得懂 agent 會怎麼選參數，再碰會寫入資料的功能。把現有 API 全部原樣曝光通常不是捷徑，因為給內部程式用的參數，不一定適合讓模型自行判斷。</p>
+          <p>錯誤訊息也會變成介面的一部分。只回傳 <code>400 Bad Request</code>，人和 agent 都不知道怎麼修；指出日期範圍、允許值和是否可重試，才能讓下一步安全而可預期。</p>
         </article>
 
         <article class="draft" id="astro-7">
@@ -637,6 +738,8 @@ select::picker(select) {
           <p>如果只是幾十篇文章的小部落格，不必因為 Rust 就立刻搬家。Astro 7 比較值得關注的是，它仍然把內容網站當成主要使用情境，而不是急著把所有全端功能都塞進來。</p>
           <p>MDX 使用者可能會更在意相容性：語法能不能照舊、remark/rehype plugin 是否正常、錯誤訊息看不看得懂。底層換語言對使用者應該愈無感愈好，速度只是結果，遷移時不必改文章才是真正舒服的升級。</p>
           <p>如果網站主要內容是 Markdown，升級前備份和固定 plugin 版本就很重要。編譯器換掉後，最可能出現差異的是少見語法或 plugin 串接，不是一般標題和段落。先看官方 migration note，再處理個別例外即可。</p>
+          <p>我會另外準備幾篇「故意很難搞」的測試文章：巢狀清單、表格、程式碼 fence、中文 slug，以及會改 AST 的 remark plugin。拿它們比較升級前後 HTML，比人工把幾百篇文章每頁點開有效率，也比較能留下下一次升級可重用的回歸測試。</p>
+          <p>內容工具的快，最後還是要回到編輯體驗。存檔後 preview 少等一秒、錯誤能指出正確行號，對作者通常比完整 build 的峰值數字更有價值。</p>
         </article>
 
         <article class="draft" id="angular-22">
@@ -646,27 +749,43 @@ select::picker(select) {
           <p>這三版的共同方向很清楚：減少依賴 Zone.js 這種隱性機制，用 Signals 表達狀態，再把表單、非同步資料、無障礙與測試工具慢慢接到同一套現代化基礎上。</p>
           <h4>Angular 20：核心反應性和 SSR 先站穩</h4>
           <ul>
-            <li>Signals 的核心 API 正式穩定，signal-based input 和 query 等寫法更適合放進正式專案。</li>
-            <li>Incremental Hydration 與 route-level rendering 穩定，SSR、prerender、CSR 能依路由需求混用。</li>
-            <li>Zoneless 在 20.2 成為 stable，讓新舊專案可以開始有計畫地移除 Zone.js。</li>
-          </ul>
+  <li>Signals 的核心 API 正式穩定，signal-based input 和 query 等寫法更適合放進正式專案。</li>
+</ul>
+          <ul>
+  <li>Incremental Hydration 與 route-level rendering 穩定，SSR、prerender、CSR 能依路由需求混用。</li>
+</ul>
+          <ul>
+  <li>Zoneless 在 20.2 成為 stable，讓新舊專案可以開始有計畫地移除 Zone.js。</li>
+</ul>
           <p>這一版像是在打地基。畫面語法沒有突然面目全非，但 Angular 如何知道狀態變了、伺服器送出的 HTML 如何接回互動，底層邏輯已經開始換軌。</p>
           <h4>Angular 21：新預設和開發工具跟上</h4>
           <ul>
-            <li><strong>Zoneless 成為新專案預設：</strong>不必另外開啟，Angular 會透過 Signals、事件和明確 API 安排 change detection。</li>
-            <li><strong>Signal Forms 實驗登場：</strong>用 signal 保存資料、schema 描述驗證，再從資料結構產生 field tree，試著簡化過去兩套表單 API 的負擔。</li>
-            <li><strong>Angular Aria 與 Vitest：</strong>前者提供無障礙互動 primitive，後者讓測試工具更貼近現代前端生態。</li>
-            <li><strong>Angular MCP：</strong>讓 coding agent 能取得 Angular 專案與官方知識，不必只靠通用模型猜新版寫法。</li>
-          </ul>
+  <li><strong>Zoneless 成為新專案預設：</strong> 不必另外開啟，Angular 會透過 Signals、事件和明確 API 安排 change detection。</li>
+</ul>
+          <ul>
+  <li><strong>Signal Forms 實驗登場：</strong> 用 signal 保存資料、schema 描述驗證，再從資料結構產生 field tree，試著簡化過去兩套表單 API 的負擔。</li>
+</ul>
+          <ul>
+  <li><strong>Angular Aria 與 Vitest：</strong> 前者提供無障礙互動 primitive，後者讓測試工具更貼近現代前端生態。</li>
+</ul>
+          <ul>
+  <li><strong>Angular MCP：</strong> 讓 coding agent 能取得 Angular 專案與官方知識，不必只靠通用模型猜新版寫法。</li>
+</ul>
           <h4>Angular 22：把實驗功能推向正式使用</h4>
           <ul>
-            <li><strong>Signal Forms、Resource API、Angular Aria 穩定：</strong>表單、非同步資料和無障礙互動不再只是預覽功能，開始成為新專案可以認真評估的選項。</li>
-            <li><strong>HttpClient 預設使用 Fetch：</strong>更貼近瀏覽器和其他 runtime 的標準網路 API，也減少對舊式 XHR 實作的依賴。</li>
-            <li><strong>新服務與錯誤邊界方向：</strong><code>@Service()</code> 簡化 service 宣告；<code>@boundary</code>、<code>@error</code> 等模板能力則讓局部錯誤處理更接近畫面結構。</li>
-          </ul>
+  <li><strong>Signal Forms、Resource API、Angular Aria 穩定：</strong> 表單、非同步資料和無障礙互動不再只是預覽功能，開始成為新專案可以認真評估的選項。</li>
+</ul>
+          <ul>
+  <li><strong>HttpClient 預設使用 Fetch：</strong> 更貼近瀏覽器和其他 runtime 的標準網路 API，也減少對舊式 XHR 實作的依賴。</li>
+</ul>
+          <ul>
+  <li><strong>新服務與錯誤邊界方向：</strong> <code>@Service()</code> 簡化 service 宣告；<code>@boundary</code>、<code>@error</code> 等模板能力則讓局部錯誤處理更接近畫面結構。</li>
+</ul>
           <h4>我的看法</h4>
           <p>我覺得 Angular 這三版最重要的改變，是「框架很重」這句評價需要重新拆開看。Angular 還是完整、規範多，但 Signals 和 zoneless 正在拿掉一部分過去難以觀察的魔法；完整不一定等於老舊。</p>
           <p>對企業專案來說，漸進更新比突然再來一次 Angular 2 式斷層友善得多。代價是新舊 API 會共存一段時間，團隊要寫清楚新 component 採用哪套方式，也不要因為 Signal Forms 穩定就立刻重寫所有可正常運作的表單。新預設先用在新功能，舊程式按維護需求搬，會比較符合 Angular 原本的穩健路線。</p>
+          <p>我會在團隊文件裡畫一條很清楚的線：新元件預設 Signals 與 zoneless，舊元件沒有需求就不動；跨越兩邊時，用 adapter 把 Observable 和 Signal 的轉換集中處理。最怕的是每位工程師各自混搭，半年後同一份狀態有三種來源，反而比 Zone.js 時代更難追。</p>
+          <p>Fetch 成為預設也值得看測試環境。mock、取消請求和 interceptor 的行為要重新確認，尤其公司若有自己包 HttpClient。標準 API 是好方向，但「底層更標準」不等於既有抽象完全不用驗證。</p>
         </article>
 
         <article class="draft" id="typescript-7">
@@ -680,6 +799,8 @@ select::picker(select) {
           <p>大家看到原生重寫，第一個想到的通常是速度；但 TypeScript 每天被數百萬個專案使用，真正困難的是讓同一段程式得到相同型別結果。若新 compiler 快很多，卻到處多報或漏報錯誤，升級成本反而更高。</p>
           <p>因此一般開發者可以先關注三件事：既有 <code>tsconfig</code> 是否支援、編輯器 extension 是否切到新語言服務，以及常用 build tool 是否已整合。等這些周邊跟上，再享受原生工具帶來的改善就好，不需要為了第一時間升級而冒險。</p>
           <p>這也讓 2025 年的移植公告和 2026 年正式版形成一組文章：前一篇談為什麼重寫，這一篇談重寫完成後使用者會遇到什麼。引用速度數據時標明是官方資料，把重點放在升級和相容性，內容就已經足夠完整。</p>
+          <p>我的升級順序會從 editor 開始試，但不會先改全公司的預設。找一個大型 workspace 比較開啟、跳轉定義、重新命名和錯誤更新，再把 CLI 放到 CI 平行跑。兩套 compiler 結果不同時先留下案例，不要急著用 <code>skipLibCheck</code> 把差異蓋掉。</p>
+          <p>原生工具若成功，最大的改變可能不是大家突然寫出更複雜的型別，而是少一點等待後，工程師更願意保持 typecheck 常開。工具速度最後影響的是工作習慣，這比單次 build 快幾秒更有意思。</p>
         </article>
 
         <article class="draft" id="nuxt-4-5">
@@ -691,6 +812,8 @@ select::picker(select) {
           <p>SSR streaming 則讓伺服器不必等整頁內容都準備好才回傳，可以先送出已完成的部分。它對資料來源較多的頁面比較有感，也仍要配合 loading 狀態，才不會讓內容出現得很零碎。</p>
           <p>這三項更新放在同一版有點像 Nuxt 同時處理「怎麼打包」和「怎麼送頁面」。前者多半由框架替我們決定，後者會直接影響 UI。使用 streaming 時，設計 loading skeleton、避免 layout shift，反而比記住底層名詞更貼近日常工作。</p>
           <p>如果網站頁面很單純、資料一次就能拿完，streaming 不一定帶來明顯好處。它比較適合有快慢不同資料來源的頁面，先讓導覽和主要內容出現，再補上等待較久的區塊。</p>
+          <p>我會先用瀏覽器的 Network 和 Performance 看目前到底卡在哪。若時間都花在一個必須完成的 API，換 bundler 或開 streaming 都不會憑空讓資料變快；比較有機會的是把不相依的區塊拆開，讓慢資料不要擋住標題和導覽。</p>
+          <p>Rspack 則應該由相容性需求拉動，而不是拿來和 Vite 辦賽跑。專案如果沒有 webpack 歷史包袱，預設路徑通常最省維護；真有 loader 或大型既有設定，再做一個代表性頁面的 build 比較，答案會比宣傳數字可靠。</p>
         </article>
 
         <article class="draft" id="coldcard-rng">
@@ -710,6 +833,8 @@ select::picker(select) {
           <p>一般 PRNG 只要產生的數字看起來分散，就能拿來做遊戲或模擬；密碼學使用的 CSPRNG 還要求外部的人無法從已知輸出推回內部狀態，也很難預測下一個結果。錢包 seed 屬於後者，因為「看起來亂」遠遠不夠。</p>
           <p>有些裝置會混合多個亂數來源，甚至讓使用者加入擲骰子結果。這能減少單一來源故障的風險，但流程也必須正確：加入的資料怎麼混合、使用者輸入不足時怎麼辦、硬體 RNG 故障時是否直接停止，都需要清楚設計。</p>
           <p>額外 passphrase 也常被提到。它可以替 seed 再加一層秘密，但前提是內容夠強、備份方式可靠。若只是加一個常見單字，或最後自己忘記，它就不會變成理想中的保護。安全措施永遠伴隨操作成本，這點在自託管錢包尤其明顯。</p>
+          <p>遇到這種公告，最重要的是先確認型號、韌體版本和 seed 建立時間，不要只看到品牌就慌著操作。遷移資產本身也有風險，應該依廠商說明建立新 seed、先做小額測試，再處理主要餘額；從不可信的網頁下載「修復工具」反而可能造成第二次損失。</p>
+          <p>這起事件也很適合提醒軟體團隊：安全失敗應該 fail closed。偵測不到足夠 entropy 時，裝置寧可拒絕建立錢包，也不該為了流程順暢偷偷降級。錯誤畫面難看幾分鐘，總比產生一把外表正常、實際可猜的鑰匙好。</p>
         </article>
 
         <article class="draft" id="agent-plugins-1">
@@ -722,13 +847,19 @@ select::picker(select) {
           <p>回頭看 2 月 Matt Pocock 分享的個人 skills，可以發現半年後生態開始處理下一個問題：不只是怎麼寫 skill，還要怎麼安裝、分享和管理它們。</p>
           <h4>Skill、MCP、Plugin 先分清楚</h4>
           <ul>
-            <li>Skill 比較像說明書，告訴 agent 某類工作應該按照哪些步驟完成。</li>
-            <li>MCP server 提供工具，例如查資料庫、讀設計稿或操作部署平台。</li>
-            <li>Plugin 是安裝和散布單位，可以把前兩者連同設定一起帶進工具。</li>
-          </ul>
+  <li>Skill 比較像說明書，告訴 agent 某類工作應該按照哪些步驟完成。</li>
+</ul>
+          <ul>
+  <li>MCP server 提供工具，例如查資料庫、讀設計稿或操作部署平台。</li>
+</ul>
+          <ul>
+  <li>Plugin 是安裝和散布單位，可以把前兩者連同設定一起帶進工具。</li>
+</ul>
           <p>這種分層其實和前端很熟悉：元件的使用說明、真正呼叫的 API，以及最後發布到 npm 的 package，本來就是不同東西。以前每家 agent 各自定格式，現在才開始嘗試把外層包裝統一。</p>
           <p>跨工具不代表百分之百相容。某個 plugin 可以包含只給特定 client 使用的功能，企業也得考慮 MCP server 能碰哪些資料。標準解決的是「怎麼裝、怎麼找到內容」，不是替每一個工具承諾完全相同的行為。</p>
           <p>我覺得這比又多一個 AI 功能更值得記錄。當 plugin 能被分享和集中管理後，coding agent 才比較像一個可維護的開發環境，而不是每位工程師自己堆出來的一盒 prompt。</p>
+          <p>但可安裝也代表要開始問傳統套件管理的問題：誰發布、更新能不能自動進來、hook 會執行什麼，以及 MCP server 能讀哪些資料。我不會讓一個剛看到的 plugin 直接碰 production；先看 manifest、鎖版本，再用沒有敏感憑證的環境試跑，這些老方法在 agent 時代一樣有效。</p>
+          <p>團隊自製 plugin 的價值則很直接。把 issue 分類、專案驗證指令和內部文件查詢放在一起，新人拿到的不只是 prompt，而是一條可以重複、可以 review 的工作路徑。標準真正成熟時，我希望它帶來的是這種可治理性，而不只是安裝按鈕更多。</p>
         </article>
       </section>
     </main>

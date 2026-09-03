@@ -10,7 +10,7 @@ export const metadata = {
     "Migration",
     "Compiler",
     "Tooling"
-  ],
+  ]
 }
 
 TypeScript 6 有點尷尬，新聞焦點幾乎都被用 Go 打造的 TypeScript 7 搶走了。但如果真的準備升級，6 反而是不能跳過的一站：它先把舊世界裡不打算帶走的東西標了出來。
@@ -38,3 +38,5 @@ TypeScript 7 改用 Go 的原生 compiler 和 language server，官方公布的�
 ## 我的看法
 
 我會把 TypeScript 6 當成搬家前整理雜物，而不是一版無聊的過場。先讓專案在 6 上不靠 `ignoreDeprecations` 也能乾淨編譯，再確認 editor、lint 和 framework plugin 對 7 的支援，會比只看官方速度數字就直接升級安心很多。
+
+實務上我會先把 TypeScript 版本和 `@types/*` 更新拆開。兩邊一起升，突然多出一百個錯誤時很難判斷是 compiler 行為、lib 定義，還是 framework 型別改變。先建立一個零警告的 6.x 基準，再讓原生 CLI 進 CI 做不擋合併的檢查，會是一條比較舒服的過渡路線。

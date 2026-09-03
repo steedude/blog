@@ -1,0 +1,25 @@
+export const metadata = {
+  slug: "tailwind-plus-vanilla-js",
+  title: "Framework-independent UI components in Tailwind Plus",
+  description: "After Tailwind Plus added Vanilla JavaScript support, do small interactions still need a framework?",
+  publishedAt: "2025-07-22",
+  category: "CSS",
+  categorySlug: "css",
+  tags: ["Tailwind CSS", "Vanilla JavaScript", "UI Components"],
+}
+
+Tailwind Plus adding Vanilla JavaScript support can look like a step backward at first. After years of framework adoption, why return to plain JavaScript? For small interactions such as dialogs and dropdowns, the choice makes quite a bit of sense.
+
+Tailwind Plus was commonly associated with React or Vue components. With Vanilla JavaScript support in 2025, its interactive components no longer have to be tied to a particular framework.
+
+This reflects a simple trend: a dropdown, dialog, or tab set does not always require an entire React application. HTML, CSS, and a small amount of JavaScript can be enough, and the result is easier to place in sites built with different technologies.
+
+Complex applications still benefit greatly from a framework's state and component model. The point is not to hand-build everything again. It is to avoid binding an entire website to a framework for one small interaction.
+
+That is particularly useful for server-rendered templates, traditional CMSs, and HTML-first tools such as Astro. JavaScript can be added only where interaction is needed instead of loading a framework runtime for the whole page.
+
+Vanilla JavaScript is not automatically lighter. If every component ships its own copy of similar logic, the result can still grow. What matters is the emitted code and whether the behavior remains maintainable, not the assumption that "framework-free" must be better.
+
+I first look at the interaction's lifecycle. A component that only opens and closes is comfortable in plain JavaScript. Once state is shared across pages and tied to permissions and API data, a framework's data flow becomes valuable. Choosing by line count alone ignores the future cost of maintaining that state.
+
+Cleanup is another checkpoint. Event listeners, focus traps, and inserted nodes need a consistent teardown path. Several "tiny scripts" can become difficult to debug when they do not have one. Framework-free does not mean architecture-free; the team simply has to describe that architecture itself.

@@ -1,0 +1,40 @@
+export const metadata = {
+  slug: "tailwind-v4-css-first",
+  title: "Tailwind CSS v4 and its CSS-first configuration",
+  description: "What changed when Tailwind moved theme configuration from JavaScript into CSS.",
+  publishedAt: "2025-01-21",
+  category: "CSS",
+  categorySlug: "css",
+  tags: ["Tailwind CSS", "CSS", "Design Tokens"],
+}
+
+Whenever Tailwind ships a major release, the discussion quickly returns to whether utility classes are a good idea. The more interesting change in v4, though, is not how many classes we put in HTML. It is that Tailwind now uses CSS itself more directly to describe a design system.
+
+Colors, fonts, and breakpoints that used to live in `tailwind.config.js` can now be declared in CSS. Tailwind calls this direction CSS-first configuration.
+
+For example, a site can define `--color-brand` inside `@theme`, then use `text-brand` or `bg-brand` in its markup. The configuration sits closer to the CSS it produces, which makes the relationship easier to follow.
+
+This does not mean Tailwind is abandoning utility classes, nor does it mean every style should be handwritten. The main change is where Tailwind is configured. New projects may need one fewer configuration file, while existing projects should first check plugin and customization compatibility instead of rewriting everything just to follow the latest style.
+
+## What changes when configuration moves into CSS?
+
+In v3, a custom brand color was commonly added by extending the theme in a JavaScript config. In v4, the same idea can be written like this:
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #173f76;
+  --font-display: Georgia, serif;
+}
+```
+
+Tailwind reads these tokens and creates utilities such as `bg-brand`, `text-brand`, and `font-display`. Besides removing a config file, the tokens are also available to ordinary CSS and animation libraries through `var(--color-brand)`.
+
+`@theme` is not quite the same as `:root`. A variable in `:root` is a normal CSS custom property and does not automatically create Tailwind utilities. Tokens in `@theme` participate in utility generation. Variables that are only used by existing CSS can stay in `:root`; there is no need to put every value into the Tailwind theme.
+
+One detail is worth making clear: `@theme` looks like CSS, but it is still a Tailwind build-time directive rather than a browser feature. Removing Tailwind later would still require changing it. CSS-first brings configuration into the language of CSS; it does not remove the framework dependency.
+
+What I like most about v4 is that code review now gives a shorter answer to "where did this color come from?" Previously, seeing `bg-brand` often meant jumping into a JavaScript config to find the actual value. The token, ordinary CSS, and generated utility now live much closer together. It is not a dramatic runtime improvement, but it makes day-to-day code reading noticeably easier.
+
+I would still keep the theme deliberately small. A 17px gap that appears once in a mockup does not automatically deserve a global token. Otherwise `--spacing-card-small` and `--spacing-card-smaller` eventually recreate configuration-file clutter inside CSS. CSS-first makes tokens easier to add, which makes a team agreement about what belongs in the design system even more important.

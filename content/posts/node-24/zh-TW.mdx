@@ -10,7 +10,7 @@ export const metadata = {
     "V8",
     "npm",
     "Frontend Tooling"
-  ],
+  ]
 }
 
 前端職缺不一定要求會寫 Node.js 後端，但現代前端專案幾乎不可能完全離開 Node.js。每天啟動 dev server、跑測試、裝套件，背後其實都在和它打交道，只是平常不太會特別注意。
@@ -38,3 +38,7 @@ export const metadata = {
 ## 我的看法
 
 我不覺得前端專案需要在 Node 24 發布第一天就升級。剛發布時它仍是 Current，適合工具作者和新專案提早驗證；產品等到 LTS、hosting 與主要框架都跟上再升，通常更省事。Node 更新對前端最大的提醒，是 runtime 也該像 dependencies 一樣有固定的維護節奏。
+
+實際升級時，我通常會先看 CI，而不是先改自己的電腦。本機有快取、全域工具和各種歷史狀態，很容易把問題掩蓋掉；乾淨 runner 反而比較誠實。先讓 install、typecheck、test、build 四段在新版本走完，再處理開發者環境，遇到原生模組失敗時也比較容易留下可重現的紀錄。
+
+另一個容易忽略的是 Docker image 和 Vercel、Cloudflare 這類平台的 runtime 設定。`package.json` 寫了 engines，不代表每個部署入口都會自動照做。Node 版本升級看起來像改一行數字，真正的工作其實是把整條工具鏈的執行環境重新對齊。

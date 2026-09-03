@@ -10,7 +10,7 @@ export const metadata = {
     "Baseline",
     "Browser Support",
     "Build Tools"
-  ],
+  ]
 }
 
 「支援現代瀏覽器」看起來是一句人話，真正放進專案規格卻很難執行：現代到底是多新？Safari 要到哪一版？Vite 7 改用 Baseline，某種程度就是想替這句模糊的話畫出界線。
@@ -26,3 +26,7 @@ Baseline 的 Newly Available 代表主要瀏覽器都已支援；再經過 30 �
 這個 major release 對應到 Chrome 107、Edge 107、Firefox 104 和 Safari 16。以後 Vite major 更新時，這份清單也會跟著當時的 Widely Available 範圍往前移。好處是預設值有一個共同規則，而不是由維護者憑感覺挑版本。
 
 但 Baseline 不是專案的產品需求。銀行內部系統和只給新手機使用的活動頁，理所當然會有不同支援範圍。Vite 提供的是合理預設，最後還是要看網站流量、公司規範和功能能不能漸進增強。
+
+我會把 `build.target` 當成「輸出語法的最低線」，不是瀏覽器支援政策的全部。像 `fetch`、WebGL 或某個 CSS selector 能不能用，仍要另外判斷；第三方 script 也可能自己帶著更高的需求。只改 target 然後宣布支援舊瀏覽器，通常是一種很危險的安心感。
+
+比較務實的做法，是把實際流量裡的瀏覽器版本、錯誤監控和產品承諾放在一起看。若真的要照顧舊環境，就挑出核心流程做真機或雲端瀏覽器測試，不要只相信 build 沒報錯。Baseline 解決的是大家如何描述共同起點，並沒有替每個網站做完相容性測試。
