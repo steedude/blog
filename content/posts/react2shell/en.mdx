@@ -8,7 +8,7 @@ export const metadata = {
   tags: ["React", "React Server Components", "Security", "RCE"],
 }
 
-A React vulnerability that can execute code on a server would have sounded odd a few years ago. Wasn't React a UI library? Once Server Components moved part of the work to the server, that boundary stopped being so clear.
+My first reaction to React2Shell was, 'Wait, how does a React vulnerability reach the server?' The question exposed an outdated assumption: I was still thinking of React as a UI library that lived in the browser. Server Components genuinely make some work easier, but they raise the class of vulnerabilities too, and that is uncomfortable to confront.
 
 React2Shell was a severe vulnerability related to React Server Components. A crafted request could cause a server to execute attacker-controlled content, making the possible result server compromise rather than a broken screen.
 

@@ -13,7 +13,7 @@ export const metadata = {
   ]
 }
 
-React 漏洞嚴重到能在伺服器執行程式，幾年前聽起來可能有點奇怪：React 不是拿來畫 UI 的嗎？Server Components 把一部分工作搬到伺服器後，這條界線已經沒有以前那麼清楚。
+第一次看到 React2Shell 的嚴重程度時，我的反應是「等等，React 的漏洞怎麼會直接打到 server？」這句疑問其實也暴露了舊印象：我們太習慣把 React 當成瀏覽器裡畫 UI 的 library。Server Components 把能力搬到伺服器後，方便是真的，連漏洞等級一起升上去也是真的，這點多少讓人有點不安。
 
 React2Shell 是 React Server Components 相關的嚴重漏洞。特製請求可能讓伺服器執行攻擊者準備的內容，因此影響不只是畫面壞掉，而是伺服器本身可能被控制。
 

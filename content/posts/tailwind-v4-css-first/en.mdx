@@ -8,7 +8,7 @@ export const metadata = {
   tags: ["Tailwind CSS", "CSS", "Design Tokens"],
 }
 
-Whenever Tailwind ships a major release, the discussion quickly returns to whether utility classes are a good idea. The more interesting change in v4, though, is not how many classes we put in HTML. It is that Tailwind now uses CSS itself more directly to describe a design system.
+The first time I saw Tailwind v4 move configuration into CSS, I paused: after all these years, are we going back to CSS? A second look made the idea much more appealing. It does not reject utility classes; it finally admits that colors, fonts, and spacing belong in the language of CSS. It is not the flashiest item in the release, but it was the one I most wanted to try.
 
 Colors, fonts, and breakpoints that used to live in `tailwind.config.js` can now be declared in CSS. Tailwind calls this direction CSS-first configuration.
 

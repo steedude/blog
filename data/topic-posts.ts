@@ -58,8 +58,8 @@ import Nuxt45Zh, { metadata as Nuxt45ZhMetadata } from "@/content/posts/nuxt-4-5
 import Nuxt45En, { metadata as Nuxt45EnMetadata } from "@/content/posts/nuxt-4-5/en.mdx";
 import ColdcardRngZh, { metadata as ColdcardRngZhMetadata } from "@/content/posts/coldcard-rng/zh-TW.mdx";
 import ColdcardRngEn, { metadata as ColdcardRngEnMetadata } from "@/content/posts/coldcard-rng/en.mdx";
-import AgentPlugins1Zh, { metadata as AgentPlugins1ZhMetadata } from "@/content/posts/agent-plugins-1/zh-TW.mdx";
-import AgentPlugins1En, { metadata as AgentPlugins1EnMetadata } from "@/content/posts/agent-plugins-1/en.mdx";
+import ChaindropNpmZh, { metadata as ChaindropNpmZhMetadata } from "@/content/posts/chaindrop-npm/zh-TW.mdx";
+import ChaindropNpmEn, { metadata as ChaindropNpmEnMetadata } from "@/content/posts/chaindrop-npm/en.mdx";
 import { Locale } from "@/types/i18n";
 import type { Post, PostMetadata } from "@/types/post";
 
@@ -126,6 +126,6 @@ export const topicPosts: Post[] = [
   createPost(Locale.EN, Nuxt45En, Nuxt45EnMetadata),
   createPost(Locale.ZH_TW, ColdcardRngZh, ColdcardRngZhMetadata),
   createPost(Locale.EN, ColdcardRngEn, ColdcardRngEnMetadata),
-  createPost(Locale.ZH_TW, AgentPlugins1Zh, AgentPlugins1ZhMetadata),
-  createPost(Locale.EN, AgentPlugins1En, AgentPlugins1EnMetadata),
+  createPost(Locale.ZH_TW, ChaindropNpmZh, ChaindropNpmZhMetadata),
+  createPost(Locale.EN, ChaindropNpmEn, ChaindropNpmEnMetadata),
 ];

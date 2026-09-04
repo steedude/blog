@@ -146,6 +146,8 @@ test("paginates the homepage with five posts per page", async () => {
   assert.equal((second.match(/<article class="mb-4/g) ?? []).length, 5);
   assert.match(first, /href="\/zh-TW\/page\/2"/);
   assert.match(first, /第 1 \/ 8 頁/);
+  assert.match(first, /ChainDrop：當 npm 惡意套件開始自己擴散/);
+  assert.doesNotMatch(first, /Agent Plugins 1\.0/);
   assert.doesNotMatch(first, /grid grid-cols-1 items-start/);
   assert.doesNotMatch(first, /mx-0 mt-2 mb-0 md:hidden/);
   assert.doesNotMatch(first, /<footer[^>]*>\s*<nav/);
@@ -157,7 +159,7 @@ test("paginates the homepage with five posts per page", async () => {
     second.indexOf('<h1 id="latest-posts"'),
     second.indexOf('<nav class="my-5'),
   );
-  assert.doesNotMatch(secondPostList, /Agent Plugins 1\.0 的跨工具封裝方式/);
+  assert.doesNotMatch(secondPostList, /ChainDrop：當 npm 惡意套件開始自己擴散/);
 });
 
 test("keeps archive implementation notes out of the page", async () => {

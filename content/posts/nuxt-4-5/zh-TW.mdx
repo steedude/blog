@@ -13,7 +13,7 @@ export const metadata = {
   ]
 }
 
-同一份 Nuxt release note 裡同時出現 Vite、Rspack 和 SSR streaming，很容易看得一頭霧水。先別急著比較誰比較快，把它們分成「建置工具」和「頁面傳輸方式」，事情就簡單多了。
+我第一次掃 Nuxt 4.5 的 release note，看到 Vite、Rspack 和 SSR streaming 擠在一起，腦中只剩一句：「所以我到底要換哪一個？」後來才發現這問題本身就問錯了。前兩個在處理怎麼 build，最後一個在處理頁面怎麼送出去，把它們放在同一場速度競賽裡只會越看越亂。
 
 Nuxt 4.5 同時帶來 Vite 8、由 Rsbuild 支援的 Rspack 2，以及實驗中的 SSR streaming。看起來名詞很多，可以先把它們分成兩類：前兩個負責建置，最後一個負責伺服器怎麼把頁面送給瀏覽器。
 

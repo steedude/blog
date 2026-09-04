@@ -1,0 +1,35 @@
+export const metadata = {
+  slug: "chaindrop-npm",
+  title: "ChainDrop: when malicious npm packages spread themselves",
+  description: "What ChainDrop teaches us about credential theft, self-propagating npm malware, and practical supply-chain defenses.",
+  publishedAt: "2026-08-04",
+  category: "Security",
+  categorySlug: "security",
+  tags: ["Security", "npm", "Supply Chain", "ChainDrop"],
+}
+
+Honestly, when I first saw the words "another npm supply-chain attack," I felt almost numb. There have been so many similar stories lately: pin versions, rotate tokens, and then return to running `npm install` as usual. ChainDrop made me stop halfway through the report. It did not merely poison one obscure package. It stole publishing credentials and inserted itself into other packages the victim was allowed to release.
+
+The incident spread outward from familiar package families including keyv and cacheable. Malicious releases used a `preinstall` hook to run during installation, download a second stage, search for cloud and CI credentials, and then use stolen npm tokens to publish more compromised versions. Researchers observed hundreds of packages and thousands of malicious versions in a short period, with affected packages representing billions of monthly downloads. "Do not install suspicious packages" is nowhere near an adequate response to that scale.
+
+The most frustrating part is that a developer does not need to make an obviously reckless choice. The package name is familiar, the source is legitimate, and the release may even appear to carry valid provenance. A routine dependency update can run the install hook before the test suite has a chance to begin.
+
+## Why could it spread so quickly?
+
+- It gained an entry point through a maintainer account or release process, then published versions containing a malicious `preinstall` hook.
+
+- Installation harvested npm, GitHub, cloud, and CI credentials and discovered which other packages the victim could publish.
+
+- Those privileges published the next wave of malicious versions, allowing one compromise to grow along the maintainer-permission graph.
+
+This is also why a lockfile is not a talisman. It guarantees that a developer and CI install the same version; it cannot decide whether that version is malicious. If an update pull request has already committed the poisoned release, `npm ci` will reproduce the attack with admirable consistency. There is something painfully ironic about doing reproducibility correctly and still reproducing malware.
+
+## What I would do first on a real project
+
+I would not begin by waiting for `npm audit`. A newly published malicious version may not yet exist in a vulnerability database. First, compare the incident window with lockfiles and CI installation logs to identify machines that actually encountered an affected release. If it was installed, treat credentials visible in that environment as potentially exposed. Removing `node_modules` is not an incident response.
+
+Then rotate tokens, revoke sessions, and inspect unexpected package releases and cloud activity. This is disruptive and annoying, but credential theft is different from an ordinary dependency bug. Downgrading stops the malicious code from running again; it does not bring back a key that has already left the machine.
+
+Longer term, I would separate install and publish jobs so work that executes third-party dependencies does not simultaneously hold publishing authority. Where Trusted Publishing and short-lived OIDC tokens are available, they are preferable to an npm token sitting in CI for six months. Frozen lockfiles, release-age delays, and restrictions on install scripts each add another gate. None blocks ChainDrop alone, but together they reduce how far it can travel.
+
+The unfortunate truth is that the JavaScript ecosystem's convenience and this risk come from the same place: we are very good at composing other people's small tools into a project. Telling everyone to stop trusting npm is unrealistic, and I could not work that way either. A more honest response is to acknowledge that installation executes a supply chain and design the environment so a failure does not inherit the keys to the whole company.

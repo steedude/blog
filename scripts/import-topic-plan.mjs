@@ -30,7 +30,7 @@ const plans = [
   ["typescript-7", "2026-07-08", "TypeScript", "typescript", ["TypeScript", "Go", "Compiler", "Migration"], "TypeScript 7 正式換上原生編譯器後，速度之外還有哪些相容性問題。"],
   ["nuxt-4-5", "2026-07-21", "Nuxt", "nuxt", ["Nuxt", "Vite", "Rspack", "SSR Streaming"], "分清楚 Nuxt 4.5 的 Vite、Rspack 與 SSR Streaming 各自在解決什麼。"],
   ["coldcard-rng", "2026-07-29", "資訊安全", "security", ["Security", "Crypto Wallet", "CSPRNG", "Seed Phrase"], "COLDCARD 弱亂數事件為什麼無法只靠更新韌體修復既有錢包。"],
-  ["agent-plugins-1", "2026-08-12", "AI 開發工具", "ai-tooling", ["AI Agent", "Agent Plugins", "MCP", "Agent Skills"], "Agent Plugins 1.0 如何封裝 skill、command、hook 與 MCP server。"],
+  ["chaindrop-npm", "2026-08-04", "資訊安全", "security", ["Security", "npm", "Supply Chain", "ChainDrop"], "從 ChainDrop 事件理解 npm 惡意套件如何竊取憑證、自我擴散，以及前端團隊能做的防護。"],
 ];
 
 const componentName = (slug) => slug

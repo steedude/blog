@@ -8,7 +8,7 @@ export const metadata = {
   tags: ["npm", "Security", "Trusted Publishing", "Supply Chain"],
 }
 
-Most frontend developers publish packages only occasionally, so a token is easy to configure once and forget. A long-lived credential with broad permissions is also exactly the kind of entry point a supply-chain attacker wants.
+When npm announced the end of classic tokens, half of me thought, 'about time,' while the other half immediately pictured old release workflows breaking. Security improvements are annoying in exactly this way: they are doing the right thing, yet they always seem to remind you at release time that a key placed in CI three years ago should never have survived this long.
 
 npm classic tokens were convenient, but they could remain valid for a long time and were often stored in CI. Once exposed, a token could let an attacker publish a modified package as its maintainer.
 

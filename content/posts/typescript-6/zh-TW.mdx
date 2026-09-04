@@ -13,19 +13,19 @@ export const metadata = {
   ]
 }
 
-TypeScript 6 有點尷尬，新聞焦點幾乎都被用 Go 打造的 TypeScript 7 搶走了。但如果真的準備升級，6 反而是不能跳過的一站：它先把舊世界裡不打算帶走的東西標了出來。
+老實說，TypeScript 6 公布時我也差點直接跳過。大家都在等那個用 Go 重寫、號稱快很多的 7，誰會特別興奮一個負責清理舊設定的版本？但我真的開始看 migration 時，才發現 6 很像搬家前那個討厭卻不能省的整理日：不先丟掉這些東西，新家根本搬不進去。
 
 官方把 TypeScript 6 定位成舊 JavaScript codebase 的最後一個版本，同時維持與 5.9 API 相容。這讓團隊可以先在熟悉的 compiler 上清理問題，再決定何時切到新的原生工具。
 
 ## TypeScript 6 先清掉了什麼
 
-- **`target: es5` 被棄用：** TypeScript 的最低方向往 ES2015 移動。若產品真的還要輸出 ES5，之後要交給其他編譯工具處理。
+- **`target: es5` 被棄用：**  TypeScript 的最低方向往 ES2015 移動。若產品真的還要輸出 ES5，之後要交給其他編譯工具處理。
 
-- **舊的 module 設定退場：** `amd`、`umd`、`systemjs` 和 `none` 不再支援；舊的 `moduleResolution: node` 也應改成面向 Node 的 `nodenext`，或給 bundler 使用的 `bundler`。
+- **舊的 module 設定退場：**  `amd`、`umd`、`systemjs` 和 `none` 不再支援；舊的 `moduleResolution: node` 也應改成面向 Node 的 `nodenext`，或給 bundler 使用的 `bundler`。
 
-- **interop 與 strict 行為收斂：** `esModuleInterop`、`allowSyntheticDefaultImports` 不再能設為 false，程式也一律按 strict mode 看待。過去為相容舊環境留下的分岔逐漸被收掉。
+- **interop 與 strict 行為收斂：**  `esModuleInterop`、`allowSyntheticDefaultImports` 不再能設為 false，程式也一律按 strict mode 看待。過去為相容舊環境留下的分岔逐漸被收掉。
 
-- **`outFile` 移除：** 合併輸出早已有 Vite、Rollup、esbuild 等 bundler 處理，TypeScript 更專注在型別檢查與 declaration emit。
+- **`outFile` 移除：**  合併輸出早已有 Vite、Rollup、esbuild 等 bundler 處理，TypeScript 更專注在型別檢查與 declaration emit。
 
 TypeScript 6 可以暫時用 `ignoreDeprecations: "6.0"` 壓住部分警告，但 TypeScript 7 會直接移除這些選項。這個設定比較像緩衝，不是長期解法。
 

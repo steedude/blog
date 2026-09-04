@@ -12,7 +12,7 @@ export const metadata = {
   ]
 }
 
-每次 Tailwind 大改版，討論很快就會繞回「utility class 到底好不好」。不過 v4 最值得聊的，其實不是要不要在 HTML 裡塞 class，而是 Tailwind 開始更直接地使用 CSS 本身來描述設計系統。
+我第一次看到 Tailwind v4 把設定搬進 CSS 時，其實愣了一下：繞了這麼多年，怎麼又回到 CSS 了？再看幾次才發現，它不是要否定 utility class，反而像是終於承認顏色、字型和間距本來就屬於 CSS 的語境。這個改動沒有新元件那麼搶眼，卻是我讀完整份更新後最想拿來試的部分。
 
 Tailwind CSS v4 有個很明顯的改變：以前常放在 `tailwind.config.js` 裡的顏色、字型和斷點，現在可以直接寫在 CSS 裡。官方把這種方向叫做 CSS-first。
 

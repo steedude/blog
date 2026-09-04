@@ -13,21 +13,21 @@ export const metadata = {
   ]
 }
 
-前端職缺不一定要求會寫 Node.js 後端，但現代前端專案幾乎不可能完全離開 Node.js。每天啟動 dev server、跑測試、裝套件，背後其實都在和它打交道，只是平常不太會特別注意。
+我以前看到 Node.js major release，常會下意識略過，心想自己又不寫 Node 後端。後來才發現這個想法滿好笑的：我每天開 dev server、跑測試、裝套件和 build，工作時間有一大半都踩在 Node 上，只是它平常安靜到讓人忘記。Node 24 對前端不是一則旁邊的後端新聞，而是我們工具鏈的地板又往前移了。
 
 所以 Node major release 對前端的影響通常不是「多了一個可以直接拿來畫 UI 的 API」，而是開發伺服器、bundler、測試與 CI 的共同地基往前移了一格。
 
 ## Node.js 24 比較值得注意的更新
 
-- **V8 13.6：** 帶來 `RegExp.escape()`、explicit resource management、`Float16Array` 等新 JavaScript 能力。前端 build tool 也運行在 V8 上，底層更新會逐漸反映在工具的支援範圍。
+- **V8 13.6：**  帶來 `RegExp.escape()`、explicit resource management、`Float16Array` 等新 JavaScript 能力。前端 build tool 也運行在 V8 上，底層更新會逐漸反映在工具的支援範圍。
 
-- **內建 npm 11：** 安裝效能、安全性與現代套件相容性繼續改善。不過真正決定 lockfile 是否改動的仍是 npm 版本，團隊不能只固定 Node major，卻讓每台電腦使用不同 npm。
+- **內建 npm 11：**  安裝效能、安全性與現代套件相容性繼續改善。不過真正決定 lockfile 是否改動的仍是 npm 版本，團隊不能只固定 Node major，卻讓每台電腦使用不同 npm。
 
-- **`URLPattern` 成為 global：** 它可以用類似路由規則的方式比對 URL，不需要額外 import。對框架和伺服器工具作者比一般頁面開發更直接有用。
+- **`URLPattern` 成為 global：**  它可以用類似路由規則的方式比對 URL，不需要額外 import。對框架和伺服器工具作者比一般頁面開發更直接有用。
 
-- **`AsyncLocalStorage` 改用新的實作：** 非同步流程中的 request context 追蹤更有效率、更穩定。Next.js 這類伺服器框架要傳遞請求範圍資料時，會依賴這類 Node 能力。
+- **`AsyncLocalStorage` 改用新的實作：**  非同步流程中的 request context 追蹤更有效率、更穩定。Next.js 這類伺服器框架要傳遞請求範圍資料時，會依賴這類 Node 能力。
 
-- **原生 test runner 和 Permission Model 繼續成熟：** 前者會自動等待 subtest，後者的參數由實驗名稱改為 `--permission`，都顯示 Node 正在把原本需要第三方工具處理的能力收進核心。
+- **原生 test runner 和 Permission Model 繼續成熟：**  前者會自動等待 subtest，後者的參數由實驗名稱改為 `--permission`，都顯示 Node 正在把原本需要第三方工具處理的能力收進核心。
 
 ## 前端專案升級時，我會先看什麼
 

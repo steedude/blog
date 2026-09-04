@@ -13,19 +13,19 @@ export const metadata = {
   ]
 }
 
-主版本升級很容易讓人先想到破壞性變更，尤其是已經穩定運作的專案，看到那個「4」多少會有點緊張。Nuxt 4 倒沒有刻意製造一套全新的寫法，比較像把 Nuxt 3 幾年累積下來的經驗重新收好。
+Nuxt 4 公布時，我先做的不是看新功能，而是找 migration guide。沒辦法，穩定運作的專案看到 major version，第一反應通常不是興奮，是「這次又要壞哪裡」。讀完之後倒有點意外：它沒有硬塞一套全新哲學，比較像把 Nuxt 3 住了幾年後散落滿地的東西重新收進櫃子。
 
 ## Nuxt 4 比較重大的更新
 
-- **新的 `app/` 目錄：** `pages`、`components`、`composables` 等前端程式集中在 `app/`，和根目錄設定、`server/` 程式分開。專案愈大，這種邊界愈有價值。
+- **新的 `app/` 目錄：**  `pages`、`components`、`composables` 等前端程式集中在 `app/`，和根目錄設定、`server/` 程式分開。專案愈大，這種邊界愈有價值。
 
-- **TypeScript 專案拆分：** app、server、shared 與 builder 使用各自的 TypeScript context，再由根目錄設定統整。好處是瀏覽器型別不會隨便跑進 server，反過來也一樣。
+- **TypeScript 專案拆分：**  app、server、shared 與 builder 使用各自的 TypeScript context，再由根目錄設定統整。好處是瀏覽器型別不會隨便跑進 server，反過來也一樣。
 
-- **`useAsyncData` 與 `useFetch` 行為整理：** 相同 key 會共享 ref，資料沒有使用者時能清理，也支援 reactive key 和更細的 cache 控制。它不是新 API，卻會影響既有頁面的資料更新方式。
+- **`useAsyncData` 與 `useFetch` 行為整理：**  相同 key 會共享 ref，資料沒有使用者時能清理，也支援 reactive key 和更細的 cache 控制。它不是新 API，卻會影響既有頁面的資料更新方式。
 
-- **開發與 CLI 效能改善：** 編譯快取、原生檔案監看和內部 socket 等調整，主要目標是縮短啟動與開發等待。這些是底層更新，理想狀況下不需要專案特別改寫。
+- **開發與 CLI 效能改善：**  編譯快取、原生檔案監看和內部 socket 等調整，主要目標是縮短啟動與開發等待。這些是底層更新，理想狀況下不需要專案特別改寫。
 
-- **清除相容層和棄用項目：** `@nuxt/kit` 移除 Nuxt 2 相容，部分舊行為也正式收掉。一般頁面未必受影響，老 module 和深度客製設定則要特別確認。
+- **清除相容層和棄用項目：**  `@nuxt/kit` 移除 Nuxt 2 相容，部分舊行為也正式收掉。一般頁面未必受影響，老 module 和深度客製設定則要特別確認。
 
 ## 升級時我會怎麼排順序
 

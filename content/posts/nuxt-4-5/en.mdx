@@ -8,7 +8,7 @@ export const metadata = {
   tags: ["Nuxt", "Vite", "Rspack", "SSR Streaming"],
 }
 
-Seeing Vite, Rspack, and SSR streaming in the same Nuxt release note can be confusing. Instead of asking which one is faster, divide them into build tools and a page-delivery technique.
+The first time I scanned the Nuxt 4.5 notes and saw Vite, Rspack, and SSR streaming together, one question remained: which one am I supposed to switch to? It took a second reading to notice that the question itself was wrong. The first two build the application; the last changes how a page is delivered. Putting them into one speed contest only makes the release harder to understand.
 
 Nuxt 4.5 includes Vite 8, Rspack 2 through Rsbuild, and experimental SSR streaming. The first two build the application. The last changes how the server sends a rendered page to the browser.
 

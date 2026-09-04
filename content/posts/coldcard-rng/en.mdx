@@ -8,7 +8,7 @@ export const metadata = {
   tags: ["Security", "Crypto Wallet", "CSPRNG", "Seed Phrase"],
 }
 
-Cold-wallet security usually brings offline keys and hidden recovery phrases to mind. If that apparently random phrase was not random enough when created, careful offline storage is only protecting a key an attacker may be able to guess.
+What unsettled me about the COLDCARD randomness flaw was not only that wallets could be stolen, but that a weak seed phrase looks completely normal. You can copy it carefully, lock it in a safe, and never connect it to a network. If it lacked entropy at birth, all that care is protecting a key someone may still be able to guess. The risk is deeply counterintuitive.
 
 A hardware wallet generally protects private keys better than an online computer, provided the key was sufficiently random to begin with. No amount of later isolation can repair a flawed seed-generation process.
 

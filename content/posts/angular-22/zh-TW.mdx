@@ -14,7 +14,7 @@ export const metadata = {
   ]
 }
 
-連續三個 Angular major release 很容易被寫成三篇功能清單，讀完還是不知道框架到底往哪裡走。這篇乾脆把 20、21、22 排在一起看，反而比較能看出同一條演進路線。
+我本來想把 Angular 20、21、22 各寫一篇，列到一半自己都覺得無聊：穩定一個 API、再把另一個移出 preview，讀完根本記不住。乾脆把三版攤在一起後，方向反而突然清楚了。Angular 沒有一夜變輕，而是在很有耐心地把 Zone.js 那套隱性魔法一塊一塊換掉。
 
 這三版的共同方向很清楚：減少依賴 Zone.js 這種隱性機制，用 Signals 表達狀態，再把表單、非同步資料、無障礙與測試工具慢慢接到同一套現代化基礎上。
 
@@ -30,21 +30,21 @@ export const metadata = {
 
 ## Angular 21：新預設和開發工具跟上
 
-- **Zoneless 成為新專案預設：** 不必另外開啟，Angular 會透過 Signals、事件和明確 API 安排 change detection。
+- **Zoneless 成為新專案預設：**  不必另外開啟，Angular 會透過 Signals、事件和明確 API 安排 change detection。
 
-- **Signal Forms 實驗登場：** 用 signal 保存資料、schema 描述驗證，再從資料結構產生 field tree，試著簡化過去兩套表單 API 的負擔。
+- **Signal Forms 實驗登場：**  用 signal 保存資料、schema 描述驗證，再從資料結構產生 field tree，試著簡化過去兩套表單 API 的負擔。
 
-- **Angular Aria 與 Vitest：** 前者提供無障礙互動 primitive，後者讓測試工具更貼近現代前端生態。
+- **Angular Aria 與 Vitest：**  前者提供無障礙互動 primitive，後者讓測試工具更貼近現代前端生態。
 
-- **Angular MCP：** 讓 coding agent 能取得 Angular 專案與官方知識，不必只靠通用模型猜新版寫法。
+- **Angular MCP：**  讓 coding agent 能取得 Angular 專案與官方知識，不必只靠通用模型猜新版寫法。
 
 ## Angular 22：把實驗功能推向正式使用
 
-- **Signal Forms、Resource API、Angular Aria 穩定：** 表單、非同步資料和無障礙互動不再只是預覽功能，開始成為新專案可以認真評估的選項。
+- **Signal Forms、Resource API、Angular Aria 穩定：**  表單、非同步資料和無障礙互動不再只是預覽功能，開始成為新專案可以認真評估的選項。
 
-- **HttpClient 預設使用 Fetch：** 更貼近瀏覽器和其他 runtime 的標準網路 API，也減少對舊式 XHR 實作的依賴。
+- **HttpClient 預設使用 Fetch：**  更貼近瀏覽器和其他 runtime 的標準網路 API，也減少對舊式 XHR 實作的依賴。
 
-- **新服務與錯誤邊界方向：** `@Service()` 簡化 service 宣告；`@boundary`、`@error` 等模板能力則讓局部錯誤處理更接近畫面結構。
+- **新服務與錯誤邊界方向：**  `@Service()` 簡化 service 宣告；`@boundary`、`@error` 等模板能力則讓局部錯誤處理更接近畫面結構。
 
 ## 我的看法
 

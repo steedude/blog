@@ -14,19 +14,19 @@ export const metadata = {
   ]
 }
 
-Angular 是一個很吃「舊印象」的框架。有人最後一次認真看它，可能還停在滿畫面的 NgModule、decorator 和 Zone.js；但如果從 Angular 20 再看一次，會發現不少熟悉的負擔已經開始鬆動。
+我跟人聊 Angular 時，常常還沒談到現在的 API，對方就先露出「那不是很重嗎」的表情。也不能怪他，NgModule、滿畫面的 decorator 和 Zone.js 確實留下很深的印象。但我這次重新翻 Angular 20 的文件，意外發現它已經默默拆掉不少以前最常被嫌麻煩的地方。
 
 這不是說 Angular 突然變成一個輕量小框架。它仍然提供 router、表單、DI、建置與 SSR 等一整套答案，只是底層反應性和伺服器渲染的做法，已經明顯往比較現代的方向靠攏。
 
 ## Angular 20 比較重大的更新
 
-- **Signals 基礎 API 穩定：** `signal`、`effect`、`linkedSignal`，以及 signal-based input、query 等核心能力走向 stable。元件內的狀態和衍生值，可以更直接地表達彼此關係。
+- **Signals 基礎 API 穩定：**  `signal`、`effect`、`linkedSignal`，以及 signal-based input、query 等核心能力走向 stable。元件內的狀態和衍生值，可以更直接地表達彼此關係。
 
-- **Incremental Hydration 穩定：** 搭配 `@defer`，伺服器先送出的頁面可以等到需要互動時，再分區載入和啟用 JavaScript。對內容很多的 SSR 頁面來說，比整頁一次 hydration 更有彈性。
+- **Incremental Hydration 穩定：**  搭配 `@defer`，伺服器先送出的頁面可以等到需要互動時，再分區載入和啟用 JavaScript。對內容很多的 SSR 頁面來說，比整頁一次 hydration 更有彈性。
 
-- **Route-level rendering 穩定：** 不同路由可以分別選擇 SSR、預先產生或純前端渲染，不必讓整個網站只採用一種模式。
+- **Route-level rendering 穩定：**  不同路由可以分別選擇 SSR、預先產生或純前端渲染，不必讓整個網站只採用一種模式。
 
-- **Zoneless 繼續成熟：** 20.0 時仍在推進，到了 20.2 已成為 stable。Angular 不再一定要靠 Zone.js 攔截各種非同步事件，更新時機會更明確，也少一層隱性的魔法。
+- **Zoneless 繼續成熟：**  20.0 時仍在推進，到了 20.2 已成為 stable。Angular 不再一定要靠 Zone.js 攔截各種非同步事件，更新時機會更明確，也少一層隱性的魔法。
 
 Signals 不等於要把 RxJS 全部刪掉。元件狀態、computed value 很適合 Signals；搜尋建議、WebSocket 或一連串非同步事件，RxJS 仍然有它擅長的地方。把兩者當成不同工具，比爭論誰要取代誰更實際。
 

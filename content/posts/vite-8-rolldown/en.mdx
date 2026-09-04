@@ -8,7 +8,7 @@ export const metadata = {
   tags: ["Vite", "Rolldown", "Rust", "Build Tools"],
 }
 
-Vite 8 looks like another major release, but the change underneath is substantial: the core responsible for production builds is being replaced. The interesting question is not the new name, but whether a tool can change engines without making users repair configuration every day.
+When I read that Vite 8 would replace the production-build core with Rolldown, excitement was not my first reaction—I worried about the plugin ecosystem. A Rust core and faster builds sound excellent, but anyone who has maintained build tooling knows that a few slow seconds are less frightening than a three-year-old plugin failing only in production.
 
 Vite's development environment has always been fast, while production builds traditionally used Rollup. Vite 8 moves the core toward Rolldown so development and production can share more foundations and behave more consistently.
 

@@ -8,7 +8,7 @@ export const metadata = {
   tags: ["TypeScript", "Go", "Compiler", "Developer Experience"],
 }
 
-While writing TypeScript, we rarely stop to think that `tsc` is itself a program written in TypeScript. Once a project grows and editor feedback starts spinning, the language used to build the compiler suddenly becomes a practical concern.
+I used to give almost no thought to what `tsc` was written in. If the red underline appeared after Save, the compiler was doing its job. Then I opened a larger workspace where go-to-definition waited and shared type changes left the editor spinning. Suddenly, the compiler's implementation and memory use stopped feeling like trivia for maintainers.
 
 Type checking and editor suggestions can slow down in large TypeScript codebases. In 2025, Microsoft announced that it was rebuilding the compiler and language tools in Go, with the goal of cutting those waits substantially.
 
