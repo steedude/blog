@@ -3,7 +3,7 @@ import type { LocaleRouteParams } from "@/types/route";
 import { getLocaleOrDefault } from "@/utils/locale";
 import { getPost } from "@/utils/posts";
 
-export const alt = "Frontend Observer article cover";
+export const alt = "jason's blog article cover";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -31,14 +31,14 @@ export default async function OpenGraphImage({
       }}
     >
       <div style={{ display: "flex", fontSize: 28, color: "#555" }}>
-        FRONTEND OBSERVER / {locale}
+        JASON&apos;S BLOG / {locale}
       </div>
       <div style={{ display: "flex", fontSize: 58, lineHeight: 1.2, fontWeight: 700 }}>
-        {post?.title ?? "Frontend Observer"}
+        {post?.title ?? "jason's blog"}
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26 }}>
         <span>{post?.category ?? "Web Development"}</span>
-        <span>前端觀察站 · Frontend Observer</span>
+        <span>jason&apos;s blog</span>
       </div>
     </div>,
     size,

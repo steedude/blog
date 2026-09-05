@@ -2,10 +2,10 @@ import type { Dictionary } from "@/types/i18n";
 
 export const zhTWDictionary: Dictionary = {
   site: {
-    name: "前端觀察站",
+    name: "jason's blog",
     description: "關於網頁標準、CSS、JavaScript 與前端開發的觀察和實作筆記。",
     tagline: "關於網頁標準、瀏覽器與前端開發的觀察筆記",
-    homeLabel: "前端觀察站首頁",
+    homeLabel: "jason's blog 首頁",
   },
   navigation: {
     main: "首頁",
@@ -28,7 +28,7 @@ export const zhTWDictionary: Dictionary = {
     navigationLabel: "首頁導覽",
     sidebarLabel: "網站資訊與文章導覽",
     aboutTitle: "關於本站",
-    aboutText: "記錄一些關於網頁標準、瀏覽器、CSS 與程式開發的觀察筆記。",
+    aboutText: "我是Jason，一位前端工程師，除了對前端技術有興趣之外，也對資安有興趣，不定期分享一些前端或資安相關的新聞，聊聊自己的看法。",
     searchTitle: "搜尋本站",
     searchLabel: "搜尋文章",
     searchButton: "搜尋",

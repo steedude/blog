@@ -2,10 +2,10 @@ import type { Dictionary } from "@/types/i18n";
 
 export const enDictionary: Dictionary = {
   site: {
-    name: "Frontend Observer",
+    name: "jason's blog",
     description: "Notes and experiments on web standards, CSS, JavaScript, and frontend development.",
     tagline: "Observations on web standards, browsers, and frontend development",
-    homeLabel: "Frontend Observer home",
+    homeLabel: "jason's blog home",
   },
   navigation: {
     main: "Main",
@@ -28,7 +28,7 @@ export const enDictionary: Dictionary = {
     navigationLabel: "Home navigation",
     sidebarLabel: "Site information and post navigation",
     aboutTitle: "About this site",
-    aboutText: "Notes on web standards, browsers, CSS, and software development.",
+    aboutText: "I'm Jason, a frontend engineer with an interest in both frontend technology and cybersecurity. From time to time, I share frontend and security news along with my own thoughts.",
     searchTitle: "Search this site",
     searchLabel: "Search posts",
     searchButton: "Search",

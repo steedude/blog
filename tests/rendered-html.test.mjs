@@ -76,7 +76,7 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(response.url, /\/zh-TW$/);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
-  assert.match(html, /<title>前端觀察站<\/title>/);
+  assert.match(html, /<title>jason(?:'|&#x27;)s blog<\/title>/);
   assert.match(html, /關於網頁標準、瀏覽器與前端開發/);
   assert.match(html, /最新文章/);
   assert.match(html, /href="\/zh-TW\/categories"/);
@@ -92,8 +92,8 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.match(html, />文章彙整<\/a>/);
   assert.match(html, />作品集<\/a>/);
   assert.match(html, />友情連結<\/a>/);
-  assert.match(html, /href="https:\/\/example\.com"/);
-  assert.match(html, /前端開發者 A/);
+  assert.doesNotMatch(html, /href="https:\/\/example\.com"/);
+  assert.doesNotMatch(html, /前端開發者 A/);
   assert.doesNotMatch(html, /友站列表/);
   assert.match(html, /action="\/zh-TW\/search"/);
   assert.match(html, /class="h-7 min-w-0 flex-1[^"]*" id="home-search"/);
@@ -101,7 +101,7 @@ test("server-renders the Traditional Chinese homepage and metadata", async () =>
   assert.equal((html.match(/<details class="group md:hidden">/g) ?? []).length, 3);
   assert.equal((html.match(/class="hidden md:block"><h2/g) ?? []).length, 3);
   assert.match(html, /flex flex-wrap items-center justify-center/);
-  assert.doesNotMatch(html, /Posted by 前端觀察站/);
+  assert.doesNotMatch(html, /Posted by Jason/);
   assert.match(html, /hrefLang="en"/);
   assert.match(html, /hrefLang="x-default"/);
   assert.match(html, /property="og:image"/);
@@ -118,7 +118,7 @@ test("server-renders the English homepage", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /<html lang="en"/);
-  assert.match(html, /<title>Frontend Observer<\/title>/);
+  assert.match(html, /<title>jason(?:'|&#x27;)s blog<\/title>/);
   assert.match(html, /Latest posts/);
   assert.match(html, /Search this site/);
   assert.match(html, /View full archive/);
@@ -177,9 +177,14 @@ test("renders a real localized about page", async () => {
     render("/en/about"),
   ]);
   assert.equal(chineseResponse.status, 200);
-  assert.match(await chineseResponse.text(), /<h1[^>]*>關於本站<\/h1>/);
+  const chineseAbout = await chineseResponse.text();
+  assert.match(chineseAbout, /<h1[^>]*>關於本站<\/h1>/);
+  assert.match(chineseAbout, /我是Jason，一位前端工程師/);
+  assert.match(chineseAbout, /也對資安有興趣/);
   assert.equal(englishResponse.status, 200);
-  assert.match(await englishResponse.text(), /<h1[^>]*>About this site<\/h1>/);
+  const englishAbout = await englishResponse.text();
+  assert.match(englishAbout, /<h1[^>]*>About this site<\/h1>/);
+  assert.match(englishAbout, /I(?:'|&#x27;)m Jason, a frontend engineer/);
 });
 
 test("shows only localized page titles without heading descriptions", async () => {
@@ -247,18 +252,28 @@ test("searches posts locally without external search engines", async () => {
   assert.doesNotMatch(html, /google\.com\/search|duckduckgo\.com/);
 });
 
-test("renders the localized portfolio and project detail", async () => {
-  const [listResponse, detailResponse] = await Promise.all([
+test("renders the localized portfolio and project details", async () => {
+  const [listResponse, detailResponse, inventoryResponse, fileResponse] = await Promise.all([
     render("/en/projects"),
     render("/en/projects/3854335-web-tool"),
+    render("/en/projects/home-inventory"),
+    render("/en/projects/web-file"),
   ]);
   assert.equal(listResponse.status, 200);
-  assert.match(await listResponse.text(), /3854335 WEB TOOL/);
+  const list = await listResponse.text();
+  assert.match(list, /3854335 WEB TOOL/);
+  assert.match(list, /Home Inventory/);
+  assert.match(list, /Web File/);
   assert.equal(detailResponse.status, 200);
   const detail = await detailResponse.text();
   assert.match(detail, /https:\/\/3854335\.com/);
   assert.match(detail, /WebRTC/);
   assert.match(detail, /"@type":"SoftwareApplication"/);
+  assert.equal(inventoryResponse.status, 200);
+  assert.match(await inventoryResponse.text(), /inventory\.3854335\.com/);
+  assert.equal(fileResponse.status, 200);
+  assert.match(await fileResponse.text(), /file\.3854335\.com/);
+  assert.match(await render("/zh-TW/projects").then((response) => response.text()), /庫存管理系統/);
 });
 
 test("returns a localized 404 for missing content", async () => {
@@ -288,6 +303,8 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   assert.match(sitemap, /\/zh-TW\/page\/2/);
   assert.match(sitemap, /\/en\/posts\/react-compiler/);
   assert.match(sitemap, /\/en\/projects\/3854335-web-tool/);
+  assert.match(sitemap, /\/en\/projects\/home-inventory/);
+  assert.match(sitemap, /\/en\/projects\/web-file/);
   assert.match(sitemap, /hreflang="x-default"/);
 
   assert.equal(robotsResponse.status, 200);
@@ -296,12 +313,12 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   assert.equal(rssResponse.status, 200);
   assert.match(rssResponse.headers.get("content-type") ?? "", /application\/rss\+xml/);
   const rss = await rssResponse.text();
-  assert.match(rss, /<title>前端觀察站<\/title>/);
+  assert.match(rss, /<title>jason&apos;s blog<\/title>/);
   assert.match(rss, /<guid isPermaLink="true">.*\/zh-TW\/posts\/react-compiler<\/guid>/);
 
   const englishRss = await render("/en/rss.xml");
   assert.equal(englishRss.status, 200);
-  assert.match(await englishRss.text(), /<title>Frontend Observer<\/title>/);
+  assert.match(await englishRss.text(), /<title>jason&apos;s blog<\/title>/);
 });
 
 test("serves the branded favicon and English plural forms", async () => {

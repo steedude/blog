@@ -6,7 +6,7 @@ export const siteConfig = {
     process.env.NEXT_PUBLIC_SITE_URL ??
     (vercelDomain ? `https://${vercelDomain}` : "http://localhost:3000")
   ).replace(/\/$/, ""),
-  author: "前端觀察站",
+  author: "Jason",
   socialImage: "/og-movable-type.png",
   socialImageWidth: 1448,
   socialImageHeight: 1086,
