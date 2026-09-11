@@ -67,6 +67,11 @@ export const enDictionary: Dictionary = {
     description: "Technical sites with consistent writing, clear opinions, and ideas worth revisiting.",
   },
   projects: {
+    caseStudy: "Implementation example",
+    problem: "The problem",
+    solution: "Implementation",
+    result: "What it does",
+    screenshot: "Live website screenshot (Traditional Chinese interface)",
     title: "Projects",
     description: "Production websites and frontend implementations.",
     visitSite: "Visit website",
@@ -74,6 +79,7 @@ export const enDictionary: Dictionary = {
     technologies: "Technical highlights",
   },
   search: {
+    clear: "Clear",
     title: "Search posts",
     description: "Search post titles, summaries, categories, and tags on this site.",
     keyword: "Search keywords",
@@ -82,6 +88,7 @@ export const enDictionary: Dictionary = {
     empty: "No matching posts were found.",
   },
   post: {
+    sources: "Sources and further reading",
     notFound: "Post not found",
     category: "Category:",
     tags: "Post tags",

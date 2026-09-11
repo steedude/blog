@@ -72,8 +72,14 @@ export const zhTWDictionary: Dictionary = {
     visitSite: "開啟網站",
     features: "主要功能",
     technologies: "技術重點",
+    caseStudy: "實作案例",
+    problem: "要解決的問題",
+    solution: "實作方式",
+    result: "完成的功能",
+    screenshot: "網站實際畫面（繁體中文版）",
   },
   search: {
+    clear: "清除",
     title: "搜尋文章",
     description: "搜尋本站文章的標題、摘要、分類與標籤。",
     keyword: "搜尋關鍵字",
@@ -82,6 +88,7 @@ export const zhTWDictionary: Dictionary = {
     empty: "找不到符合條件的文章。",
   },
   post: {
+    sources: "資料來源與延伸閱讀",
     notFound: "找不到文章",
     category: "文章分類：",
     tags: "文章標籤",

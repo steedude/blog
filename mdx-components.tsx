@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 import type { MDXComponents } from "mdx/types";
+import { CodeBlock } from "@/components/CodeBlock";
 
 function mergeClassName(base: string, className?: string) {
   return className ? `${base} ${className}` : base;
@@ -31,7 +32,7 @@ const defaultComponents: MDXComponents = {
     <figure className={mergeClassName("my-6 max-w-full min-w-0", className)} {...props} />
   ),
   pre: ({ className, ...props }: ComponentPropsWithoutRef<"pre">) => (
-    <pre
+    <CodeBlock
       className={mergeClassName(
         "max-w-full overscroll-x-contain overflow-x-auto border border-neutral-400 bg-neutral-100 px-2 py-3 font-mono text-xs leading-normal text-black sm:p-3",
         className,

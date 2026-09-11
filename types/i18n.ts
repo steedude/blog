@@ -77,8 +77,14 @@ export type Dictionary = {
     visitSite: string;
     features: string;
     technologies: string;
+    caseStudy: string;
+    problem: string;
+    solution: string;
+    result: string;
+    screenshot: string;
   };
   search: {
+    clear: string;
     title: string;
     description: string;
     keyword: string;
@@ -87,6 +93,7 @@ export type Dictionary = {
     empty: string;
   };
   post: {
+    sources: string;
     notFound: string;
     category: string;
     tags: string;

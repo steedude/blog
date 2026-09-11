@@ -11,24 +11,23 @@ type PostSearchProps = {
   locale: Locale;
   dictionary: Dictionary;
   documents: SearchDocument[];
-  initialQuery?: string;
 };
 
 export function PostSearch({
   locale,
   dictionary,
   documents,
-  initialQuery = "",
 }: PostSearchProps) {
-  const { query, setQuery, results } = usePostSearch(documents, initialQuery);
+  const { query, setQuery, results } = usePostSearch(documents);
 
   return (
     <section aria-label={dictionary.search.title}>
       <label className="mb-1 block font-bold" htmlFor="search-query">
         {dictionary.search.keyword}
       </label>
+      <div className="flex max-w-2xl gap-2">
       <input
-        className="w-full max-w-xl border border-neutral-400 bg-white p-2"
+        className="min-w-0 flex-1 border border-neutral-400 bg-white p-2"
         id="search-query"
         type="search"
         value={query}
@@ -36,6 +35,10 @@ export function PostSearch({
         placeholder={dictionary.search.placeholder}
         autoFocus
       />
+      <button type="button" className="shrink-0 border border-frame px-3 py-2 disabled:opacity-50" onClick={() => setQuery("")} disabled={!query}>
+        {dictionary.search.clear}
+      </button>
+      </div>
 
       <p className="my-4 text-xs text-muted" aria-live="polite">
         {formatPlural(locale, dictionary.search.resultCount, results.length)}

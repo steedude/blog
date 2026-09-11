@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { after, before, test } from "node:test";
 import { fileURLToPath } from "node:url";
@@ -255,6 +255,52 @@ test("searches posts locally without external search engines", async () => {
   assert.match(html, /Is React Compiler ready to adopt/);
   assert.match(html, /TypeScript 7 moves to a native compiler/);
   assert.doesNotMatch(html, /google\.com\/search|duckduckgo\.com/);
+});
+
+test("social metadata describes the article or project being shared", async () => {
+  const post = await render("/en/posts/react-compiler").then((response) => response.text());
+  assert.match(post, /property="og:title" content="Is React Compiler ready to adopt/);
+  assert.match(post, /property="og:url" content="[^"]*\/en\/posts\/react-compiler"/);
+  assert.match(post, /property="og:type" content="article"/);
+  assert.match(post, /name="twitter:title" content="Is React Compiler ready to adopt/);
+  assert.match(post, /name="twitter:image" content="[^"]*\/en\/posts\/react-compiler\/opengraph-image/);
+  assert.match(post, /"@type":"Person","name":"Jason"/);
+  const project = await render("/en/projects/web-file").then((response) => response.text());
+  assert.match(project, /property="og:title" content="Web File"/);
+  assert.match(project, /property="og:url" content="[^"]*\/en\/projects\/web-file"/);
+  assert.match(project, /property="og:image" content="[^"]*\/projects\/web-file.jpg"/);
+});
+
+test("search JavaScript does not ship article bodies", async () => {
+  const html = await render("/en/search?q=CSS").then((response) => response.text());
+  const scripts = [...html.matchAll(/<script[^>]*src="([^"]+)"/g)].map((match) => match[1]);
+  assert.ok(scripts.length > 0);
+  for (const script of scripts) {
+    const response = await render(script);
+    assert.equal(response.status, 200);
+    const code = await response.text();
+    assert.doesNotMatch(code, /近年的 CSS 更新逐漸把|我覺得最麻煩、也最讓人無力的地方/);
+    assert.doesNotMatch(code, /data-rehype-pretty-code-figure/);
+  }
+});
+
+test("every published topic has source links in both languages", async () => {
+  const sources = JSON.parse(await readFile(new URL("../data/article-sources.json", import.meta.url), "utf8"));
+  const directories = await readdir(new URL("../content/posts/", import.meta.url), { withFileTypes: true });
+  for (const directory of directories.filter((entry) => entry.isDirectory())) {
+    const entries = sources[directory.name];
+    assert.ok(entries?.length, `Missing sources for ${directory.name}`);
+    for (const entry of entries) {
+      assert.equal(new URL(entry.url).protocol, "https:");
+      assert.ok(entry.title.trim());
+    }
+    for (const locale of ["zh-TW", "en"]) {
+      const response = await render(`/${locale}/posts/${directory.name}`);
+      assert.equal(response.status, 200);
+      const main = mainOf(await response.text());
+      assert.ok(main.includes(`href="${entries[0].url}"`));
+    }
+  }
 });
 
 test("renders the localized portfolio and project details", async () => {

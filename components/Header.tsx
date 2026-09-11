@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { siteShell } from "@/config/styles";
 import type { Dictionary, Locale } from "@/types/i18n";
@@ -9,7 +10,9 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
     <header className="mt-0 text-ink md:mt-6 lg:mt-10">
       <div className={`${siteShell} border-y border-frame bg-header-fade md:border`}>
         <div className="flex justify-end px-4 pt-3">
-          <LocaleSwitcher locale={locale} />
+          <Suspense fallback={<span className="text-xs">{locale === "en" ? "English" : "繁體中文"}</span>}>
+            <LocaleSwitcher locale={locale} />
+          </Suspense>
         </div>
         <Link
           href={withLocale(locale)}

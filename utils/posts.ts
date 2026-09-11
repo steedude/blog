@@ -1,3 +1,4 @@
+import "server-only";
 import { posts } from "@/data/posts";
 import type { Locale } from "@/types/i18n";
 import type { ArchiveGroup, CategorySummary, Post, TagSummary } from "@/types/post";

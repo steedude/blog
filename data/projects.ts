@@ -6,6 +6,13 @@ export const projects: Project[] = [
     locale: Locale.ZH_TW,
     slug: "zhinan-ai-bazi",
     name: "指南｜AI 八字決策指引",
+    screenshot: { src: "/projects/zhinan-ai-bazi.jpg", alt: "指南的問題輸入表單與三步驟解讀流程" },
+    caseStudy: {
+      title: "讓 AI 解讀邊生成、邊顯示",
+      problem: "一段完整解讀需要等待生成，使用者也需要能回頭查看自己的紀錄。",
+      solution: "以 Gemini 串流回傳解讀，搭配 Supabase 保存會員紀錄；資料存取使用 RLS，請求加入限流與每日額度。",
+      result: "使用者可以逐步讀取回應，登入後可保存、回顧及刪除自己的解讀紀錄。",
+    },
     summary: "輸入目前的困惑與出生資料，由程式排出八字命盤，再透過 AI 串流提供感情、工作、財運與人生方向的解讀。",
     url: "https://zhinan.3854335.com",
     features: [
@@ -20,6 +27,13 @@ export const projects: Project[] = [
     locale: Locale.ZH_TW,
     slug: "home-inventory",
     name: "庫存管理系統",
+    screenshot: { src: "/projects/home-inventory.jpg", alt: "庫存管理系統首頁與示意庫存概況" },
+    caseStudy: {
+      title: "把庫存數量接上補貨提醒",
+      problem: "只記錄物品數量，仍需要自己逐項檢查哪些備品快用完。",
+      solution: "將物品數量、分類與存放位置集中管理，為物品設定低庫存門檻，搭配 Email 通知。",
+      result: "可以查看備品狀態，並在低於設定門檻時收到通知，讓庫存紀錄接到補貨流程。",
+    },
     summary: "集中管理居家備品的數量、分類與存放位置，並在庫存不足時寄送 Email 通知。",
     url: "https://inventory.3854335.com",
     features: [
@@ -34,6 +48,13 @@ export const projects: Project[] = [
     locale: Locale.ZH_TW,
     slug: "web-file",
     name: "Web File",
+    screenshot: { src: "/projects/web-file.jpg", alt: "Web File 的圖片上傳區、輸出格式及壓縮品質設定" },
+    caseStudy: {
+      title: "讓圖片在瀏覽器裡完成轉檔",
+      problem: "圖片轉檔與壓縮是常見需求，但使用線上工具時，未必希望把檔案上傳出去。",
+      solution: "使用 WebAssembly 在瀏覽器處理圖片，提供格式、品質和尺寸設定，並以 PWA 支援安裝與離線使用。",
+      result: "使用者能在自己的裝置完成圖片轉檔與壓縮，檔案不需要先送到伺服器。",
+    },
     summary: "本機優先的瀏覽器檔案工具，使用 WASM 處理圖片轉檔、壓縮與 PDF 工作流程，也能安裝成 PWA 離線使用。",
     url: "https://file.3854335.com",
     features: [
@@ -48,6 +69,13 @@ export const projects: Project[] = [
     locale: Locale.ZH_TW,
     slug: "3854335-web-tool",
     name: "3854335 WEB TOOL",
+    screenshot: { src: "/projects/3854335-web-tool.jpg", alt: "網頁工具箱的畫猜、點對點傳檔與短網址入口" },
+    caseStudy: {
+      title: "用房間連接兩台裝置",
+      problem: "臨時交換文字或檔案時，需要一個讓兩台裝置找到彼此的入口。",
+      solution: "讓使用者加入同一個房間，再透過 WebRTC 交換文字與檔案；工具箱另外提供 QR Code 和短網址功能。",
+      result: "兩台裝置可以透過瀏覽器加入房間，使用點對點傳檔功能。",
+    },
     summary: "把常用工具放進瀏覽器的多功能網站，提供即時互動、點對點傳檔與連結分享工具。",
     url: "https://3854335.com",
     features: [
@@ -62,6 +90,13 @@ export const projects: Project[] = [
     locale: Locale.EN,
     slug: "zhinan-ai-bazi",
     name: "Zhinan | AI Bazi Decision Guide",
+    screenshot: { src: "/projects/zhinan-ai-bazi.jpg", alt: "Zhinan question form and three-step reading flow in Traditional Chinese" },
+    caseStudy: {
+      title: "Show an AI reading as it is generated",
+      problem: "A complete reading takes time to generate, and users need a way to revisit their records.",
+      solution: "Stream responses from Gemini and save member records in Supabase, with row-level security, request rate limits, and daily quotas.",
+      result: "Users can read the response as it arrives. Members can save, revisit, and delete their own readings.",
+    },
     summary: "A user enters a question and birth details, the application builds a Bazi chart, and AI streams guidance about relationships, work, finances, and life decisions.",
     url: "https://zhinan.3854335.com",
     features: [
@@ -76,6 +111,13 @@ export const projects: Project[] = [
     locale: Locale.EN,
     slug: "home-inventory",
     name: "Home Inventory",
+    screenshot: { src: "/projects/home-inventory.jpg", alt: "Home Inventory landing page with an illustrative inventory overview in Traditional Chinese" },
+    caseStudy: {
+      title: "Connect stock records to replenishment alerts",
+      problem: "Recording quantities alone still leaves someone checking each item to see what is running low.",
+      solution: "Manage quantities, categories, and storage locations together, with a low-stock threshold for each item and email notifications.",
+      result: "Users can check household supplies and receive a notification when stock falls below a configured threshold.",
+    },
     summary: "A home inventory system for tracking quantities, categories, and storage locations, with email alerts when an item runs low.",
     url: "https://inventory.3854335.com",
     features: [
@@ -90,6 +132,13 @@ export const projects: Project[] = [
     locale: Locale.EN,
     slug: "web-file",
     name: "Web File",
+    screenshot: { src: "/projects/web-file.jpg", alt: "Web File image input, output format, and compression settings in Traditional Chinese" },
+    caseStudy: {
+      title: "Convert images inside the browser",
+      problem: "Image conversion and compression are common tasks, but users may not want to upload their files to an online service.",
+      solution: "Process images in the browser with WebAssembly, with controls for format, quality, and dimensions, plus PWA installation and offline support.",
+      result: "Users can convert and compress images on their own device without uploading them to a server first.",
+    },
     summary: "A local-first browser file utility that uses WASM for image conversion, compression, and PDF workflows, with offline PWA support.",
     url: "https://file.3854335.com",
     features: [
@@ -104,6 +153,13 @@ export const projects: Project[] = [
     locale: Locale.EN,
     slug: "3854335-web-tool",
     name: "3854335 WEB TOOL",
+    screenshot: { src: "/projects/3854335-web-tool.jpg", alt: "Toolbox entries for drawing, peer-to-peer transfer, and short links in Traditional Chinese" },
+    caseStudy: {
+      title: "Connect two devices through a room",
+      problem: "Sharing text or files on the spot requires a way for two devices to find each other.",
+      solution: "Let users join the same room and exchange text and files using WebRTC. The toolbox also provides QR codes and short links.",
+      result: "Two devices can join a room through their browsers and use peer-to-peer file transfer.",
+    },
     summary: "A browser-based toolbox for real-time interaction, peer-to-peer file transfer, and link sharing.",
     url: "https://3854335.com",
     features: [

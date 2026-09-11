@@ -12,6 +12,9 @@
 - MDX 文章內容與程式碼區塊
 - 繁體中文與英文內容、語系切換及 `hreflang`
 - 響應式版面與社群分享預覽圖
+- 可收合文章目錄、段落連結與程式碼複製
+- 作品實際截圖、實作案例與獨立分享資訊
+- 搜尋網址保留關鍵字，支援重新整理與語言切換
 
 ## 開發
 
@@ -36,7 +39,30 @@ npm start
 1. 在 `content/posts/<slug>` 建立 `zh-TW.mdx` 與 `en.mdx`。
 2. 在各 MDX 的 `metadata` export 登記標題、日期、分類與標籤。
 3. 在 `data/posts.ts` 匯入兩種語系的文章元件。
-4. 執行 `npm run build` 確認文章可以正常產生。
+4. 在 `data/article-sources.json` 以 slug 登記原始來源或官方文件；兩種語系共用來源連結。
+5. 執行 `npm test` 確認文章與互動功能正常。標題連結和目錄會在建置時自動產生。
+
+## 檢查與測試
+
+首次執行瀏覽器測試前，先執行 `npx playwright install chromium`。
+
+- `npm run lint`：程式碼檢查。
+- `npm test`：建置、目錄單元測試、HTML 檢查與桌面／手機 Chromium 互動測試。
+- `npm run test:html`、`npm run test:browser`：使用最近一次建置結果執行指定測試。
+
+GitHub Actions 會在 main 推送及 pull request 時執行相同檢查，失敗時保存瀏覽器追蹤與截圖。
+
+## 更新作品
+
+在 `data/projects.ts` 維護中英文功能、案例及截圖說明。案例應描述已完成的功能，不填入未量測的效能或使用人數。
+
+`npm run screenshots:projects` 會以獨立、未登入的瀏覽器擷取四個公開網站的首頁，更新 `public/projects/`。截圖後請檢查畫面是否完整；登入後的資料不要直接放入公開作品集。
+
+## 搜尋與分享資料
+
+`utils/search.ts` 和文章讀取工具只供伺服器使用；客戶端的文字處理放在 `utils/search-text.ts`，避免把 MDX 正文打包到搜尋頁。
+
+正式環境請設定 `NEXT_PUBLIC_SITE_URL` 為部落格的公開網址，讓 canonical、RSS 和社群分享網址使用同一個網域。
 
 ## 專案結構
 

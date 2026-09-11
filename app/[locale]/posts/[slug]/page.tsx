@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
+import articleSources from "@/data/article-sources.json";
 import { i18nConfig } from "@/config/i18n";
 import { siteConfig } from "@/config/site";
 import { siteShell } from "@/config/styles";
@@ -35,6 +36,11 @@ export async function generateMetadata({
     post?.description ?? dictionary.site.description,
     `/posts/${slug}`,
     availableLocales,
+    {
+      image: withLocale(locale, `/posts/${slug}/opengraph-image`),
+      publishedAt: post?.publishedAt,
+      updatedAt: post?.updatedAt,
+    },
   );
 }
 
@@ -51,6 +57,7 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
   }
 
   const Body = post.Body;
+  const sources = (articleSources as Record<string, { title: string; url: string }[]>)[post.slug] ?? [];
   const postUrl = `${siteConfig.url}${withLocale(locale, `/posts/${post.slug}`)}`;
 
   return (
@@ -69,7 +76,7 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
             mainEntityOfPage: postUrl,
             url: postUrl,
             image: `${postUrl}/opengraph-image`,
-            author: { "@type": "Organization", name: siteConfig.author },
+            author: { "@type": "Person", name: siteConfig.author, url: `${siteConfig.url}${withLocale(locale, "/about")}` },
           },
           {
             "@context": "https://schema.org",
@@ -107,6 +114,14 @@ export default async function PostPage({ params }: { params: LocaleRouteParams<{
 
       <div className={`${siteShell} min-w-0 border-y border-frame bg-white px-4 pt-6 pb-12 md:border-x md:border-t-0 md:px-8`}>
         <article className="mx-auto min-w-0 max-w-3xl break-words font-serif text-base leading-loose"><Body /></article>
+        {sources.length > 0 && (
+          <section className="mx-auto mt-8 max-w-3xl border-t border-frame pt-4" aria-labelledby="article-sources">
+            <h2 id="article-sources" className="font-serif text-lg">{dictionary.post.sources}</h2>
+            <ul className="list-disc space-y-2 pl-5 break-words">
+              {sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></li>)}
+            </ul>
+          </section>
+        )}
         <aside className="mx-auto mt-8 flex max-w-3xl flex-wrap items-baseline gap-x-2 border border-frame bg-panel p-2 text-xs text-neutral-600">
           <strong className="text-neutral-800">{dictionary.post.tags}</strong>
           <div className="flex min-w-0 flex-wrap gap-x-2">

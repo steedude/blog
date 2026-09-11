@@ -21,7 +21,7 @@ export default async function SearchPage({
   params: LocaleRouteParams;
   searchParams: Promise<{ q?: string }>;
 }) {
-  const [{ locale: value }, { q = "" }] = await Promise.all([params, searchParams]);
+  const [{ locale: value }] = await Promise.all([params, searchParams]);
   const locale = getLocaleOrDefault(value);
   const dictionary = getDictionary(locale);
 
@@ -32,7 +32,6 @@ export default async function SearchPage({
         locale={locale}
         dictionary={dictionary}
         documents={getSearchDocuments(locale)}
-        initialQuery={q}
       />
     </main>
   );

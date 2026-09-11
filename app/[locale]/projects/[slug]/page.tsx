@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { i18nConfig } from "@/config/i18n";
@@ -31,6 +32,8 @@ export async function generateMetadata({
     project?.name ?? dictionary.projects.title,
     project?.summary ?? dictionary.projects.description,
     `/projects/${slug}`,
+    undefined,
+    { image: project?.screenshot.src },
   );
 }
 
@@ -61,6 +64,25 @@ export default async function ProjectPage({
       />
       <h1 className="mt-0 mb-3 font-serif text-3xl">{project.name}</h1>
       <p className="max-w-2xl text-base leading-relaxed">{project.summary}</p>
+
+      <figure className="mx-0 my-6">
+        <a href={project.screenshot.src} target="_blank" rel="noreferrer">
+          <Image src={project.screenshot.src} alt={project.screenshot.alt} width={1440} height={960} sizes="(max-width: 768px) 100vw, 960px" className="h-auto w-full border border-frame" />
+        </a>
+        <figcaption className="mt-2 text-xs text-muted">{dictionary.projects.screenshot}</figcaption>
+      </figure>
+
+      <section className="my-6 border border-frame bg-panel p-4">
+        <h2 className="mt-0 font-serif text-xl">{dictionary.projects.caseStudy}：{project.caseStudy.title}</h2>
+        <dl className="mb-0 space-y-4">
+          {(["problem", "solution", "result"] as const).map((key) => (
+            <div key={key}>
+              <dt className="font-bold">{dictionary.projects[key]}</dt>
+              <dd className="ml-0 mt-1 leading-relaxed">{project.caseStudy[key]}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
       <section className="my-6 border-y border-frame py-4">
         <h2 className="font-serif text-xl">{dictionary.projects.features}</h2>

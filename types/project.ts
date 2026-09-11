@@ -8,4 +8,6 @@ export type Project = {
   url: string;
   features: string[];
   technologies: string[];
+  screenshot: { src: string; alt: string };
+  caseStudy: { title: string; problem: string; solution: string; result: string };
 };

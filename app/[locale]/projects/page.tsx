@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PageHeading } from "@/components/PageHeading";
 import { directoryCard, directoryCardMeta, directoryCardTitle, pageMain } from "@/config/styles";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -35,6 +36,7 @@ export default async function ProjectsPage({ params }: { params: LocaleRoutePara
             href={withLocale(locale, `/projects/${project.slug}`)}
             key={project.slug}
           >
+            <Image src={project.screenshot.src} alt={project.screenshot.alt} width={1440} height={960} sizes="(max-width: 768px) 100vw, 480px" className="mb-3 h-auto w-full border border-frame" />
             <h2 className={directoryCardTitle}>{project.name}</h2>
             <p className="my-2 text-ink">{project.summary}</p>
             <span className={directoryCardMeta}>{project.url.replace(/^https?:\/\//, "")} →</span>
