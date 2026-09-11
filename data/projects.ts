@@ -4,6 +4,20 @@ import type { Project } from "@/types/project";
 export const projects: Project[] = [
   {
     locale: Locale.ZH_TW,
+    slug: "zhinan-ai-bazi",
+    name: "指南｜AI 八字決策指引",
+    summary: "輸入目前的困惑與出生資料，由程式排出八字命盤，再透過 AI 串流提供感情、工作、財運與人生方向的解讀。",
+    url: "https://zhinan.3854335.com",
+    features: [
+      "依出生日期、時間與性別即時計算八字命盤",
+      "使用 Gemini 串流產生解讀，等待時能直接看到內容",
+      "會員可保存、回顧與刪除自己的歷史紀錄",
+      "以 RLS、請求限流與每日額度保護使用者資料及服務成本",
+    ],
+    technologies: ["Next.js", "Gemini", "Supabase", "Upstash Redis", "next-intl"],
+  },
+  {
+    locale: Locale.ZH_TW,
     slug: "home-inventory",
     name: "庫存管理系統",
     summary: "集中管理居家備品的數量、分類與存放位置，並在庫存不足時寄送 Email 通知。",
@@ -43,6 +57,20 @@ export const projects: Project[] = [
       "繁體中文與英文介面",
     ],
     technologies: ["Nuxt", "WebRTC", "QR Code", "Realtime interaction"],
+  },
+  {
+    locale: Locale.EN,
+    slug: "zhinan-ai-bazi",
+    name: "Zhinan | AI Bazi Decision Guide",
+    summary: "A user enters a question and birth details, the application builds a Bazi chart, and AI streams guidance about relationships, work, finances, and life decisions.",
+    url: "https://zhinan.3854335.com",
+    features: [
+      "Generate a Bazi chart from birth date, time, and gender",
+      "Stream interpretations from Gemini as they are generated",
+      "Let members save, revisit, and delete their own reading history",
+      "Protect user data and service costs with RLS, rate limits, and daily quotas",
+    ],
+    technologies: ["Next.js", "Gemini", "Supabase", "Upstash Redis", "next-intl"],
   },
   {
     locale: Locale.EN,

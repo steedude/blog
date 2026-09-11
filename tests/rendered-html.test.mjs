@@ -258,17 +258,19 @@ test("searches posts locally without external search engines", async () => {
 });
 
 test("renders the localized portfolio and project details", async () => {
-  const [listResponse, detailResponse, inventoryResponse, fileResponse] = await Promise.all([
+  const [listResponse, detailResponse, inventoryResponse, fileResponse, zhinanResponse] = await Promise.all([
     render("/en/projects"),
     render("/en/projects/3854335-web-tool"),
     render("/en/projects/home-inventory"),
     render("/en/projects/web-file"),
+    render("/en/projects/zhinan-ai-bazi"),
   ]);
   assert.equal(listResponse.status, 200);
   const list = await listResponse.text();
   assert.match(list, /3854335 WEB TOOL/);
   assert.match(list, /Home Inventory/);
   assert.match(list, /Web File/);
+  assert.match(list, /Zhinan \| AI Bazi Decision Guide/);
   assert.equal(detailResponse.status, 200);
   const detail = await detailResponse.text();
   assert.match(detail, /https:\/\/3854335\.com/);
@@ -278,7 +280,11 @@ test("renders the localized portfolio and project details", async () => {
   assert.match(await inventoryResponse.text(), /inventory\.3854335\.com/);
   assert.equal(fileResponse.status, 200);
   assert.match(await fileResponse.text(), /file\.3854335\.com/);
-  assert.match(await render("/zh-TW/projects").then((response) => response.text()), /庫存管理系統/);
+  assert.equal(zhinanResponse.status, 200);
+  assert.match(await zhinanResponse.text(), /zhinan\.3854335\.com/);
+  const chineseProjects = await render("/zh-TW/projects").then((response) => response.text());
+  assert.match(chineseProjects, /庫存管理系統/);
+  assert.match(chineseProjects, /指南｜AI 八字決策指引/);
 });
 
 test("returns a localized 404 for missing content", async () => {
@@ -310,6 +316,7 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   assert.match(sitemap, /\/en\/projects\/3854335-web-tool/);
   assert.match(sitemap, /\/en\/projects\/home-inventory/);
   assert.match(sitemap, /\/en\/projects\/web-file/);
+  assert.match(sitemap, /\/en\/projects\/zhinan-ai-bazi/);
   assert.match(sitemap, /hreflang="x-default"/);
 
   assert.equal(robotsResponse.status, 200);
