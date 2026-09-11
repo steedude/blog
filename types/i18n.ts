@@ -49,6 +49,10 @@ export type Dictionary = {
     nextPage: string;
     pageCount: string;
   };
+  about: {
+    description: string;
+    paragraphs: string[];
+  };
   archive: {
     title: string;
     description: string;

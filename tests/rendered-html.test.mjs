@@ -177,14 +177,19 @@ test("renders a real localized about page", async () => {
     render("/en/about"),
   ]);
   assert.equal(chineseResponse.status, 200);
-  const chineseAbout = await chineseResponse.text();
+  const chineseAbout = mainOf(await chineseResponse.text());
   assert.match(chineseAbout, /<h1[^>]*>關於本站<\/h1>/);
-  assert.match(chineseAbout, /我是Jason，一位前端工程師/);
+  assert.match(chineseAbout, /我是 Jason，一位前端工程師/);
   assert.match(chineseAbout, /也對資安有興趣/);
+  assert.match(chineseAbout, /前端和資安相關的新聞/);
+  assert.match(chineseAbout, /開發筆記/);
+  assert.match(chineseAbout, /作品集/);
   assert.equal(englishResponse.status, 200);
-  const englishAbout = await englishResponse.text();
+  const englishAbout = mainOf(await englishResponse.text());
   assert.match(englishAbout, /<h1[^>]*>About this site<\/h1>/);
   assert.match(englishAbout, /I(?:'|&#x27;)m Jason, a frontend engineer/);
+  assert.match(englishAbout, /cybersecurity/);
+  assert.match(englishAbout, /portfolio/);
 });
 
 test("shows only localized page titles without heading descriptions", async () => {

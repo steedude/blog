@@ -28,7 +28,7 @@ export const enDictionary: Dictionary = {
     navigationLabel: "Home navigation",
     sidebarLabel: "Site information and post navigation",
     aboutTitle: "About this site",
-    aboutText: "I'm Jason, a frontend engineer with an interest in both frontend technology and cybersecurity. From time to time, I share frontend and security news along with my own thoughts.",
+    aboutText: "I'm Jason, a frontend engineer interested in cybersecurity. I post frontend and security news, development notes, and my own thoughts here from time to time.",
     searchTitle: "Search this site",
     searchLabel: "Search posts",
     searchButton: "Search",
@@ -40,6 +40,13 @@ export const enDictionary: Dictionary = {
     previousPage: "Previous",
     nextPage: "Next",
     pageCount: "Page {current} of {total}",
+  },
+  about: {
+    description: "I'm Jason, a frontend engineer. This blog has frontend and security news, development notes, and websites I've built.",
+    paragraphs: [
+      "I'm Jason, a frontend engineer with an interest in cybersecurity. I post frontend and security news here from time to time, along with my own thoughts and development notes.",
+      "My portfolio has tool websites I've built for working with images and PDFs, resizing images, shortening URLs, and more. Each site has a feature overview, the technologies used, and a link. Feel free to try them out.",
+    ],
   },
   archive: {
     title: "Post archive",

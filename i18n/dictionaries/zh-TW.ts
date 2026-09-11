@@ -28,7 +28,7 @@ export const zhTWDictionary: Dictionary = {
     navigationLabel: "首頁導覽",
     sidebarLabel: "網站資訊與文章導覽",
     aboutTitle: "關於本站",
-    aboutText: "我是Jason，一位前端工程師，除了對前端技術有興趣之外，也對資安有興趣，不定期分享一些前端或資安相關的新聞，聊聊自己的看法。",
+    aboutText: "我是 Jason，一位前端工程師，也對資安有興趣。這裡不定期分享前端和資安新聞、開發筆記，以及自己的看法。",
     searchTitle: "搜尋本站",
     searchLabel: "搜尋文章",
     searchButton: "搜尋",
@@ -40,6 +40,13 @@ export const zhTWDictionary: Dictionary = {
     previousPage: "上一頁",
     nextPage: "下一頁",
     pageCount: "第 {current} / {total} 頁",
+  },
+  about: {
+    description: "我是 Jason，一位前端工程師。這裡分享前端和資安新聞、開發筆記，以及我做過的網站。",
+    paragraphs: [
+      "我是 Jason，一位前端工程師，也對資安有興趣，這裡會不定期分享前端和資安相關的新聞，聊聊自己的看法，也放一些開發筆記。",
+      "作品集裡是自己寫的工具網站，有處理圖片和 PDF 的網站，也有縮圖、縮網址的網站，功能蠻多的。各個網站都有功能介紹、使用技術和連結，歡迎直接試用。",
+    ],
   },
   archive: {
     title: "文章時間軸",

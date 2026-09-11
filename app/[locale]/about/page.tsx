@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: LocaleRouteParams }
   return createPageMetadata(
     locale,
     dictionary.home.aboutTitle,
-    dictionary.home.aboutText,
+    dictionary.about.description,
     "/about",
   );
 }
@@ -25,9 +25,11 @@ export default async function AboutPage({ params }: { params: LocaleRouteParams 
   return (
     <main className={pageMain}>
       <PageHeading title={dictionary.home.aboutTitle} />
-      <p className="max-w-2xl font-serif text-base leading-loose">
-        {dictionary.home.aboutText}
-      </p>
+      <div className="max-w-3xl font-serif text-base leading-loose">
+        {dictionary.about.paragraphs.map((paragraph) => (
+          <p className="my-0 mb-5" key={paragraph}>{paragraph}</p>
+        ))}
+      </div>
     </main>
   );
 }
