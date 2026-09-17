@@ -24,6 +24,6 @@ I would check three things first: whether the existing `tsconfig` is supported, 
 
 This makes a natural pair with the 2025 port announcement. The earlier article asks why a rewrite was needed; this one asks what users encounter after it is complete. Official benchmark numbers can be labeled as such while the useful focus stays on upgrade compatibility.
 
-I would trial the editor first without changing the whole company's default. Use a large workspace to compare startup, go-to-definition, rename, and error refresh, then run the new CLI beside the old one in CI. When results differ, preserve the example instead of immediately hiding it with `skipLibCheck`.
+I would first try the new version in my own editor on a larger project, checking whether code suggestions, jumping to function definitions, renaming variables, and updating error messages are faster and still work correctly. Then I would have the team's automated checks run both TypeScript versions on the same code and compare how long they take and which errors they report. If the new version reports more or fewer errors, I would save the code needed to reproduce the difference and investigate the cause before turning off any type checks. Once those checks look good, I would roll out the upgrade to the whole team.
 
 If native tooling succeeds, the biggest change may not be more elaborate types. With less waiting, developers may simply keep type checking enabled more often. A tool's effect on work habits is more interesting than a few seconds saved in one build.
