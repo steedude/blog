@@ -18,8 +18,4 @@ A blog with a few dozen posts does not need to migrate because of Rust alone. Mo
 
 MDX users are likely to care about compatibility: whether syntax remains valid, remark and rehype plugins still work, and error messages remain understandable. A language change underneath should be as invisible as possible. Speed is an outcome; upgrading without rewriting articles is the comfortable part.
 
-For Markdown-heavy sites, back up content and pin plugin versions before upgrading. Differences are more likely in unusual syntax and plugin integration than in ordinary headings and paragraphs. Read the migration notes first, then handle specific exceptions.
-
-I would keep a few deliberately difficult fixture posts: nested lists, tables, fenced code, non-Latin slugs, and remark plugins that modify the AST. Comparing their HTML before and after an upgrade is more efficient than opening hundreds of articles manually and leaves a reusable regression suite.
-
 Compiler speed should ultimately improve editing. Saving a second on every preview and receiving an error with the correct source line may matter to an author more than the peak number for a complete production build.
