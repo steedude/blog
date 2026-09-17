@@ -10,7 +10,7 @@ export const metadata = {
 
 ## A platform-level transition primitive
 
-Cross-page animation used to require a framework, an animation library, or an SPA architecture that kept both screens inside one JavaScript lifecycle. The View Transitions API offers a browser-level alternative.
+In the past, a common way to add fades or slides between pages was to use JavaScript to switch the content, together with CSS animations or an animation library. The View Transitions API lets the browser help connect the old and new views. It supports both updates within a page and navigation between separate HTML pages when the required conditions are met, so adding transitions does not require turning the site into an SPA.
 
 The browser captures the old and new visual states, then creates pseudo-elements that CSS can animate. The document still navigates normally, so the enhancement does not need to own the entire routing system.
 
@@ -29,8 +29,6 @@ Navigation must still work when the API is unavailable. A useful transition shou
   }
 }
 ```
-
-Respecting `prefers-reduced-motion` is part of the feature, not an optional cleanup task.
 
 ## Good use cases
 

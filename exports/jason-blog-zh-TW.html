@@ -194,7 +194,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
     <p class="date">發布 <time datetime="2026-06-24">2026-06-24</time></p>
     <div class="tags"><span>CSS</span><span>Animation</span><span>Web API</span></div>
   </header>
-  <div class="article-body"><p>過去要做跨頁轉場，往往需要框架、動畫函式庫，甚至刻意把頁面維持在同一個 SPA 生命週期中。View Transitions API 提供了一個更接近平台層的選項。</p>
+  <div class="article-body"><p>過去要讓切換頁面時有淡入淡出或滑動效果，常見做法是用 JavaScript 控制內容切換，再搭配 CSS 動畫或動畫函式庫。View Transitions API 讓瀏覽器協助銜接切換前後的畫面；除了同一頁內的內容更新，符合條件的不同 HTML 頁面之間也能轉場，不必為了動畫把網站改成 SPA。</p>
 <h3 id="view-transitions--漸進增強比動畫更重要">漸進增強比動畫更重要</h3>
 <p>最基本的原則是：沒有轉場時，導覽仍然要正常運作。動畫應該是體驗增強，而不是功能依賴。</p>
 <figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="css" data-theme="github-light"><code data-language="css" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#24292E">::view-transition-old(root) {</span></span>
@@ -210,8 +210,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <li>圖片縮圖放大成詳情頁主視覺</li>
 <li>同一資訊在不同版面間移動</li>
 </ul>
-<h3 id="view-transitions--不要忽略使用者偏好">不要忽略使用者偏好</h3>
-<p>動畫需要尊重 <code>prefers-reduced-motion</code>。轉場越華麗，越需要確認它真的協助理解介面狀態，而不是讓操作變慢。</p></div>
+</div>
   <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://developer.chrome.com/docs/web-platform/view-transitions" target="_blank" rel="noreferrer">View Transition API</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#astro-7">下一篇 →</a></footer>
 </article>
