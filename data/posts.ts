@@ -1,7 +1,5 @@
 import type { ComponentType } from "react";
 import { topicPosts } from "@/data/topic-posts";
-import ModernCssEn, { metadata as modernCssEnMetadata } from "@/content/posts/modern-css/en.mdx";
-import ModernCssZh, { metadata as modernCssZhMetadata } from "@/content/posts/modern-css/zh-TW.mdx";
 import ReactCompilerEn, { metadata as reactCompilerEnMetadata } from "@/content/posts/react-compiler/en.mdx";
 import ReactCompilerZh, { metadata as reactCompilerZhMetadata } from "@/content/posts/react-compiler/zh-TW.mdx";
 import ServerComponentsEn, { metadata as serverComponentsEnMetadata } from "@/content/posts/server-components-retrospective/en.mdx";
@@ -29,8 +27,6 @@ export const posts: Post[] = [
   createPost(Locale.EN, ReactCompilerEn, reactCompilerEnMetadata),
   createPost(Locale.ZH_TW, ViewTransitionsZh, viewTransitionsZhMetadata),
   createPost(Locale.EN, ViewTransitionsEn, viewTransitionsEnMetadata),
-  createPost(Locale.ZH_TW, ModernCssZh, modernCssZhMetadata),
-  createPost(Locale.EN, ModernCssEn, modernCssEnMetadata),
   createPost(Locale.ZH_TW, ServerComponentsZh, serverComponentsZhMetadata),
   createPost(Locale.EN, ServerComponentsEn, serverComponentsEnMetadata),
   createPost(Locale.ZH_TW, WebVitalsZh, webVitalsZhMetadata),

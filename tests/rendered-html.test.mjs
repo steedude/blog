@@ -145,7 +145,7 @@ test("paginates the homepage with five posts per page", async () => {
   assert.equal((first.match(/<article class="mb-4/g) ?? []).length, 5);
   assert.equal((second.match(/<article class="mb-4/g) ?? []).length, 5);
   assert.match(first, /href="\/zh-TW\/page\/2"/);
-  assert.match(first, /第 1 \/ 8 頁/);
+  assert.match(first, /第 1 \/ 7 頁/);
   assert.match(first, /ChainDrop：當 npm 惡意套件開始自己擴散/);
   assert.doesNotMatch(first, /Agent Plugins 1\.0/);
   assert.doesNotMatch(first, /grid grid-cols-1 items-start/);
@@ -391,13 +391,17 @@ test("serves the branded favicon and English plural forms", async () => {
   assert.doesNotMatch(archive, /1 articles/);
 });
 
-test("renders GitHub Flavored Markdown tables", async () => {
-  const response = await render("/zh-TW/posts/modern-css");
-  assert.equal(response.status, 200);
-  const html = await response.text();
-  assert.match(html, /<table\b/);
-  assert.match(html, /<table class="w-full min-w-lg/);
-  assert.match(html, /Container Queries/);
+test("removed modern CSS article is unavailable and absent from indexes", async () => {
+  for (const locale of ["zh-TW", "en"]) {
+    const response = await render(`/${locale}/posts/modern-css`);
+    assert.equal(response.status, 404);
+    for (const path of [`/${locale}/search`, `/${locale}/rss.xml`]) {
+      const html = await render(path).then((result) => result.text());
+      assert.doesNotMatch(html, /modern-css/);
+    }
+  }
+  const sitemap = await render("/sitemap.xml").then((result) => result.text());
+  assert.doesNotMatch(sitemap, /modern-css/);
 });
 
 test("publishes the complete topic plan through posts, taxonomies, RSS, and sitemap", async () => {

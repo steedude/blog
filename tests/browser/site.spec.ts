@@ -22,7 +22,7 @@ test("search survives reload, language switching, clearing, and browser back", a
   await expect(input).toHaveValue("");
   await page.reload();
   await expect(input).toHaveValue("");
-  await expect(page.locator("main article")).toHaveCount(36);
+  await expect(page.locator("main article")).toHaveCount(35);
 });
 
 test("search handles Chinese, Unicode normalization, and no results", async ({ page }) => {
@@ -38,7 +38,7 @@ test("search handles Chinese, Unicode normalization, and no results", async ({ p
 });
 
 test("table of contents and heading permalinks navigate to real sections", async ({ page }) => {
-  await page.goto("/zh-TW/posts/modern-css");
+  await page.goto("/zh-TW/posts/view-transitions");
   await page.locator("summary", { hasText: "文章目錄" }).click();
   const target = page.getByRole("navigation", { name: "文章目錄" }).getByRole("link").first();
   const href = await target.getAttribute("href");
@@ -52,15 +52,15 @@ test("table of contents and heading permalinks navigate to real sections", async
 
 test("copies code with line breaks and reports clipboard failure", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
-  await page.goto("/en/posts/modern-css");
+  await page.goto("/en/posts/view-transitions");
   await page.getByRole("button", { name: "Copy code", exact: true }).first().click();
   await expect(page.getByRole("status").first()).toHaveText("Copied");
   // The Windows clipboard exposes CRLF even when writeText receives LF.
   const clipboard = (await page.evaluate(() => navigator.clipboard.readText())).replace(/\r\n/g, "\n");
-  expect(clipboard).toContain(".card-list {\n");
-  expect(clipboard).toContain("container-type: inline-size;");
+  expect(clipboard).toContain("@view-transition {\n");
+  expect(clipboard).toContain("navigation: auto;");
   expect(clipboard).not.toContain("Copy code");
-  const source = (await readFile("content/posts/modern-css/en.mdx", "utf8")).replace(/\r\n/g, "\n");
+  const source = (await readFile("content/posts/view-transitions/en.mdx", "utf8")).replace(/\r\n/g, "\n");
   expect(clipboard).toBe(source.match(/```css\n([\s\S]*?)```/)![1]);
   await page.evaluate(() => {
     Object.defineProperty(navigator.clipboard, "writeText", { value: () => Promise.reject(new Error("Denied")), configurable: true });
@@ -87,11 +87,11 @@ test("project pages show screenshots, case studies and working demo links", asyn
 });
 
 test("article and search layouts fit the viewport without page overflow", async ({ page }, testInfo) => {
-  for (const path of ["/zh-TW/posts/modern-css", "/en/search?q=CSS", "/en/projects/web-file"]) {
+  for (const path of ["/zh-TW/posts/view-transitions", "/en/search?q=CSS", "/en/projects/web-file"]) {
     await page.goto(path);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
-  await page.goto("/zh-TW/posts/modern-css");
+  await page.goto("/zh-TW/posts/view-transitions");
   await page.locator("summary", { hasText: "文章目錄" }).click();
   await page.screenshot({ path: `test-results/article-${testInfo.project.name}.png`, fullPage: true });
 });
@@ -100,10 +100,10 @@ test("article navigation and sources work without JavaScript", async ({ browser 
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   try {
-    await page.goto("http://127.0.0.1:3139/en/posts/modern-css");
+    await page.goto("http://127.0.0.1:3139/en/posts/view-transitions");
     await page.locator("summary", { hasText: "On this page" }).click();
     await expect(page.getByRole("navigation", { name: "Table of contents" }).getByRole("link").first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "MDN: CSS container queries" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "View Transition API" })).toBeVisible();
   } finally {
     await context.close();
   }
