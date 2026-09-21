@@ -26,7 +26,6 @@ const plans = [
   ["chrome-147", "2026-04-07", "Web Platform", "web-platform", ["Chrome", "View Transitions", "CSS", "Animation"], "用區域 View Transitions 處理列表、卡片與元件內部的畫面變化。"],
   ["webmcp", "2026-05-19", "AI 開發工具", "ai-tooling", ["WebMCP", "AI Agent", "Web API", "Security"], "網站如何為 AI agent 提供結構化操作，同時保留授權和使用者確認。"],
   ["astro-7", "2026-06-16", "內容網站", "content-sites", ["Astro", "Rust", "MDX", "Vite"], "Astro 7 換上 Rust compiler 後，內容網站與 MDX 使用者需要注意什麼。"],
-  ["angular-22", "2026-06-03", "Angular", "angular", ["Angular", "Signals", "Zoneless", "Signal Forms", "Fetch"], "從 Angular 20 到 22，回顧 Signals、zoneless、SSR、表單與資料請求的演進。"],
   ["typescript-7", "2026-07-08", "TypeScript", "typescript", ["TypeScript", "Go", "Compiler", "Migration"], "TypeScript 7 正式換上原生編譯器後，速度之外還有哪些相容性問題。"],
   ["nuxt-4-5", "2026-07-21", "Nuxt", "nuxt", ["Nuxt", "Vite", "Rspack", "SSR Streaming"], "分清楚 Nuxt 4.5 的 Vite、Rspack 與 SSR Streaming 各自在解決什麼。"],
   ["coldcard-rng", "2026-07-29", "資訊安全", "security", ["Security", "Crypto Wallet", "CSPRNG", "Seed Phrase"], "COLDCARD 弱亂數事件為什麼無法只靠更新韌體修復既有錢包。"],

@@ -391,17 +391,18 @@ test("serves the branded favicon and English plural forms", async () => {
   assert.doesNotMatch(archive, /1 articles/);
 });
 
-test("removed modern CSS article is unavailable and absent from indexes", async () => {
+test("removed articles are unavailable and absent from indexes", async () => {
   for (const locale of ["zh-TW", "en"]) {
     const response = await render(`/${locale}/posts/modern-css`);
     assert.equal(response.status, 404);
+    assert.equal((await render(`/${locale}/posts/angular-22`)).status, 404);
     for (const path of [`/${locale}/search`, `/${locale}/rss.xml`]) {
       const html = await render(path).then((result) => result.text());
-      assert.doesNotMatch(html, /modern-css/);
+      assert.doesNotMatch(html, /modern-css|angular-22/);
     }
   }
   const sitemap = await render("/sitemap.xml").then((result) => result.text());
-  assert.doesNotMatch(sitemap, /modern-css/);
+  assert.doesNotMatch(sitemap, /modern-css|angular-22/);
 });
 
 test("publishes the complete topic plan through posts, taxonomies, RSS, and sitemap", async () => {

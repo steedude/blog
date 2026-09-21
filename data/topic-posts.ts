@@ -50,8 +50,6 @@ import WebmcpZh, { metadata as WebmcpZhMetadata } from "@/content/posts/webmcp/z
 import WebmcpEn, { metadata as WebmcpEnMetadata } from "@/content/posts/webmcp/en.mdx";
 import Astro7Zh, { metadata as Astro7ZhMetadata } from "@/content/posts/astro-7/zh-TW.mdx";
 import Astro7En, { metadata as Astro7EnMetadata } from "@/content/posts/astro-7/en.mdx";
-import Angular22Zh, { metadata as Angular22ZhMetadata } from "@/content/posts/angular-22/zh-TW.mdx";
-import Angular22En, { metadata as Angular22EnMetadata } from "@/content/posts/angular-22/en.mdx";
 import Typescript7Zh, { metadata as Typescript7ZhMetadata } from "@/content/posts/typescript-7/zh-TW.mdx";
 import Typescript7En, { metadata as Typescript7EnMetadata } from "@/content/posts/typescript-7/en.mdx";
 import Nuxt45Zh, { metadata as Nuxt45ZhMetadata } from "@/content/posts/nuxt-4-5/zh-TW.mdx";
@@ -118,8 +116,6 @@ export const topicPosts: Post[] = [
   createPost(Locale.EN, WebmcpEn, WebmcpEnMetadata),
   createPost(Locale.ZH_TW, Astro7Zh, Astro7ZhMetadata),
   createPost(Locale.EN, Astro7En, Astro7EnMetadata),
-  createPost(Locale.ZH_TW, Angular22Zh, Angular22ZhMetadata),
-  createPost(Locale.EN, Angular22En, Angular22EnMetadata),
   createPost(Locale.ZH_TW, Typescript7Zh, Typescript7ZhMetadata),
   createPost(Locale.EN, Typescript7En, Typescript7EnMetadata),
   createPost(Locale.ZH_TW, Nuxt45Zh, Nuxt45ZhMetadata),
