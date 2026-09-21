@@ -107,16 +107,14 @@
       "title": "Matt Pocock: Skills for Real Engineers"
     }
   ],
-  "vite-8-rolldown": [
+  "cloudflare-crawl": [
     {
-      "title": "Vite 8.0 is out!",
-      "url": "https://vite.dev/blog/announcing-vite8"
-    }
-  ],
-  "typescript-6": [
+      "url": "https://developers.cloudflare.com/changelog/post/2026-03-10-br-crawl-endpoint/",
+      "title": "Crawl entire websites with a single API call using Browser Rendering"
+    },
     {
-      "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/",
-      "title": "Announcing TypeScript 6.0"
+      "url": "https://developers.cloudflare.com/browser-run/quick-actions/crawl-endpoint/",
+      "title": "Cloudflare crawl endpoint documentation"
     }
   ],
   "chrome-147": [

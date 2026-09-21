@@ -398,13 +398,15 @@ test("removed articles are unavailable and absent from indexes", async () => {
     assert.equal((await render(`/${locale}/posts/angular-22`)).status, 404);
     assert.equal((await render(`/${locale}/posts/angular-21`)).status, 404);
     assert.equal((await render(`/${locale}/posts/angular-20`)).status, 404);
+    assert.equal((await render(`/${locale}/posts/vite-8-rolldown`)).status, 404);
+    assert.equal((await render(`/${locale}/posts/typescript-6`)).status, 404);
     for (const path of [`/${locale}/search`, `/${locale}/rss.xml`]) {
       const html = await render(path).then((result) => result.text());
-      assert.doesNotMatch(html, /modern-css|angular-22|angular-21|angular-20/);
+      assert.doesNotMatch(html, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6/);
     }
   }
   const sitemap = await render("/sitemap.xml").then((result) => result.text());
-  assert.doesNotMatch(sitemap, /modern-css|angular-22|angular-21|angular-20/);
+  assert.doesNotMatch(sitemap, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6/);
 });
 
 test("publishes the complete topic plan through posts, taxonomies, RSS, and sitemap", async () => {

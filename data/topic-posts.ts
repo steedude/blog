@@ -36,10 +36,8 @@ import Astro6BetaZh, { metadata as Astro6BetaZhMetadata } from "@/content/posts/
 import Astro6BetaEn, { metadata as Astro6BetaEnMetadata } from "@/content/posts/astro-6-beta/en.mdx";
 import MattPocockSkillsZh, { metadata as MattPocockSkillsZhMetadata } from "@/content/posts/matt-pocock-skills/zh-TW.mdx";
 import MattPocockSkillsEn, { metadata as MattPocockSkillsEnMetadata } from "@/content/posts/matt-pocock-skills/en.mdx";
-import Vite8RolldownZh, { metadata as Vite8RolldownZhMetadata } from "@/content/posts/vite-8-rolldown/zh-TW.mdx";
-import Vite8RolldownEn, { metadata as Vite8RolldownEnMetadata } from "@/content/posts/vite-8-rolldown/en.mdx";
-import Typescript6Zh, { metadata as Typescript6ZhMetadata } from "@/content/posts/typescript-6/zh-TW.mdx";
-import Typescript6En, { metadata as Typescript6EnMetadata } from "@/content/posts/typescript-6/en.mdx";
+import CloudflareCrawlZh, { metadata as CloudflareCrawlZhMetadata } from "@/content/posts/cloudflare-crawl/zh-TW.mdx";
+import CloudflareCrawlEn, { metadata as CloudflareCrawlEnMetadata } from "@/content/posts/cloudflare-crawl/en.mdx";
 import Chrome147Zh, { metadata as Chrome147ZhMetadata } from "@/content/posts/chrome-147/zh-TW.mdx";
 import Chrome147En, { metadata as Chrome147EnMetadata } from "@/content/posts/chrome-147/en.mdx";
 import WebmcpZh, { metadata as WebmcpZhMetadata } from "@/content/posts/webmcp/zh-TW.mdx";
@@ -98,10 +96,8 @@ export const topicPosts: Post[] = [
   createPost(Locale.EN, Astro6BetaEn, Astro6BetaEnMetadata),
   createPost(Locale.ZH_TW, MattPocockSkillsZh, MattPocockSkillsZhMetadata),
   createPost(Locale.EN, MattPocockSkillsEn, MattPocockSkillsEnMetadata),
-  createPost(Locale.ZH_TW, Vite8RolldownZh, Vite8RolldownZhMetadata),
-  createPost(Locale.EN, Vite8RolldownEn, Vite8RolldownEnMetadata),
-  createPost(Locale.ZH_TW, Typescript6Zh, Typescript6ZhMetadata),
-  createPost(Locale.EN, Typescript6En, Typescript6EnMetadata),
+  createPost(Locale.ZH_TW, CloudflareCrawlZh, CloudflareCrawlZhMetadata),
+  createPost(Locale.EN, CloudflareCrawlEn, CloudflareCrawlEnMetadata),
   createPost(Locale.ZH_TW, Chrome147Zh, Chrome147ZhMetadata),
   createPost(Locale.EN, Chrome147En, Chrome147EnMetadata),
   createPost(Locale.ZH_TW, WebmcpZh, WebmcpZhMetadata),

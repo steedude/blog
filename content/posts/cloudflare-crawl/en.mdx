@@ -1,0 +1,35 @@
+export const metadata = {
+  slug: "cloudflare-crawl",
+  title: "Turn a website into Markdown with Cloudflare's new crawling tool",
+  description: "Use a personal blog to explore how Cloudflare collects linked pages and returns Markdown for search and content organization.",
+  publishedAt: "2026-03-10",
+  category: "Frontend Tooling",
+  categorySlug: "tooling",
+  tags: ["Cloudflare", "Markdown", "Web Crawling"],
+}
+
+Collecting a website's articles usually means finding their URLs, fetching each page, and converting the content. Cloudflare's `/crawl` API, introduced in open beta on March 10, 2026, combines these steps. Give it a starting URL, and it discovers pages and returns formats including Markdown and HTML.
+
+## Example: collect your blog as Markdown
+
+Suppose I want my blog's articles for full-text search or AI-assisted categorization. The request body could be:
+
+```json
+{
+  "url": "https://example.com/blog/",
+  "limit": 10,
+  "formats": ["markdown"]
+}
+```
+
+This starts at `/blog/`, crawls at most ten pages, and requests Markdown. Calling the API also requires a Cloudflare account ID and an API token with the appropriate permission. Keep that token in a backend or local script.
+
+The initial response provides a job ID. Use it to check progress and retrieve results containing page URLs and Markdown text. You can then save `.md` files or feed the content into a search system; the API does not build that system for you.
+
+## More than fetching one page
+
+The crawler discovers additional URLs through links and sitemaps. A cloud browser can load content that requires JavaScript. Page limits, link depth, and URL filters let you control the scope.
+
+I would sample a few articles first, checking code blocks, tables, and body text. Markdown preserves content structure rather than the original layout, so this is not a complete website backup.
+
+The service respects crawling rules such as `robots.txt` and cannot bypass CAPTCHAs. Coverage depends on accessible pages and your chosen scope.

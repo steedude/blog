@@ -218,8 +218,7 @@
           <tbody>
             <tr><td class="month" data-label="月份">1 月</td><td class="event" data-label="事件"><a href="https://astro.build/blog/astro-6-beta/">Astro 6 Beta</a></td><td class="topic" data-label="談論主題">Astro 6 Beta 的內容網站開發體驗</td><td data-label="內容大意">簡單介紹新開發伺服器、Fonts API、CSP 與 Live Content，說明它們對部落格和文件網站有什麼幫助。</td></tr>
             <tr><td class="month" data-label="月份">2 月</td><td class="event" data-label="事件"><a href="https://github.com/mattpocock/skills">Matt Pocock 發布 Skills for Real Engineers</a></td><td class="topic" data-label="談論主題">拆解 Matt Pocock 的 Agent Skills</td><td data-label="內容大意">用幾個實際 skill 當例子，說明它和普通 prompt 的差別，以及為什麼有人開始整理可重複使用的 AI 工作方式。</td></tr>
-            <tr><td class="month" data-label="月份">3 月</td><td class="event" data-label="事件"><a href="https://vite.dev/blog">Vite 8 正式發布</a></td><td class="topic" data-label="談論主題">Vite 8 為什麼改用 Rolldown</td><td data-label="內容大意">介紹 Rolldown 與 Rollup 的關係，說明換掉建置核心後，開發者可能感受到哪些改變和相容性問題。</td></tr>
-            <tr><td class="month" data-label="月份">3 月</td><td class="event" data-label="事件"><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/">TypeScript 6 正式發布</a></td><td class="topic" data-label="談論主題">TypeScript 6 發布：為什麼升級後，舊設定會出現警告？</td><td data-label="內容大意">用簡單例子說明升級後為什麼出現舊設定警告，以及可以如何處理。</td></tr>
+            <tr><td class="month" data-label="月份">3 月</td><td class="event" data-label="事件"><a href="https://developers.cloudflare.com/changelog/post/2026-03-10-br-crawl-endpoint/">Cloudflare 網站爬取 API 開放測試</a></td><td class="topic" data-label="談論主題">把整個網站整理成 Markdown：Cloudflare 的新爬取工具</td><td data-label="內容大意">以部落格為例，介紹如何收集網站頁面並轉成 Markdown，供搜尋與內容整理使用。</td></tr>
             <tr><td class="month" data-label="月份">4 月</td><td class="event" data-label="事件"><a href="https://developer.chrome.com/release-notes/147#css_contrast-color">Chrome 147 支援 CSS contrast-color()</a></td><td class="topic" data-label="談論主題">按鈕換底色，文字也能自動選黑白：CSS contrast-color()</td><td data-label="內容大意">用分類標籤示範依底色選擇黑字或白字，並保留不支援時的固定配色。</td></tr>
             <tr><td class="month" data-label="月份">5 月</td><td class="event" data-label="事件"><a href="https://developer.chrome.com/blog/chrome-at-io26">Google 提出 WebMCP</a></td><td class="topic" data-label="談論主題">WebMCP 與可供 Agent 操作的網站</td><td data-label="內容大意">解釋網站如何提供結構化操作介面，以及它與 DOM 點擊、自動化測試、API、MCP 的差異和安全風險。</td></tr>
             <tr><td class="month" data-label="月份">6 月</td><td class="event" data-label="事件"><a href="https://astro.build/blog/astro-7/">Astro 7 發布</a></td><td class="topic" data-label="談論主題">Astro 7 的 Rust Compiler 與 MDX 更新</td><td data-label="內容大意">介紹 Rust compiler、MDX、Vite 8 和 routing 更新，說明這些改變對內容網站開發者有什麼影響。</td></tr>
@@ -612,31 +611,23 @@ select::picker(select) {
           <p>寫完後也要看 agent 是否真的照做。如果 skill 每次都被忽略，可能不是模型不聽話，而是觸發條件太模糊、內容太長，或要求互相衝突。把 skill 當程式一樣迭代，比把它當一次寫完的公司規章更合理。</p>
         </article>
 
-        <article class="draft" id="vite-8-rolldown">
+        <article class="draft" id="cloudflare-crawl">
           <div class="draft-meta">2026 年 3 月</div>
-          <h3>Vite 8 為什麼改用 Rolldown</h3>
-          <p>我看到 Vite 8 要把 production build 的核心換成 Rolldown 時，第一個感覺不是期待，是替 plugin 生態捏一把冷汗。底層換成 Rust、速度變快當然很好聽，但用過 build tool 的人都知道，最可怕的不是慢那幾秒，而是某個三年前寫的 plugin 突然只在 production 壞掉。</p>
-          <p>Vite 開發環境一直很快，但正式建置長期使用 Rollup。Vite 8 把核心逐步換成 Rolldown，希望開發和 production build 能共用更多基礎，也減少兩套流程之間的差異。</p>
-          <p>Rolldown 可以先理解成「用 Rust 打造、朝 Rollup 相容方向前進的 bundler」。對一般使用者來說，日常指令沒有因此全部改掉，多數 Vite plugin 也希望能繼續使用。</p>
-          <p>升級時真正需要注意的是比較少見的 plugin、客製 build 設定和依賴 bundler 細節的程式。如果專案設定單純，這次改變比較像 Vite 在底層換了一顆新引擎。</p>
-          <h4>為什麼 Vite 想把工具整合起來？</h4>
-          <p>一套工具負責開發、另一套負責正式建置，最大的問題不只速度，而是行為可能不完全相同。某個 import 在 dev 正常，build 才出錯，查起來特別煩。Rolldown 的長期目標之一，就是讓兩邊共用更多解析和轉換邏輯。</p>
-          <p>Rust 帶來的效能很吸引人，但我覺得相容性反而更值得關注。Vite 之所以普及，靠的是大量 Rollup/Vite plugin。新核心如果只能跑很快，卻讓常用 plugin 失效，就不算真的接班。因此 Vite 8 的故事不只是「Rust 比 JavaScript 快」，而是如何在換引擎時保住既有生態。</p>
-          <p>升級時我會把 plugin 分成三組：官方維護、社群常用，以及公司內部自己寫的。前兩組先看相容清單，最後一組則要直接跑 fixture，比較 dev 與 build 的輸出。真正容易踩雷的通常不是 React plugin，而是多年前為特殊檔案格式寫下、之後沒人碰過的那一支。</p>
-          <p>如果 build 速度真的改善，我也不會立刻把所有 cache 拿掉。先保留一段時間觀察 CI 波動，再簡化設定；否則同時換 bundler、cache 和部署流程，快了不知道是哪一項，壞了也不知道從哪裡退。</p>
-        </article>
-
-        <article class="draft" id="typescript-6">
-          <div class="draft-meta">2026 年 3 月</div>
-          <h3>TypeScript 6 發布：為什麼升級後，舊設定會出現警告？</h3>
-          <p>TypeScript 6 在 2026 年 3 月 23 日發布。升級後，即使沒改程式碼，也可能看到「這個設定即將停止支援」的提醒。這不一定代表程式寫錯，而是專案還留著新版準備淘汰的設定。</p>
-          <h4>舊設定是什麼？</h4>
-          <p>專案裡的 <code>tsconfig.json</code> 是 TypeScript 的設定檔，告訴它要檢查哪些檔案，以及如何把程式轉成 JavaScript。很多設定是建立專案時就帶進來的，平常不一定會注意。</p>
-          <p>例如，裡面可能有一項要求「產生能在很舊的瀏覽器執行的程式碼」。TypeScript 6 開始淘汰其中一些舊選項，因此以前能用的設定，升級後就可能出現提醒。</p>
-          <h4>看到警告要怎麼辦？</h4>
-          <p>先看訊息指出哪個設定，再確認自己的專案還需不需要它。就像整理抽屜裡的舊充電線：有些早就用不到，有些仍連著正在用的設備，不能看到舊的就全部丟掉。</p>
-          <p>如果網站只支援較新的瀏覽器，可以評估更新相關設定；如果仍要支援舊環境，就要先確認替代做法。使用 Vue 等框架的專案，也可以先參考框架提供的升級說明。</p>
-          <p>TypeScript 6 的其中一個任務，就是替 TypeScript 7 做準備。我會先把警告指向的設定弄清楚，調整後確認檢查和網站運作正常，再繼續升級。</p>
+          <h3>把整個網站整理成 Markdown：Cloudflare 的新爬取工具</h3>
+          <p>想把一個網站的文章整理下來，通常得先找出每篇文章的網址，再逐頁抓取和轉換內容。Cloudflare 在 2026 年 3 月 10 日開放測試的 <code>/crawl</code> API，把這些工作串成了一個流程：給它起始網址，就能沿著網站連結收集頁面，輸出 Markdown、HTML 等格式。</p>
+          <h4>例如，把自己的部落格整理成 Markdown</h4>
+          <p>假設我想收集部落格文章，之後拿來做全文搜尋，或交給 AI 協助分類。送出爬取請求時，可以指定這樣的內容：</p>
+          <pre><code>{
+  &quot;url&quot;: &quot;https://example.com/blog/&quot;,
+  &quot;limit&quot;: 10,
+  &quot;formats&quot;: [&quot;markdown&quot;]
+}</code></pre>
+          <p>這代表從 <code>/blog/</code> 開始，最多抓取 10 個頁面，並要求 Markdown 格式。這只是請求內容，實際呼叫還需要 Cloudflare 帳號 ID 和具有爬取權限的 API token；token 應放在後端或本機腳本裡。</p>
+          <p>送出後會先拿到任務 ID，再用它查詢進度和取得結果。回傳資料裡會包含各頁網址與 Markdown 文字，接著可以自己存成 <code>.md</code> 檔，或放進搜尋系統。它不會自動幫你建好搜尋網站。</p>
+          <h4>跟只抓一個網頁有什麼不同？</h4>
+          <p>重點是它會繼續找其他頁面，也能透過 sitemap 發現網址；需要執行 JavaScript 才能看到的內容，則可以交給雲端瀏覽器載入。開發者能設定頁數、連結深度和網址範圍，不必每次都把全站抓完。</p>
+          <p>我會先抓幾篇文章，確認程式碼區塊、表格和正文的轉換結果，再擴大範圍。Markdown 保留的是內容結構，不會還原原本的版面；它也不是完整的網站備份。</p>
+          <p>這項服務會遵守 <code>robots.txt</code> 等爬取規則，也不能繞過驗證碼。因此「整理整個網站」仍取決於頁面是否允許存取，以及設定的爬取範圍。</p>
         </article>
 
         <article class="draft" id="chrome-147">

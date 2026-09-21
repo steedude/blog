@@ -1,0 +1,35 @@
+export const metadata = {
+  slug: "cloudflare-crawl",
+  title: "把整個網站整理成 Markdown：Cloudflare 的新爬取工具",
+  description: "從自己的部落格出發，看看 Cloudflare 如何沿著連結收集網頁，轉成 Markdown，供搜尋與內容整理使用。",
+  publishedAt: "2026-03-10",
+  category: "前端工具",
+  categorySlug: "tooling",
+  tags: ["Cloudflare", "Markdown", "Web Crawling"],
+}
+
+想把一個網站的文章整理下來，通常得先找出每篇文章的網址，再逐頁抓取和轉換內容。Cloudflare 在 2026 年 3 月 10 日開放測試的 `/crawl` API，把這些工作串成了一個流程：給它起始網址，就能沿著網站連結收集頁面，輸出 Markdown、HTML 等格式。
+
+## 例如，把自己的部落格整理成 Markdown
+
+假設我想收集部落格文章，之後拿來做全文搜尋，或交給 AI 協助分類。送出爬取請求時，可以指定這樣的內容：
+
+```json
+{
+  "url": "https://example.com/blog/",
+  "limit": 10,
+  "formats": ["markdown"]
+}
+```
+
+這代表從 `/blog/` 開始，最多抓取 10 個頁面，並要求 Markdown 格式。這只是請求內容，實際呼叫還需要 Cloudflare 帳號 ID 和具有爬取權限的 API token；token 應放在後端或本機腳本裡。
+
+送出後會先拿到任務 ID，再用它查詢進度和取得結果。回傳資料裡會包含各頁網址與 Markdown 文字，接著可以自己存成 `.md` 檔，或放進搜尋系統。它不會自動幫你建好搜尋網站。
+
+## 跟只抓一個網頁有什麼不同？
+
+重點是它會繼續找其他頁面，也能透過 sitemap 發現網址；需要執行 JavaScript 才能看到的內容，則可以交給雲端瀏覽器載入。開發者能設定頁數、連結深度和網址範圍，不必每次都把全站抓完。
+
+我會先抓幾篇文章，確認程式碼區塊、表格和正文的轉換結果，再擴大範圍。Markdown 保留的是內容結構，不會還原原本的版面；它也不是完整的網站備份。
+
+這項服務會遵守 `robots.txt` 等爬取規則，也不能繞過驗證碼。因此「整理整個網站」仍取決於頁面是否允許存取，以及設定的爬取範圍。
