@@ -28,12 +28,10 @@ Frontend work already considers visuals and the accessibility tree. It may also 
 
 WebMCP remains early, so I would not call it a standard every site needs. The underlying question is still valuable: when website users are no longer only human, how do we provide an entry point that is both clear and safe?
 
-## A simple example
+## What would a frontend developer actually do?
 
-A travel site may contain date pickers, room cards, and several modals. A visual agent must understand the DOM and simulate clicks. A `searchRooms` tool can instead accept arrival, departure, and guest count as structured parameters and return rooms in a stable format.
+WebMCP is a browser API that lets a page offer functions an agent can call. A room search already has a button and a search function; the frontend can connect that function to WebMCP by registering it as a tool.
 
-`bookRoom` should not be equally automatic. Search is low-risk reading; booking creates a charge. The user should see the final amount and confirm again. WebMCP design is therefore not only about tool schemas, but also which steps can be delegated and which must return control to a person.
+Registration includes a name such as `searchRooms`, a description such as "Find available rooms by date and guest count," and the required inputs and their formats. The agent uses this information to understand the tool instead of guessing from the function name alone.
 
-If I added tools to a site, I would begin with read-only, retryable operations and keep an audit log for every call. Only after the team understands how agents choose parameters would I expose writes. Publishing every internal API unchanged is not a shortcut; parameters designed for trusted application code may be poor choices for model judgment.
-
-Error messages also become interface design. `400 Bad Request` tells neither a person nor an agent how to recover. Naming the invalid date range, allowed values, and whether an action can be retried makes the next step safer and predictable.
+When a user asks the agent to find a room, it supplies dates and a guest count and calls the tool. The site runs its existing search and returns the results. The frontend is adding another entry point to an existing feature. A supporting browser and agent are still required, and the original button remains available.
