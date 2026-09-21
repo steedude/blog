@@ -1,0 +1,33 @@
+export const metadata = {
+  "slug": "aws-october-outage",
+  "title": "Nothing changed in our code: lessons from the AWS outage",
+  "description": "How the October 2025 AWS incident spread through service dependencies, and what a frontend can still do during an outage.",
+  "publishedAt": "2025-10-24",
+  "category": "Web Operations",
+  "categorySlug": "operations",
+  "tags": [
+    "AWS",
+    "DNS",
+    "Reliability"
+  ]
+}
+
+When a site breaks, checking the latest deployment is natural. But what if there was no deployment? No frontend change, no API change, no configuration change—and people still cannot get in. 'Nothing is wrong on our side' can be entirely true and entirely unhelpful.
+
+The October 20, 2025 AWS incident brings that frustration to mind. Cloud services remove a great deal of machine management. They also make it easy to forget how many other systems a website depends on, until one stops and the dependencies become very visible.
+
+The incident began in Northern Virginia, `us-east-1`. According to AWS, a timing interaction in DynamoDB's automated DNS management allowed an older configuration to overwrite a newer one. Subsequent cleanup left the regional endpoint without usable address records.
+
+The data had not simply vanished. Programs knew the service name but could not resolve an address for a new connection. Dependent workflows started failing too.
+
+What stayed with me was the recovery. Restoring DNS did not finish the job: affected EC2 management workflows had accumulated backlogs and encountered further problems. Existing running EC2 instances were not necessarily affected, while operations such as creating new ones were. 'AWS is down' conceals a complicated sequence.
+
+## Users do not distinguish whose service failed
+
+If a store's product pages work but checkout spins forever, people see a broken store. Knowing which cloud service failed is not their responsibility.
+
+There is still frontend work to do. Can we preserve the cart and entered details? Was submission impossible, or was it submitted with the outcome still unknown? Those states should not share the same 'Something went wrong, try again' message.
+
+For payments, a timeout does not prove that processing failed. Repeated clicks followed by blind resubmission can turn a delay into duplicate transactions. The interface needs a pending state, supported by status checks and duplicate prevention on the backend. This hypothetical store already shows why error handling takes more than a red message.
+
+Another cloud sounds tempting after an incident like this. It also introduces synchronization, switching, and testing work. I would first list the site's actual dependencies and see what remains when one is unavailable. If the answer is an endless spinner, there is somewhere concrete to start.

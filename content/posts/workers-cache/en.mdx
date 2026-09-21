@@ -1,0 +1,37 @@
+export const metadata = {
+  "slug": "workers-cache",
+  "title": "Does the server need to rebuild the same content for every visitor?",
+  "description": "An article listing makes Cloudflare Workers Cache, cache lifetimes, and content updates easier to understand.",
+  "publishedAt": "2026-07-12",
+  "category": "Web Performance",
+  "categorySlug": "performance",
+  "tags": [
+    "Cloudflare",
+    "Cache",
+    "Performance"
+  ]
+}
+
+Caching invites two perfectly reasonable complaints. When a site is slow, why isn't it cached? When an edited article still looks old, why hasn't the cache been cleared? Cheap, fast, and immediately current are difficult things to obtain all at once.
+
+What interests me about Cloudflare's July 2026 Workers Cache launch is its position: before the Worker runs. If a fresh response already exists, the request can receive it without executing the program that would normally produce it.
+
+A public article list is a good candidate. Hundreds of visitors might receive exactly the same ten articles in a minute. Querying and assembling that result each time feels wasteful. Keeping the first result lets subsequent requests share work already done.
+
+## How much difference can a minute make?
+
+After enabling Workers Cache, a familiar HTTP header controls freshness:
+
+```http
+Cache-Control: public, max-age=60
+```
+
+This permits shared caching and treats the response as fresh for 60 seconds. It does not schedule a refresh every minute. Requests encounter the cache in its current state. Browsers and other HTTP caches can also use this header.
+
+Sixty seconds sounds short—until you publish an article, open the homepage, and cannot find it. 'Did publishing fail?' is a natural reaction, even though the system may be following your own rule exactly.
+
+I would decide whether that minute is acceptable first. For an ordinary article list, it probably is. Immediate visibility means connecting cache purging to publication. Configuring storage while forgetting updates is a good way to acquire a manual cleanup habit.
+
+Personal orders must not inherit the same public setting. And because a cache hit skips the Worker, checks implemented only inside it can be skipped too. Decide which responses are safe to share before enabling caching.
+
+I would start with a simple public listing where the difference is visible. Waiting briefly for a new post is tolerable when the reason is clear. Refreshing five times, publishing again, and only then remembering `max-age` is the frustrating version.

@@ -1,0 +1,35 @@
+export const metadata = {
+  "slug": "postman-datasets",
+  "title": "Beyond the happy path: Postman introduces Datasets",
+  "description": "Use a few registration inputs to understand reusable test data and why sending a request is only half the test.",
+  "publishedAt": "2026-06-25",
+  "category": "Frontend Tooling",
+  "categorySlug": "tooling",
+  "tags": [
+    "Postman",
+    "API",
+    "Testing"
+  ]
+}
+
+'I tested the API' can mean clicking Send once and seeing `200`. It can also mean checking valid, empty, and duplicate inputs, including their error messages. Both people say the same sentence while describing quite different work.
+
+That is what caught my attention about Postman Datasets, introduced in June 2026. Test data gets somewhere more permanent to live. Changing an email or ID by hand is quick—quick enough that nothing records which cases were tried or why.
+
+## Remembering what the test was for
+
+Registration with a fresh email might work perfectly. What happens when the email is blank or already registered? Frontend validation cannot prevent requests that bypass that interface.
+
+I would keep those three cases, with their expected results. Our hypothetical API might specify `201` for creation, `400` for missing input, and `409` for a duplicate. Other contracts can differ. Receiving any response is not enough to call a test successful.
+
+Postman already supported running requests with data files. Datasets adds organization and reuse: connect a CSV or JSON source, select rows and fields through a view, and use it in Collection Runner. Each row supplies the value for a request variable such as `{{email}}`.
+
+A view is a saved query. One can select three everyday cases from a larger dataset; another can select invalid inputs. That avoids copying almost the same CSV twice and later wondering which copy is current.
+
+## It passes once, then fails
+
+Registration has an irritating detail: after the successful test, its email is no longer unused. A duplicate-account response on the next run may mean the application is behaving correctly.
+
+Test data needs a plan for cleanup and restoring the starting state. Otherwise, even a neatly organized dataset produces results nobody quite trusts. Datasets does not decide what correctness means or automatically reset the environment.
+
+At launch, the beta worked in the desktop app's Git-connected Local View; CLI and Monitors support was still to come. I would not reorganize every test to try it. I would start with the few inputs currently retyped from memory. Then 'What did you test?' could finally get a better answer than 'The usual things.'

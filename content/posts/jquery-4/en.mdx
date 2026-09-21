@@ -1,0 +1,31 @@
+export const metadata = {
+  "slug": "jquery-4",
+  "title": "jQuery 4 is here: which websites still need it?",
+  "description": "What jQuery 4 changes for existing websites, and when keeping or removing jQuery makes sense.",
+  "publishedAt": "2026-01-17",
+  "category": "Frontend Tooling",
+  "categorySlug": "tooling",
+  "tags": [
+    "jQuery",
+    "JavaScript",
+    "Migration"
+  ]
+}
+
+jQuery is at 4.0 now. The easy response is, 'People still use that?' But that is not especially helpful to someone maintaining a website that still takes orders and runs reports. A working admin panel does not grow a Vue application just because the frontend conversation has moved on.
+
+The final release arrived on January 17, 2026, almost ten years after the previous major version. I am glad it is still being maintained. A system whose features work but whose foundations have been abandoned is an awkward thing to own: keeping it feels uncomfortable, and replacing it means a considerable project.
+
+Version 4 does acknowledge the years in between. Helpers such as `$.trim()` and `$.parseJSON()` are gone; native `trim()` and `JSON.parse()` cover those jobs. The source now uses ES modules too. Browsers do more themselves, and jQuery has less to carry.
+
+One detail feels like a little time capsule: this release drops IE 10 and older, while retaining IE 11. Its users cannot all move at the pace of the newest browser release.
+
+## Removing it is the harder decision
+
+For a new page with a few buttons, I probably would not install jQuery. Native JavaScript is comfortable enough. If the page needs substantial state management, I would reach for a familiar framework. That part is fairly straightforward.
+
+An existing dashboard is another matter. If its tables, date picker, and validation depend on jQuery plugins, adding one filter is a difficult occasion to justify a rewrite. The worrying part is usually the plugin whose last update was years ago, not the dollar signs in the source.
+
+For a 4.0 upgrade, I would inspect those plugins first. They may call removed APIs even when our own code does not. The upgrade guide and jQuery Migrate can help locate trouble, followed by checking the actual forms, dialogs, and date fields.
+
+If one abandoned date picker turns out to be the real problem, I would start there. Rebuilding an entire dashboard for it means rediscovering all the small behaviors nobody remembers until they disappear. Just thinking about that part makes the upgrade feel much less small.

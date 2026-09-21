@@ -1,0 +1,32 @@
+export const metadata = {
+  "slug": "nuxt-ui-editor",
+  "title": "Adding an article editor with Nuxt UI",
+  "description": "What Nuxt UI's editor and toolbar provide, and what your application still needs to handle.",
+  "publishedAt": "2025-12-17",
+  "category": "Nuxt",
+  "categorySlug": "nuxt",
+  "tags": [
+    "Nuxt UI",
+    "Vue",
+    "Editor",
+    "TipTap"
+  ]
+}
+
+'Add somewhere to edit articles in the admin panel.' It sounds small until the requirements keep arriving: bold text, links, sensible Word paste, perhaps image dragging. Choosing the editor can already take a surprising amount of time.
+
+I was pleased to see Nuxt UI add editor components in v4.3.0 in December 2025. For an admin panel already using it, that avoids introducing another toolbar with a slightly different visual language. Less styling friction means getting to the actual requirements sooner.
+
+TipTap provides the editing foundation. Nuxt UI adds `Editor`, `EditorToolbar`, slash menus, and related controls. I find that reassuring: cursor behavior, selection, paste, and undo look obvious precisely because a good editor hides how much work they require.
+
+For a straightforward article screen, I would begin with a title, body, and save button. Put bold, headings, and links in the toolbar, read the result through `v-model`, and send it to the application's API. Saving and reopening deserve attention before a toolbar that resembles Word.
+
+## Close it, then open it again
+
+An editor can look perfectly convincing while you type. The more revealing moment is coming back after saving. Is the link intact? Did the nested list survive? Why has the custom block become ordinary text?
+
+The editor supports JSON, HTML, and Markdown. Familiarity is not the only consideration. Markdown fits an existing Markdown site, but unusual layouts need round-trip checks. JSON can preserve structured documents and custom blocks. HTML is convenient to display, with appropriate sanitization and validation for user content.
+
+Storage, drafts, permissions, and publication still belong to the application. Installing an editor can feel like finishing most of the job. To its actual author, not losing half a draft matters more than how many text colors are available.
+
+I would like the slash menu and draggable blocks too. They can wait until an unfinished article is still there, ready to continue tomorrow.

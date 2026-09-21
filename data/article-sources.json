@@ -17,12 +17,6 @@
       "title": "Bybit Security Incident: Timeline of Events and FAQs"
     }
   ],
-  "typescript-native-port": [
-    {
-      "url": "https://devblogs.microsoft.com/typescript/typescript-native-port/",
-      "title": "A 10x Faster TypeScript"
-    }
-  ],
   "custom-select": [
     {
       "url": "https://developer.chrome.com/blog/a-customizable-select",
@@ -33,12 +27,6 @@
     {
       "url": "https://developer.chrome.com/blog/web-at-io25",
       "title": "10 updates from Google I/O 2025"
-    }
-  ],
-  "node-24": [
-    {
-      "url": "https://nodejs.org/en/blog/release/v24.0.0",
-      "title": "Node.js 24.0.0 release notes"
     }
   ],
   "vite-7-baseline": [
@@ -65,40 +53,16 @@
       "url": "https://tailwindcss.com/blog/vanilla-js-support-for-tailwind-plus"
     }
   ],
-  "nx-s1ngularity": [
-    {
-      "url": "https://nx.dev/blog/s1ngularity-postmortem",
-      "title": "S1ngularity: What Happened, How We Responded, What We Learned"
-    }
-  ],
   "nuxt-ui-v4": [
     {
       "url": "https://nuxt.com/blog/nuxt-ui-v4",
       "title": "Introducing Nuxt UI v4"
     }
   ],
-  "react-foundation": [
-    {
-      "url": "https://react.dev/blog/2025/10/07/introducing-the-react-foundation",
-      "title": "Introducing the React Foundation"
-    }
-  ],
   "npm-classic-token": [
     {
       "url": "https://github.blog/changelog/2025-11-05-npm-security-update-classic-token-creation-disabled-and-granular-token-changes/",
       "title": "npm security update: Classic token creation disabled and granular token changes"
-    }
-  ],
-  "react2shell": [
-    {
-      "url": "https://github.com/advisories/GHSA-9qr9-h5gf-34mp",
-      "title": "GitHub Advisory: React Flight protocol remote code execution"
-    }
-  ],
-  "astro-6-beta": [
-    {
-      "url": "https://astro.build/blog/astro-6-beta/",
-      "title": "Astro 6 Beta"
     }
   ],
   "matt-pocock-skills": [
@@ -133,22 +97,18 @@
       "title": "15 updates from Google I/O 2026"
     }
   ],
-  "astro-7": [
-    {
-      "url": "https://astro.build/blog/astro-7/",
-      "title": "Astro 7.0"
-    }
-  ],
   "typescript-7": [
     {
       "title": "Announcing TypeScript 7.0",
       "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/"
-    }
-  ],
-  "nuxt-4-5": [
+    },
     {
-      "url": "https://nuxt.com/blog/v4-5",
-      "title": "Nuxt 4.5"
+      "title": "A 10x Faster TypeScript",
+      "url": "https://devblogs.microsoft.com/typescript/typescript-native-port/"
+    },
+    {
+      "title": "Why Go? — TypeScript team explanation",
+      "url": "https://github.com/microsoft/typescript-go/discussions/411"
     }
   ],
   "coldcard-rng": [
@@ -163,34 +123,82 @@
       "url": "https://securitylabs.datadoghq.com/articles/npm-worm-compromises-popular-npm-packages/"
     }
   ],
-  "react-compiler": [
-    {
-      "title": "React Compiler",
-      "url": "https://react.dev/learn/react-compiler"
-    }
-  ],
   "server-components-retrospective": [
     {
       "title": "React Server Components",
       "url": "https://react.dev/reference/rsc/server-components"
     }
   ],
-  "view-transitions": [
-    {
-      "title": "View Transition API",
-      "url": "https://developer.chrome.com/docs/web-platform/view-transitions"
-    }
-  ],
-  "web-platform-baseline": [
-    {
-      "title": "Baseline",
-      "url": "https://web.dev/baseline"
-    }
-  ],
   "web-vitals": [
     {
       "title": "Web Vitals",
       "url": "https://web.dev/articles/vitals"
+    }
+  ],
+  "jquery-4": [
+    {
+      "title": "jQuery 4.0.0",
+      "url": "https://blog.jquery.com/2026/01/17/jquery-4-0-0/"
+    }
+  ],
+  "postman-datasets": [
+    {
+      "title": "Introducing Postman Datasets",
+      "url": "https://blog.postman.com/introducing-postman-datasets/"
+    }
+  ],
+  "workers-cache": [
+    {
+      "title": "Your Worker can now have its own cache in front of it",
+      "url": "https://blog.cloudflare.com/workers-cache/"
+    }
+  ],
+  "nuxt-ui-editor": [
+    {
+      "title": "Nuxt UI v4.3.0",
+      "url": "https://ui.nuxt.com/docs/releases/v4.3.0"
+    },
+    {
+      "title": "Editor - Nuxt UI",
+      "url": "https://ui.nuxt.com/docs/components/editor"
+    }
+  ],
+  "aws-october-outage": [
+    {
+      "title": "Summary of the Amazon DynamoDB Service Disruption in the Northern Virginia (US-EAST-1) Region",
+      "url": "https://aws.amazon.com/message/101925/"
+    }
+  ],
+  "bun-1-3-html": [
+    {
+      "title": "Bun 1.3",
+      "url": "https://bun.sh/blog/bun-v1.3"
+    }
+  ],
+  "cloudflare-ai-crawl-control": [
+    {
+      "title": "Enhanced crawler insights and custom 402 responses",
+      "url": "https://developers.cloudflare.com/changelog/post/2025-08-27-ai-crawl-control-launch/"
+    },
+    {
+      "title": "Introducing AI Crawl Control",
+      "url": "https://blog.cloudflare.com/introducing-ai-crawl-control/"
+    }
+  ],
+  "figma-sites": [
+    {
+      "title": "Publish your designs on the web with Figma Sites",
+      "url": "https://www.figma.com/blog/introducing-figma-sites/"
+    }
+  ],
+  "github-secret-risk-assessment": [
+    {
+      "title": "Find secrets in your organization with the secret risk assessment",
+      "url": "https://github.blog/changelog/2025-03-04-find-secrets-in-your-organization-with-the-secret-risk-assessment/"
+    },
+    {
+      "title": "Removing sensitive data from a repository",
+      "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository"
     }
   ]
 }

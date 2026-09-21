@@ -145,7 +145,7 @@ test("paginates the homepage with five posts per page", async () => {
   assert.equal((first.match(/<article class="mb-4/g) ?? []).length, 5);
   assert.equal((second.match(/<article class="mb-4/g) ?? []).length, 5);
   assert.match(first, /href="\/zh-TW\/page\/2"/);
-  assert.match(first, /第 1 \/ 7 頁/);
+  assert.match(first, /第 1 \/ 6 頁/);
   assert.match(first, /ChainDrop：當 npm 惡意套件開始自己擴散/);
   assert.doesNotMatch(first, /Agent Plugins 1\.0/);
   assert.doesNotMatch(first, /grid grid-cols-1 items-start/);
@@ -211,13 +211,13 @@ test("shows only localized page titles without heading descriptions", async () =
 });
 
 test("server-renders localized MDX content and the social image", async () => {
-  const response = await render("/zh-TW/posts/react-compiler");
+  const response = await render("/zh-TW/posts/workers-cache");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /React Compiler 值得現在導入嗎/);
-  assert.match(html, /文章分類：<\/span> <a[^>]*>React<\/a>/);
-  assert.match(html, /它試圖解決什麼/);
-  assert.match(html, /useMemo/);
+  assert.match(html, /每個人都看同一份內容，伺服器需要每次重做嗎/);
+  assert.match(html, /文章分類：<\/span> <a[^>]*>網站效能<\/a>/);
+  assert.match(html, /一分鐘可以差多少？/);
+  assert.match(html, /Cache-Control/);
   assert.doesNotMatch(html, />8 分鐘</);
   assert.match(html, /data-rehype-pretty-code-figure/);
   assert.doesNotMatch(html, /md:float-right/);
@@ -225,23 +225,23 @@ test("server-renders localized MDX content and the social image", async () => {
   assert.match(html, /overscroll-x-contain overflow-x-auto/);
   assert.ok(html.indexOf("文章標籤") > html.indexOf("</article>"));
   const postSource = await readFile(
-    new URL("../content/posts/react-compiler/zh-TW.mdx", import.meta.url),
+    new URL("../content/posts/workers-cache/zh-TW.mdx", import.meta.url),
     "utf8",
   );
-  assert.match(postSource, /## 它試圖解決什麼？/);
+  assert.match(postSource, /## 一分鐘可以差多少？/);
   assert.doesNotMatch(postSource, /readingTime/);
 
-  const englishResponse = await render("/en/posts/react-compiler");
+  const englishResponse = await render("/en/posts/workers-cache");
   assert.equal(englishResponse.status, 200);
   const englishHtml = await englishResponse.text();
-  assert.match(englishHtml, /Is React Compiler ready to adopt/);
-  assert.match(englishHtml, /Category:<\/span> <a[^>]*>React<\/a>/);
-  assert.match(englishHtml, /What problem is it trying to solve/);
+  assert.match(englishHtml, /Does the server need to rebuild the same content/);
+  assert.match(englishHtml, /Category:<\/span> <a[^>]*>Web Performance<\/a>/);
+  assert.match(englishHtml, /How much difference can a minute make/);
   assert.match(englishHtml, /"@type":"BlogPosting"/);
   assert.match(englishHtml, /"@type":"BreadcrumbList"/);
   assert.doesNotMatch(englishHtml, /TrackBack|Comments \(/);
 
-  const imageResponse = await render("/en/posts/react-compiler/opengraph-image");
+  const imageResponse = await render("/en/posts/workers-cache/opengraph-image");
   assert.equal(imageResponse.status, 200);
   assert.match(imageResponse.headers.get("content-type") ?? "", /^image\/png/);
   await access(new URL("../public/og-movable-type.png", import.meta.url));
@@ -251,19 +251,18 @@ test("searches posts locally without external search engines", async () => {
   const response = await render("/en/search?q=Compiler");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /4 posts found/);
-  assert.match(html, /Is React Compiler ready to adopt/);
+  assert.match(html, /1 post found/);
   assert.match(html, /TypeScript 7 moves to a native compiler/);
   assert.doesNotMatch(html, /google\.com\/search|duckduckgo\.com/);
 });
 
 test("social metadata describes the article or project being shared", async () => {
-  const post = await render("/en/posts/react-compiler").then((response) => response.text());
-  assert.match(post, /property="og:title" content="Is React Compiler ready to adopt/);
-  assert.match(post, /property="og:url" content="[^"]*\/en\/posts\/react-compiler"/);
+  const post = await render("/en/posts/workers-cache").then((response) => response.text());
+  assert.match(post, /property="og:title" content="Does the server need to rebuild the same content/);
+  assert.match(post, /property="og:url" content="[^"]*\/en\/posts\/workers-cache"/);
   assert.match(post, /property="og:type" content="article"/);
-  assert.match(post, /name="twitter:title" content="Is React Compiler ready to adopt/);
-  assert.match(post, /name="twitter:image" content="[^"]*\/en\/posts\/react-compiler\/opengraph-image/);
+  assert.match(post, /name="twitter:title" content="Does the server need to rebuild the same content/);
+  assert.match(post, /name="twitter:image" content="[^"]*\/en\/posts\/workers-cache\/opengraph-image/);
   assert.match(post, /"@type":"Person","name":"Jason"/);
   const project = await render("/en/projects/web-file").then((response) => response.text());
   assert.match(project, /property="og:title" content="Web File"/);
@@ -356,9 +355,9 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
 
   assert.equal(sitemapResponse.status, 200);
   const sitemap = await sitemapResponse.text();
-  assert.match(sitemap, /\/zh-TW\/posts\/react-compiler/);
+  assert.match(sitemap, /\/zh-TW\/posts\/workers-cache/);
   assert.match(sitemap, /\/zh-TW\/page\/2/);
-  assert.match(sitemap, /\/en\/posts\/react-compiler/);
+  assert.match(sitemap, /\/en\/posts\/workers-cache/);
   assert.match(sitemap, /\/en\/projects\/3854335-web-tool/);
   assert.match(sitemap, /\/en\/projects\/home-inventory/);
   assert.match(sitemap, /\/en\/projects\/web-file/);
@@ -372,7 +371,7 @@ test("serves sitemap, robots, and RSS discovery files", async () => {
   assert.match(rssResponse.headers.get("content-type") ?? "", /application\/rss\+xml/);
   const rss = await rssResponse.text();
   assert.match(rss, /<title>jason&apos;s blog<\/title>/);
-  assert.match(rss, /<guid isPermaLink="true">.*\/zh-TW\/posts\/react-compiler<\/guid>/);
+  assert.match(rss, /<guid isPermaLink="true">.*\/zh-TW\/posts\/workers-cache<\/guid>/);
 
   const englishRss = await render("/en/rss.xml");
   assert.equal(englishRss.status, 200);
@@ -400,13 +399,16 @@ test("removed articles are unavailable and absent from indexes", async () => {
     assert.equal((await render(`/${locale}/posts/angular-20`)).status, 404);
     assert.equal((await render(`/${locale}/posts/vite-8-rolldown`)).status, 404);
     assert.equal((await render(`/${locale}/posts/typescript-6`)).status, 404);
+    for (const slug of ["view-transitions","nuxt-4-5","astro-6-beta","astro-7","react-compiler","react2shell","web-platform-baseline","react-foundation","nx-s1ngularity","node-24","typescript-native-port"]) {
+      assert.equal((await render(`/${locale}/posts/${slug}`)).status, 404);
+    }
     for (const path of [`/${locale}/search`, `/${locale}/rss.xml`]) {
       const html = await render(path).then((result) => result.text());
-      assert.doesNotMatch(html, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6/);
+      assert.doesNotMatch(html, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6|view-transitions|nuxt-4-5|astro-6-beta|astro-7|react-compiler|react2shell|web-platform-baseline|react-foundation|nx-s1ngularity|node-24|typescript-native-port/);
     }
   }
   const sitemap = await render("/sitemap.xml").then((result) => result.text());
-  assert.doesNotMatch(sitemap, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6/);
+  assert.doesNotMatch(sitemap, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6|view-transitions|nuxt-4-5|astro-6-beta|astro-7|react-compiler|react2shell|web-platform-baseline|react-foundation|nx-s1ngularity|node-24|typescript-native-port/);
 });
 
 test("publishes the complete topic plan through posts, taxonomies, RSS, and sitemap", async () => {
@@ -418,9 +420,9 @@ test("publishes the complete topic plan through posts, taxonomies, RSS, and site
     rssResponse,
     sitemapResponse,
   ] = await Promise.all([
-    render("/zh-TW/posts/node-24"),
+    render("/zh-TW/posts/figma-sites"),
     render("/zh-TW/category/tooling"),
-    render("/zh-TW/tag/node.js"),
+    render("/zh-TW/tag/figma"),
     render("/zh-TW/archive/2025/5"),
     render("/zh-TW/rss.xml"),
     render("/sitemap.xml"),
@@ -431,24 +433,24 @@ test("publishes the complete topic plan through posts, taxonomies, RSS, and site
   }
 
   const article = await articleResponse.text();
-  assert.match(article, /Node\.js 24 比較值得注意的更新/);
+  assert.match(article, /那前端還要做什麼？/);
   assert.match(article, /文章分類：<\/span> <a[^>]*>前端工具<\/a>/);
-  assert.match(article, /href="\/zh-TW\/tag\/node\.js"/);
+  assert.match(article, /href="\/zh-TW\/tag\/figma"/);
   assert.match(article, /href="\/zh-TW\/tag\/frontend-tooling"/);
   assert.doesNotMatch(article, /參考：/);
-  assert.match(article, /hrefLang="en" href="[^"]*\/en\/posts\/node-24"/);
+  assert.match(article, /hrefLang="en" href="[^"]*\/en\/posts\/figma-sites"/);
 
-  assert.match(await categoryResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
-  assert.match(await tagResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
-  assert.match(await archiveResponse.text(), /Node\.js 24/);
-  assert.match(await rssResponse.text(), /\/zh-TW\/posts\/node-24/);
+  assert.match(await categoryResponse.text(), /Figma Sites：設計稿可以直接變成網站了/);
+  assert.match(await tagResponse.text(), /Figma Sites：設計稿可以直接變成網站了/);
+  assert.match(await archiveResponse.text(), /Figma Sites/);
+  assert.match(await rssResponse.text(), /\/zh-TW\/posts\/figma-sites/);
   const sitemap = await sitemapResponse.text();
-  assert.match(sitemap, /\/zh-TW\/posts\/node-24/);
-  assert.match(sitemap, /\/en\/posts\/node-24/);
+  assert.match(sitemap, /\/zh-TW\/posts\/figma-sites/);
+  assert.match(sitemap, /\/en\/posts\/figma-sites/);
 
-  const englishArticleResponse = await render("/en/posts/node-24");
+  const englishArticleResponse = await render("/en/posts/figma-sites");
   assert.equal(englishArticleResponse.status, 200);
   const englishArticle = await englishArticleResponse.text();
-  assert.match(englishArticle, /How Node\.js 24 affects the frontend toolchain/);
+  assert.match(englishArticle, /Figma Sites: can a design become a published website/);
   assert.match(englishArticle, /Category:<\/span> <a[^>]*>Frontend Tooling<\/a>/);
 });

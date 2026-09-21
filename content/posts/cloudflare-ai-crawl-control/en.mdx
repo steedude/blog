@@ -1,0 +1,31 @@
+export const metadata = {
+  "slug": "cloudflare-ai-crawl-control",
+  "title": "Who is crawling your articles? Cloudflare expands AI Crawl Control",
+  "description": "Understanding crawler analytics, blocking, and why a crawl is not the same as a reader visit or a licensing payment.",
+  "publishedAt": "2025-08-28",
+  "category": "Web Operations",
+  "categorySlug": "operations",
+  "tags": [
+    "Cloudflare",
+    "AI",
+    "Web Crawling"
+  ]
+}
+
+If a blog's traffic doubles, it may be worth delaying the celebration. The extra visitors could be programs repeatedly fetching articles. The site serves the requests and sends the content, but there may be no corresponding readers, comments, or subscriptions.
+
+That leaves me with mixed feelings about AI crawlers. I want people to find what I write. An AI search service that brings interested readers sounds useful. If the article is consumed elsewhere and the only visible result is more requests, 'exposure' feels less convincing.
+
+Cloudflare renamed AI Audit to AI Crawl Control and made it generally available in August 2025, adding per-crawler counts and trends. Being able to see who is fetching content, and which requests are blocked, seems more useful to me than immediately choosing total openness or total blocking.
+
+Suppose a service crawls a thousand times in a week but refers ten readers. Those are hypothetical figures, and crawler requests are not readership. I would compare them with the site's own referral analytics before treating a rising chart as a good result.
+
+## There is more than one way to say no
+
+A `robots.txt` rule asks the crawler to cooperate. AI Crawl Control can block identified crawler requests passing through Cloudflare. That is enforcement, but it does not make a site invisible or guarantee that every disguised request will be recognized.
+
+One detail made me pause: paid plans can return `402 Payment Required` with licensing contact information. Compared with a plain `403`, it expresses a different position: access may be possible, but the terms need a conversation first.
+
+Returning `402` does not make money arrive. It cannot guarantee that the operator will negotiate, and it does not complete payment or licensing. That distinction is easy to lose in the appealing idea of websites finally charging AI services.
+
+I would first want to know which services repeatedly read my articles and whether people subsequently find the blog. If they do, access has a benefit. If not, at least the exchange is visible. Without that information, either welcoming or blocking crawlers feels rather like guessing.

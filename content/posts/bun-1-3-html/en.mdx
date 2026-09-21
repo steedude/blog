@@ -1,0 +1,40 @@
+export const metadata = {
+  "slug": "bun-1-3-html",
+  "title": "Start with an HTML file: frontend development in Bun 1.3",
+  "description": "How Bun 1.3 starts a development server from HTML and builds a small interactive page for deployment.",
+  "publishedAt": "2025-10-10",
+  "category": "Frontend Tooling",
+  "categorySlug": "tooling",
+  "tags": [
+    "Bun",
+    "HTML",
+    "JavaScript",
+    "Frontend Tooling"
+  ]
+}
+
+Sometimes a small JavaScript idea turns into setting up a whole project first. Choose a framework, choose a template, wait for installation—and the thing I wanted to try was only a dozen lines. The tools are useful. I just occasionally miss beginning with an HTML file.
+
+This was the command that caught my attention when Bun 1.3 arrived in October 2025:
+
+```sh
+bun ./index.html
+```
+
+An HTML file starts the development server. Bun follows its resource references, handles JavaScript and CSS bundling, and supports HMR. It already combines a runtime, package management, and build tools; this gives those capabilities a particularly approachable entrance.
+
+I like that starting point. A small cost calculator—enter a headcount, show a total—can begin with a page and a little code. Packages and larger decisions can wait until there is a reason for them.
+
+This is not an entirely new way to build websites. Plain HTML never went away, and Vite already supports an HTML entry point. For someone using Bun, the attraction is arranging fewer separate tools. That can be enough of a benefit for a small project.
+
+When the page is ready:
+
+```sh
+bun build ./index.html --production --outdir=dist
+```
+
+A calculator running entirely in the browser can put that output on a static host. Adding accounts, a database, or an API introduces backend work that this command does not magically finish.
+
+I would not replace an existing Nuxt build just for this. The framework's routing, data loading, and deployment behavior involve more than bundling files.
+
+The likely use is the next small idea: open `index.html` and see whether it is interesting. If it isn't, leaving it there is fine. Better to discover that before spending the evening setting up its future architecture.

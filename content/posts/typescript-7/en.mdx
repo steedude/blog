@@ -1,29 +1,37 @@
 export const metadata = {
   slug: "typescript-7",
   title: "TypeScript 7 moves to a native compiler",
-  description: "Beyond speed, the compatibility questions to consider when TypeScript 7 adopts its native compiler.",
+  description: "What the TypeScript compiler was written in, why it needed a native port, and why Go suited the existing codebase.",
   publishedAt: "2026-07-08",
   category: "TypeScript",
   categorySlug: "typescript",
   tags: ["TypeScript", "Go", "Compiler", "Migration"],
 }
 
-After more than a year, the Go version of TypeScript finally arrived, and I really was excited. Who would not want the editor to spend less time spinning? Then I remembered Vue, eslint, MDX, and every tool built on the compiler API. Rewriting the compiler is the impressive first half; waiting for the ecosystem to catch up may be the more troublesome second half.
+TypeScript 7 introduces a native compiler written in Go. The interesting question is why the tools behind type checking and editor suggestions needed a different implementation language.
 
-The native compiler announced in 2025 became the official implementation in TypeScript 7. One distinction matters: the TypeScript language was not rewritten into Go. The compiler and editor tooling we run were.
+## What was it written in before?
 
-The goal is processing speed in large projects. Developers do not need to understand Go internals; `tsc`, type checking, and editor feedback now use a new implementation.
+The old compiler was written in **TypeScript itself**, compiled to JavaScript, and typically run through Node.js. Our `.ts` files were checked and transformed by another program written in TypeScript.
 
-A rewritten tool cannot guarantee that every legacy setting remains untouched. Before upgrading, read the compatibility notes, update related plugins, and check unusual compiler options. For an ordinary project, the change is faster tooling rather than a new set of TypeScript syntax.
+The Go implementation compiles into a program that runs directly on the operating system. That is what “native” means here. Our applications still use TypeScript and produce JavaScript; they do not become Go programs.
 
-## Language compatibility matters more than a benchmark
+## Why change it?
 
-Speed is the first thing people notice about a native rewrite. The harder task is producing the same type results for millions of existing projects. A compiler that is much faster but adds false errors or misses old ones would make the upgrade more expensive.
+Large projects involve more than checking one file. Changing a shared `User` type may require revisiting many functions, components, and packages that use it. More relationships mean more work when loading projects, checking types, and updating suggestions.
 
-I would check three things first: whether the existing `tsconfig` is supported, whether the editor extension uses the new language service, and whether the build tools have integrated it. Once that ecosystem is ready, a team can take the native performance gains without racing to be first.
+After years of optimizing the JavaScript implementation, a larger performance leap called for better control over memory layout and an architecture that could use multiple CPU cores more effectively.
 
-This makes a natural pair with the 2025 port announcement. The earlier article asks why a rewrite was needed; this one asks what users encounter after it is complete. Official benchmark numbers can be labeled as such while the useful focus stays on upgrade compatibility.
+The Go version can distribute some work across cores and control data layout more directly. These design choices work together; changing a filename to `.go` does not automatically make a tool faster. The benefit is faster checks and editor responses, rather than an automatic speedup for the website running in a visitor's browser.
 
-I would start the upgrade by trying it in the editor on a larger project, comparing startup, go-to-definition, renaming, and error updates, and checking that these features work correctly. Then I would run both compilers on the same TypeScript code and compare the time taken and the results. If anything differs, I would work through the differences before upgrading the whole team.
+## Why Go?
 
-If native tooling succeeds, the biggest change may not be more elaborate types. With less waiting, developers may simply keep type checking enabled more often. A tool's effect on work habits is more interesting than a few seconds saved in one build.
+The team needed to preserve years of type-checking logic so existing code would receive consistent results. Moving that logic reliably mattered alongside speed.
+
+Go suited the port for three reasons:
+
+- **Similar structure:** Its coding patterns fit the original compiler's use of functions and data structures, making the implementations easier to compare.
+- **Automatic memory management:** Garbage collection reclaims unused data while Go gives the team more control over how data is stored.
+- **Practical parallelism:** Go's concurrency tools help distribute suitable work across CPU cores.
+
+Rust and C# can also power compilers. Go offered a useful balance of performance and migration effort for this particular codebase, helping the team improve speed while preserving behavior.

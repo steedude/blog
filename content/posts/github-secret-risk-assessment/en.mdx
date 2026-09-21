@@ -1,0 +1,33 @@
+export const metadata = {
+  "slug": "github-secret-risk-assessment",
+  "title": "An API key slipped into Git? GitHub's secret risk assessment",
+  "description": "GitHub's free assessment helps organizations see their secret exposure, and why deleting a key from a file is not enough.",
+  "publishedAt": "2025-03-04",
+  "category": "Security",
+  "categorySlug": "security",
+  "tags": [
+    "GitHub",
+    "Security",
+    "API Keys"
+  ]
+}
+
+Accidentally commit an API key, delete it, add a corrective commit. It is easy to feel relieved: open the file now and the key is gone. Unfortunately, preserving previous versions is exactly what Git is good at.
+
+That is the irritating part. You noticed the mistake and corrected it quickly, but the exposure is not necessarily resolved. The key may remain in history or already be copied elsewhere. If it has been exposed, revoking or rotating it at the provider is more urgent than perfecting the deletion.
+
+GitHub announced Secret Risk Assessment in March 2025, with April 1 availability planned for Team and Enterprise organizations. Its premise seems sensible to me: instead of assuming everyone handled this correctly, check.
+
+The free assessment gives organization and security admins aggregate information across public and private repositories: credential types, public exposure, and affected repository counts. Across many projects, that is more useful than asking each team, 'You haven't put any keys in there, right?'
+
+I would treat it as an inventory, not someone continuously watching over the organization. It is a point-in-time report without individual secret values. Investigating specific credentials and managing remediation needs capabilities such as secret scanning. Not seeing a key printed in the report does not mean nothing was found.
+
+## Move it into .env. Then what?
+
+The familiar advice is to stop hardcoding credentials and use environment variables. There are still gaps to fall through.
+
+Exclude `.env` from Git; adding `.gitignore` after a file was tracked does not remove its history. For frontend code, ask whether the value eventually enters browser JavaScript. Moving its location does not hide a bundled value.
+
+Credentials authorizing email, payment, or administration belong on the server. Some providers deliberately offer publishable keys, so intended use and permissions matter more than the word 'key' alone.
+
+This news has no dramatic demo or impressive speed figure, but it deserves attention. The awkward discovery is not only that a credential leaked. It is realizing afterward that nobody knows all the places using it, and even replacing it begins with asking around.
