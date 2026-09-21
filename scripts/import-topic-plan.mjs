@@ -23,7 +23,7 @@ const plans = [
   ["matt-pocock-skills", "2026-02-18", "AI 開發工具", "ai-tooling", ["AI", "Agent Skills", "Developer Workflow", "Matt Pocock"], "Agent Skill 和普通 prompt 有什麼不同，以及團隊可以怎麼整理自己的工作方式。"],
   ["vite-8-rolldown", "2026-03-10", "前端工具", "tooling", ["Vite", "Rolldown", "Rust", "Build Tools"], "Vite 8 換用 Rolldown 的原因，以及換掉建置核心時真正要注意的相容性。"],
   ["typescript-6", "2026-03-23", "TypeScript", "typescript", ["TypeScript", "Migration", "Compiler", "Tooling"], "從 TypeScript 6 清理舊設定，逐步過渡到以 Go 打造的原生 TypeScript 7。"],
-  ["chrome-147", "2026-04-07", "Web Platform", "web-platform", ["Chrome", "View Transitions", "CSS", "Animation"], "用區域 View Transitions 處理列表、卡片與元件內部的畫面變化。"],
+  ["chrome-147", "2026-04-07", "Web Platform", "web-platform", ["Chrome", "CSS", "Accessibility"], "Chrome 147 加入 contrast-color()，讓標籤與按鈕依指定底色選擇黑字或白字。"],
   ["webmcp", "2026-05-19", "AI 開發工具", "ai-tooling", ["WebMCP", "AI Agent", "Web API", "Security"], "網站如何為 AI agent 提供結構化操作，同時保留授權和使用者確認。"],
   ["astro-7", "2026-06-16", "內容網站", "content-sites", ["Astro", "Rust", "MDX", "Vite"], "Astro 7 換上 Rust compiler 後，內容網站與 MDX 使用者需要注意什麼。"],
   ["typescript-7", "2026-07-08", "TypeScript", "typescript", ["TypeScript", "Go", "Compiler", "Migration"], "TypeScript 7 正式換上原生編譯器後，速度之外還有哪些相容性問題。"],

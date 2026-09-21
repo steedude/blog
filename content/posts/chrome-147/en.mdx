@@ -1,25 +1,48 @@
 export const metadata = {
   slug: "chrome-147",
-  title: "Scoped View Transitions in Chrome 147",
-  description: "Using scoped View Transitions for lists, cards, and state changes inside a component.",
+  title: "Let CSS choose black or white text with contrast-color()",
+  description: "Chrome 147 adds contrast-color(), letting labels and buttons choose black or white text for a given background color.",
   publishedAt: "2026-04-07",
   category: "Web Platform",
   categorySlug: "web-platform",
-  tags: ["Chrome", "View Transitions", "CSS", "Animation"],
+  tags: ["Chrome", "CSS", "Accessibility"],
 }
 
-I have mixed feelings about every new animation API. The demos are enjoyable, but in a real product I worry about adding distraction. Scoped View Transitions in Chrome 147 caught my attention because they do not ask the whole site to fly around; they help users follow small, meaningful changes such as a reordered list or a card moving between columns.
+Labels and buttons often have a small styling problem: white text looks clear on a dark blue background, but becomes hard to read on pale yellow. When users can choose a background color, the text color needs to adapt too.
 
-View Transitions first looked like an animation system for whole-page navigation. Chrome 147 added element-scoped transitions, allowing one region to participate without involving the entire page.
+Chrome 147, released on April 7, 2026, adds `contrast-color()`. Give it a background color and the browser chooses whichever of black or white has higher contrast against that color. That saves writing the decision in JavaScript.
 
-Reordering cart items, moving a card on a board, or changing a photo grid can animate only the affected component. This is simpler than calculating every element position manually and makes it easier to preserve the rest of the page state.
+## A simple label example
 
-Animation should support an action, not make users wait for it to finish. The UI should also respect `prefers-reduced-motion` for people who need less movement.
+Start with an article category label:
 
-The useful part of this API is that ordinary DOM updates remain ordinary. Code still changes a class, sorts an array, or toggles state; the browser supplies the transition between the old and new visuals. There is no separate position model to maintain only for animation.
+```html
+<span class="tag">Frontend</span>
+```
 
-Lack of View Transitions should remain a normal path. On an unsupported browser, the DOM update still completes and only the animation is absent. That makes the feature a good progressive enhancement without requiring an alternative interaction for older browsers.
+Provide a fixed yellow background with black text first, so browsers without support still display a readable label:
 
-I would begin where motion explains a change in position, not animate every state update. Moving a board card or reordering filtered results fits; making a whole form fly away after Save may only steal attention. A good transition helps the user answer, "Where did that item go?"
+```css
+.tag {
+  background: #fde047;
+  color: #000;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
 
-Tests should include more than the happy path. Rapid clicks, sorting again before data returns, and changing routes mid-transition are where state and animation are most likely to disagree.
+@supports (color: contrast-color(white)) {
+  .tag {
+    --tag-bg: #1e3a8a;
+    background: var(--tag-bg);
+    color: contrast-color(var(--tag-bg));
+  }
+}
+```
+
+`--tag-bg` is a CSS variable holding the background color. In a supporting browser, the dark blue above gets white text. Change it to pale yellow, `#fde047`, and the text becomes black. The `@supports` condition checks whether the browser recognizes the syntax; otherwise, the original yellow background and black text remain.
+
+## Choosing text color, not an entire palette
+
+`contrast-color()` currently chooses only black or white. It does not choose brand colors or analyze background photos. It compares against the color you pass in, so gradients, images, and translucent backgrounds still need a visual check.
+
+I find this most useful for small components such as category labels and status badges. Changing a background used to mean choosing a matching text color as well. CSS can now handle that decision with a short, clear rule.

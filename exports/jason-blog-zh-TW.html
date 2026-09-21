@@ -27,7 +27,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <li data-entry="view-transitions"><a href="#view-transitions"><span class="toc-number">06</span><span>View Transitions API：頁面轉場終於不必全靠框架<small>2026-06-24 · Web Platform</small></span></a></li>
 <li data-entry="astro-7"><a href="#astro-7"><span class="toc-number">07</span><span>Astro 7 的 Rust Compiler 與 MDX 更新<small>2026-06-16 · 內容網站</small></span></a></li>
 <li data-entry="webmcp"><a href="#webmcp"><span class="toc-number">08</span><span>WebMCP 與可供 Agent 操作的網站<small>2026-05-19 · AI 開發工具</small></span></a></li>
-<li data-entry="chrome-147"><a href="#chrome-147"><span class="toc-number">09</span><span>Chrome 147 的區域 View Transitions<small>2026-04-07 · Web Platform</small></span></a></li>
+<li data-entry="chrome-147"><a href="#chrome-147"><span class="toc-number">09</span><span>按鈕換底色，文字也能自動選黑白：CSS contrast-color()<small>2026-04-07 · Web Platform</small></span></a></li>
 <li data-entry="typescript-6"><a href="#typescript-6"><span class="toc-number">10</span><span>從 TypeScript 6 過渡到原生 TypeScript 7<small>2026-03-23 · TypeScript</small></span></a></li>
 <li data-entry="vite-8-rolldown"><a href="#vite-8-rolldown"><span class="toc-number">11</span><span>Vite 8 為什麼改用 Rolldown<small>2026-03-10 · 前端工具</small></span></a></li>
 <li data-entry="matt-pocock-skills"><a href="#matt-pocock-skills"><span class="toc-number">12</span><span>拆解 Matt Pocock 的 Agent Skills<small>2026-02-18 · AI 開發工具</small></span></a></li>
@@ -256,20 +256,36 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <article id="chrome-147" aria-labelledby="title-chrome-147">
   <header class="article-header">
     <p class="eyebrow">第 09 篇 · Web Platform</p>
-    <h2 id="title-chrome-147">Chrome 147 的區域 View Transitions</h2>
-    <p class="description">用區域 View Transitions 處理列表、卡片與元件內部的畫面變化。</p>
+    <h2 id="title-chrome-147">按鈕換底色，文字也能自動選黑白：CSS contrast-color()</h2>
+    <p class="description">Chrome 147 加入 contrast-color()，讓標籤與按鈕依指定底色選擇黑字或白字。</p>
     <p class="date">發布 <time datetime="2026-04-07">2026-04-07</time></p>
-    <div class="tags"><span>Chrome</span><span>View Transitions</span><span>CSS</span><span>Animation</span></div>
+    <div class="tags"><span>Chrome</span><span>CSS</span><span>Accessibility</span></div>
   </header>
-  <div class="article-body"><p>我對新的動畫 API 一向有點矛盾：demo 看得很開心，輪到正式專案又怕它只是增加干擾。Chrome 147 的區域 View Transitions 倒讓我比較有興趣，因為它不是叫整個網站飛來飛去，而是處理列表重排、卡片換位這種使用者真的需要看懂「東西去了哪裡」的小變化。</p>
-<p>View Transitions 最早比較像整個頁面切換時使用的動畫。Chrome 147 加入 element-scoped 的做法後，可以把轉場限制在某個區域，不需要整頁都參與。</p>
-<p>例如購物車裡調整商品順序、看板拖動卡片，或照片列表切換排列方式，都可以只讓那個元件內的元素平順移動。這比自己計算每個元素的位置簡單，也比較容易保留原本的頁面狀態。</p>
-<p>動畫仍然應該是輔助，而不是讓使用者等它播完。也要記得尊重 <code>prefers-reduced-motion</code>，讓不適合大量動態效果的人可以減少動畫。</p>
-<p>這項 API 有趣的地方是它保留了正常 DOM 更新方式。我們還是照原本流程改 class、排序陣列或切換狀態，瀏覽器負責補上前後畫面的過渡。比起為動畫另外維護一份位置狀態，程式會比較接近日常 UI 邏輯。</p>
-<p>目前使用時仍要把沒有 View Transitions 的情況當成正常路徑。功能不支援時，DOM 應該照樣完成更新，只是少了動畫。這種 enhancement 很適合逐步導入，不需要為了舊瀏覽器準備另一整套互動。</p>
-<p>我會先從「動畫能幫忙理解位置變化」的地方用，而不是每次 state change 都加。看板卡片換欄、篩選後項目重新排列很適合；按下儲存後讓整張表單飛走，可能只是在搶注意力。好的 transition 應該讓使用者更容易回答「剛才那個東西去哪了」。</p>
-<p>測試也別只錄順利路徑。快速連點、資料回來前再次排序，以及 transition 中途 route change，才比較容易碰到狀態和動畫不同步的問題。</p></div>
-  <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://developer.chrome.com/blog/new-in-chrome-147" target="_blank" rel="noreferrer">New in Chrome 147</a></li></ul></section>
+  <div class="article-body"><p>做標籤或按鈕時，我常遇到一個小問題：背景換成深藍色，白字很清楚；換成淺黃色，同樣的白字卻幾乎看不到。如果讓使用者自訂底色，文字顏色也要跟著調整。</p>
+<p>2026 年 4 月 7 日發布的 Chrome 147 加入了 <code>contrast-color()</code>。把背景色傳給它，瀏覽器就會在黑色和白色之間，選出與這個顏色對比較高的一個，省去自己用 JavaScript 判斷的步驟。</p>
+<h3 id="chrome-147--一個標籤就能看懂">一個標籤就能看懂</h3>
+<p>假設有一個文章分類標籤：</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="html" data-theme="github-light"><code data-language="html" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#24292E">&lt;</span><span style="color:#22863A">span</span><span style="color:#6F42C1"> class</span><span style="color:#24292E">=</span><span style="color:#032F62">&quot;tag&quot;</span><span style="color:#24292E">&gt;前端開發&lt;/</span><span style="color:#22863A">span</span><span style="color:#24292E">&gt;</span></span></code></pre></figure>
+<p>先準備固定的淺黃底、黑字，讓不支援新功能的瀏覽器也能正常顯示：</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="css" data-theme="github-light"><code data-language="css" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#6F42C1">.tag</span><span style="color:#24292E"> {</span></span>
+<span data-line=""><span style="color:#005CC5">  background</span><span style="color:#24292E">: </span><span style="color:#005CC5">#fde047</span><span style="color:#24292E">;</span></span>
+<span data-line=""><span style="color:#005CC5">  color</span><span style="color:#24292E">: </span><span style="color:#005CC5">#000</span><span style="color:#24292E">;</span></span>
+<span data-line=""><span style="color:#005CC5">  padding</span><span style="color:#24292E">: </span><span style="color:#005CC5">4</span><span style="color:#D73A49">px</span><span style="color:#005CC5"> 12</span><span style="color:#D73A49">px</span><span style="color:#24292E">;</span></span>
+<span data-line=""><span style="color:#005CC5">  border-radius</span><span style="color:#24292E">: </span><span style="color:#005CC5">6</span><span style="color:#D73A49">px</span><span style="color:#24292E">;</span></span>
+<span data-line=""><span style="color:#24292E">}</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#D73A49">@supports</span><span style="color:#24292E"> (</span><span style="color:#005CC5">color</span><span style="color:#24292E">: contrast-color(</span><span style="color:#005CC5">white</span><span style="color:#24292E">)) {</span></span>
+<span data-line=""><span style="color:#6F42C1">  .tag</span><span style="color:#24292E"> {</span></span>
+<span data-line=""><span style="color:#E36209">    --tag-bg</span><span style="color:#24292E">: </span><span style="color:#005CC5">#1e3a8a</span><span style="color:#24292E">;</span></span>
+<span data-line=""><span style="color:#005CC5">    background</span><span style="color:#24292E">: </span><span style="color:#005CC5">var</span><span style="color:#24292E">(</span><span style="color:#E36209">--tag-bg</span><span style="color:#24292E">);</span></span>
+<span data-line=""><span style="color:#005CC5">    color</span><span style="color:#24292E">: contrast-color(</span><span style="color:#005CC5">var</span><span style="color:#24292E">(</span><span style="color:#E36209">--tag-bg</span><span style="color:#24292E">));</span></span>
+<span data-line=""><span style="color:#24292E">  }</span></span>
+<span data-line=""><span style="color:#24292E">}</span></span></code></pre></figure>
+<p><code>--tag-bg</code> 是用來存放底色的 CSS 變數。支援時，上面的深藍底會搭配白字；把它改成 <code>#fde047</code> 淺黃色，文字就會選成黑色。<code>@supports</code> 則是先問瀏覽器「你認不認得這個寫法」，不支援就保留前面的黃底黑字。</p>
+<h3 id="chrome-147--它幫忙選文字色不會設計整套配色">它幫忙選文字色，不會設計整套配色</h3>
+<p><code>contrast-color()</code> 目前只會選黑或白，不會替你挑品牌色，也不會分析背景照片。它比較的是你傳入的顏色；如果實際背景是漸層、圖片或半透明疊色，仍要確認文字顯示出來是否清楚。</p>
+<p>我覺得它最適合分類標籤、狀態徽章這種小元件。以前換一個底色，還要順手配一次文字色；現在可以把這個判斷交給 CSS，程式更短，用途也很明確。</p></div>
+  <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://developer.chrome.com/release-notes/147#css_contrast-color" target="_blank" rel="noreferrer">Chrome 147: CSS contrast-color()</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/contrast-color" target="_blank" rel="noreferrer">MDN: contrast-color()</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#typescript-6">下一篇 →</a></footer>
 </article>
 <article id="typescript-6" aria-labelledby="title-typescript-6">

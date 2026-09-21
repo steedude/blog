@@ -222,7 +222,7 @@
             <tr><td class="month" data-label="月份">2 月</td><td class="event" data-label="事件"><a href="https://github.com/mattpocock/skills">Matt Pocock 發布 Skills for Real Engineers</a></td><td class="topic" data-label="談論主題">拆解 Matt Pocock 的 Agent Skills</td><td data-label="內容大意">用幾個實際 skill 當例子，說明它和普通 prompt 的差別，以及為什麼有人開始整理可重複使用的 AI 工作方式。</td></tr>
             <tr><td class="month" data-label="月份">3 月</td><td class="event" data-label="事件"><a href="https://vite.dev/blog">Vite 8 正式發布</a></td><td class="topic" data-label="談論主題">Vite 8 為什麼改用 Rolldown</td><td data-label="內容大意">介紹 Rolldown 與 Rollup 的關係，說明換掉建置核心後，開發者可能感受到哪些改變和相容性問題。</td></tr>
             <tr><td class="month" data-label="月份">3 月</td><td class="event" data-label="事件"><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/">TypeScript 6 正式發布</a></td><td class="topic" data-label="談論主題">從 TypeScript 6 過渡到原生 TypeScript 7</td><td data-label="內容大意">整理 ES5、舊 module resolution 等棄用項目，並說明原生 TypeScript 7 與 framework、lint、editor tooling 的過渡問題。</td></tr>
-            <tr><td class="month" data-label="月份">4 月</td><td class="event" data-label="事件"><a href="https://developer.chrome.com/blog/new-in-chrome-147">Chrome 147</a></td><td class="topic" data-label="談論主題">Chrome 147 的區域 View Transitions</td><td data-label="內容大意">聚焦區域 View Transition，搭配 contrast-color()、border-shape 等 CSS 功能製作小型 UI 範例。</td></tr>
+            <tr><td class="month" data-label="月份">4 月</td><td class="event" data-label="事件"><a href="https://developer.chrome.com/release-notes/147#css_contrast-color">Chrome 147 支援 CSS contrast-color()</a></td><td class="topic" data-label="談論主題">按鈕換底色，文字也能自動選黑白：CSS contrast-color()</td><td data-label="內容大意">用分類標籤示範依底色選擇黑字或白字，並保留不支援時的固定配色。</td></tr>
             <tr><td class="month" data-label="月份">5 月</td><td class="event" data-label="事件"><a href="https://developer.chrome.com/blog/chrome-at-io26">Google 提出 WebMCP</a></td><td class="topic" data-label="談論主題">WebMCP 與可供 Agent 操作的網站</td><td data-label="內容大意">解釋網站如何提供結構化操作介面，以及它與 DOM 點擊、自動化測試、API、MCP 的差異和安全風險。</td></tr>
             <tr><td class="month" data-label="月份">6 月</td><td class="event" data-label="事件"><a href="https://astro.build/blog/astro-7/">Astro 7 發布</a></td><td class="topic" data-label="談論主題">Astro 7 的 Rust Compiler 與 MDX 更新</td><td data-label="內容大意">介紹 Rust compiler、MDX、Vite 8 和 routing 更新，說明這些改變對內容網站開發者有什麼影響。</td></tr>
             <tr><td class="month" data-label="月份">7 月</td><td class="event" data-label="事件"><a href="https://devblogs.microsoft.com/typescript/">TypeScript 7 正式發布</a></td><td class="topic" data-label="談論主題">TypeScript 7 換上原生編譯器</td><td data-label="內容大意">說明原生版本正式推出後，編譯器和編輯器體驗有哪些變化，以及一般專案升級前要先注意什麼。</td></tr>
@@ -697,15 +697,31 @@ select::picker(select) {
 
         <article class="draft" id="chrome-147">
           <div class="draft-meta">2026 年 4 月</div>
-          <h3>Chrome 147 的區域 View Transitions</h3>
-          <p>我對新的動畫 API 一向有點矛盾：demo 看得很開心，輪到正式專案又怕它只是增加干擾。Chrome 147 的區域 View Transitions 倒讓我比較有興趣，因為它不是叫整個網站飛來飛去，而是處理列表重排、卡片換位這種使用者真的需要看懂「東西去了哪裡」的小變化。</p>
-          <p>View Transitions 最早比較像整個頁面切換時使用的動畫。Chrome 147 加入 element-scoped 的做法後，可以把轉場限制在某個區域，不需要整頁都參與。</p>
-          <p>例如購物車裡調整商品順序、看板拖動卡片，或照片列表切換排列方式，都可以只讓那個元件內的元素平順移動。這比自己計算每個元素的位置簡單，也比較容易保留原本的頁面狀態。</p>
-          <p>動畫仍然應該是輔助，而不是讓使用者等它播完。也要記得尊重 <code>prefers-reduced-motion</code>，讓不適合大量動態效果的人可以減少動畫。</p>
-          <p>這項 API 有趣的地方是它保留了正常 DOM 更新方式。我們還是照原本流程改 class、排序陣列或切換狀態，瀏覽器負責補上前後畫面的過渡。比起為動畫另外維護一份位置狀態，程式會比較接近日常 UI 邏輯。</p>
-          <p>目前使用時仍要把沒有 View Transitions 的情況當成正常路徑。功能不支援時，DOM 應該照樣完成更新，只是少了動畫。這種 enhancement 很適合逐步導入，不需要為了舊瀏覽器準備另一整套互動。</p>
-          <p>我會先從「動畫能幫忙理解位置變化」的地方用，而不是每次 state change 都加。看板卡片換欄、篩選後項目重新排列很適合；按下儲存後讓整張表單飛走，可能只是在搶注意力。好的 transition 應該讓使用者更容易回答「剛才那個東西去哪了」。</p>
-          <p>測試也別只錄順利路徑。快速連點、資料回來前再次排序，以及 transition 中途 route change，才比較容易碰到狀態和動畫不同步的問題。</p>
+          <h3>按鈕換底色，文字也能自動選黑白：CSS contrast-color()</h3>
+          <p>做標籤或按鈕時，我常遇到一個小問題：背景換成深藍色，白字很清楚；換成淺黃色，同樣的白字卻幾乎看不到。如果讓使用者自訂底色，文字顏色也要跟著調整。</p>
+          <p>2026 年 4 月 7 日發布的 Chrome 147 加入了 <code>contrast-color()</code>。把背景色傳給它，瀏覽器就會在黑色和白色之間，選出與這個顏色對比較高的一個，省去自己用 JavaScript 判斷的步驟。</p>
+          <h4>一個標籤就能看懂</h4>
+          <p>假設有一個文章分類標籤：</p>
+          <pre><code>&lt;span class=&quot;tag&quot;&gt;前端開發&lt;/span&gt;</code></pre>
+          <p>先準備固定的淺黃底、黑字，讓不支援新功能的瀏覽器也能正常顯示：</p>
+          <pre><code>.tag {
+  background: #fde047;
+  color: #000;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+@supports (color: contrast-color(white)) {
+  .tag {
+    --tag-bg: #1e3a8a;
+    background: var(--tag-bg);
+    color: contrast-color(var(--tag-bg));
+  }
+}</code></pre>
+          <p><code>--tag-bg</code> 是用來存放底色的 CSS 變數。支援時，上面的深藍底會搭配白字；把它改成 <code>#fde047</code> 淺黃色，文字就會選成黑色。<code>@supports</code> 則是先問瀏覽器「你認不認得這個寫法」，不支援就保留前面的黃底黑字。</p>
+          <h4>它幫忙選文字色，不會設計整套配色</h4>
+          <p><code>contrast-color()</code> 目前只會選黑或白，不會替你挑品牌色，也不會分析背景照片。它比較的是你傳入的顏色；如果實際背景是漸層、圖片或半透明疊色，仍要確認文字顯示出來是否清楚。</p>
+          <p>我覺得它最適合分類標籤、狀態徽章這種小元件。以前換一個底色，還要順手配一次文字色；現在可以把這個判斷交給 CSS，程式更短，用途也很明確。</p>
         </article>
 
         <article class="draft" id="webmcp">

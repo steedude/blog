@@ -133,8 +133,12 @@
   ],
   "chrome-147": [
     {
-      "url": "https://developer.chrome.com/blog/new-in-chrome-147",
-      "title": "New in Chrome 147"
+      "url": "https://developer.chrome.com/release-notes/147#css_contrast-color",
+      "title": "Chrome 147: CSS contrast-color()"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/contrast-color",
+      "title": "MDN: contrast-color()"
     }
   ],
   "webmcp": [
