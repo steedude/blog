@@ -700,25 +700,14 @@ select::picker(select) {
           <h3>按鈕換底色，文字也能自動選黑白：CSS contrast-color()</h3>
           <p>做標籤或按鈕時，我常遇到一個小問題：背景換成深藍色，白字很清楚；換成淺黃色，同樣的白字卻幾乎看不到。如果讓使用者自訂底色，文字顏色也要跟著調整。</p>
           <p>2026 年 4 月 7 日發布的 Chrome 147 加入了 <code>contrast-color()</code>。把背景色傳給它，瀏覽器就會在黑色和白色之間，選出與這個顏色對比較高的一個，省去自己用 JavaScript 判斷的步驟。</p>
-          <h4>一個標籤就能看懂</h4>
-          <p>假設有一個文章分類標籤：</p>
-          <pre><code>&lt;span class=&quot;tag&quot;&gt;前端開發&lt;/span&gt;</code></pre>
-          <p>先準備固定的淺黃底、黑字，讓不支援新功能的瀏覽器也能正常顯示：</p>
-          <pre><code>.tag {
-  background: #fde047;
-  color: #000;
-  padding: 4px 12px;
-  border-radius: 6px;
-}
-
-@supports (color: contrast-color(white)) {
-  .tag {
-    --tag-bg: #1e3a8a;
-    background: var(--tag-bg);
-    color: contrast-color(var(--tag-bg));
-  }
+          <h4>最簡單的例子</h4>
+          <p>假設一個按鈕的背景是黃色：</p>
+          <pre><code>button {
+  background: yellow;
+  color: contrast-color(yellow);
 }</code></pre>
-          <p><code>--tag-bg</code> 是用來存放底色的 CSS 變數。支援時，上面的深藍底會搭配白字；把它改成 <code>#fde047</code> 淺黃色，文字就會選成黑色。<code>@supports</code> 則是先問瀏覽器「你認不認得這個寫法」，不支援就保留前面的黃底黑字。</p>
+          <p>這裡的意思是：「背景用黃色，文字請瀏覽器從黑白之間挑一個比較清楚的顏色。」結果就是黃底黑字。</p>
+          <p>把兩個 <code>yellow</code> 都改成 <code>darkblue</code>，就會變成深藍底白字。注意要把底色傳給 <code>contrast-color()</code>，它不會自己讀取 <code>background</code>。這個例子需在支援此功能的瀏覽器中使用。</p>
           <h4>它幫忙選文字色，不會設計整套配色</h4>
           <p><code>contrast-color()</code> 目前只會選黑或白，不會替你挑品牌色，也不會分析背景照片。它比較的是你傳入的顏色；如果實際背景是漸層、圖片或半透明疊色，仍要確認文字顯示出來是否清楚。</p>
           <p>我覺得它最適合分類標籤、狀態徽章這種小元件。以前換一個底色，還要順手配一次文字色；現在可以把這個判斷交給 CSS，程式更短，用途也很明確。</p>

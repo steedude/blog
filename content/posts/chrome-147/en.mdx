@@ -12,34 +12,20 @@ Labels and buttons often have a small styling problem: white text looks clear on
 
 Chrome 147, released on April 7, 2026, adds `contrast-color()`. Give it a background color and the browser chooses whichever of black or white has higher contrast against that color. That saves writing the decision in JavaScript.
 
-## A simple label example
+## The simplest example
 
-Start with an article category label:
-
-```html
-<span class="tag">Frontend</span>
-```
-
-Provide a fixed yellow background with black text first, so browsers without support still display a readable label:
+Suppose a button has a yellow background:
 
 ```css
-.tag {
-  background: #fde047;
-  color: #000;
-  padding: 4px 12px;
-  border-radius: 6px;
-}
-
-@supports (color: contrast-color(white)) {
-  .tag {
-    --tag-bg: #1e3a8a;
-    background: var(--tag-bg);
-    color: contrast-color(var(--tag-bg));
-  }
+button {
+  background: yellow;
+  color: contrast-color(yellow);
 }
 ```
 
-`--tag-bg` is a CSS variable holding the background color. In a supporting browser, the dark blue above gets white text. Change it to pale yellow, `#fde047`, and the text becomes black. The `@supports` condition checks whether the browser recognizes the syntax; otherwise, the original yellow background and black text remain.
+This means: "Use a yellow background, and let the browser choose whichever of black or white is easier to read against it." The result is black text on yellow.
+
+Change both occurrences of `yellow` to `darkblue`, and the result becomes white text on dark blue. You must pass the background color to `contrast-color()`; it does not read `background` automatically. This example requires a browser that supports the feature.
 
 ## Choosing text color, not an entire palette
 

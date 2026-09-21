@@ -263,25 +263,14 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
   </header>
   <div class="article-body"><p>做標籤或按鈕時，我常遇到一個小問題：背景換成深藍色，白字很清楚；換成淺黃色，同樣的白字卻幾乎看不到。如果讓使用者自訂底色，文字顏色也要跟著調整。</p>
 <p>2026 年 4 月 7 日發布的 Chrome 147 加入了 <code>contrast-color()</code>。把背景色傳給它，瀏覽器就會在黑色和白色之間，選出與這個顏色對比較高的一個，省去自己用 JavaScript 判斷的步驟。</p>
-<h3 id="chrome-147--一個標籤就能看懂">一個標籤就能看懂</h3>
-<p>假設有一個文章分類標籤：</p>
-<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="html" data-theme="github-light"><code data-language="html" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#24292E">&lt;</span><span style="color:#22863A">span</span><span style="color:#6F42C1"> class</span><span style="color:#24292E">=</span><span style="color:#032F62">&quot;tag&quot;</span><span style="color:#24292E">&gt;前端開發&lt;/</span><span style="color:#22863A">span</span><span style="color:#24292E">&gt;</span></span></code></pre></figure>
-<p>先準備固定的淺黃底、黑字，讓不支援新功能的瀏覽器也能正常顯示：</p>
-<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="css" data-theme="github-light"><code data-language="css" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#6F42C1">.tag</span><span style="color:#24292E"> {</span></span>
-<span data-line=""><span style="color:#005CC5">  background</span><span style="color:#24292E">: </span><span style="color:#005CC5">#fde047</span><span style="color:#24292E">;</span></span>
-<span data-line=""><span style="color:#005CC5">  color</span><span style="color:#24292E">: </span><span style="color:#005CC5">#000</span><span style="color:#24292E">;</span></span>
-<span data-line=""><span style="color:#005CC5">  padding</span><span style="color:#24292E">: </span><span style="color:#005CC5">4</span><span style="color:#D73A49">px</span><span style="color:#005CC5"> 12</span><span style="color:#D73A49">px</span><span style="color:#24292E">;</span></span>
-<span data-line=""><span style="color:#005CC5">  border-radius</span><span style="color:#24292E">: </span><span style="color:#005CC5">6</span><span style="color:#D73A49">px</span><span style="color:#24292E">;</span></span>
-<span data-line=""><span style="color:#24292E">}</span></span>
-<span data-line=""> </span>
-<span data-line=""><span style="color:#D73A49">@supports</span><span style="color:#24292E"> (</span><span style="color:#005CC5">color</span><span style="color:#24292E">: contrast-color(</span><span style="color:#005CC5">white</span><span style="color:#24292E">)) {</span></span>
-<span data-line=""><span style="color:#6F42C1">  .tag</span><span style="color:#24292E"> {</span></span>
-<span data-line=""><span style="color:#E36209">    --tag-bg</span><span style="color:#24292E">: </span><span style="color:#005CC5">#1e3a8a</span><span style="color:#24292E">;</span></span>
-<span data-line=""><span style="color:#005CC5">    background</span><span style="color:#24292E">: </span><span style="color:#005CC5">var</span><span style="color:#24292E">(</span><span style="color:#E36209">--tag-bg</span><span style="color:#24292E">);</span></span>
-<span data-line=""><span style="color:#005CC5">    color</span><span style="color:#24292E">: contrast-color(</span><span style="color:#005CC5">var</span><span style="color:#24292E">(</span><span style="color:#E36209">--tag-bg</span><span style="color:#24292E">));</span></span>
-<span data-line=""><span style="color:#24292E">  }</span></span>
+<h3 id="chrome-147--最簡單的例子">最簡單的例子</h3>
+<p>假設一個按鈕的背景是黃色：</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="css" data-theme="github-light"><code data-language="css" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#22863A">button</span><span style="color:#24292E"> {</span></span>
+<span data-line=""><span style="color:#005CC5">  background</span><span style="color:#24292E">: </span><span style="color:#005CC5">yellow</span><span style="color:#24292E">;</span></span>
+<span data-line=""><span style="color:#005CC5">  color</span><span style="color:#24292E">: contrast-color(</span><span style="color:#005CC5">yellow</span><span style="color:#24292E">);</span></span>
 <span data-line=""><span style="color:#24292E">}</span></span></code></pre></figure>
-<p><code>--tag-bg</code> 是用來存放底色的 CSS 變數。支援時，上面的深藍底會搭配白字；把它改成 <code>#fde047</code> 淺黃色，文字就會選成黑色。<code>@supports</code> 則是先問瀏覽器「你認不認得這個寫法」，不支援就保留前面的黃底黑字。</p>
+<p>這裡的意思是：「背景用黃色，文字請瀏覽器從黑白之間挑一個比較清楚的顏色。」結果就是黃底黑字。</p>
+<p>把兩個 <code>yellow</code> 都改成 <code>darkblue</code>，就會變成深藍底白字。注意要把底色傳給 <code>contrast-color()</code>，它不會自己讀取 <code>background</code>。這個例子需在支援此功能的瀏覽器中使用。</p>
 <h3 id="chrome-147--它幫忙選文字色不會設計整套配色">它幫忙選文字色，不會設計整套配色</h3>
 <p><code>contrast-color()</code> 目前只會選黑或白，不會替你挑品牌色，也不會分析背景照片。它比較的是你傳入的顏色；如果實際背景是漸層、圖片或半透明疊色，仍要確認文字顯示出來是否清楚。</p>
 <p>我覺得它最適合分類標籤、狀態徽章這種小元件。以前換一個底色，還要順手配一次文字色；現在可以把這個判斷交給 CSS，程式更短，用途也很明確。</p></div>

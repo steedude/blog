@@ -12,34 +12,20 @@ export const metadata = {
 
 2026 年 4 月 7 日發布的 Chrome 147 加入了 `contrast-color()`。把背景色傳給它，瀏覽器就會在黑色和白色之間，選出與這個顏色對比較高的一個，省去自己用 JavaScript 判斷的步驟。
 
-## 一個標籤就能看懂
+## 最簡單的例子
 
-假設有一個文章分類標籤：
-
-```html
-<span class="tag">前端開發</span>
-```
-
-先準備固定的淺黃底、黑字，讓不支援新功能的瀏覽器也能正常顯示：
+假設一個按鈕的背景是黃色：
 
 ```css
-.tag {
-  background: #fde047;
-  color: #000;
-  padding: 4px 12px;
-  border-radius: 6px;
-}
-
-@supports (color: contrast-color(white)) {
-  .tag {
-    --tag-bg: #1e3a8a;
-    background: var(--tag-bg);
-    color: contrast-color(var(--tag-bg));
-  }
+button {
+  background: yellow;
+  color: contrast-color(yellow);
 }
 ```
 
-`--tag-bg` 是用來存放底色的 CSS 變數。支援時，上面的深藍底會搭配白字；把它改成 `#fde047` 淺黃色，文字就會選成黑色。`@supports` 則是先問瀏覽器「你認不認得這個寫法」，不支援就保留前面的黃底黑字。
+這裡的意思是：「背景用黃色，文字請瀏覽器從黑白之間挑一個比較清楚的顏色。」結果就是黃底黑字。
+
+把兩個 `yellow` 都改成 `darkblue`，就會變成深藍底白字。注意要把底色傳給 `contrast-color()`，它不會自己讀取 `background`。這個例子需在支援此功能的瀏覽器中使用。
 
 ## 它幫忙選文字色，不會設計整套配色
 
