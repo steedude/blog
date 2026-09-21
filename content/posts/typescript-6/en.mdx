@@ -1,37 +1,25 @@
 export const metadata = {
   slug: "typescript-6",
-  title: "Moving from TypeScript 6 to native TypeScript 7",
-  description: "Use TypeScript 6 to remove old configuration before moving to the Go-based native TypeScript 7 toolchain.",
+  title: "TypeScript 6 is here: why do old settings trigger warnings?",
+  description: "Warnings after an upgrade do not always mean broken code. A simple explanation of why TypeScript 6 asks you to update old settings.",
   publishedAt: "2026-03-23",
   category: "TypeScript",
   categorySlug: "typescript",
-  tags: ["TypeScript", "Migration", "Compiler", "Tooling"],
+  tags: ["TypeScript", "Migration", "Tooling"],
 }
 
-Honestly, I almost skipped the TypeScript 6 announcement. Everyone was waiting for the much faster Go rewrite in version 7; who gets excited about a release devoted to old configuration? Once I started reading the migration details, version 6 felt like the annoying cleaning day before a move. Skip it, and the old clutter simply will not fit into the new house.
+TypeScript 6 was released on March 23, 2026. After upgrading, you might see a message saying a setting will no longer be supported, even though you have not changed your code. Your project may simply still use a setting that TypeScript is retiring.
 
-The team positioned TypeScript 6 as the final release of the old JavaScript codebase while keeping API compatibility with 5.9. Projects can clean up on the familiar compiler before choosing when to switch to native tooling.
+## What are these old settings?
 
-## What TypeScript 6 removes or deprecates
+The project's `tsconfig.json` file tells TypeScript which files to check and how to turn code into JavaScript. Many settings come with the initial project setup and are easy to forget about.
 
-- **`target: es5` is deprecated:** TypeScript's minimum direction moves to ES2015. Products that still require ES5 will need another transpilation step.
+For example, a setting might ask for code that runs in very old browsers. TypeScript 6 starts retiring some older options, so a setting that previously worked can now trigger a warning.
 
-- **Legacy module settings leave:** `amd`, `umd`, `systemjs`, and `none` are unsupported. Old `moduleResolution: node` should move to `nodenext` for Node or `bundler` for a bundler-based project.
+## What should you do about a warning?
 
-- **Interop and strict behavior converge:** `esModuleInterop` and `allowSyntheticDefaultImports` can no longer be disabled, and code is treated as strict mode. Compatibility branches for older environments are disappearing.
+Read which setting the message identifies, then check whether your project still needs it. Think of sorting a drawer of old charging cables: some are useless, while others still power devices you use. Being old is not enough reason to throw everything away.
 
-- **`outFile` is removed:** Vite, Rollup, and esbuild already combine output. TypeScript can focus on type checking and declaration emit.
+If your website only supports newer browsers, updating the relevant setting may make sense. If it still needs older environments, check the alternatives first. For projects using frameworks such as Vue, start with the framework's upgrade guidance.
 
-`ignoreDeprecations: "6.0"` can temporarily silence some warnings, but TypeScript 7 removes the options themselves. It is a transition aid, not a permanent fix.
-
-## The surrounding tools still matter in TypeScript 7
-
-TypeScript 7 uses a native Go compiler and language server, with official full-build improvements commonly around eight to twelve times. Version 7.0 does not yet have a stable programmatic API, however. Ecosystems that embed TypeScript—including Vue, Svelte, Astro, MDX, Angular, and typescript-eslint—may not switch all at once.
-
-The `@typescript/typescript6` compatibility package keeps the old API available during the transition. Some teams may use the TypeScript 7 CLI for whole-project checks while the editor or framework tooling remains on 6. That is not a failed upgrade; a port of this size naturally needs a handover period.
-
-## My take
-
-I see TypeScript 6 as clearing out a house before moving, not as an uninteresting stopgap. Get the project compiling cleanly without `ignoreDeprecations`, then verify editor, lint, and framework plugin support for 7. That is safer than upgrading only because the official performance numbers look impressive.
-
-In practice, I would separate the TypeScript upgrade from updates to `@types/*`. Moving both at once and receiving a hundred errors makes it difficult to distinguish compiler behavior from library definitions or framework types. Establish a warning-free 6.x baseline, then introduce the native CLI as a non-blocking CI check before making it authoritative.
+One role of TypeScript 6 is to prepare projects for TypeScript 7. I would first understand the settings behind the warnings, adjust them, and confirm that the checks and website still work before upgrading further.

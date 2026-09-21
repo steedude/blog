@@ -1,42 +1,25 @@
 export const metadata = {
-  "slug": "typescript-6",
-  "title": "從 TypeScript 6 過渡到原生 TypeScript 7",
-  "description": "從 TypeScript 6 清理舊設定，逐步過渡到以 Go 打造的原生 TypeScript 7。",
-  "publishedAt": "2026-03-23",
-  "category": "TypeScript",
-  "categorySlug": "typescript",
-  "tags": [
-    "TypeScript",
-    "Migration",
-    "Compiler",
-    "Tooling"
-  ]
+  slug: "typescript-6",
+  title: "TypeScript 6 發布：為什麼升級後，舊設定會出現警告？",
+  description: "升級後出現警告，不一定是程式碼寫錯。用簡單例子看懂 TypeScript 6 為什麼提醒你更新舊設定。",
+  publishedAt: "2026-03-23",
+  category: "TypeScript",
+  categorySlug: "typescript",
+  tags: ["TypeScript", "Migration", "Tooling"],
 }
 
-老實說，TypeScript 6 公布時我也差點直接跳過。大家都在等那個用 Go 重寫、號稱快很多的 7，誰會特別興奮一個負責清理舊設定的版本？但我真的開始看 migration 時，才發現 6 很像搬家前那個討厭卻不能省的整理日：不先丟掉這些東西，新家根本搬不進去。
+TypeScript 6 在 2026 年 3 月 23 日發布。升級後，即使沒改程式碼，也可能看到「這個設定即將停止支援」的提醒。這不一定代表程式寫錯，而是專案還留著新版準備淘汰的設定。
 
-官方把 TypeScript 6 定位成舊 JavaScript codebase 的最後一個版本，同時維持與 5.9 API 相容。這讓團隊可以先在熟悉的 compiler 上清理問題，再決定何時切到新的原生工具。
+## 舊設定是什麼？
 
-## TypeScript 6 先清掉了什麼
+專案裡的 `tsconfig.json` 是 TypeScript 的設定檔，告訴它要檢查哪些檔案，以及如何把程式轉成 JavaScript。很多設定是建立專案時就帶進來的，平常不一定會注意。
 
-- **`target: es5` 被棄用：**  TypeScript 的最低方向往 ES2015 移動。若產品真的還要輸出 ES5，之後要交給其他編譯工具處理。
+例如，裡面可能有一項要求「產生能在很舊的瀏覽器執行的程式碼」。TypeScript 6 開始淘汰其中一些舊選項，因此以前能用的設定，升級後就可能出現提醒。
 
-- **舊的 module 設定退場：**  `amd`、`umd`、`systemjs` 和 `none` 不再支援；舊的 `moduleResolution: node` 也應改成面向 Node 的 `nodenext`，或給 bundler 使用的 `bundler`。
+## 看到警告要怎麼辦？
 
-- **interop 與 strict 行為收斂：**  `esModuleInterop`、`allowSyntheticDefaultImports` 不再能設為 false，程式也一律按 strict mode 看待。過去為相容舊環境留下的分岔逐漸被收掉。
+先看訊息指出哪個設定，再確認自己的專案還需不需要它。就像整理抽屜裡的舊充電線：有些早就用不到，有些仍連著正在用的設備，不能看到舊的就全部丟掉。
 
-- **`outFile` 移除：**  合併輸出早已有 Vite、Rollup、esbuild 等 bundler 處理，TypeScript 更專注在型別檢查與 declaration emit。
+如果網站只支援較新的瀏覽器，可以評估更新相關設定；如果仍要支援舊環境，就要先確認替代做法。使用 Vue 等框架的專案，也可以先參考框架提供的升級說明。
 
-TypeScript 6 可以暫時用 `ignoreDeprecations: "6.0"` 壓住部分警告，但 TypeScript 7 會直接移除這些選項。這個設定比較像緩衝，不是長期解法。
-
-## 到了 TypeScript 7，還要注意周邊工具
-
-TypeScript 7 改用 Go 的原生 compiler 和 language server，官方公布的完整 build 常見改善約為 8 到 12 倍。不過 7.0 還沒有穩定的 programmatic API，因此 Vue、Svelte、Astro、MDX、Angular，以及 typescript-eslint 這類會把 TypeScript 嵌進自己工具的生態，未必能立刻完整切換。
-
-官方提供 `@typescript/typescript6` 相容套件，讓專案在過渡期保留舊 API。也就是說，有些團隊可能先用 TypeScript 7 的 CLI 做全專案檢查，編輯器或 framework tooling 暫時仍留在 6；這不是升級失敗，而是原生移植規模太大，需要一段交接期。
-
-## 我的看法
-
-我會把 TypeScript 6 當成搬家前整理雜物，而不是一版無聊的過場。先讓專案在 6 上不靠 `ignoreDeprecations` 也能乾淨編譯，再確認 editor、lint 和 framework plugin 對 7 的支援，會比只看官方速度數字就直接升級安心很多。
-
-實務上我會先把 TypeScript 版本和 `@types/*` 更新拆開。兩邊一起升，突然多出一百個錯誤時很難判斷是 compiler 行為、lib 定義，還是 framework 型別改變。先建立一個零警告的 6.x 基準，再讓原生 CLI 進 CI 做不擋合併的檢查，會是一條比較舒服的過渡路線。
+TypeScript 6 的其中一個任務，就是替 TypeScript 7 做準備。我會先把警告指向的設定弄清楚，調整後確認檢查和網站運作正常，再繼續升級。

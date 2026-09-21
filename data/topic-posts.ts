@@ -10,8 +10,6 @@ import TypescriptNativePortZh, { metadata as TypescriptNativePortZhMetadata } fr
 import TypescriptNativePortEn, { metadata as TypescriptNativePortEnMetadata } from "@/content/posts/typescript-native-port/en.mdx";
 import CustomSelectZh, { metadata as CustomSelectZhMetadata } from "@/content/posts/custom-select/zh-TW.mdx";
 import CustomSelectEn, { metadata as CustomSelectEnMetadata } from "@/content/posts/custom-select/en.mdx";
-import Angular20Zh, { metadata as Angular20ZhMetadata } from "@/content/posts/angular-20/zh-TW.mdx";
-import Angular20En, { metadata as Angular20EnMetadata } from "@/content/posts/angular-20/en.mdx";
 import ChromeIo2025Zh, { metadata as ChromeIo2025ZhMetadata } from "@/content/posts/chrome-io-2025/zh-TW.mdx";
 import ChromeIo2025En, { metadata as ChromeIo2025EnMetadata } from "@/content/posts/chrome-io-2025/en.mdx";
 import Node24Zh, { metadata as Node24ZhMetadata } from "@/content/posts/node-24/zh-TW.mdx";
@@ -30,8 +28,6 @@ import NuxtUiV4Zh, { metadata as NuxtUiV4ZhMetadata } from "@/content/posts/nuxt
 import NuxtUiV4En, { metadata as NuxtUiV4EnMetadata } from "@/content/posts/nuxt-ui-v4/en.mdx";
 import ReactFoundationZh, { metadata as ReactFoundationZhMetadata } from "@/content/posts/react-foundation/zh-TW.mdx";
 import ReactFoundationEn, { metadata as ReactFoundationEnMetadata } from "@/content/posts/react-foundation/en.mdx";
-import Angular21Zh, { metadata as Angular21ZhMetadata } from "@/content/posts/angular-21/zh-TW.mdx";
-import Angular21En, { metadata as Angular21EnMetadata } from "@/content/posts/angular-21/en.mdx";
 import NpmClassicTokenZh, { metadata as NpmClassicTokenZhMetadata } from "@/content/posts/npm-classic-token/zh-TW.mdx";
 import NpmClassicTokenEn, { metadata as NpmClassicTokenEnMetadata } from "@/content/posts/npm-classic-token/en.mdx";
 import React2shellZh, { metadata as React2shellZhMetadata } from "@/content/posts/react2shell/zh-TW.mdx";
@@ -76,8 +72,6 @@ export const topicPosts: Post[] = [
   createPost(Locale.EN, TypescriptNativePortEn, TypescriptNativePortEnMetadata),
   createPost(Locale.ZH_TW, CustomSelectZh, CustomSelectZhMetadata),
   createPost(Locale.EN, CustomSelectEn, CustomSelectEnMetadata),
-  createPost(Locale.ZH_TW, Angular20Zh, Angular20ZhMetadata),
-  createPost(Locale.EN, Angular20En, Angular20EnMetadata),
   createPost(Locale.ZH_TW, ChromeIo2025Zh, ChromeIo2025ZhMetadata),
   createPost(Locale.EN, ChromeIo2025En, ChromeIo2025EnMetadata),
   createPost(Locale.ZH_TW, Node24Zh, Node24ZhMetadata),
@@ -96,8 +90,6 @@ export const topicPosts: Post[] = [
   createPost(Locale.EN, NuxtUiV4En, NuxtUiV4EnMetadata),
   createPost(Locale.ZH_TW, ReactFoundationZh, ReactFoundationZhMetadata),
   createPost(Locale.EN, ReactFoundationEn, ReactFoundationEnMetadata),
-  createPost(Locale.ZH_TW, Angular21Zh, Angular21ZhMetadata),
-  createPost(Locale.EN, Angular21En, Angular21EnMetadata),
   createPost(Locale.ZH_TW, NpmClassicTokenZh, NpmClassicTokenZhMetadata),
   createPost(Locale.EN, NpmClassicTokenEn, NpmClassicTokenEnMetadata),
   createPost(Locale.ZH_TW, React2shellZh, React2shellZhMetadata),

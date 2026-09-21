@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Jason 部落格的 34 篇中文文章完整合集，支援離線閱讀、搜尋與列印。">
-<title>Jason 的中文文章集｜34 篇完整文章</title>
+<meta name="description" content="Jason 部落格的 32 篇中文文章完整合集，支援離線閱讀、搜尋與列印。">
+<title>Jason 的中文文章集｜32 篇完整文章</title>
 <style>
 :root{color-scheme:light;--paper:#fffefb;--bg:#f2efe8;--ink:#242b29;--muted:#67716c;--line:#dddcd3;--accent:#285e4b;--soft:#e9f0e9;font-family:system-ui,-apple-system,"Microsoft JhengHei",sans-serif}
 *{box-sizing:border-box}html{scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--ink)}a{color:var(--accent);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}button,input{font:inherit}button{cursor:pointer}button:disabled{cursor:default;opacity:.5}:focus-visible{outline:3px solid #c38332;outline-offset:4px}[hidden]{display:none!important}
@@ -18,8 +18,8 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </style>
 </head>
 <body id="top">
-<header class="toolbar"><a class="brand" href="#top">jason’s blog</a><span class="count" id="result-count" role="status" aria-live="polite">共 34 篇文章</span><div class="search" role="search"><label for="article-search" hidden>搜尋標題與全文</label><input id="article-search" type="search" aria-label="搜尋標題與全文" placeholder="搜尋標題、技術或內文…"><button class="button" id="clear-search" type="button" disabled>清除</button></div><button class="button print-button" id="print" type="button">列印目前結果</button></header>
-<div class="layout"><nav class="sidebar" id="contents" aria-label="文章目錄"><h2>文章目錄</h2><p>34 篇完整文章 · 由新到舊</p><ol class="toc"><li data-entry="chaindrop-npm"><a href="#chaindrop-npm"><span class="toc-number">01</span><span>ChainDrop：當 npm 惡意套件開始自己擴散<small>2026-08-04 · 資訊安全</small></span></a></li>
+<header class="toolbar"><a class="brand" href="#top">jason’s blog</a><span class="count" id="result-count" role="status" aria-live="polite">共 32 篇文章</span><div class="search" role="search"><label for="article-search" hidden>搜尋標題與全文</label><input id="article-search" type="search" aria-label="搜尋標題與全文" placeholder="搜尋標題、技術或內文…"><button class="button" id="clear-search" type="button" disabled>清除</button></div><button class="button print-button" id="print" type="button">列印目前結果</button></header>
+<div class="layout"><nav class="sidebar" id="contents" aria-label="文章目錄"><h2>文章目錄</h2><p>32 篇完整文章 · 由新到舊</p><ol class="toc"><li data-entry="chaindrop-npm"><a href="#chaindrop-npm"><span class="toc-number">01</span><span>ChainDrop：當 npm 惡意套件開始自己擴散<small>2026-08-04 · 資訊安全</small></span></a></li>
 <li data-entry="coldcard-rng"><a href="#coldcard-rng"><span class="toc-number">02</span><span>COLDCARD 弱亂數漏洞與錢包種子安全<small>2026-07-29 · 資訊安全</small></span></a></li>
 <li data-entry="nuxt-4-5"><a href="#nuxt-4-5"><span class="toc-number">03</span><span>Nuxt 4.5 的 Vite、Rspack 與 SSR Streaming<small>2026-07-21 · Nuxt</small></span></a></li>
 <li data-entry="react-compiler"><a href="#react-compiler"><span class="toc-number">04</span><span>React Compiler 值得現在導入嗎？先看它真正解決的問題<small>2026-07-12 · React</small></span></a></li>
@@ -28,32 +28,30 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <li data-entry="astro-7"><a href="#astro-7"><span class="toc-number">07</span><span>Astro 7 的 Rust Compiler 與 MDX 更新<small>2026-06-16 · 內容網站</small></span></a></li>
 <li data-entry="webmcp"><a href="#webmcp"><span class="toc-number">08</span><span>WebMCP 與可供 Agent 操作的網站<small>2026-05-19 · AI 開發工具</small></span></a></li>
 <li data-entry="chrome-147"><a href="#chrome-147"><span class="toc-number">09</span><span>按鈕換底色，文字也能自動選黑白：CSS contrast-color()<small>2026-04-07 · Web Platform</small></span></a></li>
-<li data-entry="typescript-6"><a href="#typescript-6"><span class="toc-number">10</span><span>從 TypeScript 6 過渡到原生 TypeScript 7<small>2026-03-23 · TypeScript</small></span></a></li>
+<li data-entry="typescript-6"><a href="#typescript-6"><span class="toc-number">10</span><span>TypeScript 6 發布：為什麼升級後，舊設定會出現警告？<small>2026-03-23 · TypeScript</small></span></a></li>
 <li data-entry="vite-8-rolldown"><a href="#vite-8-rolldown"><span class="toc-number">11</span><span>Vite 8 為什麼改用 Rolldown<small>2026-03-10 · 前端工具</small></span></a></li>
 <li data-entry="matt-pocock-skills"><a href="#matt-pocock-skills"><span class="toc-number">12</span><span>拆解 Matt Pocock 的 Agent Skills<small>2026-02-18 · AI 開發工具</small></span></a></li>
 <li data-entry="astro-6-beta"><a href="#astro-6-beta"><span class="toc-number">13</span><span>Astro 6 Beta 的內容網站開發體驗<small>2026-01-13 · 內容網站</small></span></a></li>
 <li data-entry="server-components-retrospective"><a href="#server-components-retrospective"><span class="toc-number">14</span><span>回頭看 Server Components：當年的期待實現了多少？<small>2025-12-18 · 趨勢回顧</small></span></a></li>
 <li data-entry="react2shell"><a href="#react2shell"><span class="toc-number">15</span><span>React2Shell 與 React Server Components 的攻擊面<small>2025-12-03 · 資訊安全</small></span></a></li>
-<li data-entry="angular-21"><a href="#angular-21"><span class="toc-number">16</span><span>Angular 21 的 Signals 與 Agent 開發工具<small>2025-11-19 · Angular</small></span></a></li>
-<li data-entry="web-vitals"><a href="#web-vitals"><span class="toc-number">17</span><span>Core Web Vitals 之外，我會怎麼觀察真實使用體驗<small>2025-11-09 · 效能</small></span></a></li>
-<li data-entry="npm-classic-token"><a href="#npm-classic-token"><span class="toc-number">18</span><span>npm Classic Token 退場與套件發布安全<small>2025-11-05 · 資訊安全</small></span></a></li>
-<li data-entry="web-platform-baseline"><a href="#web-platform-baseline"><span class="toc-number">19</span><span>Baseline 如何改變我們判斷瀏覽器支援度的方式<small>2025-10-21 · Web Platform</small></span></a></li>
-<li data-entry="react-foundation"><a href="#react-foundation"><span class="toc-number">20</span><span>React Foundation 與 React 的治理轉型<small>2025-10-07 · React</small></span></a></li>
-<li data-entry="nuxt-ui-v4"><a href="#nuxt-ui-v4"><span class="toc-number">21</span><span>Nuxt UI v4 與自建 Design System 的取捨<small>2025-09-24 · Nuxt</small></span></a></li>
-<li data-entry="nx-s1ngularity"><a href="#nx-s1ngularity"><span class="toc-number">22</span><span>S1ngularity：Nx 套件供應鏈攻擊始末<small>2025-08-26 · 資訊安全</small></span></a></li>
-<li data-entry="tailwind-plus-vanilla-js"><a href="#tailwind-plus-vanilla-js"><span class="toc-number">23</span><span>Tailwind Plus 與框架無關的 UI 元件<small>2025-07-22 · CSS</small></span></a></li>
-<li data-entry="nuxt-4"><a href="#nuxt-4"><span class="toc-number">24</span><span>Nuxt 4 的主要變更與升級筆記<small>2025-07-15 · Nuxt</small></span></a></li>
-<li data-entry="vite-7-baseline"><a href="#vite-7-baseline"><span class="toc-number">25</span><span>Vite 7 的瀏覽器支援與 Baseline<small>2025-06-24 · 前端工具</small></span></a></li>
-<li data-entry="safari-26-web-platform"><a href="#safari-26-web-platform"><span class="toc-number">26</span><span>Safari 26 新增的 CSS 與 Web API<small>2025-06-09 · Web Platform</small></span></a></li>
-<li data-entry="angular-20"><a href="#angular-20"><span class="toc-number">27</span><span>從 Angular 20 看現代 Angular 的開發方式<small>2025-05-28 · Angular</small></span></a></li>
-<li data-entry="chrome-io-2025"><a href="#chrome-io-2025"><span class="toc-number">28</span><span>Chrome I/O 2025 的 Web Platform 更新<small>2025-05-20 · Web Platform</small></span></a></li>
-<li data-entry="node-24"><a href="#node-24"><span class="toc-number">29</span><span>Node.js 24 對前端工具鏈的影響<small>2025-05-06 · 前端工具</small></span></a></li>
-<li data-entry="custom-select"><a href="#custom-select"><span class="toc-number">30</span><span>原生 select 的樣式限制終於鬆綁<small>2025-04-02 · Web Platform</small></span></a></li>
-<li data-entry="typescript-native-port"><a href="#typescript-native-port"><span class="toc-number">31</span><span>TypeScript 原生編譯器移植計畫<small>2025-03-11 · TypeScript</small></span></a></li>
-<li data-entry="bybit-safe-ui"><a href="#bybit-safe-ui"><span class="toc-number">32</span><span>Bybit 事件與冷錢包簽署流程的前端風險<small>2025-02-21 · 資訊安全</small></span></a></li>
-<li data-entry="cra-afterlife"><a href="#cra-afterlife"><span class="toc-number">33</span><span>CRA 退場後的 React 專案選擇<small>2025-02-14 · React</small></span></a></li>
-<li data-entry="tailwind-v4-css-first"><a href="#tailwind-v4-css-first"><span class="toc-number">34</span><span>Tailwind CSS v4 的 CSS-first 設定方式<small>2025-01-21 · CSS</small></span></a></li></ol></nav>
-<main><header class="cover"><p class="eyebrow">前端開發 · 網頁技術 · 資訊安全</p><h1>Jason 的中文文章集</h1><p>把所有中文文章放在一起，隨時翻閱。可用目錄跳轉，也能搜尋整份內文；程式碼、表格和原有資料來源皆保留。</p><p class="meta">文章日期 2025-01-21 — 2026-08-04<br>匯出日期 2026-09-21 · 34 篇 · 單一檔案，可離線閱讀</p><div class="rule"></div></header>
+<li data-entry="web-vitals"><a href="#web-vitals"><span class="toc-number">16</span><span>Core Web Vitals 之外，我會怎麼觀察真實使用體驗<small>2025-11-09 · 效能</small></span></a></li>
+<li data-entry="npm-classic-token"><a href="#npm-classic-token"><span class="toc-number">17</span><span>npm Classic Token 退場與套件發布安全<small>2025-11-05 · 資訊安全</small></span></a></li>
+<li data-entry="web-platform-baseline"><a href="#web-platform-baseline"><span class="toc-number">18</span><span>Baseline 如何改變我們判斷瀏覽器支援度的方式<small>2025-10-21 · Web Platform</small></span></a></li>
+<li data-entry="react-foundation"><a href="#react-foundation"><span class="toc-number">19</span><span>React Foundation 與 React 的治理轉型<small>2025-10-07 · React</small></span></a></li>
+<li data-entry="nuxt-ui-v4"><a href="#nuxt-ui-v4"><span class="toc-number">20</span><span>Nuxt UI v4 與自建 Design System 的取捨<small>2025-09-24 · Nuxt</small></span></a></li>
+<li data-entry="nx-s1ngularity"><a href="#nx-s1ngularity"><span class="toc-number">21</span><span>S1ngularity：Nx 套件供應鏈攻擊始末<small>2025-08-26 · 資訊安全</small></span></a></li>
+<li data-entry="tailwind-plus-vanilla-js"><a href="#tailwind-plus-vanilla-js"><span class="toc-number">22</span><span>Tailwind Plus 與框架無關的 UI 元件<small>2025-07-22 · CSS</small></span></a></li>
+<li data-entry="nuxt-4"><a href="#nuxt-4"><span class="toc-number">23</span><span>Nuxt 4 的主要變更與升級筆記<small>2025-07-15 · Nuxt</small></span></a></li>
+<li data-entry="vite-7-baseline"><a href="#vite-7-baseline"><span class="toc-number">24</span><span>Vite 7 的瀏覽器支援與 Baseline<small>2025-06-24 · 前端工具</small></span></a></li>
+<li data-entry="safari-26-web-platform"><a href="#safari-26-web-platform"><span class="toc-number">25</span><span>Safari 26 新增的 CSS 與 Web API<small>2025-06-09 · Web Platform</small></span></a></li>
+<li data-entry="chrome-io-2025"><a href="#chrome-io-2025"><span class="toc-number">26</span><span>Chrome I/O 2025 的 Web Platform 更新<small>2025-05-20 · Web Platform</small></span></a></li>
+<li data-entry="node-24"><a href="#node-24"><span class="toc-number">27</span><span>Node.js 24 對前端工具鏈的影響<small>2025-05-06 · 前端工具</small></span></a></li>
+<li data-entry="custom-select"><a href="#custom-select"><span class="toc-number">28</span><span>原生 select 的樣式限制終於鬆綁<small>2025-04-02 · Web Platform</small></span></a></li>
+<li data-entry="typescript-native-port"><a href="#typescript-native-port"><span class="toc-number">29</span><span>TypeScript 原生編譯器移植計畫<small>2025-03-11 · TypeScript</small></span></a></li>
+<li data-entry="bybit-safe-ui"><a href="#bybit-safe-ui"><span class="toc-number">30</span><span>Bybit 事件與冷錢包簽署流程的前端風險<small>2025-02-21 · 資訊安全</small></span></a></li>
+<li data-entry="cra-afterlife"><a href="#cra-afterlife"><span class="toc-number">31</span><span>CRA 退場後的 React 專案選擇<small>2025-02-14 · React</small></span></a></li>
+<li data-entry="tailwind-v4-css-first"><a href="#tailwind-v4-css-first"><span class="toc-number">32</span><span>Tailwind CSS v4 的 CSS-first 設定方式<small>2025-01-21 · CSS</small></span></a></li></ol></nav>
+<main><header class="cover"><p class="eyebrow">前端開發 · 網頁技術 · 資訊安全</p><h1>Jason 的中文文章集</h1><p>把所有中文文章放在一起，隨時翻閱。可用目錄跳轉，也能搜尋整份內文；程式碼、表格和原有資料來源皆保留。</p><p class="meta">文章日期 2025-01-21 — 2026-08-04<br>匯出日期 2026-09-21 · 32 篇 · 單一檔案，可離線閱讀</p><div class="rule"></div></header>
 <p class="empty" id="empty" hidden>找不到符合的文章，請換個關鍵字或清除搜尋。</p>
 <article id="chaindrop-npm" aria-labelledby="title-chaindrop-npm">
   <header class="article-header">
@@ -280,35 +278,19 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <article id="typescript-6" aria-labelledby="title-typescript-6">
   <header class="article-header">
     <p class="eyebrow">第 10 篇 · TypeScript</p>
-    <h2 id="title-typescript-6">從 TypeScript 6 過渡到原生 TypeScript 7</h2>
-    <p class="description">從 TypeScript 6 清理舊設定，逐步過渡到以 Go 打造的原生 TypeScript 7。</p>
+    <h2 id="title-typescript-6">TypeScript 6 發布：為什麼升級後，舊設定會出現警告？</h2>
+    <p class="description">升級後出現警告，不一定是程式碼寫錯。用簡單例子看懂 TypeScript 6 為什麼提醒你更新舊設定。</p>
     <p class="date">發布 <time datetime="2026-03-23">2026-03-23</time></p>
-    <div class="tags"><span>TypeScript</span><span>Migration</span><span>Compiler</span><span>Tooling</span></div>
+    <div class="tags"><span>TypeScript</span><span>Migration</span><span>Tooling</span></div>
   </header>
-  <div class="article-body"><p>老實說，TypeScript 6 公布時我也差點直接跳過。大家都在等那個用 Go 重寫、號稱快很多的 7，誰會特別興奮一個負責清理舊設定的版本？但我真的開始看 migration 時，才發現 6 很像搬家前那個討厭卻不能省的整理日：不先丟掉這些東西，新家根本搬不進去。</p>
-<p>官方把 TypeScript 6 定位成舊 JavaScript codebase 的最後一個版本，同時維持與 5.9 API 相容。這讓團隊可以先在熟悉的 compiler 上清理問題，再決定何時切到新的原生工具。</p>
-<h3 id="typescript-6--typescript-6-先清掉了什麼">TypeScript 6 先清掉了什麼</h3>
-<ul>
-<li>
-<p><strong><code>target: es5</code> 被棄用：</strong>  TypeScript 的最低方向往 ES2015 移動。若產品真的還要輸出 ES5，之後要交給其他編譯工具處理。</p>
-</li>
-<li>
-<p><strong>舊的 module 設定退場：</strong>  <code>amd</code>、<code>umd</code>、<code>systemjs</code> 和 <code>none</code> 不再支援；舊的 <code>moduleResolution: node</code> 也應改成面向 Node 的 <code>nodenext</code>，或給 bundler 使用的 <code>bundler</code>。</p>
-</li>
-<li>
-<p><strong>interop 與 strict 行為收斂：</strong>  <code>esModuleInterop</code>、<code>allowSyntheticDefaultImports</code> 不再能設為 false，程式也一律按 strict mode 看待。過去為相容舊環境留下的分岔逐漸被收掉。</p>
-</li>
-<li>
-<p><strong><code>outFile</code> 移除：</strong>  合併輸出早已有 Vite、Rollup、esbuild 等 bundler 處理，TypeScript 更專注在型別檢查與 declaration emit。</p>
-</li>
-</ul>
-<p>TypeScript 6 可以暫時用 <code>ignoreDeprecations: &quot;6.0&quot;</code> 壓住部分警告，但 TypeScript 7 會直接移除這些選項。這個設定比較像緩衝，不是長期解法。</p>
-<h3 id="typescript-6--到了-typescript-7還要注意周邊工具">到了 TypeScript 7，還要注意周邊工具</h3>
-<p>TypeScript 7 改用 Go 的原生 compiler 和 language server，官方公布的完整 build 常見改善約為 8 到 12 倍。不過 7.0 還沒有穩定的 programmatic API，因此 Vue、Svelte、Astro、MDX、Angular，以及 typescript-eslint 這類會把 TypeScript 嵌進自己工具的生態，未必能立刻完整切換。</p>
-<p>官方提供 <code>@typescript/typescript6</code> 相容套件，讓專案在過渡期保留舊 API。也就是說，有些團隊可能先用 TypeScript 7 的 CLI 做全專案檢查，編輯器或 framework tooling 暫時仍留在 6；這不是升級失敗，而是原生移植規模太大，需要一段交接期。</p>
-<h3 id="typescript-6--我的看法">我的看法</h3>
-<p>我會把 TypeScript 6 當成搬家前整理雜物，而不是一版無聊的過場。先讓專案在 6 上不靠 <code>ignoreDeprecations</code> 也能乾淨編譯，再確認 editor、lint 和 framework plugin 對 7 的支援，會比只看官方速度數字就直接升級安心很多。</p>
-<p>實務上我會先把 TypeScript 版本和 <code>@types/*</code> 更新拆開。兩邊一起升，突然多出一百個錯誤時很難判斷是 compiler 行為、lib 定義，還是 framework 型別改變。先建立一個零警告的 6.x 基準，再讓原生 CLI 進 CI 做不擋合併的檢查，會是一條比較舒服的過渡路線。</p></div>
+  <div class="article-body"><p>TypeScript 6 在 2026 年 3 月 23 日發布。升級後，即使沒改程式碼，也可能看到「這個設定即將停止支援」的提醒。這不一定代表程式寫錯，而是專案還留著新版準備淘汰的設定。</p>
+<h3 id="typescript-6--舊設定是什麼">舊設定是什麼？</h3>
+<p>專案裡的 <code>tsconfig.json</code> 是 TypeScript 的設定檔，告訴它要檢查哪些檔案，以及如何把程式轉成 JavaScript。很多設定是建立專案時就帶進來的，平常不一定會注意。</p>
+<p>例如，裡面可能有一項要求「產生能在很舊的瀏覽器執行的程式碼」。TypeScript 6 開始淘汰其中一些舊選項，因此以前能用的設定，升級後就可能出現提醒。</p>
+<h3 id="typescript-6--看到警告要怎麼辦">看到警告要怎麼辦？</h3>
+<p>先看訊息指出哪個設定，再確認自己的專案還需不需要它。就像整理抽屜裡的舊充電線：有些早就用不到，有些仍連著正在用的設備，不能看到舊的就全部丟掉。</p>
+<p>如果網站只支援較新的瀏覽器，可以評估更新相關設定；如果仍要支援舊環境，就要先確認替代做法。使用 Vue 等框架的專案，也可以先參考框架提供的升級說明。</p>
+<p>TypeScript 6 的其中一個任務，就是替 TypeScript 7 做準備。我會先把警告指向的設定弄清楚，調整後確認檢查和網站運作正常，再繼續升級。</p></div>
   <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/" target="_blank" rel="noreferrer">Announcing TypeScript 6.0</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#vite-8-rolldown">下一篇 →</a></footer>
 </article>
@@ -433,31 +415,11 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <p>如果公告發布時我正在維護專案，第一輪會先列出所有 production deployment 的 framework 版本，而不是只看主分支的 <code>package.json</code>。舊 preview、暫停更新的活動站和某個忘記下線的 branch deployment，都可能還在公開服務。修補完成也要重新部署，lockfile 更新但線上 image 沒換，等於什麼都沒做。</p>
 <p>後續才是檢查 WAF、log 和 secret rotation。這個順序聽起來很普通，但嚴重漏洞發生時最怕大家同時研究細節，卻沒有人先把可被攻擊的版本真正換掉。</p></div>
   <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://github.com/advisories/GHSA-9qr9-h5gf-34mp" target="_blank" rel="noreferrer">GitHub Advisory: React Flight protocol remote code execution</a></li></ul></section>
-  <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#angular-21">下一篇 →</a></footer>
-</article>
-<article id="angular-21" aria-labelledby="title-angular-21">
-  <header class="article-header">
-    <p class="eyebrow">第 16 篇 · Angular</p>
-    <h2 id="title-angular-21">Angular 21 的 Signals 與 Agent 開發工具</h2>
-    <p class="description">Angular 21 如何同時更新表單、無障礙、測試與 AI 輔助開發。</p>
-    <p class="date">發布 <time datetime="2025-11-19">2025-11-19</time></p>
-    <div class="tags"><span>Angular</span><span>Signal Forms</span><span>Angular Aria</span><span>Vitest</span><span>MCP</span></div>
-  </header>
-  <div class="article-body"><p>我第一次掃 Angular 21 的 release note 有點看不懂主題：一下是表單，一下是無障礙，後面居然還接了 MCP。像是幾個團隊各自把功能塞進同一班車。後來逐項看，才發現它們都在處理同一種麻煩——那些每個 Angular 專案都要做、卻總是重複花力氣的基礎工作。</p>
-<p>Angular 21 同時碰了幾個不同方向：Signal Forms 處理表單狀態、Angular Aria 提供無障礙互動基礎、Vitest 成為更重要的測試工具，另外還加入給 AI 工具使用的 MCP Server。</p>
-<p>把它們放在一起看，其實都是在減少開發者重複處理基礎工作。表單有較一致的狀態方式、常見互動不用從零補無障礙，而 AI 助手也比較有機會讀到正確的 Angular 文件。</p>
-<p>這些功能不一定每個都要立刻導入，但可以看出 Angular 的更新已不只追求框架功能，也開始處理測試、AI 輔助和使用者體驗。</p>
-<p>其中我覺得 MCP Server 很能代表 2025 年的變化。過去文件只要讓人搜尋得到就好，現在還要考慮 agent 能不能拿到正確版本、辨識推薦寫法。它不會取代文件，但會讓「文件的讀者」多一種。</p>
-<p>Signal Forms 則比較貼近日常。表單一直是 Angular 很完整、同時也容易顯得複雜的部分，新方案把狀態往 Signals 靠攏。舊 Reactive Forms 不會因此立刻消失，大型專案也不適合只因為新 API 就全面改寫。</p>
-<p>Angular Aria 的方向也滿務實：官方提供互動和無障礙行為，視覺交給產品自己處理。這和整套有固定外觀的元件庫不同，對已有 Design System 的團隊會比較好接。</p>
-<p>我會把這幾項功能分開導入，而不是因為它們同版發布就綁成一次 migration。Vitest 可以先從新測試開始，Aria 挑一個互動元件驗證，Signal Forms 則要等表單規格和第三方控制項都能配合。release note 是一起寫的，專案風險不需要一起承擔。</p>
-<p>MCP 也要用同樣標準看待：它給 agent 更多上下文，並不代表產出的程式已被驗證。真正有價值的是減少查錯版本文件的機會，最後仍要靠 typecheck、測試和 code review 決定能不能合併。</p></div>
-  <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://angular.dev/events/v21" target="_blank" rel="noreferrer">Angular v21 release</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#web-vitals">下一篇 →</a></footer>
 </article>
 <article id="web-vitals" aria-labelledby="title-web-vitals">
   <header class="article-header">
-    <p class="eyebrow">第 17 篇 · 效能</p>
+    <p class="eyebrow">第 16 篇 · 效能</p>
     <h2 id="title-web-vitals">Core Web Vitals 之外，我會怎麼觀察真實使用體驗</h2>
     <p class="description">指標不是分數遊戲。從使用者任務、裝置差異與真實監控重新理解前端效能。</p>
     <p class="date">發布 <time datetime="2025-11-09">2025-11-09</time></p>
@@ -486,7 +448,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="npm-classic-token" aria-labelledby="title-npm-classic-token">
   <header class="article-header">
-    <p class="eyebrow">第 18 篇 · 資訊安全</p>
+    <p class="eyebrow">第 17 篇 · 資訊安全</p>
     <h2 id="title-npm-classic-token">npm Classic Token 退場與套件發布安全</h2>
     <p class="description">npm Classic Token 退場後，套件發布流程為什麼要走向短效憑證。</p>
     <p class="date">發布 <time datetime="2025-11-05">2025-11-05</time></p>
@@ -507,7 +469,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="web-platform-baseline" aria-labelledby="title-web-platform-baseline">
   <header class="article-header">
-    <p class="eyebrow">第 19 篇 · Web Platform</p>
+    <p class="eyebrow">第 18 篇 · Web Platform</p>
     <h2 id="title-web-platform-baseline">Baseline 如何改變我們判斷瀏覽器支援度的方式</h2>
     <p class="description">與其只問能不能用，不如建立一致的支援基準，讓產品與工程討論更精確。</p>
     <p class="date">發布 <time datetime="2025-10-21">2025-10-21</time></p>
@@ -529,7 +491,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="react-foundation" aria-labelledby="title-react-foundation">
   <header class="article-header">
-    <p class="eyebrow">第 20 篇 · React</p>
+    <p class="eyebrow">第 19 篇 · React</p>
     <h2 id="title-react-foundation">React Foundation 與 React 的治理轉型</h2>
     <p class="description">React Foundation 不會直接改變 API，卻可能影響 React 長期的治理與資源。</p>
     <p class="date">發布 <time datetime="2025-10-07">2025-10-07</time></p>
@@ -550,7 +512,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="nuxt-ui-v4" aria-labelledby="title-nuxt-ui-v4">
   <header class="article-header">
-    <p class="eyebrow">第 21 篇 · Nuxt</p>
+    <p class="eyebrow">第 20 篇 · Nuxt</p>
     <h2 id="title-nuxt-ui-v4">Nuxt UI v4 與自建 Design System 的取捨</h2>
     <p class="description">Nuxt UI v4、Headless Components 與自建 Design System 的成本和適用情境。</p>
     <p class="date">發布 <time datetime="2025-09-24">2025-09-24</time></p>
@@ -569,7 +531,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="nx-s1ngularity" aria-labelledby="title-nx-s1ngularity">
   <header class="article-header">
-    <p class="eyebrow">第 22 篇 · 資訊安全</p>
+    <p class="eyebrow">第 21 篇 · 資訊安全</p>
     <h2 id="title-nx-s1ngularity">S1ngularity：Nx 套件供應鏈攻擊始末</h2>
     <p class="description">回顧 Nx S1ngularity 供應鏈攻擊，以及前端團隊真正能做的防護。</p>
     <p class="date">發布 <time datetime="2025-08-26">2025-08-26</time></p>
@@ -609,7 +571,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="tailwind-plus-vanilla-js" aria-labelledby="title-tailwind-plus-vanilla-js">
   <header class="article-header">
-    <p class="eyebrow">第 23 篇 · CSS</p>
+    <p class="eyebrow">第 22 篇 · CSS</p>
     <h2 id="title-tailwind-plus-vanilla-js">Tailwind Plus 與框架無關的 UI 元件</h2>
     <p class="description">Tailwind Plus 支援 Vanilla JavaScript 後，小型互動還需要綁定框架嗎？</p>
     <p class="date">發布 <time datetime="2025-07-22">2025-07-22</time></p>
@@ -628,7 +590,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="nuxt-4" aria-labelledby="title-nuxt-4">
   <header class="article-header">
-    <p class="eyebrow">第 24 篇 · Nuxt</p>
+    <p class="eyebrow">第 23 篇 · Nuxt</p>
     <h2 id="title-nuxt-4">Nuxt 4 的主要變更與升級筆記</h2>
     <p class="description">Nuxt 4 的 app 目錄、TypeScript 專案拆分、資料請求改變與升級順序。</p>
     <p class="date">發布 <time datetime="2025-07-15">2025-07-15</time></p>
@@ -666,7 +628,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="vite-7-baseline" aria-labelledby="title-vite-7-baseline">
   <header class="article-header">
-    <p class="eyebrow">第 25 篇 · 前端工具</p>
+    <p class="eyebrow">第 24 篇 · 前端工具</p>
     <h2 id="title-vite-7-baseline">Vite 7 的瀏覽器支援與 Baseline</h2>
     <p class="description">用白話理解 Vite 7 的 Baseline Widely Available 與瀏覽器支援策略。</p>
     <p class="date">發布 <time datetime="2025-06-24">2025-06-24</time></p>
@@ -686,7 +648,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="safari-26-web-platform" aria-labelledby="title-safari-26-web-platform">
   <header class="article-header">
-    <p class="eyebrow">第 26 篇 · Web Platform</p>
+    <p class="eyebrow">第 25 篇 · Web Platform</p>
     <h2 id="title-safari-26-web-platform">Safari 26 新增的 CSS 與 Web API</h2>
     <p class="description">整理 Safari 26 的 Anchor Positioning、捲動動畫、HDR、憑證與安全 API。</p>
     <p class="date">發布 <time datetime="2025-06-09">2025-06-09</time></p>
@@ -719,45 +681,11 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <p>Safari 的版本號這幾年愈來愈大，但產品端最麻煩的仍是裝置分布。公司測試機可能全是最新版，使用者手上的 iPhone 卻因硬體限制停在舊系統。與其在需求單上寫「支援 Safari」，我更希望看到明確的最低版本，以及某個新功能失效時還剩下什麼體驗。</p>
 <p>拿 Anchor Positioning 來說，第一階段可以保留既有浮層定位工具，只在支援時走原生路徑；等監控和流量都證明舊路徑很少使用，再移除依賴。平台功能真正幫忙省下程式碼，往往不是宣布支援的那一天，而是產品終於能放心刪掉 fallback 的那一天。</p></div>
   <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://webkit.org/blog/17333/webkit-features-in-safari-26-0/" target="_blank" rel="noreferrer">WebKit Features in Safari 26.0</a></li></ul></section>
-  <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#angular-20">下一篇 →</a></footer>
-</article>
-<article id="angular-20" aria-labelledby="title-angular-20">
-  <header class="article-header">
-    <p class="eyebrow">第 27 篇 · Angular</p>
-    <h2 id="title-angular-20">從 Angular 20 看現代 Angular 的開發方式</h2>
-    <p class="description">整理 Angular 20 的 Signals、incremental hydration、route-level rendering 與 zoneless。</p>
-    <p class="date">發布 <time datetime="2025-05-28">2025-05-28</time></p>
-    <div class="tags"><span>Angular</span><span>Signals</span><span>Zoneless</span><span>SSR</span><span>Hydration</span></div>
-  </header>
-  <div class="article-body"><p>我跟人聊 Angular 時，常常還沒談到現在的 API，對方就先露出「那不是很重嗎」的表情。也不能怪他，NgModule、滿畫面的 decorator 和 Zone.js 確實留下很深的印象。但我這次重新翻 Angular 20 的文件，意外發現它已經默默拆掉不少以前最常被嫌麻煩的地方。</p>
-<p>這不是說 Angular 突然變成一個輕量小框架。它仍然提供 router、表單、DI、建置與 SSR 等一整套答案，只是底層反應性和伺服器渲染的做法，已經明顯往比較現代的方向靠攏。</p>
-<h3 id="angular-20--angular-20-比較重大的更新">Angular 20 比較重大的更新</h3>
-<ul>
-<li>
-<p><strong>Signals 基礎 API 穩定：</strong>  <code>signal</code>、<code>effect</code>、<code>linkedSignal</code>，以及 signal-based input、query 等核心能力走向 stable。元件內的狀態和衍生值，可以更直接地表達彼此關係。</p>
-</li>
-<li>
-<p><strong>Incremental Hydration 穩定：</strong>  搭配 <code>@defer</code>，伺服器先送出的頁面可以等到需要互動時，再分區載入和啟用 JavaScript。對內容很多的 SSR 頁面來說，比整頁一次 hydration 更有彈性。</p>
-</li>
-<li>
-<p><strong>Route-level rendering 穩定：</strong>  不同路由可以分別選擇 SSR、預先產生或純前端渲染，不必讓整個網站只採用一種模式。</p>
-</li>
-<li>
-<p><strong>Zoneless 繼續成熟：</strong>  20.0 時仍在推進，到了 20.2 已成為 stable。Angular 不再一定要靠 Zone.js 攔截各種非同步事件，更新時機會更明確，也少一層隱性的魔法。</p>
-</li>
-</ul>
-<p>Signals 不等於要把 RxJS 全部刪掉。元件狀態、computed value 很適合 Signals；搜尋建議、WebSocket 或一連串非同步事件，RxJS 仍然有它擅長的地方。把兩者當成不同工具，比爭論誰要取代誰更實際。</p>
-<h3 id="angular-20--我的看法">我的看法</h3>
-<p>我覺得 Angular 20 最重要的不是某個新語法，而是幾項長期工程終於能進入正式專案。尤其 incremental hydration 和 route-level rendering，讓 Angular 在大型後台之外，也更認真處理內容網站的首次載入體驗。</p>
-<p>如果是既有專案，我不會為了追新就一次改完所有 component。先讓新功能使用 Signals、確認第三方套件能否在 zoneless 下正常工作，再逐段搬移比較合理。Angular 的強項本來就是穩定和一致，升級方式也應該保留這個優點。</p>
-<p>我會先挑一個邊界清楚的功能試水溫，例如只有幾個 input、沒有牽動全站 service 的設定頁。這種頁面適合觀察 signal input、computed state 和既有 RxJS service 怎麼接，也比較容易用測試確認 zoneless 前後沒有漏掉畫面更新。直接從全站共用表單開始，失敗時很難知道是哪一層造成的。</p>
-<p>Angular 現在有一種有趣的狀態：新寫法已經比很多人的印象簡潔，但專案裡仍可能同時存在十年前的 pattern。面試或技術討論若只問「Angular 重不重」，其實問得太粗。更實際的是看團隊能否在保留穩定性的同時，逐步把隱性行為換成可觀察、可測試的資料流。</p></div>
-  <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://github.com/angular/angular/releases/tag/20.0.0" target="_blank" rel="noreferrer">Angular 20.0.0 release notes</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#chrome-io-2025">下一篇 →</a></footer>
 </article>
 <article id="chrome-io-2025" aria-labelledby="title-chrome-io-2025">
   <header class="article-header">
-    <p class="eyebrow">第 28 篇 · Web Platform</p>
+    <p class="eyebrow">第 26 篇 · Web Platform</p>
     <h2 id="title-chrome-io-2025">Chrome I/O 2025 的 Web Platform 更新</h2>
     <p class="description">從 Google I/O 2025 挑出一般前端近期真正可能用到的瀏覽器功能。</p>
     <p class="date">發布 <time datetime="2025-05-20">2025-05-20</time></p>
@@ -788,7 +716,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="node-24" aria-labelledby="title-node-24">
   <header class="article-header">
-    <p class="eyebrow">第 29 篇 · 前端工具</p>
+    <p class="eyebrow">第 27 篇 · 前端工具</p>
     <h2 id="title-node-24">Node.js 24 對前端工具鏈的影響</h2>
     <p class="description">Node.js 24 如何影響 Vite、Next.js、測試、CI 與前端專案的執行環境。</p>
     <p class="date">發布 <time datetime="2025-05-06">2025-05-06</time></p>
@@ -826,7 +754,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="custom-select" aria-labelledby="title-custom-select">
   <header class="article-header">
-    <p class="eyebrow">第 30 篇 · Web Platform</p>
+    <p class="eyebrow">第 28 篇 · Web Platform</p>
     <h2 id="title-custom-select">原生 select 的樣式限制終於鬆綁</h2>
     <p class="description">認識可自訂的原生 select，以及漸進增強和瀏覽器相容性的實際取捨。</p>
     <p class="date">發布 <time datetime="2025-04-02">2025-04-02</time></p>
@@ -850,7 +778,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="typescript-native-port" aria-labelledby="title-typescript-native-port">
   <header class="article-header">
-    <p class="eyebrow">第 31 篇 · TypeScript</p>
+    <p class="eyebrow">第 29 篇 · TypeScript</p>
     <h2 id="title-typescript-native-port">TypeScript 原生編譯器移植計畫</h2>
     <p class="description">TypeScript 為什麼用 Go 重做編譯器，以及原生工具對大型前端專案的意義。</p>
     <p class="date">發布 <time datetime="2025-03-11">2025-03-11</time></p>
@@ -871,7 +799,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="bybit-safe-ui" aria-labelledby="title-bybit-safe-ui">
   <header class="article-header">
-    <p class="eyebrow">第 32 篇 · 資訊安全</p>
+    <p class="eyebrow">第 30 篇 · 資訊安全</p>
     <h2 id="title-bybit-safe-ui">Bybit 事件與冷錢包簽署流程的前端風險</h2>
     <p class="description">從 Bybit 冷錢包事件理解簽署介面、Blind Signing 與多簽流程的前端風險。</p>
     <p class="date">發布 <time datetime="2025-02-21">2025-02-21</time></p>
@@ -908,7 +836,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="cra-afterlife" aria-labelledby="title-cra-afterlife">
   <header class="article-header">
-    <p class="eyebrow">第 33 篇 · React</p>
+    <p class="eyebrow">第 31 篇 · React</p>
     <h2 id="title-cra-afterlife">CRA 退場後的 React 專案選擇</h2>
     <p class="description">Create React App 退場後，依照 SPA、內容網站與 SSR 需求選擇下一套工具。</p>
     <p class="date">發布 <time datetime="2025-02-14">2025-02-14</time></p>
@@ -930,7 +858,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 </article>
 <article id="tailwind-v4-css-first" aria-labelledby="title-tailwind-v4-css-first">
   <header class="article-header">
-    <p class="eyebrow">第 34 篇 · CSS</p>
+    <p class="eyebrow">第 32 篇 · CSS</p>
     <h2 id="title-tailwind-v4-css-first">Tailwind CSS v4 的 CSS-first 設定方式</h2>
     <p class="description">從設定檔搬進 CSS，看看 Tailwind CSS v4 的 CSS-first 到底改變了什麼。</p>
     <p class="date">發布 <time datetime="2025-01-21">2025-01-21</time></p>

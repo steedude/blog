@@ -251,7 +251,7 @@ test("searches posts locally without external search engines", async () => {
   const response = await render("/en/search?q=Compiler");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /5 posts found/);
+  assert.match(html, /4 posts found/);
   assert.match(html, /Is React Compiler ready to adopt/);
   assert.match(html, /TypeScript 7 moves to a native compiler/);
   assert.doesNotMatch(html, /google\.com\/search|duckduckgo\.com/);
@@ -396,13 +396,15 @@ test("removed articles are unavailable and absent from indexes", async () => {
     const response = await render(`/${locale}/posts/modern-css`);
     assert.equal(response.status, 404);
     assert.equal((await render(`/${locale}/posts/angular-22`)).status, 404);
+    assert.equal((await render(`/${locale}/posts/angular-21`)).status, 404);
+    assert.equal((await render(`/${locale}/posts/angular-20`)).status, 404);
     for (const path of [`/${locale}/search`, `/${locale}/rss.xml`]) {
       const html = await render(path).then((result) => result.text());
-      assert.doesNotMatch(html, /modern-css|angular-22/);
+      assert.doesNotMatch(html, /modern-css|angular-22|angular-21|angular-20/);
     }
   }
   const sitemap = await render("/sitemap.xml").then((result) => result.text());
-  assert.doesNotMatch(sitemap, /modern-css|angular-22/);
+  assert.doesNotMatch(sitemap, /modern-css|angular-22|angular-21|angular-20/);
 });
 
 test("publishes the complete topic plan through posts, taxonomies, RSS, and sitemap", async () => {
@@ -436,7 +438,7 @@ test("publishes the complete topic plan through posts, taxonomies, RSS, and site
 
   assert.match(await categoryResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
   assert.match(await tagResponse.text(), /Node\.js 24 對前端工具鏈的影響/);
-  assert.match(await archiveResponse.text(), /Angular 20|Node\.js 24/);
+  assert.match(await archiveResponse.text(), /Node\.js 24/);
   assert.match(await rssResponse.text(), /\/zh-TW\/posts\/node-24/);
   const sitemap = await sitemapResponse.text();
   assert.match(sitemap, /\/zh-TW\/posts\/node-24/);

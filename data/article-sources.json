@@ -29,12 +29,6 @@
       "title": "The select element can now be customized with CSS"
     }
   ],
-  "angular-20": [
-    {
-      "title": "Angular 20.0.0 release notes",
-      "url": "https://github.com/angular/angular/releases/tag/20.0.0"
-    }
-  ],
   "chrome-io-2025": [
     {
       "url": "https://developer.chrome.com/blog/web-at-io25",
@@ -87,12 +81,6 @@
     {
       "url": "https://react.dev/blog/2025/10/07/introducing-the-react-foundation",
       "title": "Introducing the React Foundation"
-    }
-  ],
-  "angular-21": [
-    {
-      "url": "https://angular.dev/events/v21",
-      "title": "Angular v21 release"
     }
   ],
   "npm-classic-token": [
