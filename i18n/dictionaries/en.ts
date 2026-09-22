@@ -67,10 +67,6 @@ export const enDictionary: Dictionary = {
     description: "Technical sites with consistent writing, clear opinions, and ideas worth revisiting.",
   },
   projects: {
-    caseStudy: "Implementation example",
-    problem: "The problem",
-    solution: "Implementation",
-    result: "What it does",
     screenshot: "Live website screenshot (Traditional Chinese interface)",
     title: "Projects",
     description: "Production websites and frontend implementations.",

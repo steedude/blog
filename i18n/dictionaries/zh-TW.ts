@@ -72,10 +72,6 @@ export const zhTWDictionary: Dictionary = {
     visitSite: "開啟網站",
     features: "主要功能",
     technologies: "技術重點",
-    caseStudy: "實作案例",
-    problem: "要解決的問題",
-    solution: "實作方式",
-    result: "完成的功能",
     screenshot: "網站實際畫面（繁體中文版）",
   },
   search: {

@@ -72,18 +72,6 @@ export default async function ProjectPage({
         <figcaption className="mt-2 text-xs text-muted">{dictionary.projects.screenshot}</figcaption>
       </figure>
 
-      <section className="my-6 border border-frame bg-panel p-4">
-        <h2 className="mt-0 font-serif text-xl">{dictionary.projects.caseStudy}：{project.caseStudy.title}</h2>
-        <dl className="mb-0 space-y-4">
-          {(["problem", "solution", "result"] as const).map((key) => (
-            <div key={key}>
-              <dt className="font-bold">{dictionary.projects[key]}</dt>
-              <dd className="ml-0 mt-1 leading-relaxed">{project.caseStudy[key]}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
       <section className="my-6 border-y border-frame py-4">
         <h2 className="font-serif text-xl">{dictionary.projects.features}</h2>
         <ul className="list-disc space-y-2 pl-5">

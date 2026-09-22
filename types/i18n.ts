@@ -77,10 +77,6 @@ export type Dictionary = {
     visitSite: string;
     features: string;
     technologies: string;
-    caseStudy: string;
-    problem: string;
-    solution: string;
-    result: string;
     screenshot: string;
   };
   search: {

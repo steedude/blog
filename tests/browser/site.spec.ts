@@ -69,7 +69,7 @@ test("copies code with line breaks and reports clipboard failure", async ({ page
   await expect(page.getByRole("status").first()).toHaveText("Copy failed. Select and copy the code.");
 });
 
-test("project pages show screenshots, case studies and working demo links", async ({ page }, testInfo) => {
+test("project pages show screenshots and working demo links", async ({ page }, testInfo) => {
   await page.goto("/zh-TW/projects");
   await expect(page.locator("main img")).toHaveCount(4);
   for (const image of await page.locator("main img").all()) {
@@ -79,7 +79,7 @@ test("project pages show screenshots, case studies and working demo links", asyn
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: `test-results/projects-${testInfo.project.name}.png`, fullPage: true });
   await page.locator('main a[href="/zh-TW/projects/web-file"]').click();
-  await expect(page.getByRole("heading", { name: /實作案例/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /實作案例/ })).toHaveCount(0);
   const image = page.locator("main img");
   await expect.poll(() => image.evaluate((node: HTMLImageElement) => node.naturalWidth)).toBeGreaterThan(0);
   await expect(page.getByRole("link", { name: /開啟網站/ })).toHaveAttribute("href", "https://file.3854335.com");
