@@ -10,7 +10,6 @@ const plans = [
   ["figma-sites","2025-05-07","前端工具","tooling",["Figma","Design","Frontend Tooling"],"從活動頁面的製作流程，看看 Figma Sites 如何連接設計與發布，以及哪些工作仍需要前端判斷。"],
   ["vite-7-baseline", "2025-06-24", "前端工具", "tooling", ["Vite", "Baseline", "Browser Support", "Build Tools"], "用白話理解 Vite 7 的 Baseline Widely Available 與瀏覽器支援策略。"],
   ["safari-26-web-platform", "2025-06-09", "Web Platform", "web-platform", ["Safari", "WebKit", "CSS", "Web API"], "整理 Safari 26 的 Anchor Positioning、捲動動畫、HDR、憑證與安全 API。"],
-  ["nuxt-4", "2025-07-15", "Nuxt", "nuxt", ["Nuxt", "Vue", "TypeScript", "Migration"], "Nuxt 4 的 app 目錄、TypeScript 專案拆分、資料請求改變與升級順序。"],
   ["tailwind-plus-vanilla-js", "2025-07-22", "CSS", "css", ["Tailwind CSS", "Vanilla JavaScript", "UI Components"], "Tailwind Plus 支援 Vanilla JavaScript 後，小型互動還需要綁定框架嗎？"],
   ["cloudflare-ai-crawl-control","2025-08-28","網站維運","operations",["Cloudflare","AI","Web Crawling"],"認識 AI Crawl Control 的爬蟲統計與阻擋方式，以及被抓取、帶來讀者和內容授權之間的差別。"],
   ["nuxt-ui-v4", "2025-09-24", "Nuxt", "nuxt", ["Nuxt UI", "Design System", "Vue", "UI Components"], "Nuxt UI v4、Headless Components 與自建 Design System 的成本和適用情境。"],

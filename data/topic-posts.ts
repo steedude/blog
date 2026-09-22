@@ -18,8 +18,6 @@ import Vite7BaselineZh, { metadata as Vite7BaselineZhMetadata } from "@/content/
 import Vite7BaselineEn, { metadata as Vite7BaselineEnMetadata } from "@/content/posts/vite-7-baseline/en.mdx";
 import Safari26WebPlatformZh, { metadata as Safari26WebPlatformZhMetadata } from "@/content/posts/safari-26-web-platform/zh-TW.mdx";
 import Safari26WebPlatformEn, { metadata as Safari26WebPlatformEnMetadata } from "@/content/posts/safari-26-web-platform/en.mdx";
-import Nuxt4Zh, { metadata as Nuxt4ZhMetadata } from "@/content/posts/nuxt-4/zh-TW.mdx";
-import Nuxt4En, { metadata as Nuxt4EnMetadata } from "@/content/posts/nuxt-4/en.mdx";
 import TailwindPlusVanillaJsZh, { metadata as TailwindPlusVanillaJsZhMetadata } from "@/content/posts/tailwind-plus-vanilla-js/zh-TW.mdx";
 import TailwindPlusVanillaJsEn, { metadata as TailwindPlusVanillaJsEnMetadata } from "@/content/posts/tailwind-plus-vanilla-js/en.mdx";
 import CloudflareAiCrawlControlZh, { metadata as CloudflareAiCrawlControlZhMetadata } from "@/content/posts/cloudflare-ai-crawl-control/zh-TW.mdx";
@@ -76,8 +74,6 @@ export const topicPosts: Post[] = [
   createPost(Locale.EN, Vite7BaselineEn, Vite7BaselineEnMetadata),
   createPost(Locale.ZH_TW, Safari26WebPlatformZh, Safari26WebPlatformZhMetadata),
   createPost(Locale.EN, Safari26WebPlatformEn, Safari26WebPlatformEnMetadata),
-  createPost(Locale.ZH_TW, Nuxt4Zh, Nuxt4ZhMetadata),
-  createPost(Locale.EN, Nuxt4En, Nuxt4EnMetadata),
   createPost(Locale.ZH_TW, TailwindPlusVanillaJsZh, TailwindPlusVanillaJsZhMetadata),
   createPost(Locale.EN, TailwindPlusVanillaJsEn, TailwindPlusVanillaJsEnMetadata),
   createPost(Locale.ZH_TW, CloudflareAiCrawlControlZh, CloudflareAiCrawlControlZhMetadata),

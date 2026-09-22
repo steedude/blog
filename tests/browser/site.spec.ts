@@ -22,7 +22,7 @@ test("search survives reload, language switching, clearing, and browser back", a
   await expect(input).toHaveValue("");
   await page.reload();
   await expect(input).toHaveValue("");
-  await expect(page.locator("main article")).toHaveCount(27);
+  await expect(page.locator("main article")).toHaveCount(26);
 });
 
 test("search handles Chinese, Unicode normalization, and no results", async ({ page }) => {

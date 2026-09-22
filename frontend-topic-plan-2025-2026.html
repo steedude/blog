@@ -200,7 +200,6 @@
             <tr><td class="month" data-label="月份">5 月</td><td class="event" data-label="事件"><a href="https://www.figma.com/blog/introducing-figma-sites/">Figma Sites：設計稿可以直接變成網站了？</a></td><td class="topic" data-label="談論主題">Figma Sites：設計稿可以直接變成網站了？</td><td data-label="內容大意">從活動頁面的製作流程，看看 Figma Sites 如何連接設計與發布，以及哪些工作仍需要前端判斷。</td></tr>
             <tr><td class="month" data-label="月份">6 月</td><td class="event" data-label="事件"><a href="https://vite.dev/blog/announcing-vite7">Vite 7 發布</a></td><td class="topic" data-label="談論主題">Vite 7 的瀏覽器支援與 Baseline</td><td data-label="內容大意">說明 Node 18 EOL、ESM-only，以及 Baseline Widely Available 如何成為新的瀏覽器支援策略。</td></tr>
             <tr><td class="month" data-label="月份">6 月</td><td class="event" data-label="事件"><a href="https://webkit.org/blog/17333/webkit-features-in-safari-26-0/">Safari 26 公布大量 Web 平台功能</a></td><td class="topic" data-label="談論主題">Safari 26 新增的 CSS 與 Web API</td><td data-label="內容大意">整理 Anchor Positioning、Scroll-driven Animations、HDR、Digital Credentials 與安全 API，再談漸進增強和 Safari 版本支援。</td></tr>
-            <tr><td class="month" data-label="月份">7 月</td><td class="event" data-label="事件"><a href="https://nuxt.com/blog/v4">Nuxt 4 正式發布</a></td><td class="topic" data-label="談論主題">Nuxt 4 的主要變更與升級筆記</td><td data-label="內容大意">整理 app 目錄、TypeScript 專案拆分、資料請求與開發效能的改變，並提供 Nuxt 3 專案的升級順序。</td></tr>
             <tr><td class="month" data-label="月份">7 月</td><td class="event" data-label="事件"><a href="https://tailwindcss.com/blog">Tailwind Plus 支援 Vanilla JavaScript</a></td><td class="topic" data-label="談論主題">Tailwind Plus 與框架無關的 UI 元件</td><td data-label="內容大意">討論樣式與互動邏輯分離，以及 Web Platform 進步後，哪些元件已不需要依賴特定框架。</td></tr>
             <tr><td class="month" data-label="月份">8 月</td><td class="event" data-label="事件"><a href="https://developers.cloudflare.com/changelog/post/2025-08-27-ai-crawl-control-launch/">誰在大量抓你的文章？Cloudflare 增加 AI 爬蟲管理功能</a></td><td class="topic" data-label="談論主題">誰在大量抓你的文章？Cloudflare 增加 AI 爬蟲管理功能</td><td data-label="內容大意">認識 AI Crawl Control 的爬蟲統計與阻擋方式，以及被抓取、帶來讀者和內容授權之間的差別。</td></tr>
             <tr><td class="month" data-label="月份">9 月</td><td class="event" data-label="事件"><a href="https://nuxt.com/blog/nuxt-ui-v4">Nuxt UI v4</a></td><td class="topic" data-label="談論主題">Nuxt UI v4 與自建 Design System 的取捨</td><td data-label="內容大意">比較現成 UI library、headless components 與自建 Design System 的自由度、維護成本和適用情境。</td></tr>
@@ -420,36 +419,6 @@ select::picker(select) {
           <p>拿 Anchor Positioning 來說，第一階段可以保留既有浮層定位工具，只在支援時走原生路徑；等監控和流量都證明舊路徑很少使用，再移除依賴。平台功能真正幫忙省下程式碼，往往不是宣布支援的那一天，而是產品終於能放心刪掉 fallback 的那一天。</p>
         </article>
 
-        <article class="draft" id="nuxt-4">
-          <div class="draft-meta">2025 年 7 月</div>
-          <h3>Nuxt 4 的主要變更與升級筆記</h3>
-          <p>Nuxt 4 公布時，我先做的不是看新功能，而是找 migration guide。沒辦法，穩定運作的專案看到 major version，第一反應通常不是興奮，是「這次又要壞哪裡」。讀完之後倒有點意外：它沒有硬塞一套全新哲學，比較像把 Nuxt 3 住了幾年後散落滿地的東西重新收進櫃子。</p>
-          <h4>Nuxt 4 比較重大的更新</h4>
-          <ul>
-  <li><strong>新的 <code>app/</code> 目錄：</strong>  <code>pages</code>、<code>components</code>、<code>composables</code> 等前端程式集中在 <code>app/</code>，和根目錄設定、<code>server/</code> 程式分開。專案愈大，這種邊界愈有價值。</li>
-</ul>
-          <ul>
-  <li><strong>TypeScript 專案拆分：</strong>  app、server、shared 與 builder 使用各自的 TypeScript context，再由根目錄設定統整。好處是瀏覽器型別不會隨便跑進 server，反過來也一樣。</li>
-</ul>
-          <ul>
-  <li><strong><code>useAsyncData</code> 與 <code>useFetch</code> 行為整理：</strong>  相同 key 會共享 ref，資料沒有使用者時能清理，也支援 reactive key 和更細的 cache 控制。它不是新 API，卻會影響既有頁面的資料更新方式。</li>
-</ul>
-          <ul>
-  <li><strong>開發與 CLI 效能改善：</strong>  編譯快取、原生檔案監看和內部 socket 等調整，主要目標是縮短啟動與開發等待。這些是底層更新，理想狀況下不需要專案特別改寫。</li>
-</ul>
-          <ul>
-  <li><strong>清除相容層和棄用項目：</strong>  <code>@nuxt/kit</code> 移除 Nuxt 2 相容，部分舊行為也正式收掉。一般頁面未必受影響，老 module 和深度客製設定則要特別確認。</li>
-</ul>
-          <h4>升級時我會怎麼排順序</h4>
-          <p>先在 Nuxt 3 的最後階段處理 console 警告，再列出實際依賴的 modules，確認它們是否標示支援 v4。接著才升框架並跑 typecheck、build 和主要頁面流程。目錄搬到 <code>app/</code> 可以另外做，不需要和所有變更擠在同一個 commit。</p>
-          <p>舊目錄仍向下相容，所以沒有必要為了看起來像 Nuxt 4 就立刻搬完。反而是資料請求共享、快取和 hydration 行為值得多看一眼；畫面能打開，不代表 client navigation 後的資料一定和以前完全相同。</p>
-          <h4>我的看法</h4>
-          <p>我喜歡這種「整理房間式」的 major release。新目錄和 TypeScript 邊界不會出現在產品截圖裡，卻能減少專案做大後的混亂。缺點是它看起來不夠戲劇化，很容易被誤認成只有改資料夾。</p>
-          <p>對既有專案來說，最穩的做法是把框架升級、module 相容與目錄搬移拆開處理。一次只改一類問題，真的出錯時才知道要往哪裡找。</p>
-          <p>我還會特別錄一輪升級前的 navigation 行為：同頁重複請求、返回上一頁、快速切換參數，以及 hydration 後第一次操作。資料層的 breaking change 常不是頁面直接白掉，而是第二次進入時拿到舊 ref，這種問題只跑一次 build 很難發現。</p>
-          <p>至於 <code>app/</code>，我會把它當成團隊邊界，而不是 Nuxt 4 的打卡任務。等新功能先照新目錄放，舊功能在被修改時再搬，git history 和 review 都會乾淨許多。</p>
-        </article>
-
         <article class="draft" id="tailwind-plus-vanilla-js">
           <div class="draft-meta">2025 年 7 月</div>
           <h3>Tailwind Plus 與框架無關的 UI 元件</h3>
@@ -458,8 +427,7 @@ select::picker(select) {
           <p>當然，複雜應用程式仍會從框架的狀態管理和元件模型得到很多幫助。重點不是回到「全部手刻」，而是不要因為一個小互動，就先把整個網站綁在某個框架上。</p>
           <p>這對後端模板、傳統 CMS 或像 Astro 這種以 HTML 為主的網站特別實用。需要互動的地方只加少量 JavaScript，其餘頁面不用為了幾個元件一起載入框架 runtime。</p>
           <p>不過 Vanilla JavaScript 並不自動等於更輕。若元件各自帶一份重複邏輯，最後仍可能變大。真正值得看的是輸出多少程式、互動是否好維護，而不是看到「無框架」三個字就先判定比較好。</p>
-          <p>我會先看互動的生命週期。如果元件只在開啟、關閉之間切換，原生 JS 很舒服；如果狀態會跨頁共享、和權限及 API 串在一起，框架提供的資料流就開始有價值。用程式碼行數判斷要不要框架，通常會漏掉後面維護狀態的成本。</p>
-          <p>另一個檢查點是 cleanup。事件監聽、focus trap 和動態插入的節點如果沒有一致的卸載方式，幾個「很小的 script」疊起來也會難查。無框架不是無架構，只是架構要由團隊自己說清楚。</p>
+          <p>如果元件只在開啟、關閉之間切換，原生 JS 很舒服；如果狀態會跨頁共享、和權限及 API 串在一起，框架提供的資料流就開始有價值。用程式碼行數判斷要不要框架，通常會漏掉後面維護狀態的成本。</p>
         </article>
 
         <article class="draft" id="cloudflare-ai-crawl-control">

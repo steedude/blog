@@ -41,12 +41,6 @@
       "title": "WebKit Features in Safari 26.0"
     }
   ],
-  "nuxt-4": [
-    {
-      "url": "https://nuxt.com/blog/v4",
-      "title": "Announcing Nuxt 4.0"
-    }
-  ],
   "tailwind-plus-vanilla-js": [
     {
       "title": "Vanilla JavaScript support for Tailwind Plus",

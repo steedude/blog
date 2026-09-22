@@ -18,6 +18,4 @@ That is particularly useful for server-rendered templates, traditional CMSs, and
 
 Vanilla JavaScript is not automatically lighter. If every component ships its own copy of similar logic, the result can still grow. What matters is the emitted code and whether the behavior remains maintainable, not the assumption that "framework-free" must be better.
 
-I first look at the interaction's lifecycle. A component that only opens and closes is comfortable in plain JavaScript. Once state is shared across pages and tied to permissions and API data, a framework's data flow becomes valuable. Choosing by line count alone ignores the future cost of maintaining that state.
-
-Cleanup is another checkpoint. Event listeners, focus traps, and inserted nodes need a consistent teardown path. Several "tiny scripts" can become difficult to debug when they do not have one. Framework-free does not mean architecture-free; the team simply has to describe that architecture itself.
+A component that only opens and closes is comfortable in plain JavaScript. Once state is shared across pages and tied to permissions and API data, a framework's data flow becomes valuable. Choosing by line count alone ignores the future cost of maintaining that state.
