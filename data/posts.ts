@@ -2,8 +2,6 @@ import type { ComponentType } from "react";
 import { topicPosts } from "@/data/topic-posts";
 import WorkersCacheEn, { metadata as workersCacheEnMetadata } from "@/content/posts/workers-cache/en.mdx";
 import WorkersCacheZh, { metadata as workersCacheZhMetadata } from "@/content/posts/workers-cache/zh-TW.mdx";
-import ServerComponentsEn, { metadata as serverComponentsEnMetadata } from "@/content/posts/server-components-retrospective/en.mdx";
-import ServerComponentsZh, { metadata as serverComponentsZhMetadata } from "@/content/posts/server-components-retrospective/zh-TW.mdx";
 import AwsOctoberOutageEn, { metadata as awsOctoberOutageEnMetadata } from "@/content/posts/aws-october-outage/en.mdx";
 import AwsOctoberOutageZh, { metadata as awsOctoberOutageZhMetadata } from "@/content/posts/aws-october-outage/zh-TW.mdx";
 import { Locale } from "@/types/i18n";
@@ -21,8 +19,6 @@ export const posts: Post[] = [
   ...topicPosts,
   createPost(Locale.ZH_TW, WorkersCacheZh, workersCacheZhMetadata),
   createPost(Locale.EN, WorkersCacheEn, workersCacheEnMetadata),
-  createPost(Locale.ZH_TW, ServerComponentsZh, serverComponentsZhMetadata),
-  createPost(Locale.EN, ServerComponentsEn, serverComponentsEnMetadata),
   createPost(Locale.ZH_TW, AwsOctoberOutageZh, awsOctoberOutageZhMetadata),
   createPost(Locale.EN, AwsOctoberOutageEn, awsOctoberOutageEnMetadata),
 ];

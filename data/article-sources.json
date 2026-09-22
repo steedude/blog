@@ -123,12 +123,6 @@
       "url": "https://securitylabs.datadoghq.com/articles/npm-worm-compromises-popular-npm-packages/"
     }
   ],
-  "server-components-retrospective": [
-    {
-      "title": "React Server Components",
-      "url": "https://react.dev/reference/rsc/server-components"
-    }
-  ],
   "jquery-4": [
     {
       "title": "jQuery 4.0.0",
