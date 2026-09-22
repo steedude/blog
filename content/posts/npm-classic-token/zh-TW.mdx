@@ -26,9 +26,3 @@ npm 停止建立 classic token，是把發布流程推向短效 token、2FA 和 
 傳統 CI 發布時，要先把 npm token 存進 GitHub Actions secret。Trusted Publishing 改由 GitHub Actions 提供短時間的身分證明，npm 再確認是哪個 repository、哪個 workflow 正在發布。流程跑完後，不會留下一把能被重複使用好幾個月的鑰匙。
 
 它仍然不是萬靈丹。workflow 本身被改掉、維護者帳號被接管，一樣可能出事。但攻擊者比較難只靠偷到一段 token 就在別處發布，這已經切掉一種很常見的攻擊方式。
-
-套件作者遷移時可以先確認 CI provider 是否被 npm 支援，再限制允許發布的 repository、workflow 與 environment。權限描述得愈精確，其他分支或 fork 就愈難冒充正式發布流程。
-
-切換前我會先在測試 package 走完整個流程，尤其確認 tag、provenance 和 prerelease 的行為。發布權限通常平常碰不到，一出錯卻剛好是在準備 release 的時間點；先做一次不影響正式套件的演練，比在半夜回頭重建 token 輕鬆很多。
-
-另外，Trusted Publishing 解決的是「CI 如何向 npm 證明身分」，不是「誰可以修改 CI」。保護預設分支、要求 workflow 檔案由 code owner review，同樣是發布流程的一部分。

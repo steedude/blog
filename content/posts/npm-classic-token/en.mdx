@@ -21,9 +21,3 @@ This can feel distant to developers who only install packages. Yet one compromis
 Traditional CI publishing starts by saving an npm token in GitHub Actions secrets. Trusted Publishing instead receives a temporary identity assertion from GitHub Actions, then checks which repository and workflow is publishing. When the run ends, there is no reusable key left behind for months.
 
 It is not a complete solution. A modified workflow or a compromised maintainer account can still cause damage. It does make it harder to steal one token and publish from somewhere else, eliminating a common attack path.
-
-Package authors can begin by checking whether npm supports their CI provider, then restricting the permitted repository, workflow, and environment. The more precisely that identity is described, the harder it becomes for another branch or fork to impersonate the release process.
-
-Before switching a real package, I would run the entire process with a test package, including tags, provenance, and prereleases. Publishing permissions are rarely touched, yet failures arrive exactly when a release is due. A harmless rehearsal is far easier than recreating a token under pressure at night.
-
-Trusted Publishing answers how CI proves its identity to npm. It does not answer who may modify CI. Protected default branches and code-owner review for workflow files belong to the same publishing boundary.
