@@ -29,6 +29,4 @@ Both selectors matter. The first targets the button shown on the page, while the
 
 This is not yet a feature that can be used without checking browser support, and the native picker may still provide a better experience on phones. My preference is to keep the semantic select and treat custom styling as an enhancement. If the new CSS does not apply, the form should still work. That fallback is the native element's biggest advantage.
 
-I would also do an unglamorous implementation check: walk through the form using only a keyboard, then listen to the options with a screen reader. Customizable does not mean the browser finishes every design decision for us. An option filled with an icon, secondary copy, and a status badge may look richer while becoming painfully verbose when announced.
-
 That is why I do not want a select to become as indistinguishable from a generic `div` as possible. A native control is valuable precisely because it carries platform behavior, particularly the familiar picker on mobile. Brand consistency matters, but trading a matching shadow and border radius for a keyboard interaction we must maintain for ten years is rarely as economical as it first appears.
