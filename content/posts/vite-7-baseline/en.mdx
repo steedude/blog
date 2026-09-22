@@ -22,6 +22,4 @@ For this major release, the target corresponds to Chrome 107, Edge 107, Firefox 
 
 Baseline is still not a product requirement. An internal banking system and a campaign page built only for recent phones naturally have different audiences. Vite supplies a sensible default; traffic data, company policy, and the ability to use progressive enhancement remain the final decision makers.
 
-I treat `build.target` as the minimum syntax level of the output, not the whole browser-support policy. Whether `fetch`, WebGL, or a particular CSS selector works still requires a separate decision, and a third-party script may introduce higher requirements of its own. Changing the target and declaring old-browser support creates a particularly dangerous sense of safety.
-
 A more practical approach combines browser versions from real traffic, error monitoring, and the product's explicit commitments. If an older environment truly matters, test core flows on a real device or browser service instead of trusting a successful build. Baseline gives the industry a shared starting vocabulary; it does not perform compatibility testing for each site.
