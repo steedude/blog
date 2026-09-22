@@ -1,37 +1,44 @@
 export const metadata = {
   slug: "safari-26-web-platform",
   title: "New CSS and Web APIs in Safari 26",
-  description: "A tour of Safari 26's Anchor Positioning, scroll-driven animations, HDR, credentials, and security APIs.",
+  description: "Three everyday CSS uses in Safari 26: better text wrapping, account menu positioning, and reading progress.",
   publishedAt: "2025-06-09",
   category: "Web Platform",
   categorySlug: "web-platform",
   tags: ["Safari", "WebKit", "CSS", "Web API"],
 }
 
-Whenever I get excited about a new CSS feature, the same discouraging question appears automatically: what about Safari? It has become a frontend ritual. Safari 26 adding a large batch of features made me happy for a moment, and then I immediately checked the distribution of older iPhones. Product work is like that: support in the latest release and permission to delete a fallback usually happen on different dates.
+The Safari 26 beta announcement at WWDC25 came with a long feature list. Rather than remember every API name, I am more interested in the small annoyances that might take less work: awkward paragraph wrapping, a menu under an avatar, and a reading progress bar.
 
-Safari 26 added a very long list of WebKit features. Rather than translate every item, these are the changes I find most relevant to ordinary frontend work.
+## Keep one word from sitting on its own
 
-## The larger updates
+A short card description can still end with a single lonely English word. Adding a manual line break fixes one screen width and often makes another worse.
 
-- **CSS Anchor Positioning:** A tooltip, popover, or menu can stay attached to another element without repeatedly reading coordinates and listening for resize and scroll events. It addresses one of the oldest floating-UI problems.
+Safari 26 beta adds `text-wrap: pretty`, which adjusts line breaks to improve uneven edges and reduce very short final lines.
 
-- **Scroll-driven Animations:** Animation progress can follow scroll position or an element's visible range. Reading indicators and simple entrance effects no longer need a large collection of scroll listeners.
+```css
+.article p,
+.card-description {
+  text-wrap: pretty;
+}
+```
 
-- **HDR images and `dynamic-range-limit`:** Compatible displays can show a brighter and wider image range while authors can limit intensity. This is attractive for photography and video sites, though assets and device differences need careful handling.
+It does not promise perfect typography in every paragraph. Still, article text and card descriptions are easy places to try an improvement that does not require editing the content. The result depends on your actual font, copy, and column width.
 
-- **Digital Credentials API:** With user consent, a site can request verified information from a digital identity credential. The challenge includes not only what data is available, but when to ask and how to explain the request.
+## Put the account menu under the avatar
 
-- **`URLPattern`, Trusted Types, and more platform APIs:** URL matching becomes more consistent, while Trusted Types can reduce DOM XSS risk. These APIs may not alter the screen directly, but they strengthen the foundations used by routing and security tools.
+Click the avatar in the corner and show Profile and Sign out underneath it. Simple enough, until the layout moves the avatar or the menu runs into the edge of the screen.
 
-Real projects still need to check the Safari versions their visitors use, especially on older iPhones that cannot upgrade. Support in the newest Safari lowers the cross-browser adoption barrier; it does not update every device on the same day.
+CSS Anchor Positioning lets you express that relationship directly. Name the avatar with `anchor-name`, connect the menu using `position-anchor`, and choose which side it should occupy. Alternative positions can handle insufficient space, reducing the need to read coordinates and calculate offsets yourself.
 
-## My take
+That interests me more than another elaborate effect. A menu belongs next to its button, and CSS can now describe that relationship. Positioning does not, however, handle opening, closing, or keyboard interaction for you.
 
-Anchor Positioning is the feature I am most optimistic about. It is not merely visual polish; it can remove positioning logic that every component library has rewritten. Scroll-driven animations are useful too, but they are best treated as progressive enhancement: content and controls should still work without the animation.
+## Let scrolling fill a progress bar
 
-I prefer `@supports` feature detection over guessing browser names. New projects can adopt these features first where they do not affect critical flows. Existing components do not need an overnight rewrite just because Safari caught up; simplify them gradually as the product's minimum supported versions move forward.
+Long articles sometimes have a thin bar across the top that fills as you scroll. Traditionally, this meant listening for scroll events and calculating the distance in JavaScript.
 
-Safari's version number keeps growing, but device distribution remains the awkward product constraint. Company test phones may all run the latest release while a customer's iPhone is stuck on an older system because of hardware limits. Instead of a ticket that says "support Safari," I would rather see an explicit minimum version and a description of what remains when a new feature is absent.
+Scroll-driven Animations can tie a CSS animation to scrolling instead. A bar can animate from empty to full, with `animation-timeline: scroll(root)` connecting it to the page's scroll progress. Scroll back up and it retreats; it is not simply an animation that plays once after loading.
 
-For Anchor Positioning, the first release can keep the existing floating-position library and use the native path where supported. Once monitoring and traffic show that the old path is rarely used, the dependency can be removed. A platform feature often saves code not on the day support is announced, but on the day a product can confidently delete its fallback.
+If comments follow the article, whole-page scroll progress is not the same as progress through the article. Deciding which one the bar represents matters more than choosing its color.
+
+Of these three, text wrapping is what I would try first: the comparison is easy to make on an existing page. Menus and scroll animations can follow when there is a reason to use them. These features were announced for Safari 26 beta; a production site still needs to account for the browser versions its readers actually use.

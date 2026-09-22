@@ -199,7 +199,7 @@
             <tr><td class="month" data-label="月份">5 月</td><td class="event" data-label="事件"><a href="https://developer.chrome.com/blog/web-at-io25">Chrome 在 I/O 2025 公布新的 Web 能力</a></td><td class="topic" data-label="談論主題">Chrome I/O 2025 的 Web Platform 更新</td><td data-label="內容大意">挑幾個和一般前端最有關的功能，說明它們能少寫哪些 JavaScript，以及目前適不適合使用。</td></tr>
             <tr><td class="month" data-label="月份">5 月</td><td class="event" data-label="事件"><a href="https://www.figma.com/blog/introducing-figma-sites/">Figma Sites：設計稿可以直接變成網站了？</a></td><td class="topic" data-label="談論主題">Figma Sites：設計稿可以直接變成網站了？</td><td data-label="內容大意">從活動頁面的製作流程，看看 Figma Sites 如何連接設計與發布，以及哪些工作仍需要前端判斷。</td></tr>
             <tr><td class="month" data-label="月份">6 月</td><td class="event" data-label="事件"><a href="https://vite.dev/blog/announcing-vite7">Vite 7 發布</a></td><td class="topic" data-label="談論主題">Vite 7 的瀏覽器支援與 Baseline</td><td data-label="內容大意">說明 Node 18 EOL、ESM-only，以及 Baseline Widely Available 如何成為新的瀏覽器支援策略。</td></tr>
-            <tr><td class="month" data-label="月份">6 月</td><td class="event" data-label="事件"><a href="https://webkit.org/blog/17333/webkit-features-in-safari-26-0/">Safari 26 公布大量 Web 平台功能</a></td><td class="topic" data-label="談論主題">Safari 26 新增的 CSS 與 Web API</td><td data-label="內容大意">整理 Anchor Positioning、Scroll-driven Animations、HDR、Digital Credentials 與安全 API，再談漸進增強和 Safari 版本支援。</td></tr>
+            <tr><td class="month" data-label="月份">6 月</td><td class="event" data-label="事件"><a href="https://webkit.org/blog/16993/news-from-wwdc25-web-technology-coming-this-fall-in-safari-26-beta/">Safari 26 測試版公布新的 CSS 功能</a></td><td class="topic" data-label="談論主題">Safari 26 新增的 CSS 與 Web API</td><td data-label="內容大意">從文字換行、帳號選單到閱讀進度，看 Safari 26 的三個日常 CSS 使用情境。</td></tr>
             <tr><td class="month" data-label="月份">7 月</td><td class="event" data-label="事件"><a href="https://tailwindcss.com/blog">Tailwind Plus 支援 Vanilla JavaScript</a></td><td class="topic" data-label="談論主題">Tailwind Plus 與框架無關的 UI 元件</td><td data-label="內容大意">討論樣式與互動邏輯分離，以及 Web Platform 進步後，哪些元件已不需要依賴特定框架。</td></tr>
             <tr><td class="month" data-label="月份">8 月</td><td class="event" data-label="事件"><a href="https://developers.cloudflare.com/changelog/post/2025-08-27-ai-crawl-control-launch/">誰在大量抓你的文章？Cloudflare 增加 AI 爬蟲管理功能</a></td><td class="topic" data-label="談論主題">誰在大量抓你的文章？Cloudflare 增加 AI 爬蟲管理功能</td><td data-label="內容大意">認識 AI Crawl Control 的爬蟲統計與阻擋方式，以及被抓取、帶來讀者和內容授權之間的差別。</td></tr>
             <tr><td class="month" data-label="月份">9 月</td><td class="event" data-label="事件"><a href="https://nuxt.com/blog/nuxt-ui-v4">Nuxt UI v4</a></td><td class="topic" data-label="談論主題">Nuxt UI v4 與自建 Design System 的取捨</td><td data-label="內容大意">比較現成 UI library、headless components 與自建 Design System 的自由度、維護成本和適用情境。</td></tr>
@@ -341,10 +341,10 @@ select::picker(select) {
         <article class="draft" id="chrome-io-2025">
           <div class="draft-meta">2025 年 5 月</div>
           <h3>Chrome I/O 2025 的 Web Platform 更新</h3>
-          <p>我看完今年 Google I/O 的整理，腦中第一句話是：「好，又是 AI。」不是說 AI 不重要，只是整場資訊塞得太滿，幾個我真的可能在前端專案用到的 Web Platform 更新反而差點被淹掉。於是我又回頭把清單翻了一次，先把那些華麗 demo 放旁邊，挑出幾個會讓日常 UI 少寫一點 JavaScript 的東西。</p>
+          <p>我看完今年 Google I/O 的整理，腦中第一句話是：「好，又是 AI。」不是說 AI 不重要，只是整場資訊塞得太滿，於是我又回頭把清單翻了一次，先把那些華麗 demo 放旁邊，挑出幾個會讓日常 UI 少寫一點 JavaScript 的東西。</p>
           <p>Google I/O 2025 公布了不少 Web 新功能，其中一條很明顯的方向是：以前常靠 JavaScript 元件完成的介面，正在慢慢回到瀏覽器原生能力。</p>
           <p>像 CSS carousel 可以處理一部分輪播互動，Anchor Positioning 能讓提示框或選單跟著指定元素定位。Baseline 則用比較簡單的標記，告訴開發者某項功能是否已被主要瀏覽器普遍支援。</p>
-          <p>這不表示我們可以立刻刪掉所有 UI 套件。新功能通常還有瀏覽器版本和細節差異，但至少未來做常見介面時，可以先看看 HTML 和 CSS 是否已經能處理，不必第一時間安裝更多依賴。</p>
+          <p>新功能通常還有瀏覽器版本和細節差異，但至少未來做常見介面時，可以先看看 HTML 和 CSS 是否已經能處理，不必第一時間安裝更多依賴。</p>
           <h4>我覺得比較值得注意的三件事</h4>
           <ul>
   <li>CSS carousel 把捲動按鈕和位置標記帶進原生 CSS，簡單輪播未必需要一整套 slider。</li>
@@ -392,30 +392,24 @@ select::picker(select) {
         <article class="draft" id="safari-26-web-platform">
           <div class="draft-meta">2025 年 6 月</div>
           <h3>Safari 26 新增的 CSS 與 Web API</h3>
-          <p>每次我興奮地看到一個新 CSS 功能，腦中都會很自動地冒出那句掃興的話：「Safari 呢？」這已經像前端圈的固定儀式了。Safari 26 一口氣補上不少能力時，我本來很開心，但下一秒還是忍不住去看舊 iPhone 的版本分布——做產品就是這麼現實，新版支援和可以刪掉 fallback，通常是兩個不同日期。</p>
-          <p>Safari 26 一次補進大量 WebKit 功能，清單長到不太適合逐條翻譯。若只挑和一般前端最有關的，我會先看下面幾項。</p>
-          <h4>我覺得比較重大的更新</h4>
-          <ul>
-  <li><strong>CSS Anchor Positioning：</strong>  tooltip、popover 或選單可以直接跟著另一個元素定位，不必一直讀取座標再監聽 resize 和 scroll。它解決的是前端做浮層時非常老的一類問題。</li>
-</ul>
-          <ul>
-  <li><strong>Scroll-driven Animations：</strong>  動畫進度能跟捲動位置或元素可見範圍連動。簡單的閱讀進度、進場效果，不必再用大量 scroll listener 計算。</li>
-</ul>
-          <ul>
-  <li><strong>HDR 圖片與 <code>dynamic-range-limit</code>：</strong>  支援 HDR 的螢幕可以呈現更亮、更廣的影像範圍，同時讓作者限制亮度。這對攝影和影音網站很有吸引力，但也更需要顧及素材與裝置差異。</li>
-</ul>
-          <ul>
-  <li><strong>Digital Credentials API：</strong>  網站可以在使用者同意下，向數位身分證件請求經驗證的資料。它牽涉隱私和敏感資訊，重點不只在「能讀到什麼」，還包括何時詢問、畫面怎麼說明。</li>
-</ul>
-          <ul>
-  <li><strong><code>URLPattern</code>、Trusted Types 與更多平台 API：</strong>  前者讓 URL 比對更一致；Trusted Types 可協助降低 DOM XSS 風險。這些功能不一定直接改變畫面，卻補強了 routing 與安全工具能使用的底層能力。</li>
-</ul>
-          <p>真正開發時仍要查使用者的 Safari 版本，尤其舊 iPhone 不一定能升級。功能進入最新版 Safari，代表跨瀏覽器採用門檻下降，不代表專案裡的所有裝置在同一天突然支援。</p>
-          <h4>我的看法</h4>
-          <p>我最看好 Anchor Positioning。因為它不是只讓展示頁更炫，而是能少掉一段每個元件庫都重寫過的定位邏輯。Scroll-driven Animations 也很好用，但更適合當漸進增強：沒有動畫時，內容和操作仍應正常。</p>
-          <p>使用這類新功能時，我會優先用 <code>@supports</code> 做功能偵測，而不是猜瀏覽器名稱。新專案可以先用在不影響核心流程的地方；舊元件則不用因為 Safari 終於支援就連夜重寫，等產品的最低版本跟上再逐步簡化即可。</p>
-          <p>Safari 的版本號這幾年愈來愈大，但產品端最麻煩的仍是裝置分布。公司測試機可能全是最新版，使用者手上的 iPhone 卻因硬體限制停在舊系統。與其在需求單上寫「支援 Safari」，我更希望看到明確的最低版本，以及某個新功能失效時還剩下什麼體驗。</p>
-          <p>拿 Anchor Positioning 來說，第一階段可以保留既有浮層定位工具，只在支援時走原生路徑；等監控和流量都證明舊路徑很少使用，再移除依賴。平台功能真正幫忙省下程式碼，往往不是宣布支援的那一天，而是產品終於能放心刪掉 fallback 的那一天。</p>
+          <p>Safari 26 在 WWDC25 公布測試版時，更新清單很長。比起逐個記 API 名稱，我比較在意的是：平常做頁面那些不起眼的小麻煩，有沒有哪個終於可以少繞一點路？文字換行、頭像底下的選單，還有部落格的閱讀進度，這次都有能對上需求的更新。</p>
+          <h4>最後一行不要只剩一個單字</h4>
+          <p>卡片簡介明明不長，最後一行卻孤零零留了一個英文單字，看起來就是有點不順。手動加換行也不是好辦法，桌機排漂亮了，換到手機又得重來。</p>
+          <p>Safari 26 beta 加入的 <code>text-wrap: pretty</code>，會讓瀏覽器調整文字斷行，盡量改善參差不齊的行尾，以及過短的最後一行。</p>
+          <pre><code>.article p,
+.card-description {
+  text-wrap: pretty;
+}</code></pre>
+          <p>它不保證每段都變成理想的排版，但對文章內文、卡片簡介來說，這種不用改內容就能試的改善很方便。實際效果還是要放進自己的字型、文字和欄寬裡看。</p>
+          <h4>點頭像，選單就出現在它下面</h4>
+          <p>帳號選單看起來很簡單：點一下右上角頭像，在下面顯示「個人資料」和「登出」。麻煩的是，頭像位置可能隨版面改變，選單又可能靠近畫面邊緣。</p>
+          <p>CSS Anchor Positioning 讓我們直接指定「這個選單以那個頭像為定位基準」。用 <code>anchor-name</code> 替頭像命名，再用 <code>position-anchor</code> 把選單接上去，就能描述它要放在哪一側；也可以設定空間不足時改試另一個位置，減少自己讀取座標和計算偏移的工作。</p>
+          <p>我覺得這比多一種炫目的特效更有吸引力。選單本來就該跟著按鈕，現在終於能把這個關係直接交給 CSS 表達。不過這裡處理的是位置，選單的開關和鍵盤操作仍要另外安排。</p>
+          <h4>往下讀，頂端進度條跟著走</h4>
+          <p>長文章上方常有一條細細的閱讀進度：剛打開時是空的，往下滑就逐漸填滿。以前做這個效果，通常得監聽捲動，再用 JavaScript 算目前走了多少距離。</p>
+          <p>Scroll-driven Animations 可以把 CSS 動畫直接連到捲動位置。例如讓進度條從零寬逐漸填滿，並透過 <code>animation-timeline: scroll(root)</code>，讓動畫跟著整頁的捲動進度走。往上滑，進度也會退回去，不是開頁後自己播完的一段動畫。</p>
+          <p>如果文章後面還有留言區，整頁捲動進度就不等於文章閱讀進度，做的時候要先決定想表達哪一個。這個差別，比進度條要用什麼顏色更值得先想清楚。</p>
+          <p>三個裡面，我會先試文字換行，最容易直接拿現有頁面比較。選單定位和捲動動畫則等實際需求出現再接進來；目前是 Safari 26 測試版公布的支援，正式網站仍要顧到使用者正在用的瀏覽器版本。</p>
         </article>
 
         <article class="draft" id="tailwind-plus-vanilla-js">
