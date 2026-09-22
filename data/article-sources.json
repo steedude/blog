@@ -129,12 +129,6 @@
       "url": "https://react.dev/reference/rsc/server-components"
     }
   ],
-  "web-vitals": [
-    {
-      "title": "Web Vitals",
-      "url": "https://web.dev/articles/vitals"
-    }
-  ],
   "jquery-4": [
     {
       "title": "jQuery 4.0.0",

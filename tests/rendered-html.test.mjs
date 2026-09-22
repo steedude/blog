@@ -399,16 +399,16 @@ test("removed articles are unavailable and absent from indexes", async () => {
     assert.equal((await render(`/${locale}/posts/angular-20`)).status, 404);
     assert.equal((await render(`/${locale}/posts/vite-8-rolldown`)).status, 404);
     assert.equal((await render(`/${locale}/posts/typescript-6`)).status, 404);
-    for (const slug of ["view-transitions","nuxt-4-5","astro-6-beta","astro-7","react-compiler","react2shell","web-platform-baseline","react-foundation","nx-s1ngularity","node-24","typescript-native-port"]) {
+    for (const slug of ["web-vitals","view-transitions","nuxt-4-5","astro-6-beta","astro-7","react-compiler","react2shell","web-platform-baseline","react-foundation","nx-s1ngularity","node-24","typescript-native-port"]) {
       assert.equal((await render(`/${locale}/posts/${slug}`)).status, 404);
     }
     for (const path of [`/${locale}/search`, `/${locale}/rss.xml`]) {
       const html = await render(path).then((result) => result.text());
-      assert.doesNotMatch(html, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6|view-transitions|nuxt-4-5|astro-6-beta|astro-7|react-compiler|react2shell|web-platform-baseline|react-foundation|nx-s1ngularity|node-24|typescript-native-port/);
+      assert.doesNotMatch(html, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6|web-vitals|view-transitions|nuxt-4-5|astro-6-beta|astro-7|react-compiler|react2shell|web-platform-baseline|react-foundation|nx-s1ngularity|node-24|typescript-native-port/);
     }
   }
   const sitemap = await render("/sitemap.xml").then((result) => result.text());
-  assert.doesNotMatch(sitemap, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6|view-transitions|nuxt-4-5|astro-6-beta|astro-7|react-compiler|react2shell|web-platform-baseline|react-foundation|nx-s1ngularity|node-24|typescript-native-port/);
+  assert.doesNotMatch(sitemap, /modern-css|angular-22|angular-21|angular-20|vite-8-rolldown|typescript-6|web-vitals|view-transitions|nuxt-4-5|astro-6-beta|astro-7|react-compiler|react2shell|web-platform-baseline|react-foundation|nx-s1ngularity|node-24|typescript-native-port/);
 });
 
 test("publishes the complete topic plan through posts, taxonomies, RSS, and sitemap", async () => {
