@@ -22,16 +22,6 @@ Multisig is often treated as several layers of insurance, but its main protectio
 
 This is also why clear signing on a hardware wallet matters. If the device only shows a hash or the words "Contract data," the user cannot meaningfully verify the authorization and must trust the computer screen again. The larger the value being controlled, the more dangerous that trust becomes.
 
-## Treating this as a frontend requirement
-
-- Show the actual recipient, amount, and contract operation, not only a friendly summary.
-
-- Provide an independent verification path for critical actions. The same frontend should not both prepare the data and serve as the only proof that it is correct.
-
-- Treat deployment, third-party scripts, and developer permissions as parts of the transaction system.
-
-A cold wallet reduces the risk of exposing a private key online. It cannot guarantee that every payload sent to the device is correct. That distinction is easy to lose in a headline, but it may be the most useful lesson for frontend developers.
-
 ## A frontend does more than prettify transaction JSON
 
 Blockchain transactions are difficult to read. A typical payload contains contract addresses, function selectors, and encoded arguments. The frontend turns that into a sentence such as "send this much ETH" or "add this owner." That translation is valuable, but it also receives considerable trust. If it is wrong, incomplete, or manipulated, the user may authorize a different action without knowing it.

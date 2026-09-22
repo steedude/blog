@@ -29,5 +29,3 @@ The familiar advice is to stop hardcoding credentials and use environment variab
 Exclude `.env` from Git; adding `.gitignore` after a file was tracked does not remove its history. For frontend code, ask whether the value eventually enters browser JavaScript. Moving its location does not hide a bundled value.
 
 Credentials authorizing email, payment, or administration belong on the server. Some providers deliberately offer publishable keys, so intended use and permissions matter more than the word 'key' alone.
-
-This news has no dramatic demo or impressive speed figure, but it deserves attention. The awkward discovery is not only that a credential leaked. It is realizing afterward that nobody knows all the places using it, and even replacing it begins with asking around.
