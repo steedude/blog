@@ -31,7 +31,3 @@ This permits shared caching and treats the response as fresh for 60 seconds. It 
 Sixty seconds sounds short—until you publish an article, open the homepage, and cannot find it. 'Did publishing fail?' is a natural reaction, even though the system may be following your own rule exactly.
 
 I would decide whether that minute is acceptable first. For an ordinary article list, it probably is. Immediate visibility means connecting cache purging to publication. Configuring storage while forgetting updates is a good way to acquire a manual cleanup habit.
-
-Personal orders must not inherit the same public setting. And because a cache hit skips the Worker, checks implemented only inside it can be skipped too. Decide which responses are safe to share before enabling caching.
-
-I would start with a simple public listing where the difference is visible. Waiting briefly for a new post is tolerable when the reason is clear. Refreshing five times, publishing again, and only then remembering `max-age` is the frustrating version.

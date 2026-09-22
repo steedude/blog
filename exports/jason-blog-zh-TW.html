@@ -123,9 +123,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="http" data-theme="github-light"><code data-language="http" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#22863A">Cache-Control</span><span style="color:#D73A49">:</span><span style="color:#032F62"> public, max-age=60</span></span></code></pre></figure>
 <p>這份回應可以放進共用快取，60 秒內視為新鮮。它不會每分鐘自動醒來更新，而是在有請求時，依快取的狀態決定要不要重新取得資料。這個標頭也可能被瀏覽器等其他 HTTP 快取使用，不只是 Cloudflare 看得懂。</p>
 <p>六十秒聽起來很短，但如果剛按完發布，馬上開首頁卻找不到新文章，第一個反應大概還是「是不是沒成功？」這時系統其實可能完全正常，只是在忠實執行我們自己設的規則。</p>
-<p>所以我會先問自己，這個頁面到底能不能晚一分鐘。一般文章列表，我多半能接受；如果希望發布後立刻看見，就得把清除對應快取一起接進發布流程。只設定保存、沒想到更新，後面就會一直靠手動清理救場。</p>
-<p>個人資料就不能照抄這個設定了。登入後的訂單如果被當成公開內容共用，那已經不只是「看到舊資料」的問題。更容易漏想的是，命中快取時 Worker 不會執行，原本寫在裡面的權限檢查也可能跟著跳過。哪些回應能被共用，要在開快取前就分清楚。</p>
-<p>我會想先拿自己的公開文章列表試，這種頁面夠單純，也看得出前後差別。至於發布後等幾秒才看見新文章，知道原因之後倒還好；真正讓人煩的是不知道它在等什麼，於是重整五次、再重發一次，最後才想起那行 <code>max-age</code>。</p></div>
+<p>所以我會先問自己，這個頁面到底能不能晚一分鐘。一般文章列表，我多半能接受；如果希望發布後立刻看見，就得把清除對應快取一起接進發布流程。只設定保存、沒想到更新，後面就會一直靠手動清理救場。</p></div>
   <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://blog.cloudflare.com/workers-cache/" target="_blank" rel="noreferrer">Your Worker can now have its own cache in front of it</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#typescript-7">下一篇 →</a></footer>
 </article>
