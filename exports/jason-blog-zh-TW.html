@@ -384,8 +384,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <p>多數專案不用急著二選一。可以先用 Nuxt UI 處理基礎互動，再透過 theme 和包裝元件建立自己的視覺規則，把真正有品牌特色的部分留給自己。</p>
 <p>如果團隊只有一兩位前端，從零維護 date picker、combobox 和表單錯誤狀態，通常不是最划算的投資。反過來說，若產品有大量特殊互動或嚴格品牌規範，現成元件改到最後也可能比自己做更辛苦。這篇不用選邊站，把人力和產品差異放進來看就夠了。</p>
 <p>還有一個常被低估的成本是升級。自建元件要自己修瀏覽器和無障礙問題；採用套件則要跟著 breaking changes。決定前除了看元件數量，也可以看看 changelog、維護頻率，以及團隊能不能接受它的 API。</p>
-<p>我習慣先做一個「最難客製的元件」小樣，而不是先展示 Button。把產品真正複雜的 combobox、表格或表單錯誤狀態做出來，才能看出 theme API 夠不夠、DOM 結構能不能配合測試，以及設計稿到底需要多少 override。按鈕漂亮通常證明不了什麼。</p>
-<p>若最後採用套件，我也會包一層很薄的產品元件，但不會把所有 props 原封不動再轉一次。只包真正需要固定的視覺和行為，否則 wrapper 反而會成為升級時的第二套 API。</p></div>
+<p>我習慣先做一個「最難客製的元件」小樣，而不是先展示 Button。把產品真正複雜的 combobox、表格或表單錯誤狀態做出來，才能看出 theme API 夠不夠、DOM 結構能不能配合測試，以及設計稿到底需要多少 override。按鈕漂亮通常證明不了什麼。</p></div>
   <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://nuxt.com/blog/nuxt-ui-v4" target="_blank" rel="noreferrer">Introducing Nuxt UI v4</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#cloudflare-ai-crawl-control">下一篇 →</a></footer>
 </article>
@@ -404,8 +403,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <h3 id="cloudflare-ai-crawl-control--連不給抓也分幾種">連「不給抓」也分幾種</h3>
 <p>在 <code>robots.txt</code> 寫不希望被抓取，仍然是在請對方遵守規則。AI Crawl Control 可以進一步對辨識出的爬蟲阻擋請求，至少不用完全期待對方自律。不過這只管得到經過 Cloudflare、又能被辨識的流量，不是按一下就從網路上隱形。</p>
 <p>這次更新有個讓我停下來多看一下的地方：付費方案可以把阻擋回應設成 <code>402 Payment Required</code>，再附上授權聯絡方式。比起單純回 <code>403</code> 拒絕，它多表達了一層意思：內容不是不能用，但使用條件要先談。</p>
-<p>只是回了 <code>402</code>，錢也不會自己進來。它可以傳達條件，不能保證對方願意談，更不等於收款和授權流程已經完成。這個差別不大，卻很容易在「網站終於能向 AI 收費」的想像裡被略過。</p>
-<p>我現在比較想知道的，是自己的文章究竟被哪些服務反覆讀取，又有多少人因此找到這裡。如果真的帶來讀者，開放有開放的道理；如果只是被取用，也至少能知道自己正在提供什麼。連這些都看不到的時候，要談歡迎還是拒絕，其實都有點憑感覺。</p></div>
+<p>只是回了 <code>402</code>，錢也不會自己進來。它可以傳達條件，不能保證對方願意談，更不等於收款和授權流程已經完成。這個差別不大，卻很容易在「網站終於能向 AI 收費」的想像裡被略過。</p></div>
   <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://developers.cloudflare.com/changelog/post/2025-08-27-ai-crawl-control-launch/" target="_blank" rel="noreferrer">Enhanced crawler insights and custom 402 responses</a></li><li><a href="https://blog.cloudflare.com/introducing-ai-crawl-control/" target="_blank" rel="noreferrer">Introducing AI Crawl Control</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#tailwind-plus-vanilla-js">下一篇 →</a></footer>
 </article>

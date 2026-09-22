@@ -21,5 +21,3 @@ For one or two frontend developers, building and maintaining date pickers, combo
 Upgrade cost is easy to miss. A custom component requires the team to fix browser and accessibility issues; a dependency requires following breaking changes. Before choosing, look beyond component count to the changelog, maintenance cadence, and whether the team is comfortable with the library's API.
 
 I prefer prototyping the hardest component to customize instead of presenting a Button first. A real combobox, data table, or form error state reveals whether the theme API is sufficient, the DOM works with our tests, and the design requires too many overrides. A pretty button proves very little.
-
-If we adopt the library, I still add a thin product component around selected pieces, but I do not forward every prop into a duplicate API. The wrapper should lock down only intentional visuals and behavior; otherwise it becomes a second component library to migrate.
