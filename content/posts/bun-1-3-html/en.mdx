@@ -35,6 +35,4 @@ bun build ./index.html --production --outdir=dist
 
 A calculator running entirely in the browser can put that output on a static host. Adding accounts, a database, or an API introduces backend work that this command does not magically finish.
 
-I would not replace an existing Nuxt build just for this. The framework's routing, data loading, and deployment behavior involve more than bundling files.
-
 The likely use is the next small idea: open `index.html` and see whether it is interesting. If it isn't, leaving it there is fine. Better to discover that before spending the evening setting up its future architecture.
