@@ -2,8 +2,8 @@
 import type { ComponentType } from "react";
 import TailwindV4CssFirstZh, { metadata as TailwindV4CssFirstZhMetadata } from "@/content/posts/tailwind-v4-css-first/zh-TW.mdx";
 import TailwindV4CssFirstEn, { metadata as TailwindV4CssFirstEnMetadata } from "@/content/posts/tailwind-v4-css-first/en.mdx";
-import CraAfterlifeZh, { metadata as CraAfterlifeZhMetadata } from "@/content/posts/cra-afterlife/zh-TW.mdx";
-import CraAfterlifeEn, { metadata as CraAfterlifeEnMetadata } from "@/content/posts/cra-afterlife/en.mdx";
+import LetsencryptExpirationEmailsZh, { metadata as LetsencryptExpirationEmailsZhMetadata } from "@/content/posts/letsencrypt-expiration-emails/zh-TW.mdx";
+import LetsencryptExpirationEmailsEn, { metadata as LetsencryptExpirationEmailsEnMetadata } from "@/content/posts/letsencrypt-expiration-emails/en.mdx";
 import BybitSafeUiZh, { metadata as BybitSafeUiZhMetadata } from "@/content/posts/bybit-safe-ui/zh-TW.mdx";
 import BybitSafeUiEn, { metadata as BybitSafeUiEnMetadata } from "@/content/posts/bybit-safe-ui/en.mdx";
 import GithubSecretRiskAssessmentZh, { metadata as GithubSecretRiskAssessmentZhMetadata } from "@/content/posts/github-secret-risk-assessment/zh-TW.mdx";
@@ -58,8 +58,8 @@ function createPost(locale: Locale, Body: ComponentType, metadata: PostMetadata)
 export const topicPosts: Post[] = [
   createPost(Locale.ZH_TW, TailwindV4CssFirstZh, TailwindV4CssFirstZhMetadata),
   createPost(Locale.EN, TailwindV4CssFirstEn, TailwindV4CssFirstEnMetadata),
-  createPost(Locale.ZH_TW, CraAfterlifeZh, CraAfterlifeZhMetadata),
-  createPost(Locale.EN, CraAfterlifeEn, CraAfterlifeEnMetadata),
+  createPost(Locale.ZH_TW, LetsencryptExpirationEmailsZh, LetsencryptExpirationEmailsZhMetadata),
+  createPost(Locale.EN, LetsencryptExpirationEmailsEn, LetsencryptExpirationEmailsEnMetadata),
   createPost(Locale.ZH_TW, BybitSafeUiZh, BybitSafeUiZhMetadata),
   createPost(Locale.EN, BybitSafeUiEn, BybitSafeUiEnMetadata),
   createPost(Locale.ZH_TW, GithubSecretRiskAssessmentZh, GithubSecretRiskAssessmentZhMetadata),

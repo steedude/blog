@@ -2,7 +2,7 @@ import { writeFile } from "node:fs/promises";
 
 const plans = [
   ["tailwind-v4-css-first", "2025-01-21", "CSS", "css", ["Tailwind CSS", "CSS", "Design Tokens"], "從設定檔搬進 CSS，看看 Tailwind CSS v4 的 CSS-first 到底改變了什麼。"],
-  ["cra-afterlife", "2025-02-14", "React", "react", ["React", "Create React App", "Vite", "Next.js"], "Create React App 退場後，依照 SPA、內容網站與 SSR 需求選擇下一套工具。"],
+  ["letsencrypt-expiration-emails","2025-02-14","網站維運","operations",["HTTPS","Let’s Encrypt","Certificates","Monitoring"],"Let’s Encrypt 將停止寄送到期通知，從網站突然出現安全警告，談自動續期和監控各自負責什麼。"],
   ["bybit-safe-ui", "2025-02-21", "資訊安全", "security", ["Security", "Crypto Wallet", "Frontend Security", "Safe"], "從 Bybit 冷錢包事件理解簽署介面、Blind Signing 與多簽流程的前端風險。"],
   ["github-secret-risk-assessment","2025-03-04","資訊安全","security",["GitHub","Security","API Keys"],"GitHub 公布免費機密風險評估，幫組織看見憑證暴露的範圍；也談談為什麼刪掉那一行還不算處理完。"],
   ["custom-select", "2025-04-02", "Web Platform", "web-platform", ["CSS", "HTML", "Select", "Accessibility"], "認識可自訂的原生 select，以及漸進增強和瀏覽器相容性的實際取捨。"],

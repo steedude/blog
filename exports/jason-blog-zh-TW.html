@@ -43,7 +43,7 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <li data-entry="custom-select"><a href="#custom-select"><span class="toc-number">22</span><span>原生 select 的樣式限制終於鬆綁<small>2025-04-02 · Web Platform</small></span></a></li>
 <li data-entry="github-secret-risk-assessment"><a href="#github-secret-risk-assessment"><span class="toc-number">23</span><span>API key 不小心進了 Git？GitHub 的機密風險檢查<small>2025-03-04 · 資訊安全</small></span></a></li>
 <li data-entry="bybit-safe-ui"><a href="#bybit-safe-ui"><span class="toc-number">24</span><span>Bybit 事件與冷錢包簽署流程的前端風險<small>2025-02-21 · 資訊安全</small></span></a></li>
-<li data-entry="cra-afterlife"><a href="#cra-afterlife"><span class="toc-number">25</span><span>CRA 退場後的 React 專案選擇<small>2025-02-14 · React</small></span></a></li>
+<li data-entry="letsencrypt-expiration-emails"><a href="#letsencrypt-expiration-emails"><span class="toc-number">25</span><span>HTTPS 憑證快過期，Let’s Encrypt 不再寄信提醒<small>2025-02-14 · 網站維運</small></span></a></li>
 <li data-entry="tailwind-v4-css-first"><a href="#tailwind-v4-css-first"><span class="toc-number">26</span><span>Tailwind CSS v4 的 CSS-first 設定方式<small>2025-01-21 · CSS</small></span></a></li></ol></nav>
 <main><header class="cover"><p class="eyebrow">前端開發 · 網頁技術 · 資訊安全</p><h1>Jason 的中文文章集</h1><p>把所有中文文章放在一起，隨時翻閱。可用目錄跳轉，也能搜尋整份內文；程式碼、表格和原有資料來源皆保留。</p><p class="meta">文章日期 2025-01-21 — 2026-08-04<br>匯出日期 2026-09-22 · 26 篇 · 單一檔案，可離線閱讀</p><div class="rule"></div></header>
 <p class="empty" id="empty" hidden>找不到符合的文章，請換個關鍵字或清除搜尋。</p>
@@ -586,28 +586,28 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
 <p>這件事也讓我重新想了一次「前端驗證」四個字。平常我們說驗證，常指必填欄位、格式和按鈕能不能按；但在高風險系統裡，還要驗證使用者看到的描述是否真的對應即將簽署的 payload。畫面顯示正確不夠，畫面和底層資料之間的關係也必須可以被獨立確認。</p>
 <p>如果是我參與這類介面，我會希望 review 不只停在元件層。交易解析規則、未知合約的 fallback、前端部署來源，以及硬體錢包實際顯示多少資訊，都應該畫進同一張 threat model。這不是要前端工程師突然變成密碼學家，而是承認我們寫的那個確認畫面，可能就是使用者做最後判斷的地方。</p></div>
   <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://www.bybit.com/en/learn/this-week-in-bybit/bybit-security-incident-timeline" target="_blank" rel="noreferrer">Bybit Security Incident: Timeline of Events and FAQs</a></li></ul></section>
-  <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#cra-afterlife">下一篇 →</a></footer>
+  <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#letsencrypt-expiration-emails">下一篇 →</a></footer>
 </article>
-<article id="cra-afterlife" aria-labelledby="title-cra-afterlife">
+<article id="letsencrypt-expiration-emails" aria-labelledby="title-letsencrypt-expiration-emails">
   <header class="article-header">
-    <p class="eyebrow">第 25 篇 · React</p>
-    <h2 id="title-cra-afterlife">CRA 退場後的 React 專案選擇</h2>
-    <p class="description">Create React App 退場後，依照 SPA、內容網站與 SSR 需求選擇下一套工具。</p>
+    <p class="eyebrow">第 25 篇 · 網站維運</p>
+    <h2 id="title-letsencrypt-expiration-emails">HTTPS 憑證快過期，Let’s Encrypt 不再寄信提醒</h2>
+    <p class="description">Let’s Encrypt 將停止寄送到期通知，從網站突然出現安全警告，談自動續期和監控各自負責什麼。</p>
     <p class="date">發布 <time datetime="2025-02-14">2025-02-14</time></p>
-    <div class="tags"><span>React</span><span>Create React App</span><span>Vite</span><span>Next.js</span></div>
+    <div class="tags"><span>HTTPS</span><span>Let’s Encrypt</span><span>Certificates</span><span>Monitoring</span></div>
   </header>
-  <div class="article-body"><p>看到 CRA 正式被標成 deprecated 時，我有一種「早就知道，但真的發生還是有點感慨」的感覺。以前幾乎每份 React 入門教學都從 <code>npx create-react-app</code> 開始，我也曾經把它當成不必思考的標準答案。結果現在最常被問的不是怎麼用 CRA，而是它走了以後，到底該裝 Vite 還是乾脆上 Next.js。</p>
-<p>Create React App 曾經是建立 React 專案最省事的方法，但它後來缺少積極維護，建置速度和現代工具也逐漸跟不上。React 官方因此在 2025 年正式把它標成 deprecated。</p>
-<p>如果原本做的是登入後台或一般 SPA，Vite 通常就是最直接的接班人。它負責啟動開發環境和打包程式，路由、資料請求仍由我們自己選。Next.js 則多了檔案路由、伺服器渲染、靜態產生和後端功能，並不是每個 React 專案都需要。</p>
-<p>簡單說，CRA 退場並不等於大家都要改用 Next.js。先看網站需要什麼：單純 SPA 可以從 Vite 開始；內容網站、電商或需要 SSR 的頁面，再考慮 Next.js 或其他 React framework。</p>
-<h3 id="cra-afterlife--vite-和-nextjs-其實不是同一層">Vite 和 Next.js 其實不是同一層</h3>
-<p>Vite 主要是建置工具，它把開發伺服器、HMR 和 production build 準備好。路由可以選 React Router，資料請求可以用原生 fetch、TanStack Query 或其他方案。自由度很高，代價是專案規模變大後，這些選擇要由團隊自己整理。</p>
-<p>Next.js 則先幫你決定不少事情：目錄就是路由、頁面可以在伺服器產生、Metadata 和圖片處理也有官方做法。這對公開網站很方便，但若只是公司內部後台，導入整套伺服器模型未必比較省事。</p>
-<p>SSR 也不只是 SEO。伺服器先送出 HTML，慢一點的手機通常能更早看到內容；但伺服器要多做工作，部署和快取也會複雜一些。若頁面登入後才看得到，搜尋引擎根本不是重點，CSR 往往已經很夠用。</p>
-<p>所以我會把問題改成「這個專案只缺一個新的 CRA，還是已經需要完整框架？」前者選 Vite 很合理；後者才需要看 Next.js、React Router framework mode 等方案。</p>
-<p>我看過比較麻煩的情況，通常不是工具選錯，而是團隊根本沒有把需求說清楚。只是要做一個登入後才能看的 CRUD 後台，卻先背上 Server Component、快取和部署 runtime；另一邊是行銷網站做到一半才發現每個頁面都要手動補 SEO 和分享圖。兩種選擇都能做完，只是會一直付出原本可以避免的成本。</p>
-<p>如果今天從零開專案，我會先寫一張很短的清單：頁面是否公開、是否需要被搜尋、資料主要在 client 還是 server、部署環境能不能長時間跑 Node。這四題答完，通常已經比「大家最近都用什麼」更接近答案。工具可以再換，專案一開始形成的資料流和部署方式反而比較難回頭。</p></div>
-  <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://react.dev/blog/2025/02/14/sunsetting-create-react-app" target="_blank" rel="noreferrer">Sunsetting Create React App</a></li></ul></section>
+  <div class="article-body"><p>網站昨天還能開，今天卻跳出「連線不安全」，對訪客來說大概不會先研究原因，關掉比較快。偏偏這種狀況不一定是程式改壞了，也可能只是 HTTPS 憑證過期。頁面和資料都還在，卻像店開著、門口被貼了一張警告。</p>
+<p>Let’s Encrypt 在 2025 年 1 月 22 日宣布，將從 6 月 4 日起停止寄送憑證到期通知。這則消息沒有什麼新功能，但如果平常是收到信才想起來檢查網站，它就比不少產品更新更需要處理。</p>
+<h3 id="letsencrypt-expiration-emails--不寄提醒信不代表不幫你續期">不寄提醒信，不代表不幫你續期</h3>
+<p>Let’s Encrypt 是提供免費 HTTPS 憑證的機構。網站透過憑證向瀏覽器證明身分，再建立加密連線；憑證有有效期限，到期前需要換一張新的。</p>
+<p>這次取消的是提醒 Email，憑證簽發服務沒有停止。原本透過 Certbot 或主機平台自動續期的網站，也不會因為少了這封信就停止續期。官方提到，自動化已愈來愈普遍，加上保存通知用 Email 的隱私考量，以及服務本身的成本與維護負擔，因此決定結束通知服務。</p>
+<p>所以第一個要確認的，其實是自己的網站由誰處理憑證。交給主機平台管理，和自己在伺服器上安排續期，是兩種不同的維護方式。</p>
+<h3 id="letsencrypt-expiration-emails--有設定自動續期還要看它有沒有成功">有設定自動續期，還要看它有沒有成功</h3>
+<p>假設伺服器每天都會檢查憑證，接近到期就自動更新。後來改了防火牆，剛好擋住續期時需要的網域驗證。排程可能照常執行，卻一次也沒換到新憑證；網站暫時還能開，直到舊憑證真的過期。</p>
+<p>另一種狀況是新憑證已經拿到了，網站服務卻還在使用舊的那張。只看「續期指令有跑完」，不一定能發現訪客實際收到什麼。</p>
+<p>自動續期負責把事情做完，外部監控則從訪客連進來的網址檢查目前送出的憑證，快過期時發出通知。兩件事配合，才比較不容易把「已設定」誤認成「一直正常」。</p>
+<p>如果網站本來就有主機代管與到期監控，這次變動可能不需要多做什麼。若唯一的提醒來源就是 Let’s Encrypt 的 Email，就得在 6 月前補上替代通知。與其等訪客傳來安全警告的截圖，我會比較希望先收到的是自己的監控通知。</p></div>
+  <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://letsencrypt.org/2025/01/22/ending-expiration-emails" target="_blank" rel="noreferrer">Ending Support for Expiration Notification Emails</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#tailwind-v4-css-first">下一篇 →</a></footer>
 </article>
 <article id="tailwind-v4-css-first" aria-labelledby="title-tailwind-v4-css-first">
@@ -618,24 +618,40 @@ article{background:var(--paper);border:1px solid var(--line);border-radius:8px;p
     <p class="date">發布 <time datetime="2025-01-21">2025-01-21</time></p>
     <div class="tags"><span>Tailwind CSS</span><span>CSS</span><span>Design Tokens</span></div>
   </header>
-  <div class="article-body"><p>我第一次看到 Tailwind v4 把設定搬進 CSS 時，其實愣了一下：繞了這麼多年，怎麼又回到 CSS 了？再看幾次才發現，它不是要否定 utility class，反而像是終於承認顏色、字型和間距本來就屬於 CSS 的語境。這個改動沒有新元件那麼搶眼，卻是我讀完整份更新後最想拿來試的部分。</p>
-<p>Tailwind CSS v4 有個很明顯的改變：以前常放在 <code>tailwind.config.js</code> 裡的顏色、字型和斷點，現在可以直接寫在 CSS 裡。官方把這種方向叫做 CSS-first。</p>
-<p>例如網站有一個品牌色，可以在 <code>@theme</code> 裡建立 <code>--color-brand</code>，接著在畫面上使用 <code>text-brand</code> 或 <code>bg-brand</code>。設定和實際產生的 CSS 變數放得更近，看起來也比較直覺。</p>
-<p>這不代表 Tailwind 放棄 utility class，也不是叫大家回去手寫所有 CSS。真正的差別只是「設定 Tailwind 的地方」從 JavaScript 搬到 CSS。對新專案來說少了一份設定檔；舊專案則不用為了跟上潮流急著重寫，先確認現有 plugin 和客製設定是否相容即可。</p>
-<h3 id="tailwind-v4-css-first--設定搬進-css-之後">設定搬進 CSS 之後</h3>
-<p>假設網站有自己的品牌色，v3 常見的做法是在 JavaScript config 裡擴充 theme；v4 可以直接這樣寫：</p>
-<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="css" data-theme="github-light"><code data-language="css" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#D73A49">@import</span><span style="color:#032F62"> &quot;tailwindcss&quot;</span><span style="color:#24292E">;</span></span>
+  <div class="article-body"><p>看到 Tailwind v4 把設定搬進 CSS，我最想確認的是：原本那些 class 還要不要改？以前放在 <code>tailwind.config.js</code> 的設定，現在可以寫進 CSS 的 <code>@theme</code>，這就是 CSS-first 的主要改變。</p>
+<h3 id="tailwind-v4-css-first--同一個品牌色v3-和-v4-怎麼寫">同一個品牌色，v3 和 v4 怎麼寫？</h3>
+<p>假設網站要用深藍色當品牌色，標題字型選 Georgia。下面用一樣的值比較；兩個專案都先完成對應版本的 Tailwind 安裝。</p>
+<p><strong>v3：在 JavaScript 設定檔擴充。</strong></p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="js" data-theme="github-light"><code data-language="js" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#6A737D">// tailwind.config.js</span></span>
+<span data-line=""><span style="color:#005CC5">module</span><span style="color:#24292E">.</span><span style="color:#005CC5">exports</span><span style="color:#D73A49"> =</span><span style="color:#24292E"> {</span></span>
+<span data-line=""><span style="color:#24292E">  content: [</span><span style="color:#032F62">&quot;./index.html&quot;</span><span style="color:#24292E">, </span><span style="color:#032F62">&quot;./src/**/*.{html,js,ts,jsx,tsx,vue}&quot;</span><span style="color:#24292E">],</span></span>
+<span data-line=""><span style="color:#24292E">  theme: {</span></span>
+<span data-line=""><span style="color:#24292E">    extend: {</span></span>
+<span data-line=""><span style="color:#24292E">      colors: { brand: </span><span style="color:#032F62">&quot;#173f76&quot;</span><span style="color:#24292E"> },</span></span>
+<span data-line=""><span style="color:#24292E">      fontFamily: { display: [</span><span style="color:#032F62">&quot;Georgia&quot;</span><span style="color:#24292E">, </span><span style="color:#032F62">&quot;serif&quot;</span><span style="color:#24292E">] },</span></span>
+<span data-line=""><span style="color:#24292E">    },</span></span>
+<span data-line=""><span style="color:#24292E">  },</span></span>
+<span data-line=""><span style="color:#24292E">};</span></span></code></pre></figure>
+<p><code>extend</code> 表示保留預設值，再加上自己的顏色和字型；<code>content</code> 則告訴 Tailwind 去哪些檔案找 class。CSS 入口還要放這三行：</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="css" data-theme="github-light"><code data-language="css" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#6A737D">/* app.css */</span></span>
+<span data-line=""><span style="color:#D73A49">@tailwind</span><span style="color:#24292E"> base;</span></span>
+<span data-line=""><span style="color:#D73A49">@tailwind</span><span style="color:#24292E"> components;</span></span>
+<span data-line=""><span style="color:#D73A49">@tailwind</span><span style="color:#24292E"> utilities;</span></span></code></pre></figure>
+<p><strong>v4：把相同設定放進 CSS。</strong></p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="css" data-theme="github-light"><code data-language="css" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#6A737D">/* app.css */</span></span>
+<span data-line=""><span style="color:#D73A49">@import</span><span style="color:#032F62"> &quot;tailwindcss&quot;</span><span style="color:#24292E">;</span></span>
 <span data-line=""> </span>
 <span data-line=""><span style="color:#D73A49">@theme</span><span style="color:#24292E"> {</span></span>
 <span data-line=""><span style="color:#24292E">  --color-brand: </span><span style="color:#B31D28;font-style:italic">#173f76</span><span style="color:#24292E">;</span></span>
 <span data-line=""><span style="color:#24292E">  --font-display: Georgia, serif;</span></span>
 <span data-line=""><span style="color:#24292E">}</span></span></code></pre></figure>
-<p>Tailwind 看到這些變數後，會產生 <code>bg-brand</code>、<code>text-brand</code> 和 <code>font-display</code>。好處不只少一個設定檔，這些 token 也能直接用 <code>var(--color-brand)</code> 交給一般 CSS 或動畫套件。</p>
-<p><code>@theme</code> 和普通的 <code>:root</code> 也不完全一樣。放在 <code>:root</code> 的變數只是一般 CSS custom property，不會自動產生 Tailwind utility；放在 <code>@theme</code> 的 token 才會參與 Tailwind 的 class 生成。單純給既有 CSS 使用的變數，仍然放在 <code>:root</code> 就好，不需要把所有數值都塞進 theme。</p>
-<p>有個小地方要釐清：<code>@theme</code> 長得像 CSS，但它仍是 Tailwind 的建置指令，不是瀏覽器原生功能。以後若拿掉 Tailwind，這部分還是要改。CSS-first 比較像是讓設定回到 CSS 的語境，不代表框架依賴消失了。</p>
-<p>我自己比較喜歡 v4 的地方，是在 code review 裡終於比較容易回答「這個顏色從哪裡來」。以前常要先看到 <code>bg-brand</code>，再跳去 JavaScript 設定檔找對應值；現在 token、一般 CSS 和 utility 之間的距離短很多。這不是什麼效能上的大突破，但對每天要讀程式的人很實在。</p>
-<p>不過我還是會克制 theme 的大小。設計稿出現一次的 17px 間距，不一定值得立刻變成全域 token；否則幾個月後，<code>--spacing-card-small</code>、<code>--spacing-card-smaller</code> 一樣會變成另一種設定檔地獄。CSS-first 讓新增 token 更方便，也更需要團隊先約定什麼東西才算設計系統的一部分。</p></div>
-  <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://tailwindcss.com/blog/tailwindcss-v4" target="_blank" rel="noreferrer">Tailwind CSS v4.0</a></li></ul></section>
+<p>一般專案的來源檔案由 v4 自動偵測，這個例子不用再列 <code>content</code> 路徑。品牌色對應 <code>--color-brand</code>，字型對應 <code>--font-display</code>。</p>
+<p><strong>畫面上的寫法，兩版相同。</strong></p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="html" data-theme="github-light"><code data-language="html" data-theme="github-light" style="display:grid"><span data-line=""><span style="color:#24292E">&lt;</span><span style="color:#22863A">h1</span><span style="color:#6F42C1"> class</span><span style="color:#24292E">=</span><span style="color:#032F62">&quot;text-brand font-display&quot;</span><span style="color:#24292E">&gt;最新文章&lt;/</span><span style="color:#22863A">h1</span><span style="color:#24292E">&gt;</span></span>
+<span data-line=""><span style="color:#24292E">&lt;</span><span style="color:#22863A">button</span><span style="color:#6F42C1"> class</span><span style="color:#24292E">=</span><span style="color:#032F62">&quot;bg-brand text-white&quot;</span><span style="color:#24292E">&gt;訂閱電子報&lt;/</span><span style="color:#22863A">button</span><span style="color:#24292E">&gt;</span></span></code></pre></figure>
+<p>標題會使用品牌色和 Georgia 字型，按鈕則是品牌底色、白色文字。對這個例子來說，改的是設定放哪裡，HTML 裡的 class 不用一起換。</p>
+<p>要注意的是，<code>@theme</code> 需要 Tailwind 在建置時處理；單純把變數放進 <code>:root</code>，不會自動產生 <code>bg-brand</code> 這類 class。設定搬到 CSS 後，顏色也能透過 <code>var(--color-brand)</code> 給一般 CSS 使用，這是我覺得方便的地方。</p></div>
+  <section class="sources"><h3>資料來源與延伸閱讀</h3><ul><li><a href="https://tailwindcss.com/blog/tailwindcss-v4" target="_blank" rel="noreferrer">Tailwind CSS v4.0</a></li><li><a href="https://v3.tailwindcss.com/docs/theme" target="_blank" rel="noreferrer">Tailwind CSS v3: Theme Configuration</a></li><li><a href="https://tailwindcss.com/docs/theme" target="_blank" rel="noreferrer">Tailwind CSS: Theme variables</a></li></ul></section>
   <footer class="article-footer"><a href="#contents">↑ 回到目錄</a><a href="#top">回到頁首 ↑</a></footer>
 </article>
 <p class="endnote">全文依目前部落格內容匯出，未另行改寫。<br>外部資料來源連結需連線開啟。</p></main></div>

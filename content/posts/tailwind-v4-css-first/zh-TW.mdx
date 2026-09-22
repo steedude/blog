@@ -12,19 +12,40 @@ export const metadata = {
   ]
 }
 
-我第一次看到 Tailwind v4 把設定搬進 CSS 時，其實愣了一下：繞了這麼多年，怎麼又回到 CSS 了？再看幾次才發現，它不是要否定 utility class，反而像是終於承認顏色、字型和間距本來就屬於 CSS 的語境。這個改動沒有新元件那麼搶眼，卻是我讀完整份更新後最想拿來試的部分。
+看到 Tailwind v4 把設定搬進 CSS，我最想確認的是：原本那些 class 還要不要改？以前放在 `tailwind.config.js` 的設定，現在可以寫進 CSS 的 `@theme`，這就是 CSS-first 的主要改變。
 
-Tailwind CSS v4 有個很明顯的改變：以前常放在 `tailwind.config.js` 裡的顏色、字型和斷點，現在可以直接寫在 CSS 裡。官方把這種方向叫做 CSS-first。
+## 同一個品牌色，v3 和 v4 怎麼寫？
 
-例如網站有一個品牌色，可以在 `@theme` 裡建立 `--color-brand`，接著在畫面上使用 `text-brand` 或 `bg-brand`。設定和實際產生的 CSS 變數放得更近，看起來也比較直覺。
+假設網站要用深藍色當品牌色，標題字型選 Georgia。下面用一樣的值比較；兩個專案都先完成對應版本的 Tailwind 安裝。
 
-這不代表 Tailwind 放棄 utility class，也不是叫大家回去手寫所有 CSS。真正的差別只是「設定 Tailwind 的地方」從 JavaScript 搬到 CSS。對新專案來說少了一份設定檔；舊專案則不用為了跟上潮流急著重寫，先確認現有 plugin 和客製設定是否相容即可。
+**v3：在 JavaScript 設定檔擴充。**
 
-## 設定搬進 CSS 之後
+```js
+// tailwind.config.js
+module.exports = {
+  content: ["./index.html", "./src/**/*.{html,js,ts,jsx,tsx,vue}"],
+  theme: {
+    extend: {
+      colors: { brand: "#173f76" },
+      fontFamily: { display: ["Georgia", "serif"] },
+    },
+  },
+};
+```
 
-假設網站有自己的品牌色，v3 常見的做法是在 JavaScript config 裡擴充 theme；v4 可以直接這樣寫：
+`extend` 表示保留預設值，再加上自己的顏色和字型；`content` 則告訴 Tailwind 去哪些檔案找 class。CSS 入口還要放這三行：
 
 ```css
+/* app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+**v4：把相同設定放進 CSS。**
+
+```css
+/* app.css */
 @import "tailwindcss";
 
 @theme {
@@ -33,12 +54,15 @@ Tailwind CSS v4 有個很明顯的改變：以前常放在 `tailwind.config.js` 
 }
 ```
 
-Tailwind 看到這些變數後，會產生 `bg-brand`、`text-brand` 和 `font-display`。好處不只少一個設定檔，這些 token 也能直接用 `var(--color-brand)` 交給一般 CSS 或動畫套件。
+一般專案的來源檔案由 v4 自動偵測，這個例子不用再列 `content` 路徑。品牌色對應 `--color-brand`，字型對應 `--font-display`。
 
-`@theme` 和普通的 `:root` 也不完全一樣。放在 `:root` 的變數只是一般 CSS custom property，不會自動產生 Tailwind utility；放在 `@theme` 的 token 才會參與 Tailwind 的 class 生成。單純給既有 CSS 使用的變數，仍然放在 `:root` 就好，不需要把所有數值都塞進 theme。
+**畫面上的寫法，兩版相同。**
 
-有個小地方要釐清：`@theme` 長得像 CSS，但它仍是 Tailwind 的建置指令，不是瀏覽器原生功能。以後若拿掉 Tailwind，這部分還是要改。CSS-first 比較像是讓設定回到 CSS 的語境，不代表框架依賴消失了。
+```html
+<h1 class="text-brand font-display">最新文章</h1>
+<button class="bg-brand text-white">訂閱電子報</button>
+```
 
-我自己比較喜歡 v4 的地方，是在 code review 裡終於比較容易回答「這個顏色從哪裡來」。以前常要先看到 `bg-brand`，再跳去 JavaScript 設定檔找對應值；現在 token、一般 CSS 和 utility 之間的距離短很多。這不是什麼效能上的大突破，但對每天要讀程式的人很實在。
+標題會使用品牌色和 Georgia 字型，按鈕則是品牌底色、白色文字。對這個例子來說，改的是設定放哪裡，HTML 裡的 class 不用一起換。
 
-不過我還是會克制 theme 的大小。設計稿出現一次的 17px 間距，不一定值得立刻變成全域 token；否則幾個月後，`--spacing-card-small`、`--spacing-card-smaller` 一樣會變成另一種設定檔地獄。CSS-first 讓新增 token 更方便，也更需要團隊先約定什麼東西才算設計系統的一部分。
+要注意的是，`@theme` 需要 Tailwind 在建置時處理；單純把變數放進 `:root`，不會自動產生 `bg-brand` 這類 class。設定搬到 CSS 後，顏色也能透過 `var(--color-brand)` 給一般 CSS 使用，這是我覺得方便的地方。

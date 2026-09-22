@@ -1,0 +1,36 @@
+export const metadata = {
+  "slug": "letsencrypt-expiration-emails",
+  "title": "HTTPS certificates are expiring, and Let’s Encrypt is ending reminder emails",
+  "description": "What the end of expiration emails means for automatic renewal and website monitoring.",
+  "publishedAt": "2025-02-14",
+  "category": "Website Operations",
+  "categorySlug": "operations",
+  "tags": [
+    "HTTPS",
+    "Let’s Encrypt",
+    "Certificates",
+    "Monitoring"
+  ]
+}
+
+A site worked yesterday, but today the browser shows a connection warning. Most visitors will leave before investigating. The code may be unchanged: an expired HTTPS certificate can put a warning in front of a perfectly intact website.
+
+On January 22, 2025, Let’s Encrypt announced that it would stop sending certificate expiration emails on June 4. There is no exciting new feature here. But if those emails are what remind you to check a site, this announcement deserves attention.
+
+## Ending reminders does not end renewal
+
+Let’s Encrypt issues free HTTPS certificates. A certificate helps a site prove its identity to a browser when establishing an encrypted connection. Certificates expire and need replacement before that happens.
+
+The change removes reminder emails, not certificate issuance. Sites using Certbot or a hosting platform for automatic renewal will not stop renewing because the email disappears. The announcement cites wider adoption of automation, privacy considerations around retaining email addresses, and the cost and complexity of maintaining the notification service.
+
+The first question is who manages your site's certificate. A hosting platform taking care of it and a renewal job on your own server are different maintenance arrangements.
+
+## A scheduled renewal can still fail
+
+Imagine a server that checks its certificate daily and renews it when necessary. A later firewall change blocks the domain validation needed for renewal. The job can keep running without obtaining a new certificate. The site still opens until the existing certificate expires.
+
+Or the replacement certificate arrives, but the web server continues serving the old one. A successful renewal command does not necessarily tell you what visitors receive.
+
+Automatic renewal performs the work. External monitoring checks the certificate actually served at the public URL and alerts you when it approaches expiration. Together, they make it harder to confuse configured with working.
+
+If hosting and expiration monitoring are already covered, little may need to change. If Let’s Encrypt's email is the only reminder, arrange a replacement before June. I would rather get that alert from my own monitoring than learn about the problem from a visitor's screenshot.
