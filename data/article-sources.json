@@ -1,4 +1,18 @@
 {
+  "jpeg-xl-chrome": [
+    {
+      "url": "https://developer.chrome.com/blog/jpeg-xl-in-chrome",
+      "title": "Shipping JPEG XL in Chrome"
+    },
+    {
+      "url": "https://jpeg.org/jpegxl/",
+      "title": "JPEG: Overview of JPEG XL"
+    },
+    {
+      "url": "https://github.com/libjxl/libjxl",
+      "title": "JPEG XL reference implementation"
+    }
+  ],
   "tailwind-v4-css-first": [
     {
       "url": "https://tailwindcss.com/blog/tailwindcss-v4",
