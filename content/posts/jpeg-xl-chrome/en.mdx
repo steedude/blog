@@ -1,0 +1,47 @@
+export const metadata = {
+  slug: "jpeg-xl-chrome",
+  title: "Chrome supports JPEG XL: can my photos survive a little less compression?",
+  description: "Chrome 155 adds JPEG XL decoding. A look at photographic quality, progressive loading, and lossless JPEG recompression—and why another format might be useful.",
+  publishedAt: "2026-10-06",
+  category: "Web Platform",
+  categorySlug: "web-platform",
+  tags: ["Chrome", "JPEG XL", "Images", "Performance"],
+}
+
+Compressing photos is one of my least favorite parts of putting them on a website. The original looks fine. Then I start examining leaves, hair, and skies: did that turn blurry? Is that banding? Turn the quality up a little, and the file gets bigger again. After a few rounds, I start wondering what I'm spending my time on.
+
+So Chrome adding JPEG XL support caught my attention. For a site built around photos, sending less data without constantly giving up image quality sounds worth a look.
+
+On October 6, 2026, Chrome announced JPEG XL decoding support starting with Chrome 155. The browser can read `.jxl` images directly, without a separate decoder running in the page.
+
+## We already have WebP and AVIF. Why another format?
+
+That was my first question too. Each additional image format means more decisions about conversion, storage, and compatibility. If the pitch is simply that it can make images smaller, that alone doesn't give me much reason to switch.
+
+JPEG XL is particularly interesting for high-quality photos, lossless compression, and progressive loading. The Chrome team recommends trying both AVIF and JPEG XL, highlighting high-fidelity and lossless images, along with fine-grained progressive decoding, as useful JPEG XL scenarios.
+
+With a large photo, for example, progressive decoding can show a rough version of the whole image first, then fill in detail as more data arrives. Seeing the photograph take shape feels different from staring at an empty space until it finishes loading.
+
+Another distinctive capability is losslessly recompressing existing JPEGs and reconstructing the original JPEG files afterward. For systems with large photo collections, that offers a way to keep existing data while reducing storage. JPEG XL also supports wide color gamuts, HDR, and high bit depths for professional photography.
+
+I think that makes another option worthwhile. Existing formats may be perfectly adequate for ordinary thumbnails. A photography portfolio where people zoom in, or an image that needs every pixel preserved, has different requirements. That doesn't mean JPEG XL always produces a smaller file than AVIF: the image, quality requirements, and encoder settings all affect the result.
+
+## Lossless conversion won't bring lost detail back
+
+I think “lossless” deserves a little explanation here. At first glance, it can sound as though converting a damaged JPEG will somehow make it clearer.
+
+What it preserves is the information already in that JPEG. Detail discarded during the original JPEG compression won't reappear just because the extension changes to `.jxl`. It's more like packing the same belongings more efficiently, saving space without another round of lossy encoding.
+
+The reference implementation supports lossless JPEG recompression and reconstruction. With the necessary reconstruction data retained, it can restore the original JPEG file.
+
+If I already had a large collection of JPEGs, that would be appealing. At least I wouldn't have to make another decision about how much more quality to sacrifice for storage.
+
+## Why does supporting an image format take so much work?
+
+I used to think of images mostly as static data. Put one on a page, let the browser display it, and that was about it.
+
+But a decoder has to process binary data arriving from the network, and that data isn't necessarily trustworthy. Image structures are complex, and parsing mistakes can become security vulnerabilities. Chrome uses `jxl-rs`, a Rust implementation of the decoder, and its announcement discusses memory safety, performance optimization, and testing techniques including fuzzing.
+
+That makes it easier to understand why good compression alone isn't enough to get a format into a browser. The data saved during download, the resources needed to decode it, and the risks of handling malicious files all need consideration.
+
+I like following a single image down this rabbit hole. A question about smaller photos leads to encoding, loading behavior, memory safety, and what browser teams are willing to maintain. The picture on screen is still the same picture. Getting it there turns out to involve rather more than it seems.
