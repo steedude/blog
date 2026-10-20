@@ -2,6 +2,9 @@ import { test, expect } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 
 test("search survives reload, language switching, clearing, and browser back", async ({ page }) => {
+  await page.goto("/zh-TW/search");
+  const completeArticleList = await page.locator("main article").allTextContents();
+  expect(completeArticleList.length).toBeGreaterThan(0);
   await page.goto("/en/search?q=Compiler");
   const input = page.getByRole("searchbox");
   await expect(input).toHaveValue("Compiler");
@@ -22,7 +25,8 @@ test("search survives reload, language switching, clearing, and browser back", a
   await expect(input).toHaveValue("");
   await page.reload();
   await expect(input).toHaveValue("");
-  await expect(page.locator("main article")).toHaveCount(26);
+  await expect(page.locator("main article")).toHaveCount(completeArticleList.length);
+  expect(await page.locator("main article").allTextContents()).toEqual(completeArticleList);
 });
 
 test("search handles Chinese, Unicode normalization, and no results", async ({ page }) => {
@@ -108,3 +112,4 @@ test("article navigation and sources work without JavaScript", async ({ browser 
     await context.close();
   }
 });
+
