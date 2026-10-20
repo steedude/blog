@@ -1,5 +1,7 @@
 import type { ComponentType } from "react";
 import { topicPosts } from "@/data/topic-posts";
+import JpegXlChromeEn, { metadata as jpegXlChromeEnMetadata } from "@/content/posts/jpeg-xl-chrome/en.mdx";
+import JpegXlChromeZh, { metadata as jpegXlChromeZhMetadata } from "@/content/posts/jpeg-xl-chrome/zh-TW.mdx";
 import WorkersCacheEn, { metadata as workersCacheEnMetadata } from "@/content/posts/workers-cache/en.mdx";
 import WorkersCacheZh, { metadata as workersCacheZhMetadata } from "@/content/posts/workers-cache/zh-TW.mdx";
 import AwsOctoberOutageEn, { metadata as awsOctoberOutageEnMetadata } from "@/content/posts/aws-october-outage/en.mdx";
@@ -17,6 +19,8 @@ function createPost(
 
 export const posts: Post[] = [
   ...topicPosts,
+  createPost(Locale.ZH_TW, JpegXlChromeZh, jpegXlChromeZhMetadata),
+  createPost(Locale.EN, JpegXlChromeEn, jpegXlChromeEnMetadata),
   createPost(Locale.ZH_TW, WorkersCacheZh, workersCacheZhMetadata),
   createPost(Locale.EN, WorkersCacheEn, workersCacheEnMetadata),
   createPost(Locale.ZH_TW, AwsOctoberOutageZh, awsOctoberOutageZhMetadata),
