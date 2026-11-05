@@ -204,5 +204,59 @@
       "url": "https://letsencrypt.org/2025/01/22/ending-expiration-emails",
       "title": "Ending Support for Expiration Notification Emails"
     }
+  ],
+  "october-security-deployment": [
+    {
+      "url": "https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/",
+      "title": "The PHP Foundation: October 21 security release"
+    },
+    {
+      "url": "https://www.wiz.io/blog/php2shell-php-rce",
+      "title": "Wiz: PHP2Shell research"
+    },
+    {
+      "url": "https://w3techs.com/technologies/details/pl-php",
+      "title": "W3Techs: PHP usage statistics"
+    },
+    {
+      "url": "https://www.nippon.com/ja/news/yjj2026102101249/",
+      "title": "Jiji Press: Japan prime minister's PHP warning"
+    },
+    {
+      "url": "https://www.mof.go.jp/public_relations/ohter/20261021231537.html",
+      "title": "Japan Ministry of Finance: temporary service suspension"
+    },
+    {
+      "url": "https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-5-1-released/",
+      "title": "GitLab: October 21 critical patch release"
+    },
+    {
+      "url": "https://blog.mozilla.org/security/2026/10/20/protecting-firefox-users-following-the-compromise-of-emudhra-intermediate-certificates/",
+      "title": "Mozilla: compromised eMudhra intermediate certificates"
+    },
+    {
+      "url": "https://blog.google/security/protecting-chrome-and-android-users-from-compromised-emudhra-intermediate-ca-certificates/",
+      "title": "Google: eMudhra incident response"
+    },
+    {
+      "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain",
+      "title": "LiteLLM: release attack investigation"
+    },
+    {
+      "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+      "title": "LiteLLM: affected release artifacts"
+    },
+    {
+      "url": "https://91app.com/blog/91app-202610-security-incident-2/",
+      "title": "91APP: 25-day investigation report"
+    },
+    {
+      "url": "https://www.binance.com/en/blog/community/3229153443759566763",
+      "title": "Binance: November 3 preliminary report"
+    },
+    {
+      "url": "https://zeabur.com/zh-TW/blogs/zeabur-is-shutting-down",
+      "title": "Zeabur: shutdown announcement"
+    }
   ]
 }
