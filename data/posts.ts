@@ -1,5 +1,7 @@
 import type { ComponentType } from "react";
 import { topicPosts } from "@/data/topic-posts";
+import OctoberSecurityEn, { metadata as octoberSecurityEnMetadata } from "@/content/posts/october-security-deployment/en.mdx";
+import OctoberSecurityZh, { metadata as octoberSecurityZhMetadata } from "@/content/posts/october-security-deployment/zh-TW.mdx";
 import JpegXlChromeEn, { metadata as jpegXlChromeEnMetadata } from "@/content/posts/jpeg-xl-chrome/en.mdx";
 import JpegXlChromeZh, { metadata as jpegXlChromeZhMetadata } from "@/content/posts/jpeg-xl-chrome/zh-TW.mdx";
 import WorkersCacheEn, { metadata as workersCacheEnMetadata } from "@/content/posts/workers-cache/en.mdx";
@@ -19,6 +21,8 @@ function createPost(
 
 export const posts: Post[] = [
   ...topicPosts,
+  createPost(Locale.ZH_TW, OctoberSecurityZh, octoberSecurityZhMetadata),
+  createPost(Locale.EN, OctoberSecurityEn, octoberSecurityEnMetadata),
   createPost(Locale.ZH_TW, JpegXlChromeZh, jpegXlChromeZhMetadata),
   createPost(Locale.EN, JpegXlChromeEn, jpegXlChromeEnMetadata),
   createPost(Locale.ZH_TW, WorkersCacheZh, workersCacheZhMetadata),

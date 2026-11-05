@@ -1,0 +1,87 @@
+export const metadata = {
+  slug: "october-security-deployment",
+  title: "Take the website offline first: October made me rethink deployment",
+  description: "From PHP2Shell and compromised certificates to supply-chain attacks and stolen data, October made me reconsider updates, deployment, and revoking access.",
+  publishedAt: "2026-11-05",
+  category: "Security",
+  categorySlug: "security",
+  tags: ["Security", "Deployment", "PHP", "AI", "Supply Chain"],
+}
+
+Lately, reading security news feels like barely understanding one incident before the next one arrives.
+
+PHP vulnerabilities, certificate problems, malicious code slipped into packages, followed by personal data leaks, a platform shutting down, and a major theft from a cryptocurrency exchange at the end of the month. I originally wanted to write about a few of these separately. After going through them, I started wondering whether I should just wait for things to settle down a little before writing anything. Otherwise, I can't keep up.
+
+During the PHP incident, even Japan's prime minister, Sanae Takaichi, posted a reminder to patch quickly. Japan's Ministry of Finance also suspended parts of its website and services for checks and updates. Usually the advice is to update as soon as possible. This time, some services went offline first and would come back after the work was done.
+
+## Attackers don't necessarily need your password first
+
+The vulnerabilities known as PHP2Shell are in PHP itself. Through specially crafted HTTP requests, including requests formatted as file uploads, attackers may be able to read sensitive memory or even execute their own code on affected servers without logging in. But putting the vulnerabilities together into a working attack still takes considerable technical skill and testing. Sending an arbitrary request won't automatically get someone in.
+
+That also means nobody necessarily has to click the wrong attachment, leak a password, or write an obvious vulnerability into the website. A server accepting network requests as usual can still run into trouble.
+
+I mostly write JavaScript, so it's easy to feel that PHP is somewhat distant from my work. But WordPress, Drupal, Joomla, and MediaWiki—the software behind Wikipedia—all use PHP. W3Techs' figures from late October showed that roughly 69% of websites whose server-side language it could identify used PHP. That doesn't mean nearly seven in ten websites can be directly compromised. It means PHP supports far more of the web than I tend to notice.
+
+PHP released fixes on October 21. GitLab issued emergency security updates that same day, including a fix for a vulnerability that could let unauthenticated attackers execute code on affected self-managed instances. From the runtime serving a website to the platform storing code and running CI/CD, there was plenty to check.
+
+“We don't use PHP” rules out one problem. It doesn't quite let you relax yet.
+
+## Some problems happen in places we already trust
+
+Another incident that stuck with me in October involved eMudhra's certificates.
+
+Mozilla announced that the private keys associated with eight intermediate certificates had been compromised. Those keys could be used to create fraudulent HTTPS certificates. An attacker who could also intercept a connection might impersonate a website and read or modify traffic. Mozilla urgently blocked the certificates through its revocation mechanism, while Google also took steps to block them and remove trust.
+
+HTTPS is usually one of our basic requirements for a website. I'd been quite comfortable trusting that mechanism. A lot of features also assume HTTPS is working properly, and now I find myself reconsidering how secure those assumptions are.
+
+LiteLLM brought another familiar kind of trust to mind: updating packages.
+
+On October 21, its release pipeline was compromised, and the malicious version 1.107.0 was published to PyPI and container registries with credential-stealing functionality and other malicious capabilities. The official announcement even noted that the corresponding source tag on GitHub didn't contain those malicious files. It was the published artifacts that had been poisoned.
+
+After those two incidents, it's harder for me to think of deployment as simply packaging the code and uploading it. Every service, account, and automated workflow along the way helps vouch for the code that ultimately runs.
+
+## The website can still work after the damage is done
+
+The 91APP incident in Taiwan brought this closer to home.
+
+According to the investigation published on October 29, attackers entered the internal network through a third-party tool and then accessed an order database. The company used the maximum potentially affected scope for notifications: 1,329 brands and roughly 4.798 million consumers. That doesn't mean every person's data was stolen.
+
+For consumers, this is more than a few database records being copied by someone else. Names, phone numbers, addresses, and purchase histories can make later scams more convincing. Restoring a website doesn't make data that's already been copied disappear. Honestly, I received a scam email myself back in September. I was sure it was a scam: it referred to an order I'd placed in May and told me to cancel an installment payment arrangement or something along those lines. Still, the accurate order details made me pause before concluding that the data had been stolen.
+
+The Binance incident at the end of the month translated directly into asset losses. According to its preliminary report on November 3, approximately USD 6.34 billion in digital assets was affected. What especially caught my attention was the company's explanation that suspending withdrawals wasn't enough to stop every unauthorized transfer. Some on-chain authorizations established by the attackers operated independently of the normal withdrawal process.
+
+Apparently, “turn it off first” also requires knowing what to turn off. Stopping an interface or a service doesn't automatically invalidate permissions that have already been granted.
+
+Zeabur represents another kind of consequence. After two security incidents, the team reassessed the operational investment and responsibility involved and announced that it would gradually shut down the platform. Users had to deal with the incidents while also moving services, backing up data, and making new arrangements for projects that were already running.
+
+The causes differ, but these incidents all leave me with the feeling that the truly difficult work often begins after something has gone wrong.
+
+## What concerns me about AI is how much it accelerates the work in between
+
+“AI attacks” came up a lot this month. But I don't want to put every incident under the same explanation, as if adding AI explains why it happened.
+
+PHP offers a more concrete example.
+
+The PHP Foundation explained that signs of some of these problems had been identified as early as 2024. At the time, there wasn't a clear exploitation path, and fixing them involved compatibility, performance, and resource constraints. Later research clarified the full impact.
+
+Wiz described AI helping researchers chain vulnerabilities, test repeatedly, and adapt exploits to different applications. What matters here is that work that was highly complex and required substantial research became easier to complete.
+
+My own view is that assumptions such as “it's theoretically vulnerable, but probably too difficult to exploit” will become increasingly unreliable.
+
+Researchers can prove vulnerabilities faster, and attackers may be able to prepare exploits faster too. Meanwhile, a company still has to find the person responsible, identify what its systems use, arrange testing, obtain permission to update, and restart services.
+
+There will still be a gap between those speeds.
+
+The tools for writing code keep getting faster. Incident response processes don't necessarily accelerate alongside them. Sometimes just figuring out who owns an old server takes half a day.
+
+## My own thoughts
+
+I still like convenient deployment tools. Spending less time configuring servers and getting an idea online sooner is appealing for a small project.
+
+But after this October, I want to check a few ordinary things beyond whether deployment succeeded:
+
+- When a vulnerability appears, can I quickly tell whether I'm using the affected component?
+- If an emergency update is needed, do I know how to apply it and confirm that it worked?
+- If a key or permission is compromised, can I revoke it rather than merely roll the code back?
+
+That last point especially matters to me. My little utility websites don't generate revenue or hold sensitive data. But if a stolen token sends the service bill soaring, that's a very real loss. I recently saw someone experience exactly that, and I can't help worrying about it happening to me too.
